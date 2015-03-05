@@ -17,3 +17,5 @@
     #import "UIFont+Custom.h"
     #import <FrameAccessor/FrameAccessor.h>
 #endif
+
+#define kFPS 50.0f

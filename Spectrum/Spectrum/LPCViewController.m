@@ -57,6 +57,10 @@
     [self.revealViewController revealToggleAnimated:YES];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.fftView stopDrawing];
+}
+
 /*
 #pragma mark - Navigation
 

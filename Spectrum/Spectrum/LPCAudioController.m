@@ -10,6 +10,8 @@
 #import <AVFoundation/AVAudioSession.h>
 #include <math.h>
 
+static LPCAudioController *sharedInstance = nil;
+
 @interface LPCAudioController () {
     
 }
@@ -101,6 +103,29 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     return noErr;
 }
 
+#pragma mark - Singleton
+
++ (LPCAudioController*) sharedInstance
+{
+    @synchronized(self)
+    {
+        if (sharedInstance == nil) {
+            sharedInstance = [[LPCAudioController alloc] init];
+        }
+    }
+    return sharedInstance;
+}
+
++ (id)allocWithZone:(NSZone *)zone {
+    @synchronized(self) {
+        if (sharedInstance == nil) {
+            sharedInstance = [super allocWithZone:zone];
+            return sharedInstance;  // assignment and return on first allocation
+        }
+    }
+    return nil; // on subsequent allocation attempts return nil
+}
+
 - (id)init
 {
     self = [super init];
@@ -140,6 +165,26 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
         [self activateAudioSession];
     }
     return self;
+}
+
+- (void)stop {
+    OSStatus status;
+    status = AudioOutputUnitStop(audioUnit);
+    
+    if (status == noErr) {
+        audioproblems = 1;
+        startedCallback = NO;
+    }
+}
+
+- (void)start {
+    OSStatus status;
+    status = AudioOutputUnitStart(audioUnit);
+    
+    if (status == noErr) {
+        audioproblems = 0;
+        startedCallback = YES;
+    }
 }
 
 - (BOOL)activateAudioSession {
@@ -264,13 +309,6 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     if(status != noErr) {
         NSLog(@"failure at AudioUnitSetProperty 8\n");
         return status;
-    }
-    
-    status = AudioOutputUnitStart(audioUnit);
-    
-    if (status == noErr) {
-        audioproblems = 0;
-        startedCallback = YES;
     }
     
     return success;

@@ -53,8 +53,11 @@
 @property (nonatomic, assign) int height;
 
 //-(short int*)buffer;
++ (LPCAudioController *) sharedInstance;
 -(void)calculateFormants;
 
+- (void)stop;
+- (void)start;
 - (BOOL)deactivateAudioSession;
 - (BOOL)activateAudioSession;
 

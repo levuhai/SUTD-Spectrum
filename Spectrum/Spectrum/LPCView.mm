@@ -19,6 +19,7 @@
     LPCAudioController *lpcController;
     double* _savedData;
     double* _plotData;
+    NSTimer *_drawTimer;
 }
 
 @end
@@ -47,14 +48,27 @@
     self = [super initWithCoder:coder];
     if (self) {
         // Setup LPC
-        lpcController = [[LPCAudioController alloc] init];
+        lpcController = [LPCAudioController sharedInstance];
         [self setBackgroundColor:[UIColor clearColor]];
     }
     return self;
 }
 
 - (void)startDrawing {
-    [NSTimer scheduledTimerWithTimeInterval:(1.0f / 40) target:self selector:@selector(refresh) userInfo:nil repeats:YES];
+    if (!_drawTimer) {
+        [lpcController start];
+        _drawTimer = [NSTimer scheduledTimerWithTimeInterval: 1/kFPS
+                                                      target: self
+                                                    selector: @selector(refresh)
+                                                    userInfo: nil
+                                                     repeats: YES];
+    }
+}
+
+- (void)stopDrawing {
+    [_drawTimer invalidate];
+    _drawTimer = nil;
+    [lpcController stop];
 }
 
 - (void)saveGraph {

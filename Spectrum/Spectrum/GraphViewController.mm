@@ -139,7 +139,7 @@
     [self.fftView startDrawing];
     
     if (!_drawTimer) {
-        _drawTimer = [NSTimer scheduledTimerWithTimeInterval: 1/40.0f
+        _drawTimer = [NSTimer scheduledTimerWithTimeInterval: 1/kFPS
                                                       target: self
                                                     selector: @selector(_drawGraph)
                                                     userInfo: nil
@@ -150,6 +150,7 @@
 
 - (void)_stopDrawing {
     [[AudioController sharedInstance] stop];
+    [self.fftView stopDrawing];
     
     [_drawTimer invalidate];
     _drawTimer = nil;
