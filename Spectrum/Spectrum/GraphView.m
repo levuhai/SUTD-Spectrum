@@ -9,7 +9,7 @@
 #import "GraphView.h"
 #import "UIColor+Flat.h"
 #import "AudioController.h"
-#import <FrameAccessor/FrameAccessor.h>
+#import "FrameAccessor.h"
 #import "NSMutableArray+QueueStack.h"
 
 @implementation GraphView {
