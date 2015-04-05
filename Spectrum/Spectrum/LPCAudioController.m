@@ -84,20 +84,31 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     
     if (bufferEnergy > manager->energyThreshold/8 )
     {
+        //NSLog(@"Add data to buffer");
         short signed int *source= (short signed int *)bufferList->mBuffers[0].mData;
         for (j = 0; j < inNumberFrames; j++) {
             manager->longBuffer[j + manager->bufferSegCount * inNumberFrames] = source[j];
         }
         manager->bufferSegCount += 1;
-    }
-    manager->bufferLenght = manager->bufferSegCount *inNumberFrames;
-    manager->drawing = YES;
-    
-    [manager calculateFormants];
-    // Calculate formants every x segments
-    //NSLog(@"%d",manager->bufferSegCount);
-    if (manager->bufferSegCount >= kMaximumSegment) {
-        manager->needReset = YES;
+        
+        manager->bufferLenght = manager->bufferSegCount *inNumberFrames;
+        manager->drawing = YES;
+        [manager calculateFormants];
+        
+        // Calculate formants every x segments
+        //NSLog(@"%d",manager->bufferSegCount);
+        if (manager->bufferSegCount >= kMaximumSegment) {
+            manager->needReset = YES;
+        }
+    } else {
+        manager->bufferLenght = manager->bufferSegCount *inNumberFrames;
+        manager->drawing = YES;
+        
+        // Calculate formants every x segments
+        //NSLog(@"%d",manager->bufferSegCount);
+        if (manager->bufferSegCount >= kMaximumSegment) {
+            manager->needReset = YES;
+        }
     }
     
     return noErr;
@@ -374,6 +385,7 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
 #pragma mark -
 
 -(void)calculateFormants {
+    //NSLog(@"calculate formants");
     // A few variable used in plotting of H(w).
     int i, k, dummo, degIdx;
     double omega, realHw, imagHw;
@@ -481,6 +493,13 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     
     decimatedEndIdx = dumidx - 1;
 }
+
+// The following function removes silence on both ends of speech buffer. We divide
+// the given buffer into 300 chunks and compute energy in each chunk.
+// Then maximum of the chunk energies is computed.
+// Only those chunks are part of strong speech segment
+// which have at least 10% energy of the maximum chunk energy.
+
 -(void) removeSilence
 {
     int chunkEnergy, energyThres;
