@@ -59,7 +59,9 @@
     _spinner = [[RTSpinKitView alloc] initWithStyle:RTSpinKitViewStyleBounce];
     _spinner.height = self.startButton.height + 4;
     _spinner.width = self.startButton.width + 4;
+
     _spinner.center = self.startButton.center;
+    _spinner.spinnerSize = self.startButton.width;
     [_spinner setColor:[UIColor greenSeaColor]];
     [self.view insertSubview:_spinner belowSubview:self.startButton];
     
@@ -75,13 +77,16 @@
     [self.menuButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     
     // Start Button
-    [self.startButton.titleLabel setFont:[UIFont ioniconsOfSize:25]];
+    int iconSize = 25;
+    if (IS_IPAD)
+        iconSize = 35;
+    [self.startButton.titleLabel setFont:[UIFont ioniconsOfSize:iconSize]];
     [self.startButton setTitle:@"\uf461" forState:UIControlStateNormal];
     [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.startButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     
     // Save Button
-    [self.saveButton.titleLabel setFont:[UIFont ioniconsOfSize:30]];
+    [self.saveButton.titleLabel setFont:[UIFont ioniconsOfSize:iconSize+5]];
     [self.saveButton setTitle:@"\uf420" forState:UIControlStateNormal];
     [self.saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.saveButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];

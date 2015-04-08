@@ -123,15 +123,17 @@ CGFloat ACStatusBarHeight()
     CGRect oldFrame = [self.superview convertRect:_activeTextField.frame fromView:self];
     
     float visibleScrollViewHeight = self.superview.bounds.size.height - _keyboardSize.height - self.frame.origin.y;
-    
-    float newPosY = (visibleScrollViewHeight-oldFrame.size.height)/2 + self.frame.origin.y;
-    
-    float scrollViewOffset = oldFrame.origin.y - newPosY;
-    
-    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.contentOffset = CGPointMake(self.contentOffset.x, self.contentOffset.y+scrollViewOffset);
-    }completion:NULL];
-    
+    NSLog(@"%f %f %f %f %f",self.superview.bounds.size.height,_keyboardSize.height,self.frame.origin.y,visibleScrollViewHeight, oldFrame.origin.y);
+    if (visibleScrollViewHeight <= oldFrame.origin.y || _activeTextField.frame.origin.y - self.contentOffsetY <= 0) {
+        
+        float newPosY = (visibleScrollViewHeight-oldFrame.size.height)/2 + self.frame.origin.y;
+        
+        float scrollViewOffset = oldFrame.origin.y - newPosY;
+        
+        [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.contentOffset = CGPointMake(self.contentOffset.x, self.contentOffset.y+scrollViewOffset);
+        }completion:NULL];
+    }
 }
 
 #pragma mark - UIKeyboard notifications
@@ -139,16 +141,18 @@ CGFloat ACStatusBarHeight()
 - (void)keyboardWillShow:(NSNotification*) notification {
     // Get default size from notification
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    _keyboardSize = keyboardSize;
+   NSLog(@"Height: %f Width: %f", keyboardSize.height, keyboardSize.width);
     
     // Get active text field
     self.activeTextField = [self getFirstResponderInView:self];
     
     // Calculate actual size of keyboard base on orientation
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if(orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown)
-        _keyboardSize = keyboardSize;
-    else
-        _keyboardSize = CGSizeMake(keyboardSize.height, keyboardSize.width);
+//    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+//    if(orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationPortraitUpsideDown)
+//        _keyboardSize = keyboardSize;
+//    else
+//        _keyboardSize = CGSizeMake(keyboardSize.height, keyboardSize.width);
     
    	// Save the current location so we can restore when keyboard is dismissed
 	_offset = self.contentOffset;

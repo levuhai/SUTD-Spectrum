@@ -91,7 +91,6 @@
 {
     if (indexPath != nil)
     {
-        NSLog(@"%d",indexPath.row);
         UIButton *b = (UIButton*)[[tableView cellForRowAtIndexPath:indexPath].contentView viewWithTag:100];
         b.tintColor = [UIColor turquoiseColor];
     }
@@ -100,7 +99,6 @@
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath != nil)
     {
-        NSLog(@"%d",indexPath.row);
         UIButton *b = (UIButton*)[[tableView cellForRowAtIndexPath:indexPath].contentView viewWithTag:100];
         b.tintColor = [UIColor midnightBlueColor];
     }
