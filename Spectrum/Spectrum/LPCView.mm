@@ -195,7 +195,7 @@
     
     CGContextStrokePath(ctx);
     
-    lpcController->needReset = YES;
+    //lpcController->needReset = YES;
 }
 
 #pragma mark - LPC

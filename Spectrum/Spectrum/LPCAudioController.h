@@ -25,7 +25,7 @@
 
 
 #define kSampleRate 44100.00
-#define kMaximumSegment 200
+#define kMaximumSegment 20
 # define ORDER 12
 
 #define EPS 2.0e-6
@@ -40,9 +40,9 @@
     int audioproblems;
     unsigned long bufferEnergy;        // Sum of squres of 1024 captured samples.
     unsigned long energyThreshold;     // This gets value from FirstViewController through slider update function.
-    short int *longBuffer;             // Just declared here. Actual buffer is part of FirstViewController.
-    int bufferSegCount;
-    int bufferLenght;
+    // Circular Buffer
+    short int *cBuffer;             // Just declared here. Actual buffer is part of FirstViewController.
+    int cBufferHead, cBufferTail, cBufferSize, cBufferLenght;
     BOOL drawing;
     BOOL needReset;           // Flags that are visible in the FirstViewController. Indicate status of capturing
     double *plotData;
@@ -60,5 +60,11 @@
 - (void)start;
 - (BOOL)deactivateAudioSession;
 - (BOOL)activateAudioSession;
+
+// Circular Buffer
+- (void)enqueue:(short int) val;
+- (short int)dequeue;
+- (BOOL)isFull;
+- (BOOL)isEmpty;
 
 @end

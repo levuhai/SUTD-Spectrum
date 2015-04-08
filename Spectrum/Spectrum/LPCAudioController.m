@@ -60,19 +60,6 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
         }
     }
     
-    if (manager->needReset == TRUE)
-    {
-        // Clear all entries from the long audio buffer in audioDeviceManager.
-        for (int j=0; j<inNumberFrames*manager->bufferSegCount; j++) {
-            manager->longBuffer[j] = 0;
-        }
-        
-        manager->bufferSegCount = 0;
-        manager->bufferLenght = 0;
-        manager->needReset = FALSE;
-        
-    }
-    
     // If everything is OK above and we did not exit, we have a valid buffer. Compute its energy.
     short signed int *source= (short signed int *)bufferList->mBuffers[0].mData;
     bufferEnergy = 0;
@@ -82,34 +69,20 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     
     // If energy is above the threshold, copy 1024 samples to the long buffer.
     
-    if (bufferEnergy > manager->energyThreshold/8 )
+    if (bufferEnergy > manager->energyThreshold/8)
     {
         //NSLog(@"Add data to buffer");
         short signed int *source= (short signed int *)bufferList->mBuffers[0].mData;
         for (j = 0; j < inNumberFrames; j++) {
-            manager->longBuffer[j + manager->bufferSegCount * inNumberFrames] = source[j];
+            [manager enqueue:source[j]];
+            //manager->cBuffer[j + manager->bufferSegCount * inNumberFrames] = source[j];
         }
-        manager->bufferSegCount += 1;
+        //manager->bufferSegCount += 1;
         
-        manager->bufferLenght = manager->bufferSegCount *inNumberFrames;
         manager->drawing = YES;
-        [manager calculateFormants];
-        
-        // Calculate formants every x segments
-        //NSLog(@"%d",manager->bufferSegCount);
-        if (manager->bufferSegCount >= kMaximumSegment) {
-            manager->needReset = YES;
-        }
-    } else {
-        manager->bufferLenght = manager->bufferSegCount *inNumberFrames;
-        manager->drawing = YES;
-        
-        // Calculate formants every x segments
-        //NSLog(@"%d",manager->bufferSegCount);
-        if (manager->bufferSegCount >= kMaximumSegment) {
-            manager->needReset = YES;
-        }
     }
+    
+    [manager calculateFormants];
     
     return noErr;
 }
@@ -153,7 +126,6 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
         
         // Init defaut setup data
         [self _setUpData];
-        self->bufferSegCount = 0;
         self->energyThreshold = 300000000;
         
         // Get screen width
@@ -365,7 +337,7 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     }
     free(bufferList);
     
-    free(longBuffer);
+    free(cBuffer);
 }
 
 - (void)_setUpData {
@@ -379,7 +351,46 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
         bufferList->mBuffers[i].mData = malloc(bufferList->mBuffers[i].mDataByteSize);
     }
     
-    longBuffer = (short int *)(malloc(1024*kMaximumSegment * sizeof(short int)));
+    // Setup Circular Buffer
+    cBufferSize = 512*kMaximumSegment;
+    cBuffer = (short int *)(malloc(cBufferSize * sizeof(short int)));
+    cBufferHead = cBufferTail = 0;
+    cBufferLenght = 0;
+    
+    dataBuffer = (short int *)(malloc(cBufferSize * sizeof(short int)));
+}
+
+#pragma mark - Circular Buffer
+- (void)enqueue:(short int)val {
+    cBuffer[cBufferTail] = val;
+    cBufferTail =(cBufferTail+1)%cBufferSize ;
+    
+    if ([self isFull]) {
+        [self dequeue];
+        cBufferLenght = cBufferSize;
+    } else {
+        cBufferLenght++;
+    }
+}
+
+- (short int)dequeue{
+    short int temp =cBuffer[cBufferHead];
+    cBufferHead =(cBufferHead+1)%cBufferSize ;       //OR head =  (head==MAX) ? 0 : head+1 ; */
+    return temp;
+}
+
+- (BOOL)isFull {
+    if( (cBufferTail == cBufferSize-1 && cBufferHead == 0) || (cBufferHead == cBufferTail + 1)  )
+        return true;
+    else
+        return false;
+}
+
+- (BOOL)isEmpty {
+    if(cBufferHead == cBufferTail)
+        return true;
+    else
+        return false;
 }
 
 #pragma mark -
@@ -390,8 +401,13 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     int i, k, dummo, degIdx;
     double omega, realHw, imagHw;
     
-    dataBuffer = self->longBuffer;
-    dataBufferLength = self->bufferLenght;
+    int cy = 0;
+    for(int cx=cBufferHead; cx!=cBufferTail; cx=(cx+1)% cBufferSize) {
+        dataBuffer[cy] = cBuffer[cx];
+        cy++;
+    }
+    
+    dataBufferLength = self->cBufferLenght;
     //NSLog(@"bufferLenght %d",self->bufferLenght);
     //self->needReset = TRUE;
     
@@ -467,7 +483,7 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     }
     
     //TODO: Low pass filter LPF
-    float alpha = 0.1;
+    float alpha = 0.25;
     for(i = 0; i < self.width; i++) {
         // Current frame is NaN when sound recorded is below noise floor
         float currentFrame = freqResponse[i];
