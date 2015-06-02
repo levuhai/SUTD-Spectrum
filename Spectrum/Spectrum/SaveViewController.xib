@@ -8,6 +8,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SaveViewController">
             <connections>
+                <outlet property="btnCancel" destination="fWK-l1-j83" id="tvz-Y1-bj7"/>
+                <outlet property="btnSave" destination="FfJ-zK-r1i" id="9yt-bd-qg7"/>
                 <outlet property="tfName" destination="FZA-EB-t8K" id="p36-je-HDt"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

@@ -61,6 +61,13 @@
 }
 
 - (IBAction)cancelTouched:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        //handle did dismiss
+    }];
+}
+
++ (void)addToArrayData:(NSNumber *)number {
+    
 }
 
 @end

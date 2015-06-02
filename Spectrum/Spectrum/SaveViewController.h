@@ -11,6 +11,8 @@
 @interface SaveViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *tfName;
+@property (weak, nonatomic) IBOutlet UIButton *btnSave;
+@property (weak, nonatomic) IBOutlet UIButton *btnCancel;
 @property (strong,nonatomic) NSArray * data;
 
 + (void)addToArrayData:(NSNumber *)number;
