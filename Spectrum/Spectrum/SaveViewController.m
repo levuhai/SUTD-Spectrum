@@ -29,6 +29,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)loadView {
+    [super loadView];
+    _btnSave.layer.cornerRadius = 5;
+    _btnSave.clipsToBounds = YES;
+    _btnCancel.layer.cornerRadius = 5;
+    _btnCancel.clipsToBounds = YES;
+    _btnCancel.layer.borderWidth = 0.5;
+    _btnCancel.layer.borderColor = [UIColor grayColor].CGColor;
+    
+}
+
 /*
 #pragma mark - Navigation
 
@@ -56,6 +67,9 @@
         [userDefaults setObject:[dataOfUserDefaults copy] forKey:@"data"];
         [self dismissViewControllerAnimated:YES completion:nil];
         NSLog(@"Save record successfully");
+        [self dismissViewControllerAnimated:YES completion:^{
+            //handle did dismiss
+        }];
     }
     
 }

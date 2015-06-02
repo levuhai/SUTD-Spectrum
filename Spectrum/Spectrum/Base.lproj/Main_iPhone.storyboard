@@ -113,9 +113,9 @@
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Een-BL-Pp9">
                                 <rect key="frame" x="0.0" y="219" width="568" height="100"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lMT-rh-xiR">
-                                        <rect key="frame" x="243" y="35" width="83" height="30"/>
-                                        <state key="normal" title="Record">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lMT-rh-xiR">
+                                        <rect key="frame" x="262" y="28" width="45" height="45"/>
+                                        <state key="normal" image="icon_record_new_iphone.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
@@ -125,11 +125,9 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQU-Mb-0ss">
-                                        <rect key="frame" x="514" y="35" width="46" height="30"/>
-                                        <state key="normal" title="Load">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQU-Mb-0ss">
+                                        <rect key="frame" x="512" y="34" width="32" height="32"/>
+                                        <state key="normal" image="icon_load_iphone.png"/>
                                         <connections>
                                             <action selector="loadTouchIphone:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="yVd-JW-nG3"/>
                                         </connections>
@@ -983,6 +981,8 @@
         <image name="filter_bandpass.png" width="34" height="34"/>
         <image name="filter_hipass.png" width="34" height="34"/>
         <image name="filter_lowpass.png" width="34" height="34"/>
+        <image name="icon_load_iphone.png" width="32" height="32"/>
+        <image name="icon_record_new_iphone.png" width="45" height="45"/>
         <image name="oscillator_noise.png" width="34" height="34"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -41,3 +41,7 @@
 #define kLowPassGraphColor      @"kLowPassGraphColor"
 
 #define dLowPassCutOff          100
+
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)

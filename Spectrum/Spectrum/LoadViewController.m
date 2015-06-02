@@ -73,6 +73,26 @@
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 50;
+}
+
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
+    header.backgroundColor = [UIColor whiteColor];
+    UILabel *lblName = [[UILabel alloc]initWithFrame:CGRectMake(35, 5, 50, 40)];
+    lblName.text = @"Name";
+    lblName.font = [UIFont boldSystemFontOfSize:17];
+    [header addSubview:lblName];
+    
+    UILabel *lblScore = [[UILabel alloc]initWithFrame:CGRectMake(tableView.frame.size.width - 90, 5, 50, 40)];
+    lblScore.text = @"Score";
+    lblScore.font = [UIFont boldSystemFontOfSize:17];
+    lblScore.textColor = [UIColor redColor];
+    [header addSubview:lblScore];
+    return header;
+}
+
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    // load data
@@ -82,5 +102,7 @@
 //    for (int i=0; i<[arrayData count]; i++) {
 //        <#statements#>
 //    }
+    
+    
 }
 @end

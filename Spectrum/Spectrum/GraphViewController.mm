@@ -14,6 +14,7 @@
 #import "LoadViewController.h"
 #import "NSObject+UIPopover_Iphone.h"
 #import "SaveViewController.h"
+#import "GuideRecordViewController.h"
 
 
 #define absX(x) (x<0?0-x:x)
@@ -32,6 +33,10 @@
     RTSpinKitView *_spinner;
     BOOL _isDrawing;
     BOOL _isPractising;
+    
+    GuideRecordViewController *guideRecordView;
+    SaveViewController * saveView;
+    LoadViewController * loadView;
 }
 
 @end
@@ -104,6 +109,11 @@
     self.graphView.layer.masksToBounds = YES;
     self.graphView.layer.borderColor =[UIColor darkGrayColor].CGColor;
     self.graphView.layer.borderWidth = 1;
+    
+    if (IS_IPAD) {
+        [self loadRecordGuide];
+    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -162,8 +172,30 @@
     
 }
 
+- (void)loadRecordGuide {
+    guideRecordView = [[GuideRecordViewController alloc]initWithNibName:@"GuideRecordViewController" bundle:nil];
+    UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:guideRecordView];
+    popoverController.delegate = self;
+    CGSize size = CGSizeMake(220, 85);
+    popoverController.popoverContentSize = size; //your custom size.
+    CGRect frame = CGRectMake(_btnRecord.frame.origin.x, _footerView.frame.origin.y, _btnRecord.frame.size.width, _btnLoad.frame.size.height);
+    [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    
+}
+
 - (void)openSaveView{
-    SaveViewController * saveView = [[SaveViewController alloc]initWithNibName:@"SaveViewController" bundle:nil];
+    if (guideRecordView) {
+        [guideRecordView dismissViewControllerAnimated:YES completion:^{
+            guideRecordView = nil;
+        }];
+    }
+    if (loadView) {
+        [loadView dismissViewControllerAnimated:YES completion:^{
+            loadView = nil;
+        }];
+    }
+    
+    saveView = [[SaveViewController alloc]initWithNibName:@"SaveViewController" bundle:nil];
     saveView.data = [self copyDataToArray];
     UINavigationController * navigation = [[UINavigationController alloc]initWithRootViewController:saveView];
     [saveView setTitle:@"Save"];
@@ -174,11 +206,23 @@
     popoverController.popoverContentSize = size; //your custom size.
     CGRect frame = CGRectMake(_btnRecord.frame.origin.x, _footerView.frame.origin.y, _btnRecord.frame.size.width, _btnLoad.frame.size.height);
     [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    
 }
 
 - (IBAction)loadTouched:(id)sender {
     // show popover to load data.
-    LoadViewController * loadView = [[LoadViewController alloc]initWithNibName:@"LoadViewController" bundle:nil];
+    if (guideRecordView) {
+        [guideRecordView dismissViewControllerAnimated:YES completion:^{
+            guideRecordView = nil;
+        }];
+    }
+    if (saveView) {
+        [saveView dismissViewControllerAnimated:YES completion:^{
+            saveView = nil;
+        }];
+    }
+    
+    loadView = [[LoadViewController alloc]initWithNibName:@"LoadViewController" bundle:nil];
     UINavigationController * navigation = [[UINavigationController alloc]initWithRootViewController:loadView];
     [loadView setTitle:@"Load"];
     UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:navigation];
@@ -188,11 +232,12 @@
     popoverController.popoverContentSize = size; //your custom size.
     CGRect frame = CGRectMake(_btnLoad.frame.origin.x, _footerView.frame.origin.y, _btnLoad.frame.size.width, _btnLoad.frame.size.height);
     [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    
 }
 
 - (IBAction)loadTouchIphone:(id)sender {
     // show popover to load data.
-    LoadViewController * loadView = [[LoadViewController alloc]initWithNibName:@"LoadViewController" bundle:nil];
+    loadView = [[LoadViewController alloc]initWithNibName:@"LoadViewController" bundle:nil];
     UINavigationController * navigation = [[UINavigationController alloc]initWithRootViewController:loadView];
     [loadView setTitle:@"Load"];
     UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:navigation];

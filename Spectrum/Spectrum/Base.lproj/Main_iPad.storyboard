@@ -113,9 +113,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Evf-5Q-p2V">
                                 <rect key="frame" x="0.0" y="618" width="1024" height="150"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZGu-89-spL">
-                                        <rect key="frame" x="471" y="53" width="83" height="30"/>
-                                        <state key="normal" title="Record">
+                                    <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZGu-89-spL">
+                                        <rect key="frame" x="471" y="36" width="64" height="64"/>
+                                        <state key="normal" image="icon_record_new.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -123,9 +123,9 @@
                                             <action selector="recordUp:" destination="TDv-bw-i0c" eventType="touchUpInside" id="Hqg-c1-rag"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8V-cU-SMw">
-                                        <rect key="frame" x="959" y="53" width="46" height="30"/>
-                                        <state key="normal" title="Load">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8V-cU-SMw">
+                                        <rect key="frame" x="931" y="39" width="57" height="57"/>
+                                        <state key="normal" image="icon_load.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -966,6 +966,8 @@
         <image name="filter_bandpass.png" width="34" height="34"/>
         <image name="filter_hipass.png" width="34" height="34"/>
         <image name="filter_lowpass.png" width="34" height="34"/>
+        <image name="icon_load.png" width="64" height="64"/>
+        <image name="icon_record_new.png" width="64" height="64"/>
         <image name="oscillator_noise.png" width="34" height="34"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
