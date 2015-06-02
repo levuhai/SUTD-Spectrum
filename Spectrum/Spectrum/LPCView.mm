@@ -198,6 +198,9 @@
     //lpcController->needReset = YES;
 }
 
+- (double)getDataAtIndex:(int)index{
+    return _savedData[index];
+}
 #pragma mark - LPC
 
 @end
