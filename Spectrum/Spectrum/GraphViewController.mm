@@ -15,6 +15,8 @@
 #import "NSObject+UIPopover_Iphone.h"
 #import "SaveViewController.h"
 #import "GuideRecordViewController.h"
+#import "GuideIPhoneViewController.h"
+#import "Configs.h"
 
 
 #define absX(x) (x<0?0-x:x)
@@ -37,6 +39,8 @@
     GuideRecordViewController *guideRecordView;
     SaveViewController * saveView;
     LoadViewController * loadView;
+    
+    FPPopoverController *saveViewController;
 }
 
 @end
@@ -65,6 +69,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dismissSaveVC) name:@"DISMISS_SAVE_VC" object:nil];
     // Do any additional setup after loading the view.
     _spinner = [[RTSpinKitView alloc] initWithStyle:RTSpinKitViewStyleBounce];
     _spinner.height = self.startButton.height + 4;
@@ -110,9 +115,7 @@
     self.graphView.layer.borderColor =[UIColor darkGrayColor].CGColor;
     self.graphView.layer.borderWidth = 1;
     
-    if (IS_IPAD) {
-        [self loadRecordGuide];
-    }
+    [self loadRecordGuide];
     
 }
 
@@ -120,6 +123,12 @@
     _spinner.center = _startButton.center;
     _spinner.x += 1;
     _spinner.y += 1;
+}
+
+- (void)dismissSaveVC {
+    if (saveViewController) {
+        [saveViewController dismissPopoverAnimated:YES];
+    }
 }
 
 #pragma mark - Actions 
@@ -174,13 +183,23 @@
 
 - (void)loadRecordGuide {
     guideRecordView = [[GuideRecordViewController alloc]initWithNibName:@"GuideRecordViewController" bundle:nil];
-    UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:guideRecordView];
-    popoverController.delegate = self;
-    CGSize size = CGSizeMake(220, 85);
-    popoverController.popoverContentSize = size; //your custom size.
-    CGRect frame = CGRectMake(_btnRecord.frame.origin.x, _footerView.frame.origin.y, _btnRecord.frame.size.width, _btnLoad.frame.size.height);
-    [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-    
+    if (IS_iPAD) {
+        guideRecordView = [[GuideRecordViewController alloc]initWithNibName:@"GuideRecordViewController" bundle:nil];
+        UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:guideRecordView];
+        popoverController.delegate = self;
+        CGSize size = CGSizeMake(220, 115);
+        popoverController.popoverContentSize = size; //your custom size.
+        CGRect frame = CGRectMake(_btnRecord.frame.origin.x, _footerView.frame.origin.y, _btnRecord.frame.size.width, _btnLoad.frame.size.height);
+        [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    } else {
+        FPPopoverController *popoverController = [[FPPopoverController alloc]initWithViewController:guideRecordView delegate:self];
+        popoverController.contentSize = CGSizeMake(220, 115);
+        popoverController.tint = FPPopoverWhiteTint;
+        popoverController.border = NO;
+        popoverController.arrowDirection = FPPopoverArrowDirectionDown;
+        
+        [popoverController presentPopoverFromPoint:CGPointMake(self.view.frame.size.width/2,230)];
+    }
 }
 
 - (void)openSaveView{
@@ -194,18 +213,28 @@
             loadView = nil;
         }];
     }
-    
     saveView = [[SaveViewController alloc]initWithNibName:@"SaveViewController" bundle:nil];
     saveView.data = [self copyDataToArray];
     UINavigationController * navigation = [[UINavigationController alloc]initWithRootViewController:saveView];
     [saveView setTitle:@"Save"];
-    UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:navigation];
-    popoverController.delegate = self;
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGSize size = CGSizeMake(screenRect.size.width/3, screenRect.size.height/3);
-    popoverController.popoverContentSize = size; //your custom size.
-    CGRect frame = CGRectMake(_btnRecord.frame.origin.x, _footerView.frame.origin.y, _btnRecord.frame.size.width, _btnLoad.frame.size.height);
-    [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    if (IS_iPAD) {
+        UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:navigation];
+        popoverController.delegate = self;
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        CGSize size = CGSizeMake(screenRect.size.width/3, screenRect.size.height/3);
+        popoverController.popoverContentSize = size; //your custom size.
+        CGRect frame = CGRectMake(_btnRecord.frame.origin.x, _footerView.frame.origin.y, _btnRecord.frame.size.width, _btnLoad.frame.size.height);
+        [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    } else {
+        saveViewController = [[FPPopoverController alloc]initWithViewController:navigation];
+        saveViewController.delegate = self;
+        saveViewController.contentSize = CGSizeMake(300,250);
+        saveViewController.tint = FPPopoverWhiteTint;
+        saveViewController.border = NO;
+        saveViewController.arrowDirection = FPPopoverArrowDirectionDown;
+        [saveViewController presentPopoverFromPoint:CGPointMake(self.view.frame.size.width/2,230)];
+    }
+    
     
 }
 
@@ -221,17 +250,26 @@
             saveView = nil;
         }];
     }
-    
     loadView = [[LoadViewController alloc]initWithNibName:@"LoadViewController" bundle:nil];
     UINavigationController * navigation = [[UINavigationController alloc]initWithRootViewController:loadView];
     [loadView setTitle:@"Load"];
-    UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:navigation];
-    popoverController.delegate = self;
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGSize size = CGSizeMake(screenRect.size.width/2, screenRect.size.height/2);
-    popoverController.popoverContentSize = size; //your custom size.
-    CGRect frame = CGRectMake(_btnLoad.frame.origin.x, _footerView.frame.origin.y, _btnLoad.frame.size.width, _btnLoad.frame.size.height);
-    [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+
+    if (IS_iPAD) {
+        UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:navigation];
+        popoverController.delegate = self;
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        CGSize size = CGSizeMake(screenRect.size.width/2, screenRect.size.height/2);
+        popoverController.popoverContentSize = size; //your custom size.
+        CGRect frame = CGRectMake(_btnLoad.frame.origin.x, _footerView.frame.origin.y, _btnLoad.frame.size.width, _btnLoad.frame.size.height);
+        [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    } else {
+        FPPopoverController *popoverController = [[FPPopoverController alloc]initWithViewController:navigation delegate:self];popoverController.contentSize = CGSizeMake(300,250);
+        popoverController.tint = FPPopoverWhiteTint;
+        popoverController.border = NO;
+        popoverController.arrowDirection = FPPopoverArrowDirectionDown;
+        [popoverController presentPopoverFromPoint:CGPointMake(_btnLoad.frame.origin.x + _btnLoad.frame.size.width/2,230)];
+    }
+    
     
 }
 
@@ -240,13 +278,11 @@
     loadView = [[LoadViewController alloc]initWithNibName:@"LoadViewController" bundle:nil];
     UINavigationController * navigation = [[UINavigationController alloc]initWithRootViewController:loadView];
     [loadView setTitle:@"Load"];
-    UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:navigation];
-    popoverController.delegate = self;
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGSize size = CGSizeMake(screenRect.size.width/2, screenRect.size.height/2);
-    popoverController.popoverContentSize = size; //your custom size.
-    CGRect frame = CGRectMake(_btnLoad.frame.origin.x, _footerView.frame.origin.y, _btnLoad.frame.size.width, _btnLoad.frame.size.height);
-    [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    FPPopoverController *popoverController = [[FPPopoverController alloc]initWithViewController:navigation delegate:self];popoverController.contentSize = CGSizeMake(300,250);
+    popoverController.tint = FPPopoverWhiteTint;
+    popoverController.border = NO;
+    popoverController.arrowDirection = FPPopoverArrowDirectionDown;
+    [popoverController presentPopoverFromPoint:CGPointMake(_btnLoad.frame.origin.x + _btnLoad.frame.size.width/2,230)];
 }
 
 #pragma mark - Private Category

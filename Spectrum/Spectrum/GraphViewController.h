@@ -11,11 +11,12 @@
 #import "GraphView.h"
 #import "LPCAudioController.h"
 #import <SpinKit/RTSpinKitView.h>
+#import "FPPopoverController.h"
 
 @class LPCView;
 
 
-@interface GraphViewController : UIViewController<UIPopoverControllerDelegate>
+@interface GraphViewController : UIViewController<UIPopoverControllerDelegate,FPPopoverControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet GraphView* graphView;
 @property (strong, nonatomic) IBOutlet UIButton* menuButton;

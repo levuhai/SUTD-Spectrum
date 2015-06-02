@@ -8,6 +8,7 @@
 
 #import "SaveViewController.h"
 #import "LPCView.h"
+#import "Configs.h"
 
 @interface SaveViewController ()
 
@@ -37,6 +38,7 @@
     _btnCancel.clipsToBounds = YES;
     _btnCancel.layer.borderWidth = 0.5;
     _btnCancel.layer.borderColor = [UIColor grayColor].CGColor;
+    _tfName.delegate = self;
     
 }
 
@@ -70,6 +72,9 @@
         [self dismissViewControllerAnimated:YES completion:^{
             //handle did dismiss
         }];
+        if (!IS_iPAD) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"DISMISS_SAVE_VC" object:nil];
+        }
     }
     
 }
@@ -78,10 +83,18 @@
     [self dismissViewControllerAnimated:YES completion:^{
         //handle did dismiss
     }];
+    if (!IS_iPAD) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"DISMISS_SAVE_VC" object:nil];
+    }
 }
 
 + (void)addToArrayData:(NSNumber *)number {
     
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

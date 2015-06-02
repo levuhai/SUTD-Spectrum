@@ -8,6 +8,7 @@
 
 #import "LoadViewController.h"
 #import "RecordViewCell.h"
+#import "Configs.h"
 
 @interface LoadViewController ()
 
@@ -74,23 +75,30 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 50;
+    if (IS_iPAD) {
+        return 50;
+    }
+    return 0;
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
-    header.backgroundColor = [UIColor whiteColor];
-    UILabel *lblName = [[UILabel alloc]initWithFrame:CGRectMake(35, 5, 50, 40)];
-    lblName.text = @"Name";
-    lblName.font = [UIFont boldSystemFontOfSize:17];
-    [header addSubview:lblName];
+    if (IS_iPAD) {
+        UIView *header = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
+        header.backgroundColor = [UIColor whiteColor];
+        UILabel *lblName = [[UILabel alloc]initWithFrame:CGRectMake(38, 5, 50, 40)];
+        lblName.text = @"Name";
+        lblName.font = [UIFont boldSystemFontOfSize:17];
+        [header addSubview:lblName];
+        
+        UILabel *lblScore = [[UILabel alloc]initWithFrame:CGRectMake(tableView.frame.size.width - 90, 5, 50, 40)];
+        lblScore.text = @"Score";
+        lblScore.font = [UIFont boldSystemFontOfSize:17];
+        lblScore.textColor = [UIColor redColor];
+        [header addSubview:lblScore];
+        return header;
+    }
+    return nil;
     
-    UILabel *lblScore = [[UILabel alloc]initWithFrame:CGRectMake(tableView.frame.size.width - 90, 5, 50, 40)];
-    lblScore.text = @"Score";
-    lblScore.font = [UIFont boldSystemFontOfSize:17];
-    lblScore.textColor = [UIColor redColor];
-    [header addSubview:lblScore];
-    return header;
 }
 
 #pragma mark - UITableViewDelegate

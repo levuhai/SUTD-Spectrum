@@ -28,7 +28,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="U5N-qp-yay" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="7nK-IO-IpY"/>
-                <constraint firstAttribute="bottom" secondItem="U5N-qp-yay" secondAttribute="bottom" constant="30" id="gFM-Ac-P0I"/>
+                <constraint firstAttribute="bottom" secondItem="U5N-qp-yay" secondAttribute="bottom" constant="5" id="gFM-Ac-P0I"/>
                 <constraint firstItem="U5N-qp-yay" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="pkb-mE-gyh"/>
                 <constraint firstAttribute="trailing" secondItem="U5N-qp-yay" secondAttribute="trailing" id="yBQ-rd-f0A">
                     <variation key="widthClass=compact" constant="0.0"/>

@@ -19,6 +19,12 @@
 		6A25E2051B1DB77F002E481C /* icon_load_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A25E2031B1DB77F002E481C /* icon_load_iphone@2x.png */; };
 		6A25E2081B1DB8B3002E481C /* icon_record_new_iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A25E2061B1DB8B3002E481C /* icon_record_new_iphone.png */; };
 		6A25E2091B1DB8B3002E481C /* icon_record_new_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A25E2071B1DB8B3002E481C /* icon_record_new_iphone@2x.png */; };
+		6A25E21F1B1DDDEA002E481C /* FPPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A25E2191B1DDDEA002E481C /* FPPopoverController.m */; };
+		6A25E2201B1DDDEA002E481C /* FPPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A25E21B1B1DDDEA002E481C /* FPPopoverView.m */; };
+		6A25E2211B1DDDEA002E481C /* FPTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A25E21D1B1DDDEA002E481C /* FPTouchView.m */; };
+		6A25E2221B1DDDEA002E481C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6A25E21E1B1DDDEA002E481C /* LICENSE */; };
+		6A25E2261B1DE6A4002E481C /* GuideIPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A25E2241B1DE6A4002E481C /* GuideIPhoneViewController.m */; };
+		6A25E2271B1DE6A4002E481C /* GuideIPhoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A25E2251B1DE6A4002E481C /* GuideIPhoneViewController.xib */; };
 		C58350BC1B19F5A600536365 /* LoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C58350BA1B19F5A600536365 /* LoadViewController.m */; };
 		C58350BD1B19F5A600536365 /* LoadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C58350BB1B19F5A600536365 /* LoadViewController.xib */; };
 		C58350CD1B19FE1100536365 /* RecordViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C58350CB1B19FE1100536365 /* RecordViewCell.m */; };
@@ -159,6 +165,17 @@
 		6A25E2031B1DB77F002E481C /* icon_load_iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_load_iphone@2x.png"; sourceTree = "<group>"; };
 		6A25E2061B1DB8B3002E481C /* icon_record_new_iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_record_new_iphone.png; sourceTree = "<group>"; };
 		6A25E2071B1DB8B3002E481C /* icon_record_new_iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_record_new_iphone@2x.png"; sourceTree = "<group>"; };
+		6A25E2171B1DDDEA002E481C /* ARCMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCMacros.h; sourceTree = "<group>"; };
+		6A25E2181B1DDDEA002E481C /* FPPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverController.h; sourceTree = "<group>"; };
+		6A25E2191B1DDDEA002E481C /* FPPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverController.m; sourceTree = "<group>"; };
+		6A25E21A1B1DDDEA002E481C /* FPPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverView.h; sourceTree = "<group>"; };
+		6A25E21B1B1DDDEA002E481C /* FPPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverView.m; sourceTree = "<group>"; };
+		6A25E21C1B1DDDEA002E481C /* FPTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTouchView.h; sourceTree = "<group>"; };
+		6A25E21D1B1DDDEA002E481C /* FPTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPTouchView.m; sourceTree = "<group>"; };
+		6A25E21E1B1DDDEA002E481C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6A25E2231B1DE6A4002E481C /* GuideIPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideIPhoneViewController.h; sourceTree = "<group>"; };
+		6A25E2241B1DE6A4002E481C /* GuideIPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideIPhoneViewController.m; sourceTree = "<group>"; };
+		6A25E2251B1DE6A4002E481C /* GuideIPhoneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideIPhoneViewController.xib; sourceTree = "<group>"; };
 		C58350B91B19F5A600536365 /* LoadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadViewController.h; sourceTree = "<group>"; };
 		C58350BA1B19F5A600536365 /* LoadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadViewController.m; sourceTree = "<group>"; };
 		C58350BB1B19F5A600536365 /* LoadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadViewController.xib; sourceTree = "<group>"; };
@@ -397,6 +414,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		6A25E2161B1DDDEA002E481C /* FPPopover */ = {
+			isa = PBXGroup;
+			children = (
+				6A25E2171B1DDDEA002E481C /* ARCMacros.h */,
+				6A25E2181B1DDDEA002E481C /* FPPopoverController.h */,
+				6A25E2191B1DDDEA002E481C /* FPPopoverController.m */,
+				6A25E21A1B1DDDEA002E481C /* FPPopoverView.h */,
+				6A25E21B1B1DDDEA002E481C /* FPPopoverView.m */,
+				6A25E21C1B1DDDEA002E481C /* FPTouchView.h */,
+				6A25E21D1B1DDDEA002E481C /* FPTouchView.m */,
+				6A25E21E1B1DDDEA002E481C /* LICENSE */,
+			);
+			name = FPPopover;
+			path = Spectrum/FPPopover;
+			sourceTree = "<group>";
+		};
 		D71CD0BA1961B9AF003970DE /* Graph */ = {
 			isa = PBXGroup;
 			children = (
@@ -414,6 +447,9 @@
 				6A25E1EF1B1DA01B002E481C /* GuideRecordViewController.h */,
 				6A25E1F01B1DA01B002E481C /* GuideRecordViewController.m */,
 				6A25E1F11B1DA01B002E481C /* GuideRecordViewController.xib */,
+				6A25E2231B1DE6A4002E481C /* GuideIPhoneViewController.h */,
+				6A25E2241B1DE6A4002E481C /* GuideIPhoneViewController.m */,
+				6A25E2251B1DE6A4002E481C /* GuideIPhoneViewController.xib */,
 			);
 			name = Graph;
 			sourceTree = "<group>";
@@ -661,6 +697,7 @@
 		D72ECC441AB1A09B00126041 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				6A25E2161B1DDDEA002E481C /* FPPopover */,
 				D72ECC451AB1A0AC00126041 /* DspFilters */,
 				D72ECC741AB1A0AC00126041 /* EZAudio */,
 				D72ECC901AB1A0AC00126041 /* FrameAccessor */,
@@ -1027,8 +1064,10 @@
 				6A25E1EB1B1D9D8E002E481C /* icon_record_new.png in Resources */,
 				6A25E1F31B1DA01B002E481C /* GuideRecordViewController.xib in Resources */,
 				D765B9241964FBD2001B6280 /* filter_bandpass@2x.png in Resources */,
+				6A25E2271B1DE6A4002E481C /* GuideIPhoneViewController.xib in Resources */,
 				C58350CE1B19FE1100536365 /* RecordViewCell.xib in Resources */,
 				D71CD0CA19628D34003970DE /* ios7-style-font-icons.ttf in Resources */,
+				6A25E2221B1DDDEA002E481C /* LICENSE in Resources */,
 				6A25E1E51B1D9912002E481C /* icon_load.png in Resources */,
 				D72ECCEF1AB1A0AC00126041 /* LICENSE in Resources */,
 				D72ECD041AB1A0AC00126041 /* LICENSE.txt in Resources */,
@@ -1070,6 +1109,7 @@
 				D72ECCE71AB1A0AC00126041 /* TPCircularBuffer.c in Sources */,
 				D72ECCF91AB1A0AC00126041 /* RTSpinKitFadingCircleAltAnimation.m in Sources */,
 				D72ECCCA1AB1A0AC00126041 /* README.md in Sources */,
+				6A25E2261B1DE6A4002E481C /* GuideIPhoneViewController.m in Sources */,
 				D72ECCF81AB1A0AC00126041 /* RTSpinKitCircleFlipAnimation.m in Sources */,
 				D72ECCF41AB1A0AC00126041 /* RTSpinKitArcAnimation.m in Sources */,
 				D72ECCD91AB1A0AC00126041 /* RBJ.cpp in Sources */,
@@ -1094,10 +1134,12 @@
 				D71CD0E31962C1B8003970DE /* LowPassViewController.m in Sources */,
 				D72ECD061AB1A0AC00126041 /* SWRevealViewController.m in Sources */,
 				D72ECCFD1AB1A0AC00126041 /* RTSpinKitThreeBounceAnimation.m in Sources */,
+				6A25E21F1B1DDDEA002E481C /* FPPopoverController.m in Sources */,
 				D72ECCCE1AB1A0AC00126041 /* Cascade.cpp in Sources */,
 				D71DB940195DEA0F00B1F53F /* main.m in Sources */,
 				D72ECCCF1AB1A0AC00126041 /* ChebyshevI.cpp in Sources */,
 				D72ECCFC1AB1A0AC00126041 /* RTSpinKitPulseAnimation.m in Sources */,
+				6A25E2201B1DDDEA002E481C /* FPPopoverView.m in Sources */,
 				D730D41B19D915F800F14855 /* LPCViewController.m in Sources */,
 				D72ECCD61AB1A0AC00126041 /* Legendre.cpp in Sources */,
 				C58350D21B1A02B700536365 /* SaveViewController.m in Sources */,
@@ -1117,6 +1159,7 @@
 				D72ECCD21AB1A0AC00126041 /* Design.cpp in Sources */,
 				D72ECCF01AB1A0AC00126041 /* README.md in Sources */,
 				D72ECCED1AB1A0AC00126041 /* README.md in Sources */,
+				6A25E2211B1DDDEA002E481C /* FPTouchView.m in Sources */,
 				D72ECCEB1AB1A0AC00126041 /* ViewFrameAccessor.m in Sources */,
 				C58350BC1B19F5A600536365 /* LoadViewController.m in Sources */,
 				D72ECCFB1AB1A0AC00126041 /* RTSpinKitPlaneAnimation.m in Sources */,

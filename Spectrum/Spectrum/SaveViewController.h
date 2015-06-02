@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SaveViewController : UIViewController
+@interface SaveViewController : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *tfName;
 @property (weak, nonatomic) IBOutlet UIButton *btnSave;
