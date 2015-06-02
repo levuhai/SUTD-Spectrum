@@ -11,6 +11,10 @@
 #import "UIFont+Custom.h"
 #import "UIColor+Flat.h"
 #import "LPCView.h"
+#import "LoadViewController.h"
+#import "NSObject+UIPopover_Iphone.h"
+#import "SaveViewController.h"
+
 
 #define absX(x) (x<0?0-x:x)
 #define decibel(amplitude) (20.0 * log10(absX(amplitude)))
@@ -27,6 +31,7 @@
     //LPCAudioController *_lpcController;
     RTSpinKitView *_spinner;
     BOOL _isDrawing;
+    BOOL _isPractising;
 }
 
 @end
@@ -65,7 +70,7 @@
     [_spinner setColor:[UIColor greenSeaColor]];
     [self.view insertSubview:_spinner belowSubview:self.startButton];
     
-    [self _startDrawing];
+//    [self _startDrawing];
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     [self.view addGestureRecognizer:self.revealViewController.tapGestureRecognizer];
@@ -136,6 +141,69 @@
     [self.revealViewController revealToggleAnimated:YES];
 }
 
+- (IBAction)recordDown:(id)sender{
+    // start record
+    if (!_isDrawing) {
+        [self _startDrawing];
+        [_spinner startAnimating];
+        [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    }
+}
+
+- (IBAction)recordUp:(id)sender{
+    // save record
+    [self saveData];
+    // copy data to nsarray
+    
+    [self performSelector:@selector(_stopDrawing) withObject:nil afterDelay:1/kFPS];
+    // open save view controller
+    [self performSelector:@selector(openSaveView) withObject:nil afterDelay:1.0f];
+    
+}
+
+- (void)openSaveView{
+    SaveViewController * saveView = [[SaveViewController alloc]initWithNibName:@"SaveViewController" bundle:nil];
+    saveView.data = [self copyDataToArray];
+    UINavigationController * navigation = [[UINavigationController alloc]initWithRootViewController:saveView];
+    [saveView setTitle:@"Save"];
+    UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:navigation];
+    popoverController.delegate = self;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGSize size = CGSizeMake(screenRect.size.width/3, screenRect.size.height/3);
+    popoverController.popoverContentSize = size; //your custom size.
+    CGRect frame = CGRectMake(_btnRecord.frame.origin.x, _footerView.frame.origin.y, _btnRecord.frame.size.width, _btnLoad.frame.size.height);
+    [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+- (IBAction)loadTouched:(id)sender {
+    // show popover to load data.
+    LoadViewController * loadView = [[LoadViewController alloc]initWithNibName:@"LoadViewController" bundle:nil];
+    UINavigationController * navigation = [[UINavigationController alloc]initWithRootViewController:loadView];
+    [loadView setTitle:@"Load"];
+    UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:navigation];
+    popoverController.delegate = self;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGSize size = CGSizeMake(screenRect.size.width/2, screenRect.size.height/2);
+    popoverController.popoverContentSize = size; //your custom size.
+    CGRect frame = CGRectMake(_btnLoad.frame.origin.x, _footerView.frame.origin.y, _btnLoad.frame.size.width, _btnLoad.frame.size.height);
+    [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+- (IBAction)loadTouchIphone:(id)sender {
+    // show popover to load data.
+    LoadViewController * loadView = [[LoadViewController alloc]initWithNibName:@"LoadViewController" bundle:nil];
+    UINavigationController * navigation = [[UINavigationController alloc]initWithRootViewController:loadView];
+    [loadView setTitle:@"Load"];
+    UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:navigation];
+    popoverController.delegate = self;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGSize size = CGSizeMake(screenRect.size.width/2, screenRect.size.height/2);
+    popoverController.popoverContentSize = size; //your custom size.
+    CGRect frame = CGRectMake(_btnLoad.frame.origin.x, _footerView.frame.origin.y, _btnLoad.frame.size.width, _btnLoad.frame.size.height);
+    [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
 #pragma mark - Private Category
 
 - (void)_startDrawing {
@@ -187,4 +255,18 @@
     }
 }
 
+#pragma mark - Save & Load data
+- (void)saveData {
+    [self.fftView saveGraph];
+}
+
+- (NSArray *)copyDataToArray {
+    
+    NSMutableArray * arrayData = [[NSMutableArray alloc]init];
+    for(int i = 0; i<self.fftView.width ;i++){
+        double b = [self.fftView getDataAtIndex:i];
+        [arrayData addObject:[NSNumber numberWithDouble:b]];
+    }
+    return [arrayData copy];
+}
 @end

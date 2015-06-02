@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="q6J-aJ-poU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="q6J-aJ-poU">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <scenes>
         <!--Reveal View Controller-->
@@ -110,16 +110,55 @@
                                     <action selector="startTouched:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="OCd-Ih-BWn"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Een-BL-Pp9">
+                                <rect key="frame" x="0.0" y="219" width="568" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lMT-rh-xiR">
+                                        <rect key="frame" x="243" y="35" width="83" height="30"/>
+                                        <state key="normal" title="Record">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3p-o3-uA2">
+                                        <rect key="frame" x="14" y="44" width="110" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQU-Mb-0ss">
+                                        <rect key="frame" x="514" y="35" width="46" height="30"/>
+                                        <state key="normal" title="Load">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="loadTouchIphone:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="yVd-JW-nG3"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="e3p-o3-uA2" firstAttribute="leading" secondItem="Een-BL-Pp9" secondAttribute="leading" constant="14" id="3L1-RY-xRX"/>
+                                    <constraint firstAttribute="height" constant="100" id="6Zn-hd-aGA"/>
+                                    <constraint firstAttribute="centerY" secondItem="xQU-Mb-0ss" secondAttribute="centerY" id="L7u-5g-GXr"/>
+                                    <constraint firstAttribute="centerY" secondItem="e3p-o3-uA2" secondAttribute="centerY" id="aS8-bH-ncQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="xQU-Mb-0ss" secondAttribute="trailing" constant="8" id="lWT-lJ-3Po"/>
+                                    <constraint firstAttribute="centerX" secondItem="lMT-rh-xiR" secondAttribute="centerX" id="y4K-a4-quY"/>
+                                    <constraint firstAttribute="centerY" secondItem="lMT-rh-xiR" secondAttribute="centerY" id="yDU-9C-HVC"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.16862745579999999" green="0.24313727020000001" blue="0.31372550129999999" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="zv8-aV-ebH" secondAttribute="bottom" constant="20" id="0IQ-2E-RGC"/>
+                            <constraint firstItem="Een-BL-Pp9" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="4nK-YC-l03"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="BIw-iy-yKO" secondAttribute="bottom" constant="100" id="FjH-OX-PoD"/>
                             <constraint firstItem="BIw-iy-yKO" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Kah-Ep-c6m"/>
                             <constraint firstItem="IKZ-BS-2je" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="O1X-V0-ITL"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Een-BL-Pp9" secondAttribute="bottom" id="TRz-uV-6yW"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="NOY-jt-O1d" secondAttribute="bottom" constant="28" id="UyJ-gz-hD7"/>
                             <constraint firstAttribute="centerX" secondItem="zv8-aV-ebH" secondAttribute="centerX" id="VhU-l2-79X"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="g4r-xR-HgB" secondAttribute="bottom" constant="28" id="YoK-4z-Frm"/>
+                            <constraint firstAttribute="trailing" secondItem="Een-BL-Pp9" secondAttribute="trailing" id="aJo-Gg-4gn"/>
                             <constraint firstItem="BIw-iy-yKO" firstAttribute="top" secondItem="IKZ-BS-2je" secondAttribute="bottom" id="aTr-b6-vWi"/>
                             <constraint firstItem="g4r-xR-HgB" firstAttribute="leading" secondItem="zv8-aV-ebH" secondAttribute="trailing" constant="35" id="coK-Ih-VKf"/>
                             <constraint firstAttribute="trailing" secondItem="BIw-iy-yKO" secondAttribute="trailing" id="iwh-Yi-XGS"/>
@@ -130,8 +169,11 @@
                     <navigationItem key="navigationItem" id="Kkv-N4-FJj"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="btnLoad" destination="xQU-Mb-0ss" id="F3W-V2-alk"/>
+                        <outlet property="btnRecord" destination="lMT-rh-xiR" id="pJX-3R-USj"/>
                         <outlet property="fftView" destination="BIw-iy-yKO" id="xjF-lb-tns"/>
                         <outlet property="graphView" destination="zv8-aV-ebH" id="bDz-0O-2o4"/>
+                        <outlet property="lbName" destination="e3p-o3-uA2" id="DWH-o6-QDC"/>
                         <outlet property="menuButton" destination="IKZ-BS-2je" id="1Q9-bJ-xg1"/>
                         <outlet property="saveButton" destination="g4r-xR-HgB" id="8FS-4J-b3I"/>
                         <outlet property="startButton" destination="NOY-jt-O1d" id="F6M-5g-0wc"/>

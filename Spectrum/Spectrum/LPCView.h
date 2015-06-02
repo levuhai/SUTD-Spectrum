@@ -17,7 +17,7 @@
 - (void)startDrawing;
 - (void)stopDrawing;
 - (void)saveGraph;
-
+- (double)getDataAtIndex:(int)index;
 @end
 
 @protocol LPCDelegate <NSObject>

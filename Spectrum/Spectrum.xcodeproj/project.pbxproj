@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C58350BC1B19F5A600536365 /* LoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C58350BA1B19F5A600536365 /* LoadViewController.m */; };
+		C58350BD1B19F5A600536365 /* LoadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C58350BB1B19F5A600536365 /* LoadViewController.xib */; };
+		C58350CD1B19FE1100536365 /* RecordViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C58350CB1B19FE1100536365 /* RecordViewCell.m */; };
+		C58350CE1B19FE1100536365 /* RecordViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C58350CC1B19FE1100536365 /* RecordViewCell.xib */; };
+		C58350D21B1A02B700536365 /* SaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C58350D01B1A02B700536365 /* SaveViewController.m */; };
+		C58350D31B1A02B700536365 /* SaveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C58350D11B1A02B700536365 /* SaveViewController.xib */; };
+		C5DCC9D61B1B02FC00FD4F3A /* NSObject+UIPopover_Iphone.m in Sources */ = {isa = PBXBuildFile; fileRef = C5DCC9D51B1B02FC00FD4F3A /* NSObject+UIPopover_Iphone.m */; };
 		D71CD0C4196287AE003970DE /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D71CD0C3196287AE003970DE /* MenuViewController.m */; };
 		D71CD0C919628D34003970DE /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D71CD0C619628D34003970DE /* Ionicons.ttf */; };
 		D71CD0CA19628D34003970DE /* ios7-style-font-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D71CD0C719628D34003970DE /* ios7-style-font-icons.ttf */; };
@@ -127,6 +134,17 @@
 /* Begin PBXFileReference section */
 		2AC5BEF4A5C044598E742B2B /* libPods-Spectrum.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Spectrum.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D1A5B2249260D0AC30347F2 /* Pods-Spectrum.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spectrum.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Spectrum/Pods-Spectrum.debug.xcconfig"; sourceTree = "<group>"; };
+		C58350B91B19F5A600536365 /* LoadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadViewController.h; sourceTree = "<group>"; };
+		C58350BA1B19F5A600536365 /* LoadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadViewController.m; sourceTree = "<group>"; };
+		C58350BB1B19F5A600536365 /* LoadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadViewController.xib; sourceTree = "<group>"; };
+		C58350CA1B19FE1100536365 /* RecordViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordViewCell.h; sourceTree = "<group>"; };
+		C58350CB1B19FE1100536365 /* RecordViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordViewCell.m; sourceTree = "<group>"; };
+		C58350CC1B19FE1100536365 /* RecordViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordViewCell.xib; sourceTree = "<group>"; };
+		C58350CF1B1A02B700536365 /* SaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveViewController.h; sourceTree = "<group>"; };
+		C58350D01B1A02B700536365 /* SaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveViewController.m; sourceTree = "<group>"; };
+		C58350D11B1A02B700536365 /* SaveViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SaveViewController.xib; sourceTree = "<group>"; };
+		C5DCC9D41B1B02FC00FD4F3A /* NSObject+UIPopover_Iphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+UIPopover_Iphone.h"; sourceTree = "<group>"; };
+		C5DCC9D51B1B02FC00FD4F3A /* NSObject+UIPopover_Iphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+UIPopover_Iphone.m"; sourceTree = "<group>"; };
 		D71CD0C2196287AE003970DE /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		D71CD0C3196287AE003970DE /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		D71CD0C619628D34003970DE /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
@@ -359,6 +377,15 @@
 			children = (
 				D71DB987195F207400B1F53F /* GraphViewController.h */,
 				D71DB988195F207400B1F53F /* GraphViewController.mm */,
+				C58350B91B19F5A600536365 /* LoadViewController.h */,
+				C58350BA1B19F5A600536365 /* LoadViewController.m */,
+				C58350BB1B19F5A600536365 /* LoadViewController.xib */,
+				C58350CA1B19FE1100536365 /* RecordViewCell.h */,
+				C58350CB1B19FE1100536365 /* RecordViewCell.m */,
+				C58350CC1B19FE1100536365 /* RecordViewCell.xib */,
+				C58350CF1B1A02B700536365 /* SaveViewController.h */,
+				C58350D01B1A02B700536365 /* SaveViewController.m */,
+				C58350D11B1A02B700536365 /* SaveViewController.xib */,
 			);
 			name = Graph;
 			sourceTree = "<group>";
@@ -578,6 +605,8 @@
 				D71DB983195E587C00B1F53F /* EZAudio+Expanded.m */,
 				D71DB98F195FAA8900B1F53F /* NSMutableArray+QueueStack.h */,
 				D71DB990195FAA8900B1F53F /* NSMutableArray+QueueStack.m */,
+				C5DCC9D41B1B02FC00FD4F3A /* NSObject+UIPopover_Iphone.h */,
+				C5DCC9D51B1B02FC00FD4F3A /* NSObject+UIPopover_Iphone.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -944,12 +973,15 @@
 				D71DB94A195DEA0F00B1F53F /* Main_iPad.storyboard in Resources */,
 				D71CD0D81962929A003970DE /* lowpass@2x.png in Resources */,
 				D71DB94F195DEA0F00B1F53F /* Images.xcassets in Resources */,
+				C58350BD1B19F5A600536365 /* LoadViewController.xib in Resources */,
 				D72ECCEC1AB1A0AC00126041 /* LICENSE in Resources */,
 				D765B9201964FBB6001B6280 /* filter_lowpass@2x.png in Resources */,
 				D71DB947195DEA0F00B1F53F /* Main_iPhone.storyboard in Resources */,
 				D72ECCE81AB1A0AC00126041 /* LICENSE in Resources */,
+				C58350D31B1A02B700536365 /* SaveViewController.xib in Resources */,
 				D71CD0D51962929A003970DE /* graph@2x.png in Resources */,
 				D765B9241964FBD2001B6280 /* filter_bandpass@2x.png in Resources */,
+				C58350CE1B19FE1100536365 /* RecordViewCell.xib in Resources */,
 				D71CD0CA19628D34003970DE /* ios7-style-font-icons.ttf in Resources */,
 				D72ECCEF1AB1A0AC00126041 /* LICENSE in Resources */,
 				D72ECD041AB1A0AC00126041 /* LICENSE.txt in Resources */,
@@ -1002,6 +1034,7 @@
 				D72ECCE01AB1A0AC00126041 /* EZAudioPlot.m in Sources */,
 				D71DB98E195F21B600B1F53F /* GraphView.m in Sources */,
 				D71DB989195F207400B1F53F /* GraphViewController.mm in Sources */,
+				C5DCC9D61B1B02FC00FD4F3A /* NSObject+UIPopover_Iphone.m in Sources */,
 				D72ECCD11AB1A0AC00126041 /* Custom.cpp in Sources */,
 				D72ECCCB1AB1A0AC00126041 /* Bessel.cpp in Sources */,
 				D72ECCF21AB1A0AC00126041 /* RTSpinKit9CubeGridAnimation.m in Sources */,
@@ -1017,6 +1050,7 @@
 				D72ECCFC1AB1A0AC00126041 /* RTSpinKitPulseAnimation.m in Sources */,
 				D730D41B19D915F800F14855 /* LPCViewController.m in Sources */,
 				D72ECCD61AB1A0AC00126041 /* Legendre.cpp in Sources */,
+				C58350D21B1A02B700536365 /* SaveViewController.m in Sources */,
 				D71DB991195FAA8900B1F53F /* NSMutableArray+QueueStack.m in Sources */,
 				D72ECCFE1AB1A0AC00126041 /* RTSpinKitWanderingCubesAnimation.m in Sources */,
 				D730D41E19D9163700F14855 /* LPCView.mm in Sources */,
@@ -1034,12 +1068,14 @@
 				D72ECCF01AB1A0AC00126041 /* README.md in Sources */,
 				D72ECCED1AB1A0AC00126041 /* README.md in Sources */,
 				D72ECCEB1AB1A0AC00126041 /* ViewFrameAccessor.m in Sources */,
+				C58350BC1B19F5A600536365 /* LoadViewController.m in Sources */,
 				D72ECCFB1AB1A0AC00126041 /* RTSpinKitPlaneAnimation.m in Sources */,
 				D72ECD051AB1A0AC00126041 /* README.md in Sources */,
 				D72ECCD71AB1A0AC00126041 /* Param.cpp in Sources */,
 				D71DB974195E575D00B1F53F /* ACScrollView.m in Sources */,
 				D72ECCF31AB1A0AC00126041 /* RTSpinKitArcAltAnimation.m in Sources */,
 				D71DB979195E57F800B1F53F /* AudioController.mm in Sources */,
+				C58350CD1B19FE1100536365 /* RecordViewCell.m in Sources */,
 				D72ECCDC1AB1A0AC00126041 /* AEFloatConverter.m in Sources */,
 				D72ECCF61AB1A0AC00126041 /* RTSpinKitChasingDotsAnimation.m in Sources */,
 				D72ECCE91AB1A0AC00126041 /* README.md in Sources */,
