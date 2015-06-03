@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="d6v-Ao-k1i">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="d6v-Ao-k1i">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <scenes>
         <!--Reveal View Controller-->
@@ -84,7 +84,7 @@
                                     <constraint firstAttribute="height" constant="90" id="vfx-gd-DVz"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cyw-Rf-Toc">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cyw-Rf-Toc">
                                 <rect key="frame" x="772" y="653" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="ArO-oj-SNC"/>
@@ -97,7 +97,7 @@
                                     <action selector="saveTouched:" destination="TDv-bw-i0c" eventType="touchUpInside" id="qrb-ys-uvL"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZFU-uB-JwZ">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZFU-uB-JwZ">
                                 <rect key="frame" x="202" y="653" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="wh5-jA-Ok3"/>
@@ -110,6 +110,40 @@
                                     <action selector="startTouched:" destination="TDv-bw-i0c" eventType="touchUpInside" id="azC-nx-6cO"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Evf-5Q-p2V">
+                                <rect key="frame" x="0.0" y="618" width="1024" height="150"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZGu-89-spL">
+                                        <rect key="frame" x="471" y="36" width="64" height="64"/>
+                                        <state key="normal" image="icon_record_new.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="recordDown:" destination="TDv-bw-i0c" eventType="touchDown" id="HEX-Ut-mt5"/>
+                                            <action selector="recordUp:" destination="TDv-bw-i0c" eventType="touchUpInside" id="Hqg-c1-rag"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8V-cU-SMw">
+                                        <rect key="frame" x="931" y="39" width="57" height="57"/>
+                                        <state key="normal" image="icon_load.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="loadTouched:" destination="TDv-bw-i0c" eventType="touchUpInside" id="WWQ-Bb-RcL"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kTO-54-1Fw">
+                                        <rect key="frame" x="8" y="64" width="221" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="3Hu-W2-uuM"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.16862745579999999" green="0.24313727020000001" blue="0.31372550129999999" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
@@ -120,9 +154,12 @@
                             <constraint firstItem="dFc-rR-cLW" firstAttribute="top" secondItem="1y3-5g-NBA" secondAttribute="bottom" id="FTV-mO-H4W"/>
                             <constraint firstItem="2LA-7E-Au2" firstAttribute="leading" secondItem="ZFU-uB-JwZ" secondAttribute="trailing" constant="35" id="JbG-Bf-hQi"/>
                             <constraint firstItem="wat-rZ-pCC" firstAttribute="top" secondItem="2LA-7E-Au2" secondAttribute="bottom" constant="35" id="LRa-Fy-lIF"/>
+                            <constraint firstItem="Evf-5Q-p2V" firstAttribute="leading" secondItem="2WP-Ip-I9a" secondAttribute="leading" id="Myo-sS-ZJg"/>
                             <constraint firstItem="wat-rZ-pCC" firstAttribute="top" secondItem="ZFU-uB-JwZ" secondAttribute="bottom" constant="65" id="QzX-e2-G8N"/>
                             <constraint firstAttribute="centerX" secondItem="2LA-7E-Au2" secondAttribute="centerX" id="VKh-3C-atg"/>
                             <constraint firstAttribute="trailing" secondItem="fwq-F5-pth" secondAttribute="trailing" id="Wuc-Jz-oLl"/>
+                            <constraint firstItem="wat-rZ-pCC" firstAttribute="top" secondItem="Evf-5Q-p2V" secondAttribute="bottom" id="X0n-Jt-e4l"/>
+                            <constraint firstAttribute="trailing" secondItem="Evf-5Q-p2V" secondAttribute="trailing" id="aPR-YU-wNJ"/>
                             <constraint firstItem="fwq-F5-pth" firstAttribute="top" secondItem="dFc-rR-cLW" secondAttribute="bottom" constant="15" id="cqR-7f-ivF"/>
                             <constraint firstItem="2LA-7E-Au2" firstAttribute="top" secondItem="fwq-F5-pth" secondAttribute="bottom" constant="25" id="ndl-av-0Lk"/>
                         </constraints>
@@ -130,8 +167,12 @@
                     <navigationItem key="navigationItem" id="zod-t9-pGI"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="btnLoad" destination="R8V-cU-SMw" id="taC-hj-ADw"/>
+                        <outlet property="btnRecord" destination="ZGu-89-spL" id="wmB-vu-A94"/>
                         <outlet property="fftView" destination="fwq-F5-pth" id="zNu-GS-NrK"/>
+                        <outlet property="footerView" destination="Evf-5Q-p2V" id="EoA-MX-egE"/>
                         <outlet property="graphView" destination="2LA-7E-Au2" id="bnB-h6-hfH"/>
+                        <outlet property="lbName" destination="kTO-54-1Fw" id="FBn-js-nnv"/>
                         <outlet property="menuButton" destination="dFc-rR-cLW" id="Ibd-UJ-pu7"/>
                         <outlet property="saveButton" destination="Cyw-Rf-Toc" id="khu-6h-Wrk"/>
                         <outlet property="startButton" destination="ZFU-uB-JwZ" id="PC4-3c-G2i"/>
@@ -381,8 +422,8 @@
                                             <action selector="menuTouched:" destination="zfS-k2-9NK" eventType="touchUpInside" id="m0w-6r-9zn"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High-Pass Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2O-FW-FKF">
-                                        <rect key="frame" x="412.5" y="8" width="200" height="44"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="High-Pass Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2O-FW-FKF">
+                                        <rect key="frame" x="413" y="8" width="200" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="Ku3-6X-qHS"/>
                                             <constraint firstAttribute="width" constant="200" id="yKe-Nm-cWV"/>
@@ -925,6 +966,8 @@
         <image name="filter_bandpass.png" width="34" height="34"/>
         <image name="filter_hipass.png" width="34" height="34"/>
         <image name="filter_lowpass.png" width="34" height="34"/>
+        <image name="icon_load.png" width="64" height="64"/>
+        <image name="icon_record_new.png" width="64" height="64"/>
         <image name="oscillator_noise.png" width="34" height="34"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

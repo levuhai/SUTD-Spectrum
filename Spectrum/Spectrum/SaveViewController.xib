@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SaveViewController">
+            <connections>
+                <outlet property="btnCancel" destination="fWK-l1-j83" id="tvz-Y1-bj7"/>
+                <outlet property="btnSave" destination="FfJ-zK-r1i" id="9yt-bd-qg7"/>
+                <outlet property="tfName" destination="FZA-EB-t8K" id="p36-je-HDt"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FZA-EB-t8K">
+                    <rect key="frame" x="35" y="95" width="730" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FfJ-zK-r1i">
+                    <rect key="frame" x="302" y="210" width="70" height="30"/>
+                    <color key="backgroundColor" red="0.0078431372550000003" green="0.53333333329999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Save">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="saveTouched:" destination="-1" eventType="touchUpInside" id="ohv-TC-Xos"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgc-vW-TNP">
+                    <rect key="frame" x="43" y="59" width="33" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWK-l1-j83">
+                    <rect key="frame" x="450" y="210" width="70" height="30"/>
+                    <color key="backgroundColor" white="1" alpha="0.68000000000000005" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="cancelTouched:" destination="-1" eventType="touchUpInside" id="CcQ-1y-Nnp"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="fWK-l1-j83" secondAttribute="leading" constant="-50" id="Aks-pY-CJk"/>
+                <constraint firstItem="FZA-EB-t8K" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="35" id="FLg-fn-t4X"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FfJ-zK-r1i" secondAttribute="bottom" constant="20" id="Hvf-B4-zAy"/>
+                <constraint firstItem="fgc-vW-TNP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="43" id="IL0-ek-flq"/>
+                <constraint firstItem="fWK-l1-j83" firstAttribute="top" relation="lessThanOrEqual" secondItem="FZA-EB-t8K" secondAttribute="bottom" constant="93" id="O3y-k7-1s6"/>
+                <constraint firstItem="FZA-EB-t8K" firstAttribute="top" secondItem="fgc-vW-TNP" secondAttribute="bottom" constant="10" id="O7n-eh-SyH"/>
+                <constraint firstAttribute="centerX" secondItem="FfJ-zK-r1i" secondAttribute="trailing" constant="50" id="SLM-uD-4iC"/>
+                <constraint firstItem="fWK-l1-j83" firstAttribute="width" secondItem="FfJ-zK-r1i" secondAttribute="width" id="ZmV-EV-H4g"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fWK-l1-j83" secondAttribute="bottom" constant="20" id="eIt-vQ-ne8"/>
+                <constraint firstItem="FfJ-zK-r1i" firstAttribute="top" relation="lessThanOrEqual" secondItem="FZA-EB-t8K" secondAttribute="bottom" constant="93" id="ijK-6w-yx3"/>
+                <constraint firstAttribute="centerX" secondItem="FZA-EB-t8K" secondAttribute="centerX" id="qWc-kD-bgm"/>
+                <constraint firstItem="fgc-vW-TNP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="59" id="vxI-FY-ewe"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="139" y="274"/>
+        </view>
+    </objects>
+</document>
