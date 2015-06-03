@@ -14,8 +14,6 @@
 #import "LoadViewController.h"
 #import "NSObject+UIPopover_Iphone.h"
 #import "SaveViewController.h"
-#import "GuideRecordViewController.h"
-#import "GuideIPhoneViewController.h"
 #import "Configs.h"
 
 
@@ -36,7 +34,7 @@
     BOOL _isDrawing;
     BOOL _isPractising;
     
-    GuideRecordViewController *guideRecordView;
+    UIViewController *guideRecordView;
     SaveViewController * saveView;
     LoadViewController * loadView;
     
@@ -188,9 +186,8 @@
 }
 
 - (void)loadRecordGuide {
-    guideRecordView = [[GuideRecordViewController alloc]initWithNibName:@"GuideRecordViewController" bundle:nil];
+    guideRecordView = [[UIViewController alloc]initWithNibName:@"GuideRecordViewController" bundle:nil];
     if (IS_iPAD) {
-        guideRecordView = [[GuideRecordViewController alloc]initWithNibName:@"GuideRecordViewController" bundle:nil];
         UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:guideRecordView];
         popoverController.delegate = self;
         CGSize size = CGSizeMake(220, 115);
@@ -238,7 +235,7 @@
         saveViewController.tint = FPPopoverWhiteTint;
         saveViewController.border = NO;
         saveViewController.arrowDirection = FPPopoverArrowDirectionDown;
-        [saveViewController presentPopoverFromPoint:CGPointMake(self.view.frame.size.width/2,230)];
+        [saveViewController presentPopoverFromView:_btnRecord];
     }
     
     
@@ -269,26 +266,15 @@
         CGRect frame = CGRectMake(_btnLoad.frame.origin.x, _footerView.frame.origin.y, _btnLoad.frame.size.width, _btnLoad.frame.size.height);
         [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     } else {
-        FPPopoverController *popoverController = [[FPPopoverController alloc]initWithViewController:navigation delegate:self];popoverController.contentSize = CGSizeMake(300,250);
+        FPPopoverController *popoverController = [[FPPopoverController alloc]initWithViewController:navigation delegate:self];
+        popoverController.contentSize = CGSizeMake(300,250);
         popoverController.tint = FPPopoverWhiteTint;
         popoverController.border = NO;
         popoverController.arrowDirection = FPPopoverArrowDirectionDown;
-        [popoverController presentPopoverFromPoint:CGPointMake(_btnLoad.frame.origin.x + _btnLoad.frame.size.width/2,230)];
+        [popoverController presentPopoverFromView:_btnLoad];
     }
     
     
-}
-
-- (IBAction)loadTouchIphone:(id)sender {
-    // show popover to load data.
-    loadView = [[LoadViewController alloc]initWithNibName:@"LoadViewController" bundle:nil];
-    UINavigationController * navigation = [[UINavigationController alloc]initWithRootViewController:loadView];
-    [loadView setTitle:@"Load"];
-    FPPopoverController *popoverController = [[FPPopoverController alloc]initWithViewController:navigation delegate:self];popoverController.contentSize = CGSizeMake(300,250);
-    popoverController.tint = FPPopoverWhiteTint;
-    popoverController.border = NO;
-    popoverController.arrowDirection = FPPopoverArrowDirectionDown;
-    [popoverController presentPopoverFromPoint:CGPointMake(_btnLoad.frame.origin.x + _btnLoad.frame.size.width/2,230)];
 }
 
 #pragma mark - Private Category
