@@ -20,6 +20,7 @@
     double* _savedData;
     double* _plotData;
     NSTimer *_drawTimer;
+    BOOL _isPractising;
 }
 
 @end
@@ -128,6 +129,9 @@
     // DRAW SAVED GRAPH
     // Now plot the frequency response
     if (_savedData != NULL) {
+        // Drawing code
+        UIBezierPath *pathSave = [UIBezierPath
+                              bezierPath];
         CGPoint startPoint, endPoint;
         double maxFreqResp, minFreqResp, freqRespScale;
         maxFreqResp = -100.0;
@@ -140,11 +144,11 @@
         
         freqRespScale = graphHeight / (maxFreqResp - minFreqResp);
         
-        lineColor = [UIColor asbestosColor];
+        lineColor = [UIColor colorFromHexCode:@"aa5449"];
         CGContextSetStrokeColorWithColor(ctx, lineColor.CGColor);
         CGContextSetLineWidth(ctx, 2.0);
         startPoint = CGPointMake(0, graphHeight-freqRespScale*(_savedData[0]-minFreqResp)+kTopPadding);
-        
+        [pathSave moveToPoint:CGPointMake(0, self.y + self.height)];
         for (int chunkIdx=0; chunkIdx<self.width; chunkIdx++) {
             endPoint = CGPointMake(chunkIdx, graphHeight-freqRespScale*(_savedData[chunkIdx]-minFreqResp)+kTopPadding);
             if (std::isnan(startPoint.y)) {
@@ -156,6 +160,14 @@
             CGContextMoveToPoint(ctx, startPoint.x, startPoint.y);
             CGContextAddLineToPoint(ctx, endPoint.x, endPoint.y);
             startPoint = endPoint;
+            [pathSave addLineToPoint:endPoint];
+        }
+        [pathSave addLineToPoint:CGPointMake(self.x + self.width, self.y+self.height)];
+        [pathSave addLineToPoint:CGPointMake(0, self.y + self.height)];
+        if (_isPractising) {
+            UIColor *fillColor = [UIColor colorWithRed:104/255.0f green:42/255.0f blue:21/255.0f alpha:1.0];
+            [fillColor setFill];
+            [pathSave fill];
         }
         
         CGContextStrokePath(ctx);
@@ -165,6 +177,8 @@
     // =================================================================
     // DRAW REAL-TIME GRAPH
     // Now plot the frequency response
+    UIBezierPath *pathRealTime = [UIBezierPath
+                              bezierPath];
     maxFreqResp = -100.0;
     minFreqResp = 100.0;
     
@@ -178,8 +192,10 @@
     lineColor = [UIColor colorFromHexCode:@"99FF00"];
     CGContextSetStrokeColorWithColor(ctx, lineColor.CGColor);
     CGContextSetLineWidth(ctx, 2.0);
-    startPoint = CGPointMake(0, graphHeight-freqRespScale*(_plotData[0]-minFreqResp)+kTopPadding);
     
+    startPoint = CGPointMake(0, graphHeight-freqRespScale*(_plotData[0]-minFreqResp)+kTopPadding);
+//    startPoint = CGPointMake(0, self.y + self.height);
+    [pathRealTime moveToPoint:CGPointMake(0, self.y + self.height)];
     for (int chunkIdx=0; chunkIdx<self.width; chunkIdx++) {
         endPoint = CGPointMake(chunkIdx, graphHeight-freqRespScale*(_plotData[chunkIdx] - minFreqResp)+kTopPadding);
         if (std::isnan(startPoint.y)) {
@@ -190,16 +206,44 @@
         }
         CGContextMoveToPoint(ctx, startPoint.x, startPoint.y);
         CGContextAddLineToPoint(ctx, endPoint.x, endPoint.y);
+        [pathRealTime addLineToPoint:endPoint];
         startPoint = endPoint;
     }
-    
+    [pathRealTime addLineToPoint:CGPointMake(self.x + self.width, self.y + self.height)];
+    [pathRealTime addLineToPoint:CGPointMake(0, self.y + self.height)];
+    if (_isPractising) {
+        UIColor *fillColor = [UIColor colorWithRed:13/255.0f green:113/255.0f blue:40/255.0f alpha:0.5];
+        [fillColor setFill];
+        [pathRealTime fill];
+    }
     CGContextStrokePath(ctx);
-    
-    //lpcController->needReset = YES;
+    lpcController->needReset = YES;
 }
 
 - (double)getDataAtIndex:(int)index{
     return _savedData[index];
+}
+
+- (void)setPractise:(BOOL)enable{
+    _isPractising = enable;
+}
+
+- (void)loadData:(double *)data{
+    if (data) {
+        int bufferSize = lpcController.width;
+        if( _savedData != NULL ){
+            delete []_savedData;
+            _savedData = NULL;
+        }
+        _savedData = new double[bufferSize];
+        // Copy the buffer
+        memcpy(_savedData,
+               data,
+               (size_t)bufferSize*sizeof(double));
+    }else{
+        _savedData = nil;
+    }
+    
 }
 #pragma mark - LPC
 

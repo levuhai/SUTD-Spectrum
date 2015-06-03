@@ -104,13 +104,17 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    // load data
-//    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-//    NSArray * arrayData = [userDefaults objectForKey:@"data"];
-//    
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    NSArray * arrayData = [userDefaults objectForKey:@"data"];
+    NSDictionary * dict = [arrayData objectAtIndex:indexPath.row];
+//
 //    for (int i=0; i<[arrayData count]; i++) {
-//        <#statements#>
+//        statements
 //    }
-    
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LOAD_RECORD" object:nil userInfo:[dict copy]];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    if (!IS_iPAD) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"DISMISS_SAVE_VC" object:nil];
+    }
 }
 @end

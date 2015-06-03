@@ -70,6 +70,7 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dismissSaveVC) name:@"DISMISS_SAVE_VC" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loadRecord:) name:@"LOAD_RECORD" object:nil];
     // Do any additional setup after loading the view.
     _spinner = [[RTSpinKitView alloc] initWithStyle:RTSpinKitViewStyleBounce];
     _spinner.height = self.startButton.height + 4;
@@ -162,11 +163,16 @@
 
 - (IBAction)recordDown:(id)sender{
     // start record
-    if (!_isDrawing) {
+    [_lbName setText:@"New record"];
+    if (!_isPractising) {
         [self _startDrawing];
         [_spinner startAnimating];
         [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    }else{
+        _isPractising = NO;
+        [_fftView setPractise:NO];
+        [_fftView loadData:nil];
     }
 }
 
@@ -349,5 +355,38 @@
         [arrayData addObject:[NSNumber numberWithDouble:b]];
     }
     return [arrayData copy];
+}
+- (double *)convertToDoubleArray {
+    double * saveRecord;
+    int bufferSize = _fftView.width;
+    saveRecord = new double[bufferSize];
+    // Copy the buffer
+    NSMutableArray * arrayData = [[NSMutableArray alloc]init];
+    for(int i = 0; i<self.fftView.width ;i++){
+        saveRecord[i] = [[arrayData objectAtIndex:i] doubleValue];
+        
+    }
+    return saveRecord;
+}
+#pragma mark - Observer
+- (void)loadRecord:(NSNotification *)notification
+{
+    NSDictionary *data = [[notification userInfo] copy];
+    double * arrayPointer;
+    if (data) {
+        NSArray * arrayData = [data objectForKey:@"data"];
+        NSString * name = [data objectForKey:@"name"];
+        [_lbName setText:name];
+        int bufferSize = _fftView.width;
+        arrayPointer = new double[bufferSize];
+        // Copy the buffer
+        for (int i = 0; i < _fftView.width; i++) {
+            arrayPointer[i] = [arrayData[i] doubleValue];
+        }
+    }
+    _isPractising = YES;
+    [_fftView setPractise:YES];
+    [_fftView loadData:arrayPointer];
+    [_fftView startDrawing];
 }
 @end
