@@ -67,7 +67,9 @@
     if (_isDrawing == NO) {
         // Start drawing
         _isDrawing = YES;
-        
+        if (isnan(low)) low = 0;
+        if (isnan(band)) band = 0;
+        if (isnan(high)) high = 0;
         low *= 1;
         band *= 1;
         high *= 1;
