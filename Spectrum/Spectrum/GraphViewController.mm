@@ -94,7 +94,6 @@
     self.mode = kRecordMode;
     self.lpcPractiseView.shouldFillColor = YES;
     self.lpcView.shouldFillColor = YES;
-    
 }
 
 #pragma mark - Getters & Setters
@@ -164,7 +163,7 @@
         popoverController.border = NO;
         popoverController.arrowDirection = FPPopoverArrowDirectionDown;
         
-        [popoverController presentPopoverFromPoint:CGPointMake(self.view.frame.size.width/2,230)];
+        [popoverController presentPopoverFromPoint:CGPointMake(_btnRecord.centerX, _btnRecord.centerY-15)];
     }
 }
 

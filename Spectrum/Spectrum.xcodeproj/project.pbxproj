@@ -50,7 +50,6 @@
 		D71DB944195DEA0F00B1F53F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D71DB943195DEA0F00B1F53F /* AppDelegate.m */; };
 		D71DB947195DEA0F00B1F53F /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D71DB945195DEA0F00B1F53F /* Main_iPhone.storyboard */; };
 		D71DB94A195DEA0F00B1F53F /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D71DB948195DEA0F00B1F53F /* Main_iPad.storyboard */; };
-		D71DB94F195DEA0F00B1F53F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D71DB94E195DEA0F00B1F53F /* Images.xcassets */; };
 		D71DB956195DEA0F00B1F53F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D71DB955195DEA0F00B1F53F /* XCTest.framework */; };
 		D71DB957195DEA0F00B1F53F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D71DB933195DEA0F00B1F53F /* Foundation.framework */; };
 		D71DB958195DEA0F00B1F53F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D71DB937195DEA0F00B1F53F /* UIKit.framework */; };
@@ -132,6 +131,7 @@
 		D765B9221964FBCA001B6280 /* filter_hipass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D765B9211964FBCA001B6280 /* filter_hipass@2x.png */; };
 		D765B9241964FBD2001B6280 /* filter_bandpass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D765B9231964FBD2001B6280 /* filter_bandpass@2x.png */; };
 		D765B9261964FCDA001B6280 /* oscillator_noise@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D765B9251964FCDA001B6280 /* oscillator_noise@2x.png */; };
+		D79BE84C1B21C97E0028D05B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D79BE84B1B21C97E0028D05B /* Images.xcassets */; };
 		D7C6783B1AA8013000372181 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C6783A1AA8013000372181 /* AudioToolbox.framework */; };
 		D7F2BE3819616E3400EB4650 /* UIColor+Flat.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F2BE3719616E3400EB4650 /* UIColor+Flat.m */; };
 /* End PBXBuildFile section */
@@ -209,7 +209,6 @@
 		D71DB943195DEA0F00B1F53F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D71DB946195DEA0F00B1F53F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		D71DB949195DEA0F00B1F53F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		D71DB94E195DEA0F00B1F53F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D71DB954195DEA0F00B1F53F /* SpectrumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpectrumTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D71DB955195DEA0F00B1F53F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D71DB95D195DEA0F00B1F53F /* SpectrumTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SpectrumTests-Info.plist"; sourceTree = "<group>"; };
@@ -364,6 +363,7 @@
 		D765B9211964FBCA001B6280 /* filter_hipass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter_hipass@2x.png"; sourceTree = "<group>"; };
 		D765B9231964FBD2001B6280 /* filter_bandpass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter_bandpass@2x.png"; sourceTree = "<group>"; };
 		D765B9251964FCDA001B6280 /* oscillator_noise@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oscillator_noise@2x.png"; sourceTree = "<group>"; };
+		D79BE84B1B21C97E0028D05B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D7C6783A1AA8013000372181 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D7F2BE3619616E3400EB4650 /* UIColor+Flat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Flat.h"; sourceTree = "<group>"; };
 		D7F2BE3719616E3400EB4650 /* UIColor+Flat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Flat.m"; sourceTree = "<group>"; };
@@ -531,7 +531,6 @@
 				D71DB96D195E56B400B1F53F /* Controllers */,
 				D71DB96C195E568000B1F53F /* Storyboard */,
 				D71DB96B195E567000B1F53F /* App Delegate */,
-				D71DB94E195DEA0F00B1F53F /* Images.xcassets */,
 				D71DB93A195DEA0F00B1F53F /* Supporting Files */,
 			);
 			path = Spectrum;
@@ -598,6 +597,7 @@
 		D71DB96C195E568000B1F53F /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				D79BE84B1B21C97E0028D05B /* Images.xcassets */,
 				D71DB945195DEA0F00B1F53F /* Main_iPhone.storyboard */,
 				D71DB948195DEA0F00B1F53F /* Main_iPad.storyboard */,
 			);
@@ -1037,7 +1037,6 @@
 				D71CD0D81962929A003970DE /* lowpass@2x.png in Resources */,
 				6A25E1ED1B1D9D8E002E481C /* icon_record.png in Resources */,
 				6A25E1EC1B1D9D8E002E481C /* icon_record_new@2x.png in Resources */,
-				D71DB94F195DEA0F00B1F53F /* Images.xcassets in Resources */,
 				C58350BD1B19F5A600536365 /* LoadViewController.xib in Resources */,
 				D72ECCEC1AB1A0AC00126041 /* LICENSE in Resources */,
 				D765B9201964FBB6001B6280 /* filter_lowpass@2x.png in Resources */,
@@ -1046,6 +1045,7 @@
 				D72ECCE81AB1A0AC00126041 /* LICENSE in Resources */,
 				C58350D31B1A02B700536365 /* SaveViewController.xib in Resources */,
 				6A25E2091B1DB8B3002E481C /* icon_record_new_iphone@2x.png in Resources */,
+				D79BE84C1B21C97E0028D05B /* Images.xcassets in Resources */,
 				D71CD0D51962929A003970DE /* graph@2x.png in Resources */,
 				6A25E1EE1B1D9D8E002E481C /* icon_record@2x.png in Resources */,
 				6A25E1EB1B1D9D8E002E481C /* icon_record_new.png in Resources */,

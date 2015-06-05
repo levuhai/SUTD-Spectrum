@@ -145,7 +145,7 @@
         
         freqRespScale = graphHeight / (maxFreqResp - minFreqResp);
         
-        lineColor = [UIColor colorFromHexCode:@"aa5449"];
+        lineColor = [UIColor colorFromHexCode:@"f1c40f"];
         CGContextSetStrokeColorWithColor(ctx, lineColor.CGColor);
         CGContextSetLineWidth(ctx, 2.0);
         startPoint = CGPointMake(0, graphHeight-freqRespScale*(_savedData[0]-minFreqResp)+kTopPadding);
@@ -166,7 +166,7 @@
         [pathSave addLineToPoint:CGPointMake(self.x + self.width, self.y+self.height)];
         [pathSave addLineToPoint:CGPointMake(0, self.y + self.height)];
         if (_shouldFillColor) {
-            UIColor *fillColor = [UIColor colorWithRed:104/255.0f green:42/255.0f blue:21/255.0f alpha:1.0];
+            UIColor *fillColor = [[UIColor colorFromHexCode:@"e74c3c"] colorWithAlphaComponent:0.5];
             [fillColor setFill];
             [pathSave fill];
         }
@@ -215,7 +215,7 @@
         [pathRealTime addLineToPoint:CGPointMake(self.x + self.width, self.y + self.height)];
         [pathRealTime addLineToPoint:CGPointMake(0, self.y + self.height)];
         if (_shouldFillColor) {
-            UIColor *fillColor = [UIColor colorWithRed:13/255.0f green:113/255.0f blue:40/255.0f alpha:0.5];
+            UIColor *fillColor = [[UIColor colorFromHexCode:@"1abc9c"] colorWithAlphaComponent:0.6];
             [fillColor setFill];
             [pathRealTime fill];
         }
