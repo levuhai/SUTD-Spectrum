@@ -30,9 +30,7 @@
     
     NSTimer *_drawTimer;
     //LPCAudioController *_lpcController;
-    RTSpinKitView *_spinner;
     BOOL _isDrawing;
-    BOOL _isPractising;
     
     UIViewController *guideRecordView;
     SaveViewController * saveView;
@@ -68,16 +66,7 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dismissSaveVC) name:@"DISMISS_SAVE_VC" object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loadRecord:) name:@"LOAD_RECORD" object:nil];
-    // Do any additional setup after loading the view.
-    _spinner = [[RTSpinKitView alloc] initWithStyle:RTSpinKitViewStyleBounce];
-    _spinner.height = self.startButton.height + 4;
-    _spinner.width = self.startButton.width + 4;
-
-    _spinner.center = self.startButton.center;
-    _spinner.spinnerSize = self.startButton.width;
-    [_spinner setColor:[UIColor greenSeaColor]];
-    [self.view insertSubview:_spinner belowSubview:self.startButton];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(_didLoadRecordData:) name:@"LOAD_RECORD" object:nil];
     
 //    [self _startDrawing];
     
@@ -90,21 +79,6 @@
     [self.menuButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.menuButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     
-    // Start Button
-    int iconSize = 25;
-    if (IS_IPAD)
-        iconSize = 35;
-    [self.startButton.titleLabel setFont:[UIFont ioniconsOfSize:iconSize]];
-    [self.startButton setTitle:@"\uf461" forState:UIControlStateNormal];
-    [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.startButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    
-    // Save Button
-    [self.saveButton.titleLabel setFont:[UIFont ioniconsOfSize:iconSize+5]];
-    [self.saveButton setTitle:@"\uf420" forState:UIControlStateNormal];
-    [self.saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.saveButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    
     
     //[self.menuButton setBackgroundColor:[UIColor turquoiseColor]];
     self.menuView.backgroundColor = [UIColor midnightBlueColor];
@@ -116,37 +90,31 @@
     
     [self loadRecordGuide];
     
+    // Default mode
+    self.mode = kRecordMode;
+    self.lpcPractiseView.shouldFillColor = YES;
+    self.lpcView.shouldFillColor = YES;
+    
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    _spinner.center = _startButton.center;
-    _spinner.x += 1;
-    _spinner.y += 1;
-}
+#pragma mark - Getters & Setters
 
-- (void)dismissSaveVC {
-    if (saveViewController) {
-        [saveViewController dismissPopoverAnimated:YES];
-    }
+- (void)setMode:(AppMode)mode {
+    _mode = mode;
+    self.lpcPractiseView.hidden = mode == kRecordMode;
 }
 
 #pragma mark - Actions 
 - (IBAction)saveTouched:(id)sender {
-    [self.fftView saveGraph];
+    [self.lpcView saveData];
     [self.graphView saveData];
 }
 
 - (IBAction)startTouched:(id)sender {
     if (!_isDrawing) {
         [self _startDrawing];
-        [_spinner startAnimating];
-        [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     } else {
         [self _stopDrawing];
-        [_spinner stopAnimating];
-        [self.startButton setTitleColor:_spinner.color forState:UIControlStateNormal];
-        [self.startButton setTitleColor:_spinner.color forState:UIControlStateHighlighted];
     }
 }
 
@@ -162,15 +130,10 @@
 - (IBAction)recordDown:(id)sender{
     // start record
     [_lbName setText:@"New record"];
-    if (!_isPractising) {
+    if (self.mode == kRecordMode) {
         [self _startDrawing];
-        [_spinner startAnimating];
-        [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     }else{
-        _isPractising = NO;
-        [_fftView setPractise:NO];
-        [_fftView loadData:nil];
+        self.mode = kRecordMode;
     }
 }
 
@@ -218,6 +181,8 @@
     }
     saveView = [[SaveViewController alloc]initWithNibName:@"SaveViewController" bundle:nil];
     saveView.data = [self copyDataToArray];
+    [self.lpcView clearData];
+    
     UINavigationController * navigation = [[UINavigationController alloc]initWithRootViewController:saveView];
     [saveView setTitle:@"Save"];
     if (IS_iPAD) {
@@ -282,7 +247,7 @@
 - (void)_startDrawing {
     [[AudioController sharedInstance] start];
     // Setup LPC
-    [self.fftView startDrawing];
+    [self.lpcView startDrawing];
     
     if (!_drawTimer) {
         _drawTimer = [NSTimer scheduledTimerWithTimeInterval: 1/kFPS
@@ -296,7 +261,7 @@
 
 - (void)_stopDrawing {
     [[AudioController sharedInstance] stop];
-    [self.fftView stopDrawing];
+    [self.lpcView stopDrawing];
     
     [_drawTimer invalidate];
     _drawTimer = nil;
@@ -305,57 +270,14 @@
 
 - (void)_drawGraph {
     [[AudioController sharedInstance] getFilterDataWithLowPass:&_lpf bandPass:&_bpf highPass:&_hpf];
-   // [_lpcController calculateFormants];
     dispatch_async(dispatch_get_main_queue(),^{
-        //if (_lpf == _lpf && _bpf == _bpf) {
         [self.graphView addLowPass:_lpf bandPass:_bpf highPass:_hpf];
         [self.graphView setNeedsDisplay];
-            //[self.graphView addFirstF:[_lpcController firstFFreq]
-             //                 secondF:[_lpcController secondFFreq]];
-        
-        //}
-        
     });
    
 }
 
-#pragma mark - SWRevealViewControllerDelegate
-- (void)revealController:(SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position {
-    if (position == FrontViewPositionRight) {
-        [self _stopDrawing];
-    } else if (position == FrontViewPositionLeft) {
-        [self _startDrawing];
-    }
-}
-
-#pragma mark - Save & Load data
-- (void)saveData {
-    [self.fftView saveGraph];
-}
-
-- (NSArray *)copyDataToArray {
-    
-    NSMutableArray * arrayData = [[NSMutableArray alloc]init];
-    for(int i = 0; i<self.fftView.width ;i++){
-        double b = [self.fftView getDataAtIndex:i];
-        [arrayData addObject:[NSNumber numberWithDouble:b]];
-    }
-    return [arrayData copy];
-}
-- (double *)convertToDoubleArray {
-    double * saveRecord;
-    int bufferSize = _fftView.width;
-    saveRecord = new double[bufferSize];
-    // Copy the buffer
-    NSMutableArray * arrayData = [[NSMutableArray alloc]init];
-    for(int i = 0; i<self.fftView.width ;i++){
-        saveRecord[i] = [[arrayData objectAtIndex:i] doubleValue];
-        
-    }
-    return saveRecord;
-}
-#pragma mark - Observer
-- (void)loadRecord:(NSNotification *)notification
+- (void)_didLoadRecordData:(NSNotification *)notification
 {
     NSDictionary *data = [[notification userInfo] copy];
     double * arrayPointer;
@@ -363,16 +285,51 @@
         NSArray * arrayData = [data objectForKey:@"data"];
         NSString * name = [data objectForKey:@"name"];
         [_lbName setText:name];
-        int bufferSize = _fftView.width;
+        int bufferSize = _lpcView.width;
         arrayPointer = new double[bufferSize];
         // Copy the buffer
-        for (int i = 0; i < _fftView.width; i++) {
+        for (int i = 0; i < _lpcView.width; i++) {
             arrayPointer[i] = [arrayData[i] doubleValue];
         }
     }
-    _isPractising = YES;
-    [_fftView setPractise:YES];
-    [_fftView loadData:arrayPointer];
-    [_fftView startDrawing];
+    self.mode = kPractiseMode;
+    // Load Practise View
+    [_lpcPractiseView loadData:arrayPointer];
+    _lpcPractiseView.shouldFillColor = YES;
+    [_lpcPractiseView setNeedsDisplay];
+    
+    // Start drawing LPC
+    [_lpcView startDrawing];
 }
+
+- (void)dismissSaveVC {
+    if (saveViewController) {
+        [saveViewController dismissPopoverAnimated:YES];
+    }
+}
+
+#pragma mark - SWRevealViewControllerDelegate
+- (void)revealController:(SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position {
+    if (position == FrontViewPositionRight) {
+        //[self _stopDrawing];
+    } else if (position == FrontViewPositionLeft) {
+        //[self _startDrawing];
+    }
+}
+
+#pragma mark - Save & Load data
+- (void)saveData {
+    [self.lpcView saveData];
+}
+
+- (NSArray *)copyDataToArray {
+    
+    NSMutableArray * arrayData = [[NSMutableArray alloc]init];
+    for(int i = 0; i<self.lpcView.width ;i++){
+        double b = [self.lpcView getDataAtIndex:i];
+        [arrayData addObject:[NSNumber numberWithDouble:b]];
+    }
+    return [arrayData copy];
+}
+
 @end

@@ -13,12 +13,13 @@
 @interface LPCView : UIView
 
 @property (nonatomic,assign) id<LPCDelegate> delegate;
+@property (nonatomic,assign) BOOL shouldFillColor;
 
 - (void)startDrawing;
 - (void)stopDrawing;
-- (void)saveGraph;
+- (void)saveData;
+- (void)clearData;
 - (double)getDataAtIndex:(int)index;
-- (void)setPractise:(BOOL)enable;
 - (void)loadData:(double *)data;
 @end
 

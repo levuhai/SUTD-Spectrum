@@ -15,19 +15,23 @@
 
 @class LPCView;
 
+typedef enum : NSUInteger {
+    kRecordMode = 0,
+    kPractiseMode
+} AppMode;
 
 @interface GraphViewController : UIViewController<UIPopoverControllerDelegate,FPPopoverControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet GraphView* graphView;
 @property (strong, nonatomic) IBOutlet UIButton* menuButton;
-@property (strong, nonatomic) IBOutlet UIButton* saveButton;
-@property (strong, nonatomic) IBOutlet UIButton* startButton;
 @property (strong, nonatomic) IBOutlet UIView* menuView ;
-@property (strong, nonatomic) IBOutlet LPCView *fftView;
+@property (strong, nonatomic) IBOutlet LPCView *lpcView;
+@property (strong, nonatomic) IBOutlet LPCView *lpcPractiseView;
 @property (weak, nonatomic) IBOutlet UIButton *btnRecord;
 @property (weak, nonatomic) IBOutlet UIButton *btnLoad;
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
+@property (nonatomic, assign) AppMode mode;
 
 - (IBAction)menuTouched:(id)sender;
 

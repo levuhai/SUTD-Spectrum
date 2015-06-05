@@ -20,7 +20,6 @@
     double* _savedData;
     double* _plotData;
     NSTimer *_drawTimer;
-    BOOL _isPractising;
 }
 
 @end
@@ -72,17 +71,22 @@
     [lpcController stop];
 }
 
-- (void)saveGraph {
+- (void)saveData {
+    [self clearData];
+    
     int bufferSize = lpcController.width;
-    if( _savedData != NULL ){
-        delete []_savedData;
-        _savedData = NULL;
-    }
     _savedData = new double[bufferSize];
     // Copy the buffer
     memcpy(_savedData,
            _plotData,
            (size_t)bufferSize*sizeof(double));
+}
+
+- (void)clearData {
+    if( _savedData != NULL ){
+        delete []_savedData;
+        _savedData = NULL;
+    }
 }
 
 
@@ -104,9 +108,6 @@
     UIColor* lineColor;
     double maxFreqResp, minFreqResp, freqRespScale;
     float graphHeight = self.height - kBottomPadding;
-    
-    // get plot data from audio controller
-    _plotData = lpcController->plotData;
     
     // =================================================================
     // DRAW VERTICAL LINES
@@ -164,7 +165,7 @@
         }
         [pathSave addLineToPoint:CGPointMake(self.x + self.width, self.y+self.height)];
         [pathSave addLineToPoint:CGPointMake(0, self.y + self.height)];
-        if (_isPractising) {
+        if (_shouldFillColor) {
             UIColor *fillColor = [UIColor colorWithRed:104/255.0f green:42/255.0f blue:21/255.0f alpha:1.0];
             [fillColor setFill];
             [pathSave fill];
@@ -172,60 +173,59 @@
         
         CGContextStrokePath(ctx);
         
-    }
-    
-    // =================================================================
-    // DRAW REAL-TIME GRAPH
-    // Now plot the frequency response
-    UIBezierPath *pathRealTime = [UIBezierPath
-                              bezierPath];
-    maxFreqResp = -100.0;
-    minFreqResp = 100.0;
-    
-    for (int degIdx = 0; degIdx < lpcController.width; degIdx++) {
-        maxFreqResp = MAX(maxFreqResp, _plotData[degIdx]);
-        minFreqResp = MIN(minFreqResp, _plotData[degIdx]);
-    }
-    
-    freqRespScale = graphHeight / (maxFreqResp - minFreqResp);
-    
-    lineColor = [UIColor colorFromHexCode:@"99FF00"];
-    CGContextSetStrokeColorWithColor(ctx, lineColor.CGColor);
-    CGContextSetLineWidth(ctx, 2.0);
-    
-    startPoint = CGPointMake(0, graphHeight-freqRespScale*(_plotData[0]-minFreqResp)+kTopPadding);
-//    startPoint = CGPointMake(0, self.y + self.height);
-    [pathRealTime moveToPoint:CGPointMake(0, self.y + self.height)];
-    for (int chunkIdx=0; chunkIdx<self.width; chunkIdx++) {
-        endPoint = CGPointMake(chunkIdx, graphHeight-freqRespScale*(_plotData[chunkIdx] - minFreqResp)+kTopPadding);
-        if (std::isnan(startPoint.y)) {
-            startPoint.y = 0;
+    } else {
+        // get plot data from audio controller
+        _plotData = lpcController->plotData;
+        
+        // =================================================================
+        // DRAW REAL-TIME GRAPH
+        // Now plot the frequency response
+        UIBezierPath *pathRealTime = [UIBezierPath
+                                  bezierPath];
+        maxFreqResp = -100.0;
+        minFreqResp = 100.0;
+        
+        for (int degIdx = 0; degIdx < lpcController.width; degIdx++) {
+            maxFreqResp = MAX(maxFreqResp, _plotData[degIdx]);
+            minFreqResp = MIN(minFreqResp, _plotData[degIdx]);
         }
-        if (std::isnan(endPoint.y)) {
-            endPoint.y = 0;
+        
+        freqRespScale = graphHeight / (maxFreqResp - minFreqResp);
+        
+        lineColor = [UIColor colorFromHexCode:@"99FF00"];
+        CGContextSetStrokeColorWithColor(ctx, lineColor.CGColor);
+        CGContextSetLineWidth(ctx, 2.0);
+        
+        startPoint = CGPointMake(0, graphHeight-freqRespScale*(_plotData[0]-minFreqResp)+kTopPadding);
+    //    startPoint = CGPointMake(0, self.y + self.height);
+        [pathRealTime moveToPoint:CGPointMake(0, self.y + self.height)];
+        for (int chunkIdx=0; chunkIdx<self.width; chunkIdx++) {
+            endPoint = CGPointMake(chunkIdx, graphHeight-freqRespScale*(_plotData[chunkIdx] - minFreqResp)+kTopPadding);
+            if (std::isnan(startPoint.y)) {
+                startPoint.y = self.height;
+            }
+            if (std::isnan(endPoint.y)) {
+                endPoint.y = self.height;
+            }
+            CGContextMoveToPoint(ctx, startPoint.x, startPoint.y);
+            CGContextAddLineToPoint(ctx, endPoint.x, endPoint.y);
+            [pathRealTime addLineToPoint:endPoint];
+            startPoint = endPoint;
         }
-        CGContextMoveToPoint(ctx, startPoint.x, startPoint.y);
-        CGContextAddLineToPoint(ctx, endPoint.x, endPoint.y);
-        [pathRealTime addLineToPoint:endPoint];
-        startPoint = endPoint;
+        [pathRealTime addLineToPoint:CGPointMake(self.x + self.width, self.y + self.height)];
+        [pathRealTime addLineToPoint:CGPointMake(0, self.y + self.height)];
+        if (_shouldFillColor) {
+            UIColor *fillColor = [UIColor colorWithRed:13/255.0f green:113/255.0f blue:40/255.0f alpha:0.5];
+            [fillColor setFill];
+            [pathRealTime fill];
+        }
+        CGContextStrokePath(ctx);
+        lpcController->needReset = YES;
     }
-    [pathRealTime addLineToPoint:CGPointMake(self.x + self.width, self.y + self.height)];
-    [pathRealTime addLineToPoint:CGPointMake(0, self.y + self.height)];
-    if (_isPractising) {
-        UIColor *fillColor = [UIColor colorWithRed:13/255.0f green:113/255.0f blue:40/255.0f alpha:0.5];
-        [fillColor setFill];
-        [pathRealTime fill];
-    }
-    CGContextStrokePath(ctx);
-    lpcController->needReset = YES;
 }
 
 - (double)getDataAtIndex:(int)index{
     return _savedData[index];
-}
-
-- (void)setPractise:(BOOL)enable{
-    _isPractising = enable;
 }
 
 - (void)loadData:(double *)data{
