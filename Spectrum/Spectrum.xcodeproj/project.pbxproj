@@ -22,6 +22,7 @@
 		6A25E2201B1DDDEA002E481C /* FPPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A25E21B1B1DDDEA002E481C /* FPPopoverView.m */; };
 		6A25E2211B1DDDEA002E481C /* FPTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A25E21D1B1DDDEA002E481C /* FPTouchView.m */; };
 		6A25E2221B1DDDEA002E481C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6A25E21E1B1DDDEA002E481C /* LICENSE */; };
+		C50AAC941B22D97900CAE5B5 /* NSMutableArray+Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = C50AAC931B22D97900CAE5B5 /* NSMutableArray+Queue.m */; };
 		C58350BC1B19F5A600536365 /* LoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C58350BA1B19F5A600536365 /* LoadViewController.m */; };
 		C58350BD1B19F5A600536365 /* LoadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C58350BB1B19F5A600536365 /* LoadViewController.xib */; };
 		C58350CD1B19FE1100536365 /* RecordViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C58350CB1B19FE1100536365 /* RecordViewCell.m */; };
@@ -168,6 +169,8 @@
 		6A25E21C1B1DDDEA002E481C /* FPTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTouchView.h; sourceTree = "<group>"; };
 		6A25E21D1B1DDDEA002E481C /* FPTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPTouchView.m; sourceTree = "<group>"; };
 		6A25E21E1B1DDDEA002E481C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		C50AAC921B22D97800CAE5B5 /* NSMutableArray+Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Queue.h"; sourceTree = "<group>"; };
+		C50AAC931B22D97900CAE5B5 /* NSMutableArray+Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Queue.m"; sourceTree = "<group>"; };
 		C58350B91B19F5A600536365 /* LoadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadViewController.h; sourceTree = "<group>"; };
 		C58350BA1B19F5A600536365 /* LoadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadViewController.m; sourceTree = "<group>"; };
 		C58350BB1B19F5A600536365 /* LoadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadViewController.xib; sourceTree = "<group>"; };
@@ -654,6 +657,8 @@
 		D71DB97B195E584200B1F53F /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				C50AAC921B22D97800CAE5B5 /* NSMutableArray+Queue.h */,
+				C50AAC931B22D97900CAE5B5 /* NSMutableArray+Queue.m */,
 				D71CD0CC19628D96003970DE /* UIFont+Custom.h */,
 				D71CD0CD19628D96003970DE /* UIFont+Custom.m */,
 				D7F2BE3619616E3400EB4650 /* UIColor+Flat.h */,
@@ -1099,6 +1104,7 @@
 				D72ECCF41AB1A0AC00126041 /* RTSpinKitArcAnimation.m in Sources */,
 				D72ECCD91AB1A0AC00126041 /* RBJ.cpp in Sources */,
 				D72ECCDF1AB1A0AC00126041 /* EZAudioPlayer.m in Sources */,
+				C50AAC941B22D97900CAE5B5 /* NSMutableArray+Queue.m in Sources */,
 				D72ECCDA1AB1A0AC00126041 /* RootFinder.cpp in Sources */,
 				D71DB981195E586100B1F53F /* UIImage+Expanded.m in Sources */,
 				D71CD0C4196287AE003970DE /* MenuViewController.m in Sources */,
@@ -1327,6 +1333,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1E8FED95-8D1F-46EA-BD82-28391402210D";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WARNING_CFLAGS = "-Wno-objc-designated-initializers";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1365,6 +1372,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7880a17f-d842-4d9e-913e-b180fb5ef22f";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WARNING_CFLAGS = "-Wno-objc-designated-initializers";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

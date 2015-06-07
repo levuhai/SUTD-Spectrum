@@ -23,7 +23,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V2p-AR-bE7" userLabel="lbName">
-                        <rect key="frame" x="38" y="11" width="174" height="21"/>
+                        <rect key="frame" x="38" y="11" width="124" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="9JS-mO-kpJ"/>
                         </constraints>
@@ -32,10 +32,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bj8-wt-wE7">
-                        <rect key="frame" x="212" y="11" width="100" height="21"/>
+                        <rect key="frame" x="162" y="11" width="150" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="7gS-Qe-CYt"/>
-                            <constraint firstAttribute="width" constant="100" id="LM7-YG-TEg"/>
+                            <constraint firstAttribute="width" constant="150" id="LM7-YG-TEg"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>

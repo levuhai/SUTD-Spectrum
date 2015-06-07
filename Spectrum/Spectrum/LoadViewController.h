@@ -10,7 +10,7 @@
 
 @interface LoadViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 {
-    NSArray * listRecord;
+    NSMutableArray * listRecord;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end

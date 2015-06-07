@@ -169,13 +169,10 @@
                     <connections>
                         <outlet property="btnLoad" destination="R8V-cU-SMw" id="taC-hj-ADw"/>
                         <outlet property="btnRecord" destination="ZGu-89-spL" id="wmB-vu-A94"/>
-                        <outlet property="fftView" destination="fwq-F5-pth" id="zNu-GS-NrK"/>
                         <outlet property="footerView" destination="Evf-5Q-p2V" id="EoA-MX-egE"/>
                         <outlet property="graphView" destination="2LA-7E-Au2" id="bnB-h6-hfH"/>
                         <outlet property="lbName" destination="kTO-54-1Fw" id="FBn-js-nnv"/>
                         <outlet property="menuButton" destination="dFc-rR-cLW" id="Ibd-UJ-pu7"/>
-                        <outlet property="saveButton" destination="Cyw-Rf-Toc" id="khu-6h-Wrk"/>
-                        <outlet property="startButton" destination="ZFU-uB-JwZ" id="PC4-3c-G2i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wY8-T2-0fG" sceneMemberID="firstResponder"/>

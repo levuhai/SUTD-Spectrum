@@ -23,6 +23,7 @@
     if (!listRecord) {
         listRecord = [[NSMutableArray alloc]initWithCapacity:1];
     }
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
     [self getData];
     [self.tableView reloadData];
 }
@@ -44,7 +45,7 @@
 
 - (void)getData{
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    listRecord = [userDefaults objectForKey:@"data"];
+    listRecord = [NSMutableArray arrayWithArray:[userDefaults objectForKey:@"data"]];
 }
 
 #pragma mark - UITableViewDataSource
@@ -66,10 +67,14 @@
     if (data) {
         // add name
         cell.lbName.text = [data objectForKey:@"name"];
-        // add score
-        cell.lbScore.text = @"Score";
+        // add date
+        
+        NSDate * date = [data objectForKey:@"date"];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"EEE d, MMM, yyyy"];
+        NSString * strDate = [formatter stringFromDate:date];
+        cell.lbScore.text = strDate;
     }
-    
     // add target
     return cell;
 }
@@ -90,8 +95,8 @@
         lblName.font = [UIFont boldSystemFontOfSize:17];
         [header addSubview:lblName];
         
-        UILabel *lblScore = [[UILabel alloc]initWithFrame:CGRectMake(tableView.frame.size.width - 90, 5, 50, 40)];
-        lblScore.text = @"Score";
+        UILabel *lblScore = [[UILabel alloc]initWithFrame:CGRectMake(tableView.frame.size.width - 140, 5, 150, 40)];
+        lblScore.text = @"Create Date";
         lblScore.font = [UIFont boldSystemFontOfSize:17];
         lblScore.textColor = [UIColor redColor];
         [header addSubview:lblScore];
@@ -115,6 +120,21 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     if (!IS_iPAD) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"DISMISS_SAVE_VC" object:nil];
+    }
+}
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return YES;
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [listRecord removeObjectAtIndex:indexPath.row];
+        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:[listRecord copy] forKey:@"data"];
+        [userDefaults synchronize];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else {
+        NSLog(@"Unhandled editing style! %ld", (long)editingStyle);
     }
 }
 @end

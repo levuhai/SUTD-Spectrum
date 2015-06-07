@@ -11,6 +11,7 @@
 #import "ViewFrameAccessor.h"
 #import <complex.h>
 #include <math.h>
+#import "NSMutableArray+Queue.h"
 
 #define kTopPadding 10
 #define kBottomPadding 10
@@ -20,6 +21,8 @@
     double* _savedData;
     double* _plotData;
     NSTimer *_drawTimer;
+    BOOL _isPractising;
+    NSMutableArray * buffer;
 }
 
 @end
@@ -49,6 +52,9 @@
     if (self) {
         // Setup LPC
         lpcController = [LPCAudioController sharedInstance];
+        if (!buffer) {
+            buffer = [[NSMutableArray alloc]initWithMaxItem:maxNumberOfBuffer];
+        }
         [self setBackgroundColor:[UIColor clearColor]];
     }
     return self;
@@ -95,6 +101,16 @@
 {
     //if (lpcController->drawing) {
     [self setNeedsDisplay];
+    if (_plotData) {
+        if (_isRecordMode) {
+            NSArray * arrayData = [self copyDataToArray:_plotData];
+            [buffer addItem:arrayData];
+        }else{
+            // post notification for genarate score
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"LOAD_SCORE" object:nil userInfo:nil];
+        }
+        
+    }
     //}
 }
 
@@ -228,6 +244,37 @@
     return _savedData[index];
 }
 
+- (double)getPlotDataAtIndex:(int)index{
+    float graphHeight = self.height - kBottomPadding;
+    double maxFreqResp, minFreqResp, freqRespScale;
+    maxFreqResp = -100.0;
+    minFreqResp = 100.0;
+    
+    for (int degIdx = 0; degIdx < lpcController.width; degIdx++) {
+        maxFreqResp = MAX(maxFreqResp, _plotData[degIdx]);
+        minFreqResp = MIN(minFreqResp, _plotData[degIdx]);
+    }
+    
+    freqRespScale = graphHeight / (maxFreqResp - minFreqResp);
+    double returnValue = graphHeight-freqRespScale*(_plotData[index]-minFreqResp)+kTopPadding;
+    return returnValue;
+}
+
+- (double)getSaveDataAtIndex:(int)index{
+    float graphHeight = self.height - kBottomPadding;
+    double maxFreqResp, minFreqResp, freqRespScale;
+    maxFreqResp = -100.0;
+    minFreqResp = 100.0;
+    
+    for (int degIdx = 0; degIdx < lpcController.width; degIdx++) {
+        maxFreqResp = MAX(maxFreqResp, _savedData[degIdx]);
+        minFreqResp = MIN(minFreqResp, _savedData[degIdx]);
+    }
+    
+    freqRespScale = graphHeight / (maxFreqResp - minFreqResp);
+    double returnValue = graphHeight-freqRespScale*(_savedData[index] - minFreqResp)+kTopPadding;
+    return returnValue;
+}
 - (void)loadData:(double *)data{
     if (data) {
         int bufferSize = lpcController.width;
@@ -244,6 +291,20 @@
         _savedData = nil;
     }
     
+}
+- (NSArray *)copyDataToArray:(double *)data{
+    
+    NSMutableArray * arrayData = [[NSMutableArray alloc]init];
+    for(int i = 0; i<lpcController.width ;i++){
+        double b = data[i];
+        [arrayData addObject:[NSNumber numberWithDouble:b]];
+    }
+    return [arrayData copy];
+}
+- (NSArray *)getArrayDataAtIndex:(int)index{
+    NSArray * array = [[buffer objectAtIndex:index] copy];
+    [buffer removeAllObjects];
+    return array;
 }
 #pragma mark - LPC
 

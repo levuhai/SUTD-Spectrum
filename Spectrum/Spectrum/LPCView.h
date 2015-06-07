@@ -14,12 +14,16 @@
 
 @property (nonatomic,assign) id<LPCDelegate> delegate;
 @property (nonatomic,assign) BOOL shouldFillColor;
+@property (nonatomic,assign) BOOL isRecordMode;
 
 - (void)startDrawing;
 - (void)stopDrawing;
 - (void)saveData;
 - (void)clearData;
 - (double)getDataAtIndex:(int)index;
+- (double)getPlotDataAtIndex:(int)index;
+- (double)getSaveDataAtIndex:(int)index;
+- (NSArray *)getArrayDataAtIndex:(int)index;
 - (void)loadData:(double *)data;
 @end
 

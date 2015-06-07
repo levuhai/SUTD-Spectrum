@@ -57,8 +57,9 @@
     
     // convert to data to NSArray
     if (_data) {
+        NSDate * date = [NSDate date];
         // save data
-        NSDictionary * dict = @{@"data":_data,@"name":_tfName.text};
+        NSDictionary * dict = @{@"data":_data,@"name":_tfName.text,@"date":date};
         NSUserDefaults * userDefaults   = [NSUserDefaults standardUserDefaults];
         NSMutableArray * dataOfUserDefaults           = [[userDefaults objectForKey:@"data"] mutableCopy];
         if (!dataOfUserDefaults) {

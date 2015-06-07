@@ -15,7 +15,8 @@
 #import "NSObject+UIPopover_Iphone.h"
 #import "SaveViewController.h"
 #import "Configs.h"
-
+#import "NSMutableArray+Queue.h"
+#include <math.h>
 
 #define absX(x) (x<0?0-x:x)
 #define decibel(amplitude) (20.0 * log10(absX(amplitude)))
@@ -37,6 +38,7 @@
     LoadViewController * loadView;
     
     FPPopoverController *saveViewController;
+    NSMutableArray * bufferGraph;
 }
 
 @end
@@ -67,7 +69,7 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dismissSaveVC) name:@"DISMISS_SAVE_VC" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(_didLoadRecordData:) name:@"LOAD_RECORD" object:nil];
-    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(_didLoadScore:) name:@"LOAD_SCORE" object:nil];
 //    [self _startDrawing];
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
@@ -82,11 +84,11 @@
     
     //[self.menuButton setBackgroundColor:[UIColor turquoiseColor]];
     self.menuView.backgroundColor = [UIColor midnightBlueColor];
-    self.graphView.backgroundColor = [UIColor wetAsphaltColor];
-    [self.graphView.layer setCornerRadius:10.0f];
-    self.graphView.layer.masksToBounds = YES;
-    self.graphView.layer.borderColor =[UIColor darkGrayColor].CGColor;
-    self.graphView.layer.borderWidth = 1;
+//    self.graphView.backgroundColor = [UIColor wetAsphaltColor];
+//    [self.graphView.layer setCornerRadius:10.0f];
+//    self.graphView.layer.masksToBounds = YES;
+//    self.graphView.layer.borderColor =[UIColor darkGrayColor].CGColor;
+//    self.graphView.layer.borderWidth = 1;
     
     [self loadRecordGuide];
     
@@ -94,19 +96,24 @@
     self.mode = kRecordMode;
     self.lpcPractiseView.shouldFillColor = YES;
     self.lpcView.shouldFillColor = YES;
+    
+    // init buffer
+    bufferGraph = [[NSMutableArray alloc]initWithMaxItem:maxNumberOfBuffer];
 }
 
 #pragma mark - Getters & Setters
 
 - (void)setMode:(AppMode)mode {
     _mode = mode;
+    _lpcView.isRecordMode = mode == kRecordMode;
     self.lpcPractiseView.hidden = mode == kRecordMode;
+    self.viewScore.hidden = mode == kRecordMode;
 }
 
 #pragma mark - Actions 
 - (IBAction)saveTouched:(id)sender {
     [self.lpcView saveData];
-    [self.graphView saveData];
+//    [self.graphView saveData];
 }
 
 - (IBAction)startTouched:(id)sender {
@@ -154,7 +161,7 @@
         popoverController.delegate = self;
         CGSize size = CGSizeMake(220, 115);
         popoverController.popoverContentSize = size; //your custom size.
-        CGRect frame = CGRectMake(_btnRecord.frame.origin.x, _footerView.frame.origin.y, _btnRecord.frame.size.width, _btnLoad.frame.size.height);
+        CGRect frame = CGRectMake(_btnRecord.frame.origin.x, _footerView.frame.origin.y, _btnRecord.frame.size.width, _btnRecord.frame.size.height);
         [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     } else {
         FPPopoverController *popoverController = [[FPPopoverController alloc]initWithViewController:guideRecordView delegate:self];
@@ -163,7 +170,7 @@
         popoverController.border = NO;
         popoverController.arrowDirection = FPPopoverArrowDirectionDown;
         
-        [popoverController presentPopoverFromPoint:CGPointMake(_btnRecord.centerX, _btnRecord.centerY-15)];
+        [popoverController presentPopoverFromPoint:CGPointMake(_btnRecord.centerX,_btnRecord.centerY-15)];
     }
 }
 
@@ -179,7 +186,7 @@
         }];
     }
     saveView = [[SaveViewController alloc]initWithNibName:@"SaveViewController" bundle:nil];
-    saveView.data = [self copyDataToArray];
+    saveView.data = [self findData];
     [self.lpcView clearData];
     
     UINavigationController * navigation = [[UINavigationController alloc]initWithRootViewController:saveView];
@@ -269,10 +276,14 @@
 
 - (void)_drawGraph {
     [[AudioController sharedInstance] getFilterDataWithLowPass:&_lpf bandPass:&_bpf highPass:&_hpf];
-    dispatch_async(dispatch_get_main_queue(),^{
-        [self.graphView addLowPass:_lpf bandPass:_bpf highPass:_hpf];
-        [self.graphView setNeedsDisplay];
-    });
+    if(self.mode == kRecordMode){
+        CGFloat sum = _lpf + _bpf + _hpf;
+        [bufferGraph addItem:[NSNumber numberWithFloat:sum]];
+    }
+//    dispatch_async(dispatch_get_main_queue(),^{
+//        [self.graphView addLowPass:_lpf bandPass:_bpf highPass:_hpf];
+//        [self.graphView setNeedsDisplay];
+//    });
    
 }
 
@@ -301,6 +312,24 @@
     [_lpcView startDrawing];
 }
 
+- (void)_didLoadScore:(NSNotification *)notification
+{
+    double sumA = 0;
+    double sumB = 0;
+    
+    for (int i = 0; i < _lpcPractiseView.width; i++) {
+        double item = [_lpcPractiseView getSaveDataAtIndex:i];
+        sumA += item;
+    }
+    
+    for (int i = 0; i < _lpcView.width; i++) {
+        sumB += [_lpcView getPlotDataAtIndex:i];
+    }
+    double test = sumA - fabs(sumA - sumB);
+    double percent = test/sumA;
+    _lbScore.text = [NSString stringWithFormat:@"%.0f%%",percent * 100];
+    [_progressView setProgress:percent];
+}
 - (void)dismissSaveVC {
     if (saveViewController) {
         [saveViewController dismissPopoverAnimated:YES];
@@ -321,6 +350,18 @@
     [self.lpcView saveData];
 }
 
+-(NSArray *)findData{
+    int index = 0;
+    float max = 0;
+    for (int i = 0; i< [bufferGraph count]; i++) {
+        float item = [[bufferGraph objectAtIndex:i] floatValue];
+        if (max >= item) {
+            index = i;
+        }
+    }
+    [bufferGraph removeAllObjects];
+    return [self.lpcView getArrayDataAtIndex:index];
+}
 - (NSArray *)copyDataToArray {
     
     NSMutableArray * arrayData = [[NSMutableArray alloc]init];
