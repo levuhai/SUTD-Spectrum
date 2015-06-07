@@ -314,19 +314,20 @@
 
 - (void)_didLoadScore:(NSNotification *)notification
 {
-    double sumA = 0;
-    double sumB = 0;
-    
+    double sum = 0;
+    double threshold = 15;
     for (int i = 0; i < _lpcPractiseView.width; i++) {
-        double item = [_lpcPractiseView getSaveDataAtIndex:i];
-        sumA += item;
+        double itemA = [_lpcPractiseView getSaveDataAtIndex:i];
+        double itemB = [_lpcView getPlotDataAtIndex:i];
+        double diff = fabs(itemA-itemB);
+        if (diff>=threshold) {
+            diff=_lpcPractiseView.height;
+        }
+        sum+= (diff/_lpcPractiseView.height);
     }
     
-    for (int i = 0; i < _lpcView.width; i++) {
-        sumB += [_lpcView getPlotDataAtIndex:i];
-    }
-    double test = sumA - fabs(sumA - sumB);
-    double percent = test/sumA;
+    double percent = 1- sum / _lpcPractiseView.width;
+
     _lbScore.text = [NSString stringWithFormat:@"%.0f%%",percent * 100];
     [_progressView setProgress:percent];
 }
@@ -355,8 +356,9 @@
     float max = 0;
     for (int i = 0; i< [bufferGraph count]; i++) {
         float item = [[bufferGraph objectAtIndex:i] floatValue];
-        if (max >= item) {
+        if (item >= max) {
             index = i;
+            max = item;
         }
     }
     [bufferGraph removeAllObjects];
