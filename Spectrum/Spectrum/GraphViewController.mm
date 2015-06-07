@@ -323,9 +323,8 @@
         if (diff>=threshold) {
             diff=_lpcPractiseView.height;
         }
-        sum+= (diff/_lpcPractiseView.height);
+        sum+= diff;
     }
-    
     
     double percent = 1- (sum/_lpcPractiseView.height/ _lpcPractiseView.width);
     _lbScore.text = [NSString stringWithFormat:@"%.0f%%",percent * 100];
