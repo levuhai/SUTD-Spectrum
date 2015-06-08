@@ -36,7 +36,7 @@
     UIViewController *guideRecordView;
     SaveViewController * saveView;
     LoadViewController * loadView;
-    
+    FPPopoverController *loadViewController;
     FPPopoverController *saveViewController;
     NSMutableArray * bufferGraph;
 }
@@ -244,13 +244,13 @@
         CGRect frame = CGRectMake(_btnLoad.frame.origin.x, _footerView.frame.origin.y, _btnLoad.frame.size.width, _btnLoad.frame.size.height);
         [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     } else {
-        FPPopoverController *popoverController = [[FPPopoverController alloc]initWithViewController:navigation delegate:self];
-        popoverController.contentSize = CGSizeMake(350,250);
-        popoverController.tint = FPPopoverWhiteTint;
-        popoverController.border = NO;
-        [popoverController setShadowsHidden:YES];
-        popoverController.arrowDirection = FPPopoverArrowDirectionDown;
-        [popoverController presentPopoverFromView:_btnLoad];
+        loadViewController = [[FPPopoverController alloc]initWithViewController:navigation delegate:self];
+        loadViewController.contentSize = CGSizeMake(350,250);
+        loadViewController.tint = FPPopoverWhiteTint;
+        loadViewController.border = NO;
+        [loadViewController setShadowsHidden:YES];
+        loadViewController.arrowDirection = FPPopoverArrowDirectionDown;
+        [loadViewController presentPopoverFromView:_btnLoad];
     }
     
     
@@ -341,6 +341,9 @@
 - (void)dismissSaveVC {
     if (saveViewController) {
         [saveViewController dismissPopoverAnimated:YES];
+    }
+    if (loadViewController) {
+        [loadViewController dismissPopoverAnimated:YES];
     }
 }
 
