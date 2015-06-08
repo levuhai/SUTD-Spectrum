@@ -32,7 +32,7 @@
     NSTimer *_drawTimer;
     //LPCAudioController *_lpcController;
     BOOL _isDrawing;
-    
+    BOOL _hasShownInstruction;
     UIViewController *guideRecordView;
     SaveViewController * saveView;
     LoadViewController * loadView;
@@ -90,8 +90,6 @@
 //    self.graphView.layer.borderColor =[UIColor darkGrayColor].CGColor;
 //    self.graphView.layer.borderWidth = 1;
     
-    [self loadRecordGuide];
-    
     // Default mode
     self.mode = kRecordMode;
     self.lpcPractiseView.shouldFillColor = YES;
@@ -99,6 +97,14 @@
     
     // init buffer
     bufferGraph = [[NSMutableArray alloc]initWithMaxItem:maxNumberOfBuffer];
+    _hasShownInstruction = NO;
+}
+
+- (void)viewDidLayoutSubviews {
+    if (!_hasShownInstruction) {
+        [self loadRecordGuide];
+        _hasShownInstruction = YES;
+    }
 }
 
 #pragma mark - Getters & Setters
@@ -169,7 +175,7 @@
         popoverController.tint = FPPopoverWhiteTint;
         popoverController.border = NO;
         popoverController.arrowDirection = FPPopoverArrowDirectionDown;
-        
+        [popoverController setShadowsHidden:YES];
         [popoverController presentPopoverFromPoint:CGPointMake(_btnRecord.centerX,_btnRecord.centerY-15)];
     }
 }
@@ -205,6 +211,7 @@
         saveViewController.contentSize = CGSizeMake(300,250);
         saveViewController.tint = FPPopoverWhiteTint;
         saveViewController.border = NO;
+        [saveViewController setShadowsHidden:YES];
         saveViewController.arrowDirection = FPPopoverArrowDirectionDown;
         [saveViewController presentPopoverFromView:_btnRecord];
     }
@@ -238,9 +245,10 @@
         [popoverController presentPopoverFromRect:frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     } else {
         FPPopoverController *popoverController = [[FPPopoverController alloc]initWithViewController:navigation delegate:self];
-        popoverController.contentSize = CGSizeMake(300,250);
+        popoverController.contentSize = CGSizeMake(350,250);
         popoverController.tint = FPPopoverWhiteTint;
         popoverController.border = NO;
+        [popoverController setShadowsHidden:YES];
         popoverController.arrowDirection = FPPopoverArrowDirectionDown;
         [popoverController presentPopoverFromView:_btnLoad];
     }
