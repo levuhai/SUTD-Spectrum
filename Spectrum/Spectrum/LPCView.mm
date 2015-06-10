@@ -20,9 +20,7 @@
     LPCAudioController *lpcController;
     double* _savedData;
     double* _plotData;
-    NSTimer *_drawTimer;
     BOOL _isPractising;
-    NSMutableArray * buffer;
 }
 
 @end
@@ -52,33 +50,13 @@
     if (self) {
         // Setup LPC
         lpcController = [LPCAudioController sharedInstance];
-        if (!buffer) {
-            buffer = [[NSMutableArray alloc]initWithMaxItem:maxNumberOfBuffer];
-        }
         [self setBackgroundColor:[UIColor clearColor]];
     }
     return self;
 }
 
-- (void)startDrawing {
-    if (!_drawTimer) {
-        [lpcController start];
-        _drawTimer = [NSTimer scheduledTimerWithTimeInterval: 1/kFPS
-                                                      target: self
-                                                    selector: @selector(refresh)
-                                                    userInfo: nil
-                                                     repeats: YES];
-    }
-}
-
-- (void)stopDrawing {
-    [_drawTimer invalidate];
-    _drawTimer = nil;
-    [lpcController stop];
-}
-
 - (void)saveData {
-    [self clearData];
+    [self clearSavedData];
     
     int bufferSize = lpcController.width;
     _savedData = new double[bufferSize];
@@ -88,7 +66,7 @@
            (size_t)bufferSize*sizeof(double));
 }
 
-- (void)clearData {
+- (void)clearSavedData {
     if( _savedData != NULL ){
         delete []_savedData;
         _savedData = NULL;
@@ -101,16 +79,6 @@
 {
     //if (lpcController->drawing) {
     [self setNeedsDisplay];
-    if (_plotData) {
-        if (_isRecordMode) {
-            NSArray * arrayData = [self copyDataToArray:_plotData];
-            [buffer addItem:arrayData];
-        }else{
-            // post notification for genarate score
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"LOAD_SCORE" object:nil userInfo:nil];
-        }
-        
-    }
     //}
 }
 
@@ -240,11 +208,11 @@
     }
 }
 
-- (double)getDataAtIndex:(int)index{
-    return _savedData[index];
+- (NSArray *)currentRawData {
+    return [self _toNSArray:_plotData];
 }
 
-- (double)getPlotDataAtIndex:(int)index{
+- (double)currentPlotDataAtIndex:(int)index {
     float graphHeight = self.height - kBottomPadding;
     double maxFreqResp, minFreqResp, freqRespScale;
     maxFreqResp = -100.0;
@@ -260,7 +228,7 @@
     return returnValue;
 }
 
-- (double)getSaveDataAtIndex:(int)index{
+- (double)savedPlotDataAtIndex:(int)index{
     float graphHeight = self.height - kBottomPadding;
     double maxFreqResp, minFreqResp, freqRespScale;
     maxFreqResp = -100.0;
@@ -292,7 +260,7 @@
     }
     
 }
-- (NSArray *)copyDataToArray:(double *)data{
+- (NSArray *)_toNSArray:(double *)data {
     
     NSMutableArray * arrayData = [[NSMutableArray alloc]init];
     for(int i = 0; i<lpcController.width ;i++){
@@ -301,11 +269,7 @@
     }
     return [arrayData copy];
 }
-- (NSArray *)getArrayDataAtIndex:(int)index{
-    NSArray * array = [[buffer objectAtIndex:index] copy];
-    [buffer removeAllObjects];
-    return array;
-}
+
 #pragma mark - LPC
 
 @end

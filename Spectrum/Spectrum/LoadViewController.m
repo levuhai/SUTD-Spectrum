@@ -92,12 +92,12 @@
         header.backgroundColor = [UIColor whiteColor];
         UILabel *lblName = [[UILabel alloc]initWithFrame:CGRectMake(38, 5, 50, 40)];
         lblName.text = @"Name";
-        lblName.font = [UIFont boldSystemFontOfSize:17];
+        lblName.font = [UIFont boldSystemFontOfSize:15];
         [header addSubview:lblName];
         
         UILabel *lblScore = [[UILabel alloc]initWithFrame:CGRectMake(tableView.frame.size.width - 140, 5, 150, 40)];
-        lblScore.text = @"Create Date";
-        lblScore.font = [UIFont boldSystemFontOfSize:17];
+        lblScore.text = @"Created Date";
+        lblScore.font = [UIFont boldSystemFontOfSize:15];
         lblScore.textColor = [UIColor redColor];
         [header addSubview:lblScore];
         return header;

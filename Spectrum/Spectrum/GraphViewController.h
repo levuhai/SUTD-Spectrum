@@ -24,11 +24,14 @@ typedef enum : NSUInteger {
 
 //@property (strong, nonatomic) IBOutlet GraphView* graphView;
 @property (strong, nonatomic) IBOutlet UIButton* menuButton;
-@property (strong, nonatomic) IBOutlet UIView* menuView ;
-@property (strong, nonatomic) IBOutlet LPCView *lpcView;
+@property (strong, nonatomic) IBOutlet UISegmentedControl* segment;
+@property (strong, nonatomic) IBOutlet LPCView *lpcRecordView;
 @property (strong, nonatomic) IBOutlet LPCView *lpcPractiseView;
+
 @property (weak, nonatomic) IBOutlet UIButton *btnRecord;
 @property (weak, nonatomic) IBOutlet UIButton *btnLoad;
+@property (weak, nonatomic) IBOutlet UIButton *btnNew;
+
 @property (weak, nonatomic) IBOutlet UILabel *lbName;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (weak, nonatomic) IBOutlet UIView *viewScore;

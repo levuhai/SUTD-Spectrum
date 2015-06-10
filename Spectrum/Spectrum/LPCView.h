@@ -16,14 +16,13 @@
 @property (nonatomic,assign) BOOL shouldFillColor;
 @property (nonatomic,assign) BOOL isRecordMode;
 
-- (void)startDrawing;
-- (void)stopDrawing;
+- (void)refresh;
+- (NSArray*)currentRawData;
+- (double)currentPlotDataAtIndex:(int)index;
+- (double)savedPlotDataAtIndex:(int)index;
+
 - (void)saveData;
-- (void)clearData;
-- (double)getDataAtIndex:(int)index;
-- (double)getPlotDataAtIndex:(int)index;
-- (double)getSaveDataAtIndex:(int)index;
-- (NSArray *)getArrayDataAtIndex:(int)index;
+- (void)clearSavedData;
 - (void)loadData:(double *)data;
 @end
 

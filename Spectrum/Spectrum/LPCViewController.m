@@ -40,7 +40,6 @@
     self.view.backgroundColor = [UIColor wetAsphaltColor];
     self.menuView.backgroundColor = [UIColor midnightBlueColor];
     self.fftView.delegate = self;
-    [self.fftView startDrawing];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,10 +54,6 @@
     
     // Present the view controller
     [self.revealViewController revealToggleAnimated:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self.fftView stopDrawing];
 }
 
 /*

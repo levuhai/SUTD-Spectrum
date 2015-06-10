@@ -73,9 +73,9 @@
         [self dismissViewControllerAnimated:YES completion:^{
             //handle did dismiss
         }];
-        if (!IS_iPAD) {
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"DISMISS_SAVE_VC" object:nil];
-        }
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"DISMISS_SAVE_VC" object:nil];
+        
     }
     
 }
@@ -84,12 +84,8 @@
     [self dismissViewControllerAnimated:YES completion:^{
         //handle did dismiss
     }];
-    if (!IS_iPAD) {
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"DISMISS_SAVE_VC" object:nil];
-    }
-}
-
-+ (void)addToArrayData:(NSNumber *)number {
+   
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"DISMISS_SAVE_VC" object:nil];
     
 }
 

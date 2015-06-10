@@ -17,25 +17,54 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="U5N-qp-yay">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="629"/>
+                    <rect key="frame" x="0.0" y="50" width="600" height="584"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="RpW-r7-9ya"/>
                         <outlet property="delegate" destination="-1" id="UXF-40-Flw"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Pr-TF-Xcd">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Load" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSx-6u-pa9">
+                            <rect key="frame" x="280" y="8" width="40" height="21"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <variation key="widthClass=compact">
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                            </variation>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe left to delete" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qkt-GB-XYd">
+                            <rect key="frame" x="251" y="33" width="99" height="14"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="12"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.086274509803921567" green="0.62745098039215685" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="centerX" secondItem="fSx-6u-pa9" secondAttribute="centerX" id="Chn-WQ-gPk"/>
+                        <constraint firstItem="fSx-6u-pa9" firstAttribute="top" secondItem="3Pr-TF-Xcd" secondAttribute="top" constant="8" id="aX1-9W-Y0t"/>
+                        <constraint firstAttribute="centerX" secondItem="Qkt-GB-XYd" secondAttribute="centerX" id="gJW-kc-nC7"/>
+                        <constraint firstAttribute="height" constant="50" id="inQ-Mu-Vp6"/>
+                        <constraint firstAttribute="bottom" secondItem="Qkt-GB-XYd" secondAttribute="bottom" constant="3" id="vxu-Ta-WVY"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="U5N-qp-yay" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="7nK-IO-IpY"/>
-                <constraint firstAttribute="bottom" secondItem="U5N-qp-yay" secondAttribute="bottom" constant="5" id="gFM-Ac-P0I"/>
-                <constraint firstItem="U5N-qp-yay" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="pkb-mE-gyh"/>
-                <constraint firstAttribute="trailing" secondItem="U5N-qp-yay" secondAttribute="trailing" id="yBQ-rd-f0A">
-                    <variation key="widthClass=compact" constant="0.0"/>
-                </constraint>
+                <constraint firstAttribute="bottom" secondItem="U5N-qp-yay" secondAttribute="bottom" id="7a6-Dq-cwH"/>
+                <constraint firstItem="3Pr-TF-Xcd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Hwb-V7-9I9"/>
+                <constraint firstItem="3Pr-TF-Xcd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="IGs-zh-G3i"/>
+                <constraint firstAttribute="trailing" secondItem="3Pr-TF-Xcd" secondAttribute="trailing" id="Vel-1m-gT9"/>
+                <constraint firstAttribute="trailing" secondItem="U5N-qp-yay" secondAttribute="trailing" id="hGp-uS-hnT"/>
+                <constraint firstItem="U5N-qp-yay" firstAttribute="top" secondItem="3Pr-TF-Xcd" secondAttribute="bottom" id="nuL-oR-KtQ"/>
+                <constraint firstItem="U5N-qp-yay" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ooU-wp-x8U"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
-            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="278" y="-6"/>
