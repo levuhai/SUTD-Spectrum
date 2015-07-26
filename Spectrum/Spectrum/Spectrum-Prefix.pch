@@ -16,6 +16,7 @@
     #import "UIColor+Flat.h"
     #import "UIFont+Custom.h"
     #import "FrameAccessor.h"
+    #import "NSUserDefaults+Convenience.h"
 #endif
 
 #define kFPS 50.0f

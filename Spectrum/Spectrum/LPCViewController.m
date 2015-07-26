@@ -9,12 +9,18 @@
 #import "LPCViewController.h"
 #import <SWRevealViewController/SWRevealViewController.h>
 #import "LPCView.h"
+#import "LPCAudioController.h"
+#import "UIImage+Expanded.h"
 
 @interface LPCViewController () <SWRevealViewControllerDelegate, LPCDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *lbBufferLengthValue;
+@property (weak, nonatomic) IBOutlet UILabel *lbOrderValue;
 
 @end
 
-@implementation LPCViewController
+@implementation LPCViewController {
+    NSTimer *_drawTimer;
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     // Side Menu
@@ -37,14 +43,50 @@
     
     [self.menuButton setBackgroundColor:[UIColor turquoiseColor]];
     
+    // Custom slider thumb size
+    UIImage *thumbImage = [UIImage whiteCircle];
+    [self.bufferLengthSlider setThumbImage:thumbImage forState:UIControlStateNormal];
+    int rounded = [[LPCAudioController sharedInstance] segmentLength];
+    self.bufferLengthSlider.value = (float)rounded;
+    self.lbBufferLengthValue.text = [NSString stringWithFormat:@"%dx512", rounded];
+    
+    [self.orderSlider setThumbImage:thumbImage forState:UIControlStateNormal];
+    rounded = [[LPCAudioController sharedInstance] order];
+    self.orderSlider.value = (float)rounded;
+    self.lbOrderValue.text = [NSString stringWithFormat:@"%d", rounded];
+    
     self.view.backgroundColor = [UIColor wetAsphaltColor];
     self.menuView.backgroundColor = [UIColor midnightBlueColor];
     self.fftView.delegate = self;
+    self.fftView.shouldFillColor = YES;
+    [self _startDrawing];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)_startDrawing {
+    // Start LPC Instance
+    [[LPCAudioController sharedInstance] start];
+    
+    if (!_drawTimer) {
+        _drawTimer = [NSTimer scheduledTimerWithTimeInterval: 1/kFPS
+                                                      target: self
+                                                    selector: @selector(_drawGraph)
+                                                    userInfo: nil
+                                                     repeats: YES];
+    }
+}
+
+- (void)_stopDrawing {
+    // Stop LPC Instance
+    [[LPCAudioController sharedInstance] stop];
+    
+    // Invalidate Timer
+    [_drawTimer invalidate];
+    _drawTimer = nil;
+}
+
+- (void)_drawGraph {
+    // LPC
+    [self.fftView refresh];
 }
 
 - (IBAction)menuTouched:(id)sender {
@@ -54,6 +96,24 @@
     
     // Present the view controller
     [self.revealViewController revealToggleAnimated:YES];
+}
+
+- (IBAction)bufferLengthChanged:(id)sender {
+    UISlider* slider = (UISlider*)sender;
+    int rounded = roundl(slider.value);
+    slider.value = (float)rounded;
+    if (slider == self.bufferLengthSlider) {
+        self.lbBufferLengthValue.text = [NSString stringWithFormat:@"%dx512", rounded];
+        [[LPCAudioController sharedInstance] stop];
+        [[LPCAudioController sharedInstance] setSegmentLength:rounded];
+        [[LPCAudioController sharedInstance] start];
+    } else {
+        self.lbOrderValue.text = [NSString stringWithFormat:@"%d", rounded];
+        [[LPCAudioController sharedInstance] stop];
+        [[LPCAudioController sharedInstance] setOrder:rounded];
+        [[LPCAudioController sharedInstance] start];
+    }
+    
 }
 
 /*

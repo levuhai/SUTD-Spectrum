@@ -132,6 +132,7 @@
 		D765B9221964FBCA001B6280 /* filter_hipass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D765B9211964FBCA001B6280 /* filter_hipass@2x.png */; };
 		D765B9241964FBD2001B6280 /* filter_bandpass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D765B9231964FBD2001B6280 /* filter_bandpass@2x.png */; };
 		D765B9261964FCDA001B6280 /* oscillator_noise@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D765B9251964FCDA001B6280 /* oscillator_noise@2x.png */; };
+		D7735A431B64CB870058B07F /* NSUserDefaults+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = D7735A421B64CB870058B07F /* NSUserDefaults+Convenience.m */; };
 		D79BE84C1B21C97E0028D05B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D79BE84B1B21C97E0028D05B /* Images.xcassets */; };
 		D7C6783B1AA8013000372181 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C6783A1AA8013000372181 /* AudioToolbox.framework */; };
 		D7F2BE3819616E3400EB4650 /* UIColor+Flat.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F2BE3719616E3400EB4650 /* UIColor+Flat.m */; };
@@ -366,6 +367,8 @@
 		D765B9211964FBCA001B6280 /* filter_hipass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter_hipass@2x.png"; sourceTree = "<group>"; };
 		D765B9231964FBD2001B6280 /* filter_bandpass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter_bandpass@2x.png"; sourceTree = "<group>"; };
 		D765B9251964FCDA001B6280 /* oscillator_noise@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oscillator_noise@2x.png"; sourceTree = "<group>"; };
+		D7735A411B64CB870058B07F /* NSUserDefaults+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Convenience.h"; sourceTree = "<group>"; };
+		D7735A421B64CB870058B07F /* NSUserDefaults+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Convenience.m"; sourceTree = "<group>"; };
 		D79BE84B1B21C97E0028D05B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D7C6783A1AA8013000372181 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D7F2BE3619616E3400EB4650 /* UIColor+Flat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Flat.h"; sourceTree = "<group>"; };
@@ -657,6 +660,8 @@
 		D71DB97B195E584200B1F53F /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				D7735A411B64CB870058B07F /* NSUserDefaults+Convenience.h */,
+				D7735A421B64CB870058B07F /* NSUserDefaults+Convenience.m */,
 				C50AAC921B22D97800CAE5B5 /* NSMutableArray+Queue.h */,
 				C50AAC931B22D97900CAE5B5 /* NSMutableArray+Queue.m */,
 				D71CD0CC19628D96003970DE /* UIFont+Custom.h */,
@@ -1156,6 +1161,7 @@
 				D72ECD051AB1A0AC00126041 /* README.md in Sources */,
 				D72ECCD71AB1A0AC00126041 /* Param.cpp in Sources */,
 				D71DB974195E575D00B1F53F /* ACScrollView.m in Sources */,
+				D7735A431B64CB870058B07F /* NSUserDefaults+Convenience.m in Sources */,
 				D72ECCF31AB1A0AC00126041 /* RTSpinKitArcAltAnimation.m in Sources */,
 				D71DB979195E57F800B1F53F /* AudioController.mm in Sources */,
 				C58350CD1B19FE1100536365 /* RecordViewCell.m in Sources */,

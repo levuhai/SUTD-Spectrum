@@ -18,5 +18,7 @@
 @property (strong, nonatomic) IBOutlet UILabel* SecondFormant;
 @property (strong, nonatomic) IBOutlet UILabel* ThirdFormant;
 @property (strong, nonatomic) IBOutlet UILabel* ForthFormant;
+@property (weak, nonatomic) IBOutlet UISlider *bufferLengthSlider;
+@property (weak, nonatomic) IBOutlet UISlider *orderSlider;
 
 @end

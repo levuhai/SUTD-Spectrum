@@ -9,6 +9,8 @@
 #import "LPCAudioController.h"
 #import <AVFoundation/AVAudioSession.h>
 #include <math.h>
+#import "NSUserDefaults+Convenience.h"
+#import "Configs.h"
 
 static LPCAudioController *sharedInstance = nil;
 
@@ -330,6 +332,23 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     NSLog(@"Audio interruption: %@", interuptionType == AVAudioSessionInterruptionTypeBegan ? @"began" : @"end");
 }
 
+#pragma mark - Getter/Setter
+
+- (void)setSegmentLength:(int)segmentLength {
+    _segmentLength = segmentLength;
+    [NSStandardUserDefaults saveInteger:segmentLength forKey:kKeyMaximumSegment];
+    cBufferSize = 512*_segmentLength;
+    
+    // reset Buffer
+    cBufferHead = cBufferTail = 0;
+    cBufferLenght = 0;
+}
+
+- (void)setOrder:(int)order {
+    _order = order;
+    [NSStandardUserDefaults saveInteger:order forKey:kKeyOrder];
+}
+
 #pragma mark - Private
 - (void)_freeData {
     for(UInt32 i=0;i<bufferList->mNumberBuffers;i++) {
@@ -350,9 +369,20 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
         bufferList->mBuffers[i].mDataByteSize = (1024*2) * 2;
         bufferList->mBuffers[i].mData = malloc(bufferList->mBuffers[i].mDataByteSize);
     }
+    // Setup Order
+    if (![NSStandardUserDefaults hasValueForKey:kKeyOrder]) {
+        self.order = 12;
+    } else {
+        self.order = (int)[NSStandardUserDefaults integerForKey:kKeyOrder];
+    }
     
     // Setup Circular Buffer
-    cBufferSize = 512*kMaximumSegment;
+    if (![NSStandardUserDefaults hasValueForKey:kKeyMaximumSegment]) {
+        self.segmentLength = 20;
+    } else {
+        self.segmentLength = (int)[NSStandardUserDefaults integerForKey:kKeyMaximumSegment];
+    }
+    cBufferSize = 512*_segmentLength;
     cBuffer = (short int *)(malloc(cBufferSize * sizeof(short int)));
     cBufferHead = cBufferTail = 0;
     cBufferLenght = 0;
@@ -418,10 +448,10 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     [self decimateDataBuffer];
     
     // Find ORDER+1 autocorrelation coefficient
-    double *Rxx = (double *)(malloc((ORDER + 1) * sizeof(double)));
-    double *pCoeff = (double *)(malloc((ORDER + 1) * sizeof(double)));
+    double *Rxx = (double *)(malloc((self.order + 1) * sizeof(double)));
+    double *pCoeff = (double *)(malloc((self.order + 1) * sizeof(double)));
     
-    for (int delayIdx = 0; delayIdx <= ORDER; delayIdx++) {
+    for (int delayIdx = 0; delayIdx <= self.order; delayIdx++) {
         double corrSum = 0;
         for (int dataIdx = 0; dataIdx < (decimatedEndIdx - delayIdx); dataIdx++) {
             corrSum += (dataBuffer[dataIdx] * dataBuffer[dataIdx + delayIdx]);
@@ -435,7 +465,7 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     pCoeff[0] = 1.0;                                    // first coefficient must be = 1
     
     // for each coefficient in turn
-    for (k = 1 ; k <= ORDER ; k++) {
+    for (k = 1 ; k <= self.order ; k++) {
         
         // find next reflection coeff from pCoeff[] and Rxx[]
         double rcNum = 0;
@@ -461,11 +491,11 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     // Now work with a lot of complex variables to find complex roots of LPC filter.
     // These roots will give us formant frequencies.
     
-    _Complex double *compCoeff = (_Complex double *)(malloc((ORDER + 1) * sizeof(_Complex double)));
+    _Complex double *compCoeff = (_Complex double *)(malloc((self.order + 1) * sizeof(_Complex double)));
     
     // Transfer pCoeff (real-valued) to compCoeff (complex-valued).
-    for (dummo=0; dummo <= ORDER; dummo++) {
-        compCoeff[dummo] = pCoeff[ORDER - dummo] + 0.0 * I;
+    for (dummo=0; dummo <= self.order; dummo++) {
+        compCoeff[dummo] = pCoeff[self.order - dummo] + 0.0 * I;
     }
     
     double *freqResponse = (double *)(malloc((self.width) * sizeof(double)));
@@ -474,7 +504,7 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
         realHw = 1.0;
         imagHw = 0.0;
         
-        for (int k = 1 ; k <= ORDER ; k++) {
+        for (int k = 1 ; k <= self.order ; k++) {
             realHw = realHw + pCoeff[k] * cos(k * omega);
             imagHw = imagHw - pCoeff[k] * sin(k * omega);
         }
@@ -580,19 +610,19 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
 {
     
     // Allocate space for complex roots
-    _Complex double *roots = (_Complex double *)(malloc((ORDER+1) * sizeof(_Complex double)));
+    _Complex double *roots = (_Complex double *)(malloc((self.order+1) * sizeof(_Complex double)));
     
     int j , jj;
     _Complex double x, b, c;
     
-    _Complex double *ad = (_Complex double *)(malloc((ORDER+1) * sizeof(_Complex double)));
+    _Complex double *ad = (_Complex double *)(malloc((self.order+1) * sizeof(_Complex double)));
     
-    for (j = 0 ; j <= ORDER ; j++)
+    for (j = 0 ; j <= self.order ; j++)
     {
         ad[j] = a[j];
     }
     
-    for (j = ORDER ; j >= 1 ; j--)
+    for (j = self.order ; j >= 1 ; j--)
     {
         x = [self laguer:ad currentOrder:j];
         
@@ -617,14 +647,14 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     // Find real-frequencies corresponding to all roots and fill the array.
     
     // Allocate space for real-world frequencies
-    double *formantFrequencies = (double *)(malloc((ORDER+1) * sizeof(double)));
+    double *formantFrequencies = (double *)(malloc((self.order+1) * sizeof(double)));
     
-    for (int dummo=0; dummo<=ORDER; dummo++)
+    for (int dummo=0; dummo<=self.order; dummo++)
     {
         formantFrequencies[dummo] = 0.0;
     }
     
-    for (int dummo=0; dummo<=ORDER; dummo++)
+    for (int dummo=0; dummo<=self.order; dummo++)
     {
         formantFrequencies[dummo] = 5512.5 * carg(roots[dummo]) / M_PI;
     }

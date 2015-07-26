@@ -25,8 +25,8 @@
 
 
 #define kSampleRate 44100.00
-#define kMaximumSegment 20
-# define ORDER 12
+
+//# define ORDER 12
 
 #define EPS 2.0e-6
 #define EPSS 1.0e-7
@@ -51,6 +51,8 @@
 
 @property (nonatomic, assign) int width;
 @property (nonatomic, assign) int height;
+@property (nonatomic, assign) int segmentLength;
+@property (nonatomic, assign) int order;
 
 //-(short int*)buffer;
 + (LPCAudioController *) sharedInstance;
