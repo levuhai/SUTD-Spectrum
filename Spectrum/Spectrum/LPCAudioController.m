@@ -18,6 +18,11 @@ static LPCAudioController *sharedInstance = nil;
     
 }
 
+@property (nonatomic) double firstFFreq;
+@property (nonatomic) double secondFFreq;
+@property (nonatomic) double thirdFFreq;
+@property (nonatomic) double fourthFFreq;
+
 @end
 
 @implementation LPCAudioController {
@@ -430,6 +435,8 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     // A few variable used in plotting of H(w).
     int i, k, dummo, degIdx;
     double omega, realHw, imagHw;
+    double *formantFrequencies;
+    double dummyFrequency;
     
     int cy = 0;
     for(int cx=cBufferHead; cx!=cBufferTail; cx=(cx+1)% cBufferSize) {
@@ -484,7 +491,7 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
             pCoeff[k-i] = pcki;
         }
         
-        // calculate residual error
+        // Calculate residual error
         pError = pError * (1.0 - pCoeff[k]*pCoeff[k]);
     }
     
@@ -497,6 +504,41 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     for (dummo=0; dummo <= self.order; dummo++) {
         compCoeff[dummo] = pCoeff[self.order - dummo] + 0.0 * I;
     }
+    
+    // Formant frequencies are computed in a separate function.
+    
+    formantFrequencies = [self findFormants:compCoeff];
+    
+    //Now clean formant frequencies. Remove all that are negative, < 50 Hz, or > (Fs/2 - 50).
+    for (dummo = 1; dummo <= self.order; dummo++) {
+        if (formantFrequencies[dummo] > (5512.5 - 50.0))  formantFrequencies[dummo] = 5512.5;
+        if (formantFrequencies[dummo] < 50.0)  formantFrequencies[dummo] = 5512.5;
+    }
+    
+    // Now sort formant frequencies. Simple in-place bubble sort.
+    for (int i = 1 ; i <= self.order ; i++) {
+        for (int j = i ; j <= self.order ; j++) {
+            if (formantFrequencies[i] > formantFrequencies[j]) {
+                dummyFrequency = formantFrequencies[i];
+                formantFrequencies[i] = formantFrequencies[j];
+                formantFrequencies[j] = dummyFrequency;
+            }
+        }
+    }
+    
+    // Now list first 8 sorted frequencies.
+//    for (dummo = 1; dummo <= 8; dummo++) {
+//        NSLog(@"Format frequency for index %d is %5.0f",dummo, formantFrequencies[dummo]);
+//    }
+    
+    // Print a blank line
+    NSLog(@" ");
+    
+    // Now assign FFreq values so that they can be viewed in calling class
+    self.firstFFreq = formantFrequencies[1];
+    self.secondFFreq = formantFrequencies[2];
+    self.thirdFFreq = formantFrequencies[3];
+    self.fourthFFreq = formantFrequencies[4];
     
     double *freqResponse = (double *)(malloc((self.width) * sizeof(double)));
     for (degIdx=0; degIdx < self.width; degIdx++) {

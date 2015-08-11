@@ -232,6 +232,8 @@
     int bufferSize;
     _data = [_audioController getLowPassDataWithBufferSize:&bufferSize];
     [waveView updateBuffer:_data withBufferSize:bufferSize];
+    
+    
 }
 
 @end

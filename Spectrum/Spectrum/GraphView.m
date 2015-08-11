@@ -74,13 +74,13 @@
         band *= 1;
         high *= 1;
         
-        low = _smooth * low + (1.0 - _smooth) * _lastLow;
+        //low = _smooth * low + (1.0 - _smooth) * _lastLow;
         _lastLow = low;
         
-        band = _smooth * band + (1.0 - _smooth) * _lastBand;
+        //band = _smooth * band + (1.0 - _smooth) * _lastBand;
         _lastBand = band;
         
-        high = _smooth * high + (1.0 - _smooth) * _lastHigh;
+        //high = _smooth * high + (1.0 - _smooth) * _lastHigh;
         _lastHigh = high;
         
         // Data Lowpass FIFO
@@ -93,13 +93,13 @@
         if (self.dataBand.count >= _plotMaxLength) {
             [self.dataBand stackPop];
         }
-        [self.dataBand stackPush:[NSNumber numberWithFloat:low+band]];
+        [self.dataBand stackPush:[NSNumber numberWithFloat:band]];
         
         // Data Highpass FIFO
         if (self.dataHigh.count >= _plotMaxLength) {
             [self.dataHigh stackPop];
         }
-        [self.dataHigh stackPush:[NSNumber numberWithFloat:low+band+high]];
+        [self.dataHigh stackPush:[NSNumber numberWithFloat:high]];
         
         // Plot lenght
         _plotLength = (UInt32)self.dataHigh.count;

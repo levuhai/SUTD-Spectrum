@@ -54,6 +54,11 @@
 @property (nonatomic, assign) int segmentLength;
 @property (nonatomic, assign) int order;
 
+@property (nonatomic, readonly) double firstFFreq;
+@property (nonatomic, readonly) double secondFFreq;
+@property (nonatomic, readonly) double thirdFFreq;
+@property (nonatomic, readonly) double fourthFFreq;
+
 //-(short int*)buffer;
 + (LPCAudioController *) sharedInstance;
 -(void)calculateFormants;

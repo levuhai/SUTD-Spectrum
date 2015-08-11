@@ -87,6 +87,13 @@
 - (void)_drawGraph {
     // LPC
     [self.fftView refresh];
+    LPCAudioController* p = [LPCAudioController sharedInstance];
+    self.FirstFormant.text = [NSString stringWithFormat:@"1stF: %.0f",p.firstFFreq];
+    self.SecondFormant.text = [NSString stringWithFormat:@"2ndF: %.0f",p.secondFFreq];
+    self.ThirdFormant.text = [NSString stringWithFormat:@"3rdF: %.0f",p.thirdFFreq];
+    self.ForthFormant.text = [NSString stringWithFormat:@"4thF: %.0f",p.fourthFFreq];
+    
+    
 }
 
 - (IBAction)menuTouched:(id)sender {

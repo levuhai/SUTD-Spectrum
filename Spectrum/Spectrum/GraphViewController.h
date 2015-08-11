@@ -27,6 +27,7 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) IBOutlet UISegmentedControl* segment;
 @property (strong, nonatomic) IBOutlet LPCView *lpcRecordView;
 @property (strong, nonatomic) IBOutlet LPCView *lpcPractiseView;
+@property (strong, nonatomic) IBOutlet GraphView *formantView;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnRecord;
 @property (weak, nonatomic) IBOutlet UIButton *btnLoad;

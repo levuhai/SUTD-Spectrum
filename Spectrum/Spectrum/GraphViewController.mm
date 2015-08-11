@@ -86,6 +86,8 @@
     bufferFilter = [[NSMutableArray alloc]initWithMaxItem:maxNumberOfBuffer];
     bufferLPC = [[NSMutableArray alloc]initWithMaxItem:maxNumberOfBuffer];
     
+    // Graph View
+    
     // Start drawing graph by default
     [self _startDrawing];
 }
@@ -211,6 +213,7 @@
 }
 
 - (void)_drawGraph {
+    LPCAudioController *lpc = [LPCAudioController sharedInstance];
     // Filter
     [[AudioController sharedInstance] getFilterDataWithLowPass:&_lpf
                                                       bandPass:&_bpf
@@ -218,6 +221,10 @@
 
     // LPC
     [self.lpcRecordView refresh];
+    // Formants
+    float c = 50.0f;
+    [self.formantView addLowPass:lpc.firstFFreq/c bandPass:lpc.secondFFreq/c highPass:lpc.thirdFFreq/c];
+    [self.formantView setNeedsDisplay];
     
     // Buffer
     if(self.mode == kRecordMode){
