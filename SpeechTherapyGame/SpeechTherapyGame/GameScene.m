@@ -8,6 +8,15 @@
 
 #import "GameScene.h"
 
+@interface GameScene ()
+{
+    SKSpriteNode* _cloud1;
+    SKSpriteNode* _cloud2;
+    SKSpriteNode* _cloud3;
+}
+
+@end
+
 @implementation GameScene
 
 -(void)didMoveToView:(SKView *)view {
@@ -40,6 +49,21 @@
                                          windmillBody.position.y - 55);
     [self addChild:windmillFrontGrass];
     
+    // Clouds
+    _cloud1 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"cloud-1"] size:CGSizeMake(125, 55)];
+    _cloud1.position = CGPointMake(CGRectGetMidX(self.frame) - 200, CGRectGetMidY(self.frame) + 300);
+    [_cloud1 setScale:0.75];
+    [self addChild:_cloud1];
+    
+    _cloud2 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"cloud-1"] size:CGSizeMake(125, 55)];
+    _cloud2.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 200);
+    [self addChild:_cloud2];
+    
+    
+    _cloud3 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"cloud-2"] size:CGSizeMake(153, 54)];
+    _cloud3.position = CGPointMake(self.view.width - 200, CGRectGetMidY(self.frame) + 100);
+    [self addChild:_cloud3];
+    
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -64,7 +88,20 @@
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    /* Called before each frame is rendered */
+    _cloud1.position = CGPointMake(_cloud1.position.x - 1.5, _cloud1.position.y);
+    _cloud2.position = CGPointMake(_cloud2.position.x - 1, _cloud2.position.y);
+    _cloud3.position = CGPointMake(_cloud3.position.x - 0.5, _cloud3.position.y);
+    
+    if (_cloud1.position.x < 0 - _cloud1.size.width/2) {
+        _cloud1.position = CGPointMake(self.size.width + _cloud1.size.width/2, _cloud1.position.y);
+    }
+    if (_cloud2.position.x < 0 - _cloud2.size.width/2) {
+        _cloud2.position = CGPointMake(self.size.width + _cloud2.size.width/2, _cloud2.position.y);
+    }
+    if (_cloud3.position.x < 0 - _cloud3.size.width/2) {
+        _cloud3.position = CGPointMake(self.size.width + _cloud3.size.width/2, _cloud3.position.y);
+    }
+    
 }
 
 @end
