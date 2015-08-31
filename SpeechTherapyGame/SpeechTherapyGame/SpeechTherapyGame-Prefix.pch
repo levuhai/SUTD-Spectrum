@@ -1,0 +1,24 @@
+//
+//  SpeechTherapyGame-Prefix.pch
+//  SpeechTherapyGame
+//
+//  Created by Vit on 8/31/15.
+//  Copyright (c) 2015 SUTD. All rights reserved.
+//
+
+#ifndef SpeechTherapyGame_SpeechTherapyGame_Prefix_pch
+#define SpeechTherapyGame_SpeechTherapyGame_Prefix_pch
+
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "FrameAccessor.h"
+#endif
+
+#endif

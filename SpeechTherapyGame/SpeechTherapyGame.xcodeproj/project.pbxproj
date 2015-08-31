@@ -1,0 +1,516 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2DF6B7421B94A14800B7F92C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7411B94A14800B7F92C /* main.m */; };
+		2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7441B94A14800B7F92C /* AppDelegate.m */; };
+		2DF6B7481B94A14800B7F92C /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7471B94A14800B7F92C /* GameScene.m */; };
+		2DF6B74A1B94A14800B7F92C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B7491B94A14800B7F92C /* GameScene.sks */; };
+		2DF6B74D1B94A14800B7F92C /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B74C1B94A14800B7F92C /* GameViewController.m */; };
+		2DF6B7501B94A14800B7F92C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B74E1B94A14800B7F92C /* Main.storyboard */; };
+		2DF6B7521B94A14800B7F92C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B7511B94A14800B7F92C /* Images.xcassets */; };
+		2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */; };
+		2DF6B7611B94A14800B7F92C /* SpeechTherapyGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7601B94A14800B7F92C /* SpeechTherapyGameTests.m */; };
+		DB79796202A56F77A186A2EC /* libPods-SpeechTherapyGame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C4C953EE4CDC88969B0569 /* libPods-SpeechTherapyGame.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2DF6B75B1B94A14800B7F92C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2DF6B7341B94A14800B7F92C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2DF6B73B1B94A14800B7F92C;
+			remoteInfo = SpeechTherapyGame;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2DF6B73C1B94A14800B7F92C /* SpeechTherapyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechTherapyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DF6B7401B94A14800B7F92C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2DF6B7411B94A14800B7F92C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2DF6B7431B94A14800B7F92C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2DF6B7441B94A14800B7F92C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2DF6B7461B94A14800B7F92C /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		2DF6B7471B94A14800B7F92C /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		2DF6B7491B94A14800B7F92C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		2DF6B74B1B94A14800B7F92C /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		2DF6B74C1B94A14800B7F92C /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		2DF6B74F1B94A14800B7F92C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2DF6B7511B94A14800B7F92C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2DF6B7541B94A14800B7F92C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		2DF6B75A1B94A14800B7F92C /* SpeechTherapyGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeechTherapyGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DF6B75F1B94A14800B7F92C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2DF6B7601B94A14800B7F92C /* SpeechTherapyGameTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpeechTherapyGameTests.m; sourceTree = "<group>"; };
+		2DF6B76A1B94B53E00B7F92C /* SpeechTherapyGame-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SpeechTherapyGame-Prefix.pch"; sourceTree = "<group>"; };
+		482749E27D29E52B34F59317 /* Pods-SpeechTherapyGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.debug.xcconfig"; sourceTree = "<group>"; };
+		A3C4C953EE4CDC88969B0569 /* libPods-SpeechTherapyGame.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpeechTherapyGame.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2DF6B7391B94A14800B7F92C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB79796202A56F77A186A2EC /* libPods-SpeechTherapyGame.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DF6B7571B94A14800B7F92C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2DF6B7331B94A14800B7F92C = {
+			isa = PBXGroup;
+			children = (
+				2DF6B73E1B94A14800B7F92C /* SpeechTherapyGame */,
+				2DF6B75D1B94A14800B7F92C /* SpeechTherapyGameTests */,
+				2DF6B73D1B94A14800B7F92C /* Products */,
+				F632D6593FEFDDF9702CB96F /* Pods */,
+				AFD57064E87D38D48DF68026 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		2DF6B73D1B94A14800B7F92C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2DF6B73C1B94A14800B7F92C /* SpeechTherapyGame.app */,
+				2DF6B75A1B94A14800B7F92C /* SpeechTherapyGameTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2DF6B73E1B94A14800B7F92C /* SpeechTherapyGame */ = {
+			isa = PBXGroup;
+			children = (
+				2DF6B7431B94A14800B7F92C /* AppDelegate.h */,
+				2DF6B7441B94A14800B7F92C /* AppDelegate.m */,
+				2DF6B7461B94A14800B7F92C /* GameScene.h */,
+				2DF6B7471B94A14800B7F92C /* GameScene.m */,
+				2DF6B7491B94A14800B7F92C /* GameScene.sks */,
+				2DF6B74B1B94A14800B7F92C /* GameViewController.h */,
+				2DF6B74C1B94A14800B7F92C /* GameViewController.m */,
+				2DF6B74E1B94A14800B7F92C /* Main.storyboard */,
+				2DF6B7511B94A14800B7F92C /* Images.xcassets */,
+				2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */,
+				2DF6B73F1B94A14800B7F92C /* Supporting Files */,
+			);
+			path = SpeechTherapyGame;
+			sourceTree = "<group>";
+		};
+		2DF6B73F1B94A14800B7F92C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2DF6B7401B94A14800B7F92C /* Info.plist */,
+				2DF6B7411B94A14800B7F92C /* main.m */,
+				2DF6B76A1B94B53E00B7F92C /* SpeechTherapyGame-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2DF6B75D1B94A14800B7F92C /* SpeechTherapyGameTests */ = {
+			isa = PBXGroup;
+			children = (
+				2DF6B7601B94A14800B7F92C /* SpeechTherapyGameTests.m */,
+				2DF6B75E1B94A14800B7F92C /* Supporting Files */,
+			);
+			path = SpeechTherapyGameTests;
+			sourceTree = "<group>";
+		};
+		2DF6B75E1B94A14800B7F92C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2DF6B75F1B94A14800B7F92C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AFD57064E87D38D48DF68026 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A3C4C953EE4CDC88969B0569 /* libPods-SpeechTherapyGame.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F632D6593FEFDDF9702CB96F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				482749E27D29E52B34F59317 /* Pods-SpeechTherapyGame.debug.xcconfig */,
+				B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2DF6B73B1B94A14800B7F92C /* SpeechTherapyGame */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2DF6B7641B94A14800B7F92C /* Build configuration list for PBXNativeTarget "SpeechTherapyGame" */;
+			buildPhases = (
+				F59889AFDC52941115627BAA /* Check Pods Manifest.lock */,
+				2DF6B7381B94A14800B7F92C /* Sources */,
+				2DF6B7391B94A14800B7F92C /* Frameworks */,
+				2DF6B73A1B94A14800B7F92C /* Resources */,
+				EEFD8668365D98B4E9052252 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpeechTherapyGame;
+			productName = SpeechTherapyGame;
+			productReference = 2DF6B73C1B94A14800B7F92C /* SpeechTherapyGame.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2DF6B7591B94A14800B7F92C /* SpeechTherapyGameTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2DF6B7671B94A14800B7F92C /* Build configuration list for PBXNativeTarget "SpeechTherapyGameTests" */;
+			buildPhases = (
+				2DF6B7561B94A14800B7F92C /* Sources */,
+				2DF6B7571B94A14800B7F92C /* Frameworks */,
+				2DF6B7581B94A14800B7F92C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2DF6B75C1B94A14800B7F92C /* PBXTargetDependency */,
+			);
+			name = SpeechTherapyGameTests;
+			productName = SpeechTherapyGameTests;
+			productReference = 2DF6B75A1B94A14800B7F92C /* SpeechTherapyGameTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2DF6B7341B94A14800B7F92C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = SUTD;
+				TargetAttributes = {
+					2DF6B73B1B94A14800B7F92C = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					2DF6B7591B94A14800B7F92C = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 2DF6B73B1B94A14800B7F92C;
+					};
+				};
+			};
+			buildConfigurationList = 2DF6B7371B94A14800B7F92C /* Build configuration list for PBXProject "SpeechTherapyGame" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2DF6B7331B94A14800B7F92C;
+			productRefGroup = 2DF6B73D1B94A14800B7F92C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2DF6B73B1B94A14800B7F92C /* SpeechTherapyGame */,
+				2DF6B7591B94A14800B7F92C /* SpeechTherapyGameTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2DF6B73A1B94A14800B7F92C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */,
+				2DF6B7521B94A14800B7F92C /* Images.xcassets in Resources */,
+				2DF6B74A1B94A14800B7F92C /* GameScene.sks in Resources */,
+				2DF6B7501B94A14800B7F92C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DF6B7581B94A14800B7F92C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EEFD8668365D98B4E9052252 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F59889AFDC52941115627BAA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2DF6B7381B94A14800B7F92C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DF6B74D1B94A14800B7F92C /* GameViewController.m in Sources */,
+				2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */,
+				2DF6B7481B94A14800B7F92C /* GameScene.m in Sources */,
+				2DF6B7421B94A14800B7F92C /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DF6B7561B94A14800B7F92C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DF6B7611B94A14800B7F92C /* SpeechTherapyGameTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2DF6B75C1B94A14800B7F92C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2DF6B73B1B94A14800B7F92C /* SpeechTherapyGame */;
+			targetProxy = 2DF6B75B1B94A14800B7F92C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2DF6B74E1B94A14800B7F92C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2DF6B74F1B94A14800B7F92C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2DF6B7541B94A14800B7F92C /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2DF6B7621B94A14800B7F92C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2DF6B7631B94A14800B7F92C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2DF6B7651B94A14800B7F92C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 482749E27D29E52B34F59317 /* Pods-SpeechTherapyGame.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SpeechTherapyGame/SpeechTherapyGame-Prefix.pch";
+				INFOPLIST_FILE = SpeechTherapyGame/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		2DF6B7661B94A14800B7F92C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SpeechTherapyGame/SpeechTherapyGame-Prefix.pch";
+				INFOPLIST_FILE = SpeechTherapyGame/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		2DF6B7681B94A14800B7F92C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SpeechTherapyGameTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeechTherapyGame.app/SpeechTherapyGame";
+			};
+			name = Debug;
+		};
+		2DF6B7691B94A14800B7F92C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SpeechTherapyGameTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeechTherapyGame.app/SpeechTherapyGame";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2DF6B7371B94A14800B7F92C /* Build configuration list for PBXProject "SpeechTherapyGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DF6B7621B94A14800B7F92C /* Debug */,
+				2DF6B7631B94A14800B7F92C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2DF6B7641B94A14800B7F92C /* Build configuration list for PBXNativeTarget "SpeechTherapyGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DF6B7651B94A14800B7F92C /* Debug */,
+				2DF6B7661B94A14800B7F92C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2DF6B7671B94A14800B7F92C /* Build configuration list for PBXNativeTarget "SpeechTherapyGameTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DF6B7681B94A14800B7F92C /* Debug */,
+				2DF6B7691B94A14800B7F92C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2DF6B7341B94A14800B7F92C /* Project object */;
+}
