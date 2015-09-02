@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D28753E1B977B0D0068818D /* ScheduleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2D28753D1B977B0D0068818D /* ScheduleScene.sks */; };
+		2D2875411B977B2F0068818D /* ScheduleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2875401B977B2F0068818D /* ScheduleScene.m */; };
+		2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2875431B977F310068818D /* SKScene+Unarchive.m */; };
 		2DF6B7421B94A14800B7F92C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7411B94A14800B7F92C /* main.m */; };
 		2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7441B94A14800B7F92C /* AppDelegate.m */; };
-		2DF6B7481B94A14800B7F92C /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7471B94A14800B7F92C /* GameScene.m */; };
-		2DF6B74A1B94A14800B7F92C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B7491B94A14800B7F92C /* GameScene.sks */; };
-		2DF6B74D1B94A14800B7F92C /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B74C1B94A14800B7F92C /* GameViewController.m */; };
+		2DF6B7481B94A14800B7F92C /* HomeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7471B94A14800B7F92C /* HomeScene.m */; };
+		2DF6B74A1B94A14800B7F92C /* HomeScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B7491B94A14800B7F92C /* HomeScene.sks */; };
+		2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B74C1B94A14800B7F92C /* HomeSceneViewController.m */; };
 		2DF6B7501B94A14800B7F92C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B74E1B94A14800B7F92C /* Main.storyboard */; };
 		2DF6B7521B94A14800B7F92C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B7511B94A14800B7F92C /* Images.xcassets */; };
 		2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */; };
@@ -30,16 +33,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D28753D1B977B0D0068818D /* ScheduleScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ScheduleScene.sks; sourceTree = "<group>"; };
+		2D28753F1B977B2F0068818D /* ScheduleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleScene.h; sourceTree = "<group>"; };
+		2D2875401B977B2F0068818D /* ScheduleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleScene.m; sourceTree = "<group>"; };
+		2D2875421B977F310068818D /* SKScene+Unarchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKScene+Unarchive.h"; sourceTree = "<group>"; };
+		2D2875431B977F310068818D /* SKScene+Unarchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKScene+Unarchive.m"; sourceTree = "<group>"; };
 		2DF6B73C1B94A14800B7F92C /* SpeechTherapyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechTherapyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DF6B7401B94A14800B7F92C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DF6B7411B94A14800B7F92C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2DF6B7431B94A14800B7F92C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2DF6B7441B94A14800B7F92C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2DF6B7461B94A14800B7F92C /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
-		2DF6B7471B94A14800B7F92C /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
-		2DF6B7491B94A14800B7F92C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		2DF6B74B1B94A14800B7F92C /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		2DF6B74C1B94A14800B7F92C /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		2DF6B7461B94A14800B7F92C /* HomeScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeScene.h; sourceTree = "<group>"; };
+		2DF6B7471B94A14800B7F92C /* HomeScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeScene.m; sourceTree = "<group>"; };
+		2DF6B7491B94A14800B7F92C /* HomeScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HomeScene.sks; sourceTree = "<group>"; };
+		2DF6B74B1B94A14800B7F92C /* HomeSceneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeSceneViewController.h; sourceTree = "<group>"; };
+		2DF6B74C1B94A14800B7F92C /* HomeSceneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeSceneViewController.m; sourceTree = "<group>"; };
 		2DF6B74F1B94A14800B7F92C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2DF6B7511B94A14800B7F92C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2DF6B7541B94A14800B7F92C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -71,6 +79,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D28753A1B9770A00068818D /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				2D28753C1B977AD20068818D /* Schedule */,
+				2D28753B1B9770C40068818D /* Home */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		2D28753B1B9770C40068818D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				2DF6B74B1B94A14800B7F92C /* HomeSceneViewController.h */,
+				2DF6B74C1B94A14800B7F92C /* HomeSceneViewController.m */,
+				2DF6B7461B94A14800B7F92C /* HomeScene.h */,
+				2DF6B7471B94A14800B7F92C /* HomeScene.m */,
+				2DF6B7491B94A14800B7F92C /* HomeScene.sks */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		2D28753C1B977AD20068818D /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				2D28753D1B977B0D0068818D /* ScheduleScene.sks */,
+				2D28753F1B977B2F0068818D /* ScheduleScene.h */,
+				2D2875401B977B2F0068818D /* ScheduleScene.m */,
+			);
+			name = Schedule;
+			sourceTree = "<group>";
+		};
+		2D2875451B9782DB0068818D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2DF6B7431B94A14800B7F92C /* AppDelegate.h */,
+				2DF6B7441B94A14800B7F92C /* AppDelegate.m */,
+				2DF6B74E1B94A14800B7F92C /* Main.storyboard */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		2DF6B7331B94A14800B7F92C = {
 			isa = PBXGroup;
 			children = (
@@ -94,17 +143,11 @@
 		2DF6B73E1B94A14800B7F92C /* SpeechTherapyGame */ = {
 			isa = PBXGroup;
 			children = (
-				2DF6B7431B94A14800B7F92C /* AppDelegate.h */,
-				2DF6B7441B94A14800B7F92C /* AppDelegate.m */,
-				2DF6B7461B94A14800B7F92C /* GameScene.h */,
-				2DF6B7471B94A14800B7F92C /* GameScene.m */,
-				2DF6B7491B94A14800B7F92C /* GameScene.sks */,
-				2DF6B74B1B94A14800B7F92C /* GameViewController.h */,
-				2DF6B74C1B94A14800B7F92C /* GameViewController.m */,
-				2DF6B74E1B94A14800B7F92C /* Main.storyboard */,
-				2DF6B7511B94A14800B7F92C /* Images.xcassets */,
-				2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */,
+				2D2875451B9782DB0068818D /* Common */,
+				2D28753A1B9770A00068818D /* Scenes */,
 				2DF6B73F1B94A14800B7F92C /* Supporting Files */,
+				2D2875421B977F310068818D /* SKScene+Unarchive.h */,
+				2D2875431B977F310068818D /* SKScene+Unarchive.m */,
 			);
 			path = SpeechTherapyGame;
 			sourceTree = "<group>";
@@ -112,9 +155,11 @@
 		2DF6B73F1B94A14800B7F92C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2DF6B7401B94A14800B7F92C /* Info.plist */,
 				2DF6B7411B94A14800B7F92C /* main.m */,
+				2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */,
+				2DF6B7401B94A14800B7F92C /* Info.plist */,
 				2DF6B76A1B94B53E00B7F92C /* SpeechTherapyGame-Prefix.pch */,
+				2DF6B7511B94A14800B7F92C /* Images.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -237,7 +282,8 @@
 			files = (
 				2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */,
 				2DF6B7521B94A14800B7F92C /* Images.xcassets in Resources */,
-				2DF6B74A1B94A14800B7F92C /* GameScene.sks in Resources */,
+				2DF6B74A1B94A14800B7F92C /* HomeScene.sks in Resources */,
+				2D28753E1B977B0D0068818D /* ScheduleScene.sks in Resources */,
 				2DF6B7501B94A14800B7F92C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,9 +335,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DF6B74D1B94A14800B7F92C /* GameViewController.m in Sources */,
+				2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */,
 				2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */,
-				2DF6B7481B94A14800B7F92C /* GameScene.m in Sources */,
+				2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */,
+				2DF6B7481B94A14800B7F92C /* HomeScene.m in Sources */,
+				2D2875411B977B2F0068818D /* ScheduleScene.m in Sources */,
 				2DF6B7421B94A14800B7F92C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
