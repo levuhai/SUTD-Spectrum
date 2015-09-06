@@ -36,20 +36,24 @@
     _scheduleCalendar.delegate                    = self;
     _scheduleCalendar.datasource                  = self;
     _scheduleCalendar.calendarDate                = [NSDate date];
-    _scheduleCalendar.monthAndDayTextColor        = RGBCOLOR(0, 174, 255);
-    _scheduleCalendar.dayBgColorWithData          = RGBCOLOR(21, 124, 229);
-    _scheduleCalendar.dayBgColorWithoutData       = RGBCOLOR(208, 208, 214);
-    _scheduleCalendar.dayBgColorSelected          = RGBCOLOR(94, 94, 94);
-    _scheduleCalendar.dayTxtColorWithoutData      = RGBCOLOR(57, 69, 84);
+    _scheduleCalendar.monthAndDayTextColor        = RGBCOLOR(52, 73, 94);
+    _scheduleCalendar.dayBgColorWithData          = RGBCOLOR(52, 152, 219);
+    _scheduleCalendar.dayBgColorWithoutData       = RGBCOLOR(52, 152, 219);
+    _scheduleCalendar.dayBgColorSelected          = RGBCOLOR(52, 152, 219);
+    _scheduleCalendar.dayTxtColorWithoutData      = [UIColor whiteColor];
     _scheduleCalendar.dayTxtColorWithData         = [UIColor whiteColor];
     _scheduleCalendar.dayTxtColorSelected         = [UIColor whiteColor];
     _scheduleCalendar.borderColor                 = RGBCOLOR(159, 162, 172);
-    _scheduleCalendar.borderWidth                 = 1;
+    _scheduleCalendar.borderWidth                 = 0;
     _scheduleCalendar.allowsChangeMonthByDayTap   = YES;
     _scheduleCalendar.allowsChangeMonthByButtons  = YES;
     _scheduleCalendar.keepSelDayWhenMonthChange   = YES;
     _scheduleCalendar.nextMonthAnimation          = UIViewAnimationOptionTransitionFlipFromRight;
     _scheduleCalendar.prevMonthAnimation          = UIViewAnimationOptionTransitionFlipFromLeft;
+    _scheduleCalendar.titleFont                   = [UIFont fontWithName:@"Chalkboard SE" size:25.0];
+    _scheduleCalendar.defaultFont                   = [UIFont fontWithName:@"Marker Felt" size:15];
+    _scheduleCalendar.backgroundColor = RGBCOLOR(52, 152, 219);
+    
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.view addSubview:_scheduleCalendar];

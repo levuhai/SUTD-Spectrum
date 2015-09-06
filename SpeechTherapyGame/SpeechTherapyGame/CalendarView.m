@@ -12,6 +12,9 @@
 // Width in point of a day button
 @property (nonatomic, assign) NSInteger dayWidth;
 
+// Heigh in point of a day button
+@property (nonatomic, assign) NSInteger dayHeigh;
+
 // NSCalendarUnit for day, month, year and era.
 @property (nonatomic, assign) NSCalendarUnit dayInfoUnits;
 
@@ -39,6 +42,7 @@
     if (self)
     {
         _dayWidth                   = frame.size.width/8;
+        _dayHeigh                   = _dayWidth/2;
         _originX                    = (frame.size.width - 7*_dayWidth)/2;
         _gregorian                  = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         _borderWidth                = 4;
@@ -412,10 +416,10 @@
     CGContextFillPath(context);
     CGColorSpaceRelease(baseSpace), baseSpace = NULL;
     
+    // Previous and next button
+    /*
     BOOL enableNext = YES;
     BOOL enablePrev = YES;
-    
-    // Previous and next button
     UIButton * buttonPrev          = [[UIButton alloc] initWithFrame:CGRectMake(_originX, 0, _dayWidth, _dayWidth)];
     [buttonPrev setTitle:@"<" forState:UIControlStateNormal];
     [buttonPrev setTitleColor:_monthAndDayTextColor forState:UIControlStateNormal];
@@ -455,7 +459,8 @@
     }
     if (_delegate != nil && [_delegate respondsToSelector:@selector(setEnabledForPrevMonthButton:nextMonthButton:)])
         [_delegate setEnabledForPrevMonthButton:enablePrev nextMonthButton:enableNext];
-    
+    */
+     
     // Month label
     NSDateFormatter *format         = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"MMMM yyyy"];
@@ -464,7 +469,7 @@
     if (!_hideMonthLabel)
     {
         UILabel *titleText              = [[UILabel alloc]initWithFrame:CGRectMake(0,0, self.bounds.size.width, _originY)];
-        titleText.textAlignment         = NSTextAlignmentCenter;
+        titleText.textAlignment         = NSTextAlignmentLeft;
         titleText.text                  = dateString;
         titleText.font                  = _titleFont;
         titleText.textColor             = _monthAndDayTextColor;
@@ -474,8 +479,11 @@
     if (_delegate != nil && [_delegate respondsToSelector:@selector(setMonthLabel:)])
         [_delegate setMonthLabel:dateString];
     
+    // Padding 100px between Month label and dates
+    _originY+= 100;
+    
     // Day labels
-    __block CGRect frameWeekLabel = CGRectMake(0, _originY, _dayWidth, _dayWidth);
+    __block CGRect frameWeekLabel = CGRectMake(0, _originY, _dayWidth, _dayHeigh);
     [_weekDayNames  enumerateObjectsUsingBlock:^(NSString * dayOfWeekString, NSUInteger idx, BOOL *stop)
      {
          frameWeekLabel.origin.x         = _originX+(_dayWidth*idx);
@@ -493,8 +501,8 @@
     {
         components.day      = i+1;
         NSInteger offsetX   = (_dayWidth*((i+weekdayBeginning)%7));
-        NSInteger offsetY   = (_dayWidth *((i+weekdayBeginning)/7));
-        UIButton *button    = [self dayButtonWithFrame:CGRectMake(_originX+offsetX, _originY+_dayWidth+offsetY, _dayWidth, _dayWidth)];
+        NSInteger offsetY   = (_dayHeigh *((i+weekdayBeginning)/7));
+        UIButton *button    = [self dayButtonWithFrame:CGRectMake(_originX+offsetX, _originY+_dayWidth+offsetY, _dayWidth, _dayHeigh)];
         
         [self configureDayButton:button withDate:[_gregorian dateFromComponents:components]];
         [self addSubview:button];
@@ -510,8 +518,8 @@
     {
         previousMonthComponents.day     = maxDate+i+1;
         NSInteger offsetX               = (_dayWidth*(i%7));
-        NSInteger offsetY               = (_dayWidth *(i/7));
-        UIButton *button                = [self dayButtonWithFrame:CGRectMake(_originX+offsetX, _originY + _dayWidth + offsetY, _dayWidth, _dayWidth)];
+        NSInteger offsetY               = (_dayHeigh *(i/7));
+        UIButton *button                = [self dayButtonWithFrame:CGRectMake(_originX+offsetX, _originY + _dayWidth + offsetY, _dayWidth, _dayHeigh)];
 
         [self configureDayButton:button withDate:[_gregorian dateFromComponents:previousMonthComponents]];
         [self addSubview:button];
@@ -528,8 +536,8 @@
     {
         nextMonthComponents.day         = (i+1)-remainingDays;
         NSInteger offsetX               = (_dayWidth*((i) %7));
-        NSInteger offsetY               = (_dayWidth *((monthLength+weekdayBeginning)/7));
-        UIButton *button                = [self dayButtonWithFrame:CGRectMake(_originX+offsetX, _originY + _dayWidth + offsetY, _dayWidth, _dayWidth)];
+        NSInteger offsetY               = (_dayHeigh *((monthLength+weekdayBeginning)/7));
+        UIButton *button                = [self dayButtonWithFrame:CGRectMake(_originX+offsetX, _originY + _dayWidth + offsetY, _dayWidth, _dayHeigh)];
 
         [self configureDayButton:button withDate:[_gregorian dateFromComponents:nextMonthComponents]];
         [self addSubview:button];
