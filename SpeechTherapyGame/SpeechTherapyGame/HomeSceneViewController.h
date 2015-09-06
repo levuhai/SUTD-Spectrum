@@ -10,5 +10,5 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface HomeSceneViewController : UIViewController
-
+- (void)showScheduleScene;
 @end

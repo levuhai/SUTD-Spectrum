@@ -26,7 +26,7 @@
     // Create and configure the scene.
     HomeScene *scene = [HomeScene unarchiveFromFile:@"HomeScene"];
     scene.scaleMode = SKSceneScaleModeAspectFill;
-    
+    scene.homeSceneViewController = self;
     // Present the scene.
     [skView presentScene:scene];
 }
@@ -53,6 +53,13 @@
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
+}
+
+
+#pragma mark - Action methods
+
+- (void)showScheduleScene {
+    [self performSegueWithIdentifier:@"gotoScheduleScene" sender:self];
 }
 
 @end

@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D28753E1B977B0D0068818D /* ScheduleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2D28753D1B977B0D0068818D /* ScheduleScene.sks */; };
-		2D2875411B977B2F0068818D /* ScheduleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2875401B977B2F0068818D /* ScheduleScene.m */; };
 		2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2875431B977F310068818D /* SKScene+Unarchive.m */; };
+		2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E12D1B9CAF3C00BFEDA6 /* LoadingViewController.m */; };
+		2DE0E1311B9CAF6100BFEDA6 /* LoadingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1301B9CAF6100BFEDA6 /* LoadingScene.m */; };
+		2DE0E1341B9CB24B00BFEDA6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1331B9CB24B00BFEDA6 /* ScheduleViewController.m */; };
+		2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1391B9CB57900BFEDA6 /* CalendarView.m */; };
 		2DF6B7421B94A14800B7F92C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7411B94A14800B7F92C /* main.m */; };
 		2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7441B94A14800B7F92C /* AppDelegate.m */; };
 		2DF6B7481B94A14800B7F92C /* HomeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7471B94A14800B7F92C /* HomeScene.m */; };
@@ -33,11 +35,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2D28753D1B977B0D0068818D /* ScheduleScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ScheduleScene.sks; sourceTree = "<group>"; };
-		2D28753F1B977B2F0068818D /* ScheduleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleScene.h; sourceTree = "<group>"; };
-		2D2875401B977B2F0068818D /* ScheduleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleScene.m; sourceTree = "<group>"; };
 		2D2875421B977F310068818D /* SKScene+Unarchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKScene+Unarchive.h"; sourceTree = "<group>"; };
 		2D2875431B977F310068818D /* SKScene+Unarchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKScene+Unarchive.m"; sourceTree = "<group>"; };
+		2DE0E12C1B9CAF3C00BFEDA6 /* LoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
+		2DE0E12D1B9CAF3C00BFEDA6 /* LoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
+		2DE0E12F1B9CAF6100BFEDA6 /* LoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingScene.h; sourceTree = "<group>"; };
+		2DE0E1301B9CAF6100BFEDA6 /* LoadingScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingScene.m; sourceTree = "<group>"; };
+		2DE0E1321B9CB24B00BFEDA6 /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
+		2DE0E1331B9CB24B00BFEDA6 /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
+		2DE0E1381B9CB57900BFEDA6 /* CalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarView.h; sourceTree = "<group>"; };
+		2DE0E1391B9CB57900BFEDA6 /* CalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarView.m; sourceTree = "<group>"; };
 		2DF6B73C1B94A14800B7F92C /* SpeechTherapyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechTherapyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DF6B7401B94A14800B7F92C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DF6B7411B94A14800B7F92C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -82,6 +89,7 @@
 		2D28753A1B9770A00068818D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				2DE0E12B1B9CAF2400BFEDA6 /* Loading */,
 				2D28753C1B977AD20068818D /* Schedule */,
 				2D28753B1B9770C40068818D /* Home */,
 			);
@@ -103,9 +111,8 @@
 		2D28753C1B977AD20068818D /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
-				2D28753D1B977B0D0068818D /* ScheduleScene.sks */,
-				2D28753F1B977B2F0068818D /* ScheduleScene.h */,
-				2D2875401B977B2F0068818D /* ScheduleScene.m */,
+				2DE0E1321B9CB24B00BFEDA6 /* ScheduleViewController.h */,
+				2DE0E1331B9CB24B00BFEDA6 /* ScheduleViewController.m */,
 			);
 			name = Schedule;
 			sourceTree = "<group>";
@@ -118,6 +125,44 @@
 				2DF6B74E1B94A14800B7F92C /* Main.storyboard */,
 			);
 			name = Common;
+			sourceTree = "<group>";
+		};
+		2DE0E12B1B9CAF2400BFEDA6 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				2DE0E12C1B9CAF3C00BFEDA6 /* LoadingViewController.h */,
+				2DE0E12D1B9CAF3C00BFEDA6 /* LoadingViewController.m */,
+				2DE0E12F1B9CAF6100BFEDA6 /* LoadingScene.h */,
+				2DE0E1301B9CAF6100BFEDA6 /* LoadingScene.m */,
+			);
+			name = Loading;
+			sourceTree = "<group>";
+		};
+		2DE0E1351B9CB55100BFEDA6 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2DE0E1371B9CB56B00BFEDA6 /* CalendarView */,
+				2DE0E1361B9CB55C00BFEDA6 /* SKScene tools */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		2DE0E1361B9CB55C00BFEDA6 /* SKScene tools */ = {
+			isa = PBXGroup;
+			children = (
+				2D2875421B977F310068818D /* SKScene+Unarchive.h */,
+				2D2875431B977F310068818D /* SKScene+Unarchive.m */,
+			);
+			name = "SKScene tools";
+			sourceTree = "<group>";
+		};
+		2DE0E1371B9CB56B00BFEDA6 /* CalendarView */ = {
+			isa = PBXGroup;
+			children = (
+				2DE0E1381B9CB57900BFEDA6 /* CalendarView.h */,
+				2DE0E1391B9CB57900BFEDA6 /* CalendarView.m */,
+			);
+			name = CalendarView;
 			sourceTree = "<group>";
 		};
 		2DF6B7331B94A14800B7F92C = {
@@ -143,11 +188,10 @@
 		2DF6B73E1B94A14800B7F92C /* SpeechTherapyGame */ = {
 			isa = PBXGroup;
 			children = (
+				2DE0E1351B9CB55100BFEDA6 /* Helpers */,
 				2D2875451B9782DB0068818D /* Common */,
 				2D28753A1B9770A00068818D /* Scenes */,
 				2DF6B73F1B94A14800B7F92C /* Supporting Files */,
-				2D2875421B977F310068818D /* SKScene+Unarchive.h */,
-				2D2875431B977F310068818D /* SKScene+Unarchive.m */,
 			);
 			path = SpeechTherapyGame;
 			sourceTree = "<group>";
@@ -283,7 +327,6 @@
 				2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */,
 				2DF6B7521B94A14800B7F92C /* Images.xcassets in Resources */,
 				2DF6B74A1B94A14800B7F92C /* HomeScene.sks in Resources */,
-				2D28753E1B977B0D0068818D /* ScheduleScene.sks in Resources */,
 				2DF6B7501B94A14800B7F92C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,11 +379,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */,
+				2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */,
 				2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */,
+				2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */,
+				2DE0E1311B9CAF6100BFEDA6 /* LoadingScene.m in Sources */,
 				2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */,
 				2DF6B7481B94A14800B7F92C /* HomeScene.m in Sources */,
-				2D2875411B977B2F0068818D /* ScheduleScene.m in Sources */,
 				2DF6B7421B94A14800B7F92C /* main.m in Sources */,
+				2DE0E1341B9CB24B00BFEDA6 /* ScheduleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

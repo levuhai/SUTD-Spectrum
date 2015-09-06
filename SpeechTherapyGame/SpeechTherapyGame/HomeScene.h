@@ -7,7 +7,9 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-
+@class HomeSceneViewController;
 @interface HomeScene : SKScene
+
+@property (strong, nonatomic) HomeSceneViewController* homeSceneViewController;
 
 @end

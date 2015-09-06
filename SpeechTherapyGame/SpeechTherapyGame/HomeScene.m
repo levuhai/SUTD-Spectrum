@@ -7,14 +7,13 @@
 //
 
 #import "HomeScene.h"
-#import "ScheduleScene.h"
+#import "HomeSceneViewController.h"
 
 @interface HomeScene ()
 {
     SKSpriteNode* _cloud1;
     SKSpriteNode* _cloud2;
     SKSpriteNode* _cloud3;
-    ScheduleScene* _scheduleScene;
 }
 
 @end
@@ -25,8 +24,6 @@
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
-    _scheduleScene = [ScheduleScene unarchiveFromFile:@"ScheduleScene"];
-    _scheduleScene.scaleMode = SKSceneScaleModeAspectFill;
     [self setupHomeScene];
     
 }
@@ -100,9 +97,7 @@
     //if fire button touched, bring the rain
     if ([node.name isEqualToString:starButtonName]) {
         didTouchButton = YES;
-        
-        SKTransition* transition = [SKTransition moveInWithDirection:SKTransitionDirectionLeft duration:0.5];
-        [self.view presentScene:_scheduleScene transition:transition];
+        [_homeSceneViewController showScheduleScene];
     }
     
     

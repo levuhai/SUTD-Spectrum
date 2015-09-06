@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3gr-A2-YTs">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -17,9 +17,74 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
+                    <connections>
+                        <segue destination="Y7p-Rm-ssW" kind="presentation" identifier="gotoScheduleScene" id="U2A-iN-hhE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="702" y="419"/>
+        </scene>
+        <!--Loading View Controller-->
+        <scene sceneID="UKB-bt-xLC">
+            <objects>
+                <viewController id="3gr-A2-YTs" customClass="LoadingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qYM-k1-B4d"/>
+                        <viewControllerLayoutGuide type="bottom" id="n6W-pc-evB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WWd-li-TF9" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="BV1-FR-VrT" kind="show" identifier="gotoHomeScene" id="9Zb-HA-yHE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VuX-cL-TEl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2" y="408"/>
+        </scene>
+        <!--Schedule View Controller-->
+        <scene sceneID="bng-U9-vcW">
+            <objects>
+                <viewController id="Y7p-Rm-ssW" customClass="ScheduleViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9IJ-P7-M4j"/>
+                        <viewControllerLayoutGuide type="bottom" id="nhp-07-jKg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XKN-5U-Dtg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6JT-PU-ztS">
+                                <rect key="frame" x="538" y="28" width="46" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="URW-IQ-f0C"/>
+                                    <constraint firstAttribute="height" constant="46" id="eFT-49-Zly"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="35"/>
+                                <state key="normal" title="X">
+                                    <color key="titleColor" red="0.92843335869999999" green="0.1872791946" blue="0.4667938948" alpha="1" colorSpace="deviceRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeButton_pressed" destination="Y7p-Rm-ssW" eventType="touchUpInside" id="MXH-KW-jau"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="6JT-PU-ztS" secondAttribute="trailing" constant="16" id="hr0-4Z-EjG"/>
+                            <constraint firstItem="6JT-PU-ztS" firstAttribute="top" secondItem="9IJ-P7-M4j" secondAttribute="bottom" constant="28" id="vUj-Ya-uEL"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ChP-F3-6sa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="702" y="1123"/>
         </scene>
     </scenes>
 </document>
