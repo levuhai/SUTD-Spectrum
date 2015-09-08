@@ -9,6 +9,8 @@
 #import "ScheduleViewController.h"
 #import "CalendarView.h"
 
+#define CloseIconTag 1
+
 @interface ScheduleViewController () <CalendarDataSource, CalendarDelegate>
 {
     CalendarView* _scheduleCalendar;
@@ -29,17 +31,22 @@
     [self setupCalendar];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.view bringSubviewToFront:[self.view viewWithTag:CloseIconTag]];
+}
+
 - (void)setupCalendar {
     _gregorian       = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     
-    _scheduleCalendar                             = [[CalendarView alloc]initWithFrame:CGRectMake(0, 0, 640, 640)];
+    _scheduleCalendar                             = [[CalendarView alloc]initWithFrame:CGRectMake(0, 50, 898, 898)];
     _scheduleCalendar.delegate                    = self;
     _scheduleCalendar.datasource                  = self;
     _scheduleCalendar.calendarDate                = [NSDate date];
     _scheduleCalendar.monthAndDayTextColor        = RGBCOLOR(52, 73, 94);
-    _scheduleCalendar.dayBgColorWithData          = RGBCOLOR(52, 152, 219);
-    _scheduleCalendar.dayBgColorWithoutData       = RGBCOLOR(52, 152, 219);
-    _scheduleCalendar.dayBgColorSelected          = RGBCOLOR(52, 152, 219);
+    _scheduleCalendar.dayBgColorWithData          = [UIColor clearColor];
+    _scheduleCalendar.dayBgColorWithoutData       = [UIColor clearColor];
+    _scheduleCalendar.dayBgColorSelected          = [UIColor clearColor];
     _scheduleCalendar.dayTxtColorWithoutData      = [UIColor whiteColor];
     _scheduleCalendar.dayTxtColorWithData         = [UIColor whiteColor];
     _scheduleCalendar.dayTxtColorSelected         = [UIColor whiteColor];
@@ -51,8 +58,8 @@
     _scheduleCalendar.nextMonthAnimation          = UIViewAnimationOptionTransitionFlipFromRight;
     _scheduleCalendar.prevMonthAnimation          = UIViewAnimationOptionTransitionFlipFromLeft;
     _scheduleCalendar.titleFont                   = [UIFont fontWithName:@"Chalkboard SE" size:25.0];
-    _scheduleCalendar.defaultFont                   = [UIFont fontWithName:@"Marker Felt" size:15];
-    _scheduleCalendar.backgroundColor = RGBCOLOR(52, 152, 219);
+    _scheduleCalendar.defaultFont                   = [UIFont fontWithName:@"MarkerFelt-Wide" size:27];
+//    _scheduleCalendar.backgroundColor = [UIColor lightGrayColor];
     
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -62,6 +69,7 @@
     
     NSDateComponents * yearComponent = [_gregorian components:NSYearCalendarUnit fromDate:[NSDate date]];
     _currentYear = yearComponent.year;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,7 +98,7 @@
 
 -(void)dayChangedToDate:(NSDate *)selectedDate
 {
-    NSLog(@"dayChangedToDate %@(GMT)",selectedDate);
+    
 }
 
 #pragma mark - CalendarDataSource protocol conformance

@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <connections>
-                        <segue destination="Y7p-Rm-ssW" kind="presentation" identifier="gotoScheduleScene" id="U2A-iN-hhE"/>
+                        <segue destination="Y7p-Rm-ssW" kind="presentation" identifier="gotoScheduleScene" modalTransitionStyle="crossDissolve" id="U2A-iN-hhE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -58,14 +58,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6JT-PU-ztS">
-                                <rect key="frame" x="538" y="28" width="46" height="46"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="homeBackground" translatesAutoresizingMaskIntoConstraints="NO" id="EGH-c0-Tgo">
+                                <rect key="frame" x="-50" y="0.0" width="700" height="700"/>
+                            </imageView>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6JT-PU-ztS">
+                                <rect key="frame" x="473" y="86" width="37" height="41"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="URW-IQ-f0C"/>
-                                    <constraint firstAttribute="height" constant="46" id="eFT-49-Zly"/>
+                                    <constraint firstAttribute="width" constant="37" id="URW-IQ-f0C"/>
+                                    <constraint firstAttribute="height" constant="41" id="eFT-49-Zly"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="35"/>
-                                <state key="normal" title="X">
+                                <state key="normal" image="x-icon">
                                     <color key="titleColor" red="0.92843335869999999" green="0.1872791946" blue="0.4667938948" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -76,8 +79,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="6JT-PU-ztS" secondAttribute="trailing" constant="16" id="hr0-4Z-EjG"/>
-                            <constraint firstItem="6JT-PU-ztS" firstAttribute="top" secondItem="9IJ-P7-M4j" secondAttribute="bottom" constant="28" id="vUj-Ya-uEL"/>
+                            <constraint firstItem="nhp-07-jKg" firstAttribute="top" secondItem="EGH-c0-Tgo" secondAttribute="bottom" constant="-100" id="638-62-ynw"/>
+                            <constraint firstAttribute="trailing" secondItem="EGH-c0-Tgo" secondAttribute="trailing" constant="-50" id="927-Vy-tLX"/>
+                            <constraint firstItem="EGH-c0-Tgo" firstAttribute="leading" secondItem="XKN-5U-Dtg" secondAttribute="leading" constant="-50" id="CjS-Or-Cif"/>
+                            <constraint firstItem="EGH-c0-Tgo" firstAttribute="top" secondItem="9IJ-P7-M4j" secondAttribute="bottom" id="asQ-xn-pBP"/>
+                            <constraint firstAttribute="trailing" secondItem="6JT-PU-ztS" secondAttribute="trailing" constant="90" id="hr0-4Z-EjG"/>
+                            <constraint firstItem="6JT-PU-ztS" firstAttribute="top" secondItem="9IJ-P7-M4j" secondAttribute="bottom" constant="86" id="vUj-Ya-uEL"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -87,4 +94,8 @@
             <point key="canvasLocation" x="702" y="1123"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="homeBackground" width="1024" height="768"/>
+        <image name="x-icon" width="37" height="36"/>
+    </resources>
 </document>
