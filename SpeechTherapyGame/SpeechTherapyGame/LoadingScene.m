@@ -13,8 +13,9 @@
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
     self.backgroundColor = [UIColor whiteColor];
-    SKLabelNode* loading = [SKLabelNode labelNodeWithText:@"Loading..."];
-    loading.fontColor = [UIColor darkGrayColor];
+    SKLabelNode* loading = [[SKLabelNode alloc] initWithFontNamed:@"Arial"];
+    loading.fontSize = 50;
+    loading.fontColor = [UIColor blackColor];
     loading.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addChild:loading];
     

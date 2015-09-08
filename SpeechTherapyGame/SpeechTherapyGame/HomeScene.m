@@ -81,6 +81,16 @@
     star.position = CGPointMake(80, 80);
     star.name = starButtonName;
     [self addChild:star];
+    
+    // Animation for clouds
+    
+    SKAction* flyToLeft = [SKAction moveToX:-_cloud1.size.width/2 duration:10.0f];
+    SKAction* moveToRight = [SKAction runBlock:^{
+        _cloud1.position = CGPointMake(self.size.width + _cloud1.size.width/2, _cloud1.position.y);
+    }];
+    SKAction* cloud1Sequence = [SKAction sequence:@[flyToLeft, moveToRight]];
+    [_cloud1 runAction:[SKAction repeatActionForever:cloud1Sequence]];
+    
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -105,6 +115,7 @@
 }
 
 -(void)update:(CFTimeInterval)currentTime {
+    /*
     _cloud1.position = CGPointMake(_cloud1.position.x - 1.5, _cloud1.position.y);
     _cloud2.position = CGPointMake(_cloud2.position.x - 1, _cloud2.position.y);
     _cloud3.position = CGPointMake(_cloud3.position.x - 0.5, _cloud3.position.y);
@@ -118,7 +129,7 @@
     if (_cloud3.position.x < 0 - _cloud3.size.width/2) {
         _cloud3.position = CGPointMake(self.size.width + _cloud3.size.width/2, _cloud3.position.y);
     }
-    
+    */
 }
 
 @end

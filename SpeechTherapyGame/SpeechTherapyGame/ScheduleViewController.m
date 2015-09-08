@@ -33,7 +33,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.view bringSubviewToFront:[self.view viewWithTag:CloseIconTag]];
+//    [self.view bringSubviewToFront:[self.view viewWithTag:CloseIconTag]];
 }
 
 - (void)setupCalendar {
@@ -63,7 +63,7 @@
     
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.view addSubview:_scheduleCalendar];
+        [self.view insertSubview:_scheduleCalendar belowSubview:[self.view viewWithTag:CloseIconTag]];
         _scheduleCalendar.center = CGPointMake(self.view.center.x, _scheduleCalendar.center.y);
     });
     
