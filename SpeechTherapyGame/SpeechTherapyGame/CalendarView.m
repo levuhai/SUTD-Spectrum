@@ -305,7 +305,7 @@
     NSDateComponents * componentsDateCal = [_gregorian components:_dayInfoUnits fromDate:_calendarDate];
     if (components.month != componentsDateCal.month)
         button.alpha = 0.6f;
-    */
+     */
     
     NSDateComponents *weekDayComp = [_gregorian components:NSCalendarUnitWeekday fromDate:date];
     if (weekDayComp.weekday == 1) {
@@ -525,6 +525,8 @@
         }
     }
     
+    
+    /*
     // Previous month
     NSDateComponents *previousMonthComponents = [_gregorian components:_dayInfoUnits fromDate:_calendarDate];
     previousMonthComponents.month --;
@@ -559,6 +561,7 @@
         [self configureDayButton:button withDate:[_gregorian dateFromComponents:nextMonthComponents]];
         [self addSubview:button];
     }
+     */
 }
 
 @end
