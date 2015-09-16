@@ -18,8 +18,11 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+    #import "CoreDataManager.h"
     #import "FrameAccessor.h"
     #import "SKScene+Unarchive.h"
+    #import "MagicalRecord.h"
 #endif
 
 #endif

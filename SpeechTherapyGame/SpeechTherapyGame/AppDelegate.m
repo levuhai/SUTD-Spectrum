@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Games.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"DataModel"];
+#warning Demo data
+    for (int i = 1; i < 5; i++) {
+        Games* game = [Games MR_createEntity];
+        game.gameId = @(i);
+        game.name = [NSString stringWithFormat:@"Game %d",i];
+        game.dataFolderPath = [NSString stringWithFormat:@"/%@/Data",game.name];
+        game.playedTimesCount = @(10+i);
+    }
+    
+    
+    
     return YES;
 }
 

@@ -8,6 +8,7 @@
 
 #import "ScheduleViewController.h"
 #import "CalendarView.h"
+#import "Games.h"
 
 #define CloseIconTag 1
 
@@ -29,6 +30,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupCalendar];
+    
+    NSArray* allGames = [Games MR_findAll];
+    NSLog(@"%@",allGames);
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
