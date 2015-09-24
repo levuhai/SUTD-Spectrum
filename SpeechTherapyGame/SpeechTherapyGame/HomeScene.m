@@ -48,7 +48,7 @@
     SKSpriteNode* windmillWings = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"windmill-wings"] size:CGSizeMake(111, 107)];
     windmillWings.position = CGPointMake(windmillBody.position.x,
                                          windmillBody.position.y + 25);
-    SKAction *action = [SKAction rotateByAngle:M_PI duration:5];
+    SKAction *action = [SKAction rotateByAngle:M_PI duration:20];
     [windmillWings runAction:[SKAction repeatActionForever:action]];
     [self addChild:windmillWings];
     SKSpriteNode* windmillFrontGrass = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"windmill-front-grass"] size:CGSizeMake(44, 17)];
@@ -84,7 +84,7 @@
     
     // Animation for clouds
     
-    SKAction* flyToLeft = [SKAction moveToX:-_cloud1.size.width/2 duration:10.0f];
+    SKAction* flyToLeft = [SKAction moveToX:-_cloud1.size.width/2 duration:30.0f];
     SKAction* moveToRight = [SKAction runBlock:^{
         _cloud1.position = CGPointMake(self.size.width + _cloud1.size.width/2, _cloud1.position.y);
     }];
