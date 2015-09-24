@@ -16,5 +16,7 @@
 #endif
 
 #include <AudioToolbox/AudioToolbox.h>
+#include <Accelerate/Accelerate.h>
+#include <CoreFoundation/CoreFoundation.h>
 
 #endif

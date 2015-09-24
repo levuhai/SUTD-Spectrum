@@ -49,7 +49,14 @@
 		D7C08A111BB2E1E0000DB38A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C08A101BB2E1E0000DB38A /* CoreGraphics.framework */; };
 		D7C08A131BB2E1F4000DB38A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C08A121BB2E1F4000DB38A /* UIKit.framework */; };
 		D7C08A341BB2E3B0000DB38A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C08A331BB2E3B0000DB38A /* OpenGLES.framework */; };
-		D7C08AA91BB39D0B000DB38A /* libWordMatchIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C08A2E1BB2E322000DB38A /* libWordMatchIOS.a */; };
+		D7C08AD71BB3AAFF000DB38A /* AudioFileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7C08ABB1BB3AAFF000DB38A /* AudioFileReader.cpp */; };
+		D7C08ADC1BB3AAFF000DB38A /* MelFilterBank.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7C08AC41BB3AAFF000DB38A /* MelFilterBank.cpp */; };
+		D7C08ADD1BB3AAFF000DB38A /* MFCCProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7C08AC61BB3AAFF000DB38A /* MFCCProcessor.cpp */; };
+		D7C08ADF1BB3AAFF000DB38A /* MFCCUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7C08ACA1BB3AAFF000DB38A /* MFCCUtils.cpp */; };
+		D7C08AE01BB3AAFF000DB38A /* TriangleFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7C08ACC1BB3AAFF000DB38A /* TriangleFilter.cpp */; };
+		D7C08AE21BB3AAFF000DB38A /* WordMatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7C08AD11BB3AAFF000DB38A /* WordMatch.cpp */; };
+		D7C08AE31BB3AAFF000DB38A /* WordMatchSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7C08AD31BB3AAFF000DB38A /* WordMatchSession.cpp */; };
+		D7C08AF71BB3AEED000DB38A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C08AF61BB3AEED000DB38A /* CoreMedia.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,34 +66,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = D7C075DD1BB2572A000DB38A;
 			remoteInfo = MFCCDemo;
-		};
-		D7C08A2B1BB2E322000DB38A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D7C08A241BB2E321000DB38A /* WordMatch.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = ADC34F7F1312CD6E00FD3BB7;
-			remoteInfo = Test;
-		};
-		D7C08A2D1BB2E322000DB38A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D7C08A241BB2E321000DB38A /* WordMatch.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = AD150C1B1312D40B000DE334;
-			remoteInfo = WordMatchIOS;
-		};
-		D7C08A2F1BB2E322000DB38A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D7C08A241BB2E321000DB38A /* WordMatch.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = AD957DE61312D51C0035D5B9;
-			remoteInfo = WordMatchOSX;
-		};
-		D7C08A311BB2E322000DB38A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D7C08A241BB2E321000DB38A /* WordMatch.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = AD0AB07B1325490700E1983B;
-			remoteInfo = iPhoneTest;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -163,8 +142,33 @@
 		D7C08A0E1BB2E173000DB38A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D7C08A101BB2E1E0000DB38A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D7C08A121BB2E1F4000DB38A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		D7C08A241BB2E321000DB38A /* WordMatch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = WordMatch.xcodeproj; sourceTree = "<group>"; };
 		D7C08A331BB2E3B0000DB38A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		D7C08ABB1BB3AAFF000DB38A /* AudioFileReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFileReader.cpp; sourceTree = "<group>"; };
+		D7C08ABC1BB3AAFF000DB38A /* AudioFileReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioFileReader.hpp; sourceTree = "<group>"; };
+		D7C08AC21BB3AAFF000DB38A /* dtw.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dtw.hpp; sourceTree = "<group>"; };
+		D7C08AC41BB3AAFF000DB38A /* MelFilterBank.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MelFilterBank.cpp; sourceTree = "<group>"; };
+		D7C08AC51BB3AAFF000DB38A /* MelFilterBank.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MelFilterBank.hpp; sourceTree = "<group>"; };
+		D7C08AC61BB3AAFF000DB38A /* MFCCProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MFCCProcessor.cpp; sourceTree = "<group>"; };
+		D7C08AC71BB3AAFF000DB38A /* MFCCProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MFCCProcessor.hpp; sourceTree = "<group>"; };
+		D7C08ACA1BB3AAFF000DB38A /* MFCCUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MFCCUtils.cpp; sourceTree = "<group>"; };
+		D7C08ACB1BB3AAFF000DB38A /* MFCCUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFCCUtils.h; sourceTree = "<group>"; };
+		D7C08ACC1BB3AAFF000DB38A /* TriangleFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriangleFilter.cpp; sourceTree = "<group>"; };
+		D7C08ACD1BB3AAFF000DB38A /* TriangleFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TriangleFilter.hpp; sourceTree = "<group>"; };
+		D7C08ACF1BB3AAFF000DB38A /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		D7C08AD11BB3AAFF000DB38A /* WordMatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WordMatch.cpp; sourceTree = "<group>"; };
+		D7C08AD21BB3AAFF000DB38A /* WordMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordMatch.h; sourceTree = "<group>"; };
+		D7C08AD31BB3AAFF000DB38A /* WordMatchSession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WordMatchSession.cpp; sourceTree = "<group>"; };
+		D7C08AD41BB3AAFF000DB38A /* WordMatchSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordMatchSession.h; sourceTree = "<group>"; };
+		D7C08AE41BB3AB10000DB38A /* libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; path = "../boost_ext/lib/libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; sourceTree = "<group>"; };
+		D7C08AE51BB3AB10000DB38A /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a"; path = "../boost_ext/lib/libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a"; sourceTree = "<group>"; };
+		D7C08AE61BB3AB10000DB38A /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; path = "../boost_ext/lib/libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; sourceTree = "<group>"; };
+		D7C08AE71BB3AB10000DB38A /* libboost_test_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_test_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; path = "../boost_ext/lib/libboost_test_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; sourceTree = "<group>"; };
+		D7C08AE81BB3AB10000DB38A /* libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a"; path = "../boost_ext/lib/libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a"; sourceTree = "<group>"; };
+		D7C08AE91BB3AB10000DB38A /* libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; path = "../boost_ext/lib/libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; sourceTree = "<group>"; };
+		D7C08AEA1BB3AB10000DB38A /* libboost_unit_test_framework-xgcc42-mt-1_46_OSX_10_6_32_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_unit_test_framework-xgcc42-mt-1_46_OSX_10_6_32_64.a"; path = "../boost_ext/lib/libboost_unit_test_framework-xgcc42-mt-1_46_OSX_10_6_32_64.a"; sourceTree = "<group>"; };
+		D7C08AEB1BB3AB10000DB38A /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a"; path = "../boost_ext/lib/libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a"; sourceTree = "<group>"; };
+		D7C08AEC1BB3AB10000DB38A /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; path = "../boost_ext/lib/libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; sourceTree = "<group>"; };
+		D7C08AF61BB3AEED000DB38A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,7 +176,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7C08AA91BB39D0B000DB38A /* libWordMatchIOS.a in Frameworks */,
+				D7C08AF71BB3AEED000DB38A /* CoreMedia.framework in Frameworks */,
 				D7C08A341BB2E3B0000DB38A /* OpenGLES.framework in Frameworks */,
 				D7C08A131BB2E1F4000DB38A /* UIKit.framework in Frameworks */,
 				D7C08A111BB2E1E0000DB38A /* CoreGraphics.framework in Frameworks */,
@@ -199,7 +203,6 @@
 		D7C075D51BB2572A000DB38A = {
 			isa = PBXGroup;
 			children = (
-				D7C08A241BB2E321000DB38A /* WordMatch.xcodeproj */,
 				D7C08A141BB2E238000DB38A /* Frameworks */,
 				D7C0762C1BB25975000DB38A /* References */,
 				D7C075E01BB2572A000DB38A /* MFCCDemo */,
@@ -264,6 +267,7 @@
 		D7C0762C1BB25975000DB38A /* References */ = {
 			isa = PBXGroup;
 			children = (
+				D7C08AB91BB3AAFF000DB38A /* WordMatch */,
 				D7C076991BB273C8000DB38A /* CAPublicUtility */,
 				D7C076371BB261BE000DB38A /* EZAudio */,
 			);
@@ -343,6 +347,16 @@
 		D7C08A141BB2E238000DB38A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D7C08AF61BB3AEED000DB38A /* CoreMedia.framework */,
+				D7C08AE41BB3AB10000DB38A /* libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a */,
+				D7C08AE51BB3AB10000DB38A /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a */,
+				D7C08AE61BB3AB10000DB38A /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a */,
+				D7C08AE71BB3AB10000DB38A /* libboost_test_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a */,
+				D7C08AE81BB3AB10000DB38A /* libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a */,
+				D7C08AE91BB3AB10000DB38A /* libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a */,
+				D7C08AEA1BB3AB10000DB38A /* libboost_unit_test_framework-xgcc42-mt-1_46_OSX_10_6_32_64.a */,
+				D7C08AEB1BB3AB10000DB38A /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a */,
+				D7C08AEC1BB3AB10000DB38A /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a */,
 				D7C08A331BB2E3B0000DB38A /* OpenGLES.framework */,
 				D7C08A0C1BB2E0AC000DB38A /* Accelerate.framework */,
 				D7C076311BB25D60000DB38A /* AudioToolbox.framework */,
@@ -357,15 +371,27 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D7C08A251BB2E321000DB38A /* Products */ = {
+		D7C08AB91BB3AAFF000DB38A /* WordMatch */ = {
 			isa = PBXGroup;
 			children = (
-				D7C08A2C1BB2E322000DB38A /* Test */,
-				D7C08A2E1BB2E322000DB38A /* libWordMatchIOS.a */,
-				D7C08A301BB2E322000DB38A /* libWordMatchOSX.a */,
-				D7C08A321BB2E322000DB38A /* iPhoneTest.app */,
+				D7C08ABB1BB3AAFF000DB38A /* AudioFileReader.cpp */,
+				D7C08ABC1BB3AAFF000DB38A /* AudioFileReader.hpp */,
+				D7C08AC21BB3AAFF000DB38A /* dtw.hpp */,
+				D7C08AC41BB3AAFF000DB38A /* MelFilterBank.cpp */,
+				D7C08AC51BB3AAFF000DB38A /* MelFilterBank.hpp */,
+				D7C08AC61BB3AAFF000DB38A /* MFCCProcessor.cpp */,
+				D7C08AC71BB3AAFF000DB38A /* MFCCProcessor.hpp */,
+				D7C08ACA1BB3AAFF000DB38A /* MFCCUtils.cpp */,
+				D7C08ACB1BB3AAFF000DB38A /* MFCCUtils.h */,
+				D7C08ACC1BB3AAFF000DB38A /* TriangleFilter.cpp */,
+				D7C08ACD1BB3AAFF000DB38A /* TriangleFilter.hpp */,
+				D7C08ACF1BB3AAFF000DB38A /* Types.h */,
+				D7C08AD11BB3AAFF000DB38A /* WordMatch.cpp */,
+				D7C08AD21BB3AAFF000DB38A /* WordMatch.h */,
+				D7C08AD31BB3AAFF000DB38A /* WordMatchSession.cpp */,
+				D7C08AD41BB3AAFF000DB38A /* WordMatchSession.h */,
 			);
-			name = Products;
+			path = WordMatch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -435,12 +461,6 @@
 			mainGroup = D7C075D51BB2572A000DB38A;
 			productRefGroup = D7C075DF1BB2572A000DB38A /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = D7C08A251BB2E321000DB38A /* Products */;
-					ProjectRef = D7C08A241BB2E321000DB38A /* WordMatch.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				D7C075DD1BB2572A000DB38A /* MFCCDemo */,
@@ -448,37 +468,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		D7C08A2C1BB2E322000DB38A /* Test */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = Test;
-			remoteRef = D7C08A2B1BB2E322000DB38A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D7C08A2E1BB2E322000DB38A /* libWordMatchIOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libWordMatchIOS.a;
-			remoteRef = D7C08A2D1BB2E322000DB38A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D7C08A301BB2E322000DB38A /* libWordMatchOSX.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libWordMatchOSX.a;
-			remoteRef = D7C08A2F1BB2E322000DB38A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D7C08A321BB2E322000DB38A /* iPhoneTest.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = iPhoneTest.app;
-			remoteRef = D7C08A311BB2E322000DB38A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D7C075DC1BB2572A000DB38A /* Resources */ = {
@@ -511,11 +500,14 @@
 			files = (
 				D7C076691BB261BE000DB38A /* EZRecorder.m in Sources */,
 				D7C076631BB261BE000DB38A /* EZAudioPlot.m in Sources */,
+				D7C08ADF1BB3AAFF000DB38A /* MFCCUtils.cpp in Sources */,
 				D7C076621BB261BE000DB38A /* EZAudioPlayer.m in Sources */,
 				D7C075EA1BB2572A000DB38A /* ViewController.mm in Sources */,
 				D7C076641BB261BE000DB38A /* EZAudioPlotGL.m in Sources */,
+				D7C08AE31BB3AAFF000DB38A /* WordMatchSession.cpp in Sources */,
 				D7C0765F1BB261BE000DB38A /* EZAudioFile.m in Sources */,
 				D7C076AB1BB273C8000DB38A /* CAXException.cpp in Sources */,
+				D7C08AE21BB3AAFF000DB38A /* WordMatch.cpp in Sources */,
 				D7C076671BB261BE000DB38A /* EZOutput.m in Sources */,
 				D7C0765B1BB261BE000DB38A /* EZAudio.m in Sources */,
 				D7C0766A1BB261BE000DB38A /* TPCircularBuffer.c in Sources */,
@@ -526,10 +518,14 @@
 				D7C076A91BB273C8000DB38A /* CAHostTimeBase.cpp in Sources */,
 				D7C076601BB261BE000DB38A /* EZAudioFloatConverter.m in Sources */,
 				D7C075E41BB2572A000DB38A /* main.m in Sources */,
+				D7C08ADC1BB3AAFF000DB38A /* MelFilterBank.cpp in Sources */,
 				D7C0765D1BB261BE000DB38A /* EZAudioDisplayLink.m in Sources */,
 				D7C076681BB261BE000DB38A /* EZPlot.m in Sources */,
 				D7C0765E1BB261BE000DB38A /* EZAudioFFT.m in Sources */,
+				D7C08AD71BB3AAFF000DB38A /* AudioFileReader.cpp in Sources */,
+				D7C08AE01BB3AAFF000DB38A /* TriangleFilter.cpp in Sources */,
 				D7C076A81BB273C8000DB38A /* CADebugPrintf.cpp in Sources */,
+				D7C08ADD1BB3AAFF000DB38A /* MFCCProcessor.cpp in Sources */,
 				D7C076A71BB273C8000DB38A /* CADebugMacros.cpp in Sources */,
 				D7C076651BB261BE000DB38A /* EZAudioUtilities.m in Sources */,
 				D7C0765C1BB261BE000DB38A /* EZAudioDevice.m in Sources */,
@@ -668,15 +664,23 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MFCCDemo/Prefix.pch;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../boost_ext/include\"",
+					/Developer/Extras/CoreAudio/PublicUtility,
+				);
 				INFOPLIST_FILE = MFCCDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 					"$(inherited)",
+					"/Users/vuhai_le/Earthling/sutd-spectrum/MFCC",
+					Demo/boost_ext/lib,
 				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/WordMatch\"";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -692,15 +696,23 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MFCCDemo/Prefix.pch;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../boost_ext/include\"",
+					/Developer/Extras/CoreAudio/PublicUtility,
+				);
 				INFOPLIST_FILE = MFCCDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 					"$(inherited)",
+					"/Users/vuhai_le/Earthling/sutd-spectrum/MFCC",
+					Demo/boost_ext/lib,
 				);
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/WordMatch\"";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
