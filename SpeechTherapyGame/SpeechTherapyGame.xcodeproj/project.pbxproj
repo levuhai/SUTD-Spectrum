@@ -7,10 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D1A04221BB0676B00FA14CC /* GameManagerMasterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04211BB0676B00FA14CC /* GameManagerMasterView.m */; settings = {ASSET_TAGS = (); }; };
+		2D1A043E1BB06A0800FA14CC /* NGMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A043D1BB06A0800FA14CC /* NGMenuItem.m */; settings = {ASSET_TAGS = (); }; };
+		2D1A04421BB06A2400FA14CC /* NGSplitViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04411BB06A2400FA14CC /* NGSplitViewManager.m */; settings = {ASSET_TAGS = (); }; };
+		2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04441BB06A3500FA14CC /* NGSplitMenuController.m */; settings = {ASSET_TAGS = (); }; };
+		2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04471BB06A3E00FA14CC /* MenuTableCell.m */; settings = {ASSET_TAGS = (); }; };
+		2D1A044B1BB06C1D00FA14CC /* GameManagerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A044A1BB06C1D00FA14CC /* GameManagerDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
+		2D1A04581BB0723B00FA14CC /* nav-icons-email2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D1A044E1BB0723B00FA14CC /* nav-icons-email2x.png */; settings = {ASSET_TAGS = (); }; };
+		2D1A04591BB0723B00FA14CC /* nav-icons-email2x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D1A044F1BB0723B00FA14CC /* nav-icons-email2x@2x.png */; settings = {ASSET_TAGS = (); }; };
+		2D1A045A1BB0723B00FA14CC /* nav-icons-home2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D1A04501BB0723B00FA14CC /* nav-icons-home2x.png */; settings = {ASSET_TAGS = (); }; };
+		2D1A045B1BB0723B00FA14CC /* nav-icons-home2x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D1A04511BB0723B00FA14CC /* nav-icons-home2x@2x.png */; settings = {ASSET_TAGS = (); }; };
 		2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2875431B977F310068818D /* SKScene+Unarchive.m */; };
 		2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064721BA99E6B00410B0E /* CoreDataManager.m */; };
 		2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */; };
 		2D8931F41BA986AF006D2840 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D8931F31BA986AF006D2840 /* CoreData.framework */; };
+		2DC904171BB1D0580082DEAC /* GameStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904161BB1D0580082DEAC /* GameStatsViewController.m */; settings = {ASSET_TAGS = (); }; };
+		2DC9041A1BB1D0710082DEAC /* SoundManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */; settings = {ASSET_TAGS = (); }; };
 		2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E12D1B9CAF3C00BFEDA6 /* LoadingViewController.m */; };
 		2DE0E1311B9CAF6100BFEDA6 /* LoadingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1301B9CAF6100BFEDA6 /* LoadingScene.m */; };
 		2DE0E1341B9CB24B00BFEDA6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1331B9CB24B00BFEDA6 /* ScheduleViewController.m */; };
@@ -41,12 +53,35 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D1A04201BB0676B00FA14CC /* GameManagerMasterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManagerMasterView.h; sourceTree = "<group>"; };
+		2D1A04211BB0676B00FA14CC /* GameManagerMasterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameManagerMasterView.m; sourceTree = "<group>"; };
+		2D1A043B1BB06A0800FA14CC /* NGMenuConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGMenuConstants.h; sourceTree = "<group>"; };
+		2D1A043C1BB06A0800FA14CC /* NGMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGMenuItem.h; sourceTree = "<group>"; };
+		2D1A043D1BB06A0800FA14CC /* NGMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGMenuItem.m; sourceTree = "<group>"; };
+		2D1A043F1BB06A1A00FA14CC /* NGSplitMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGSplitMenu.h; sourceTree = "<group>"; };
+		2D1A04401BB06A2400FA14CC /* NGSplitViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGSplitViewManager.h; sourceTree = "<group>"; };
+		2D1A04411BB06A2400FA14CC /* NGSplitViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGSplitViewManager.m; sourceTree = "<group>"; };
+		2D1A04431BB06A3500FA14CC /* NGSplitMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGSplitMenuController.h; sourceTree = "<group>"; };
+		2D1A04441BB06A3500FA14CC /* NGSplitMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGSplitMenuController.m; sourceTree = "<group>"; };
+		2D1A04461BB06A3D00FA14CC /* MenuTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableCell.h; sourceTree = "<group>"; };
+		2D1A04471BB06A3E00FA14CC /* MenuTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableCell.m; sourceTree = "<group>"; };
+		2D1A04491BB06C1D00FA14CC /* GameManagerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManagerDetailViewController.h; sourceTree = "<group>"; };
+		2D1A044A1BB06C1D00FA14CC /* GameManagerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameManagerDetailViewController.m; sourceTree = "<group>"; };
+		2D1A044E1BB0723B00FA14CC /* nav-icons-email2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-icons-email2x.png"; sourceTree = "<group>"; };
+		2D1A044F1BB0723B00FA14CC /* nav-icons-email2x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-icons-email2x@2x.png"; sourceTree = "<group>"; };
+		2D1A04501BB0723B00FA14CC /* nav-icons-home2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-icons-home2x.png"; sourceTree = "<group>"; };
+		2D1A04511BB0723B00FA14CC /* nav-icons-home2x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-icons-home2x@2x.png"; sourceTree = "<group>"; };
 		2D2875421B977F310068818D /* SKScene+Unarchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKScene+Unarchive.h"; sourceTree = "<group>"; };
 		2D2875431B977F310068818D /* SKScene+Unarchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKScene+Unarchive.m"; sourceTree = "<group>"; };
 		2D6064711BA99E6B00410B0E /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		2D6064721BA99E6B00410B0E /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		2D6064751BA99FF100410B0E /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		2D8931F31BA986AF006D2840 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2DC904141BB1C5430082DEAC /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
+		2DC904151BB1D0580082DEAC /* GameStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStatsViewController.h; sourceTree = "<group>"; };
+		2DC904161BB1D0580082DEAC /* GameStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStatsViewController.m; sourceTree = "<group>"; };
+		2DC904181BB1D0710082DEAC /* SoundManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManagerViewController.h; sourceTree = "<group>"; };
+		2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManagerViewController.m; sourceTree = "<group>"; };
 		2DE0E12C1B9CAF3C00BFEDA6 /* LoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
 		2DE0E12D1B9CAF3C00BFEDA6 /* LoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
 		2DE0E12F1B9CAF6100BFEDA6 /* LoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingScene.h; sourceTree = "<group>"; };
@@ -103,9 +138,74 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D1A041F1BB0672700FA14CC /* GameManager */ = {
+			isa = PBXGroup;
+			children = (
+				2D1A04201BB0676B00FA14CC /* GameManagerMasterView.h */,
+				2D1A04211BB0676B00FA14CC /* GameManagerMasterView.m */,
+				2D1A04491BB06C1D00FA14CC /* GameManagerDetailViewController.h */,
+				2D1A044A1BB06C1D00FA14CC /* GameManagerDetailViewController.m */,
+				2DC904151BB1D0580082DEAC /* GameStatsViewController.h */,
+				2DC904161BB1D0580082DEAC /* GameStatsViewController.m */,
+				2DC904181BB1D0710082DEAC /* SoundManagerViewController.h */,
+				2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */,
+			);
+			name = GameManager;
+			sourceTree = "<group>";
+		};
+		2D1A04231BB068BF00FA14CC /* NGSplitMenuController */ = {
+			isa = PBXGroup;
+			children = (
+				2D1A043F1BB06A1A00FA14CC /* NGSplitMenu.h */,
+				2D1A043A1BB069B000FA14CC /* NGUtils */,
+				2D1A04391BB069A800FA14CC /* NGSplitManager */,
+				2D1A04381BB069A000FA14CC /* NGSplitController */,
+				2D1A04371BB0699300FA14CC /* NGCellViews */,
+			);
+			path = NGSplitMenuController;
+			sourceTree = "<group>";
+		};
+		2D1A04371BB0699300FA14CC /* NGCellViews */ = {
+			isa = PBXGroup;
+			children = (
+				2D1A04461BB06A3D00FA14CC /* MenuTableCell.h */,
+				2D1A04471BB06A3E00FA14CC /* MenuTableCell.m */,
+			);
+			path = NGCellViews;
+			sourceTree = "<group>";
+		};
+		2D1A04381BB069A000FA14CC /* NGSplitController */ = {
+			isa = PBXGroup;
+			children = (
+				2D1A04431BB06A3500FA14CC /* NGSplitMenuController.h */,
+				2D1A04441BB06A3500FA14CC /* NGSplitMenuController.m */,
+			);
+			path = NGSplitController;
+			sourceTree = "<group>";
+		};
+		2D1A04391BB069A800FA14CC /* NGSplitManager */ = {
+			isa = PBXGroup;
+			children = (
+				2D1A04401BB06A2400FA14CC /* NGSplitViewManager.h */,
+				2D1A04411BB06A2400FA14CC /* NGSplitViewManager.m */,
+			);
+			path = NGSplitManager;
+			sourceTree = "<group>";
+		};
+		2D1A043A1BB069B000FA14CC /* NGUtils */ = {
+			isa = PBXGroup;
+			children = (
+				2D1A043B1BB06A0800FA14CC /* NGMenuConstants.h */,
+				2D1A043C1BB06A0800FA14CC /* NGMenuItem.h */,
+				2D1A043D1BB06A0800FA14CC /* NGMenuItem.m */,
+			);
+			path = NGUtils;
+			sourceTree = "<group>";
+		};
 		2D28753A1B9770A00068818D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				2D1A041F1BB0672700FA14CC /* GameManager */,
 				2DE0E12B1B9CAF2400BFEDA6 /* Loading */,
 				2D28753C1B977AD20068818D /* Schedule */,
 				2D28753B1B9770C40068818D /* Home */,
@@ -141,6 +241,7 @@
 				2DF6B7431B94A14800B7F92C /* AppDelegate.h */,
 				2DF6B7441B94A14800B7F92C /* AppDelegate.m */,
 				2DF6B74E1B94A14800B7F92C /* Main.storyboard */,
+				2DC904141BB1C5430082DEAC /* Macro.h */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -181,6 +282,7 @@
 		2DE0E1351B9CB55100BFEDA6 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2D1A04231BB068BF00FA14CC /* NGSplitMenuController */,
 				2D6064701BA99E5B00410B0E /* CoreDataManager */,
 				2DE0E1371B9CB56B00BFEDA6 /* CalendarView */,
 				2DE0E1361B9CB55C00BFEDA6 /* SKScene tools */,
@@ -244,6 +346,10 @@
 				2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */,
 				2DF6B7401B94A14800B7F92C /* Info.plist */,
 				2DF6B76A1B94B53E00B7F92C /* SpeechTherapyGame-Prefix.pch */,
+				2D1A044E1BB0723B00FA14CC /* nav-icons-email2x.png */,
+				2D1A044F1BB0723B00FA14CC /* nav-icons-email2x@2x.png */,
+				2D1A04501BB0723B00FA14CC /* nav-icons-home2x.png */,
+				2D1A04511BB0723B00FA14CC /* nav-icons-home2x@2x.png */,
 				2DF6B7511B94A14800B7F92C /* Images.xcassets */,
 				2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */,
 			);
@@ -369,8 +475,12 @@
 			files = (
 				2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */,
 				2DF6B7521B94A14800B7F92C /* Images.xcassets in Resources */,
+				2D1A04591BB0723B00FA14CC /* nav-icons-email2x@2x.png in Resources */,
 				2DF6B74A1B94A14800B7F92C /* HomeScene.sks in Resources */,
+				2D1A04581BB0723B00FA14CC /* nav-icons-email2x.png in Resources */,
+				2D1A045B1BB0723B00FA14CC /* nav-icons-home2x@2x.png in Resources */,
 				2DF6B7501B94A14800B7F92C /* Main.storyboard in Resources */,
+				2D1A045A1BB0723B00FA14CC /* nav-icons-home2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,15 +531,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */,
+				2D1A043E1BB06A0800FA14CC /* NGMenuItem.m in Sources */,
+				2DC904171BB1D0580082DEAC /* GameStatsViewController.m in Sources */,
 				2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */,
 				2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */,
 				2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */,
 				2DF3D3521BA9A54700BE9ED4 /* Games.m in Sources */,
 				2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */,
 				2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */,
+				2D1A04221BB0676B00FA14CC /* GameManagerMasterView.m in Sources */,
+				2D1A044B1BB06C1D00FA14CC /* GameManagerDetailViewController.m in Sources */,
 				2DF3D3551BA9A54800BE9ED4 /* GameStatistics.m in Sources */,
 				2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */,
+				2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */,
+				2DC9041A1BB1D0710082DEAC /* SoundManagerViewController.m in Sources */,
 				2DE0E1311B9CAF6100BFEDA6 /* LoadingScene.m in Sources */,
+				2D1A04421BB06A2400FA14CC /* NGSplitViewManager.m in Sources */,
 				2DF3D3581BA9A54800BE9ED4 /* Sounds.m in Sources */,
 				2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */,
 				2DF6B7481B94A14800B7F92C /* HomeScene.m in Sources */,
@@ -563,6 +681,7 @@
 			baseConfigurationReference = 482749E27D29E52B34F59317 /* Pods-SpeechTherapyGame.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpeechTherapyGame/SpeechTherapyGame-Prefix.pch";
 				INFOPLIST_FILE = SpeechTherapyGame/Info.plist;
@@ -578,6 +697,7 @@
 			baseConfigurationReference = B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpeechTherapyGame/SpeechTherapyGame-Prefix.pch";
 				INFOPLIST_FILE = SpeechTherapyGame/Info.plist;

@@ -18,7 +18,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [MagicalRecord cleanUp];
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"DataModel"];
+    [Games MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"gameId != 0"]];
 #warning Demo data
     for (int i = 1; i < 5; i++) {
         Games* game = [Games MR_createEntity];
@@ -27,8 +29,6 @@
         game.dataFolderPath = [NSString stringWithFormat:@"/%@/Data",game.name];
         game.playedTimesCount = @(10+i);
     }
-    
-    
     
     return YES;
 }

@@ -23,6 +23,9 @@
     #import "FrameAccessor.h"
     #import "SKScene+Unarchive.h"
     #import "MagicalRecord.h"
+    #include "NGSplitMenu.h"
+    #include "Macro.h"
+    #import "GraphKit.h"
 #endif
 
 #endif
