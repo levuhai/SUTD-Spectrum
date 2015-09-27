@@ -8,6 +8,7 @@
 
 #import "HomeSceneViewController.h"
 #import "HomeScene.h"
+#import "ScheduleViewController.h"
 
 @implementation HomeSceneViewController
 
@@ -56,7 +57,8 @@
 #pragma mark - Action methods
 
 - (void)showScheduleScene {
-    [self performSegueWithIdentifier:@"gotoScheduleScene" sender:self];
+    ScheduleViewController* svc = [self.storyboard instantiateViewControllerWithIdentifier:@"ScheduleViewController"];
+    [self presentViewController:svc animated:YES completion:nil];
 }
 
 @end

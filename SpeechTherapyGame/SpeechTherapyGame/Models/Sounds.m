@@ -2,20 +2,14 @@
 //  Sounds.m
 //  SpeechTherapyGame
 //
-//  Created by Vit on 9/16/15.
-//  Copyright (c) 2015 SUTD. All rights reserved.
+//  Created by Vit on 9/27/15.
+//  Copyright © 2015 SUTD. All rights reserved.
 //
 
 #import "Sounds.h"
 
-
 @implementation Sounds
 
-@dynamic colorCode;
-@dynamic dateAdded;
-@dynamic dateModified;
-@dynamic filePath;
-@dynamic name;
-@dynamic soundId;
+// Insert code here to add functionality to your managed object subclass
 
 @end

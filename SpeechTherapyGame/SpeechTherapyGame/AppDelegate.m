@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "Games.h"
+#import "Sounds.h"
+#import "GameStatistics.h"
 
 @interface AppDelegate ()
 
@@ -21,13 +23,31 @@
     [MagicalRecord cleanUp];
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"DataModel"];
     [Games MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"gameId != 0"]];
+    
 #warning Demo data
-    for (int i = 1; i < 5; i++) {
-        Games* game = [Games MR_createEntity];
-        game.gameId = @(i);
-        game.name = [NSString stringWithFormat:@"Game %d",i];
-        game.dataFolderPath = [NSString stringWithFormat:@"/%@/Data",game.name];
-        game.playedTimesCount = @(10+i);
+    Games* game = [Games MR_createEntity];
+    game.gameId = @(1);
+    game.name = [NSString stringWithFormat:@"Fishing"];
+    
+    
+    NSArray* sounds = @[@"a",@"b",@"c",@"d",@"e",@"f",@"g"];
+    for (int i = 1; i <= sounds.count; i++) {
+        Sounds* sound = [Sounds MR_createEntity];
+        sound.soundId = @(i);
+        sound.name = sounds[i-1];
+        sound.dateAdded = [NSDate date];
+    }
+    
+    
+    for (int i = 0; i < 7; i++) {
+        GameStatistics* gameStat = [GameStatistics MR_createEntity];
+        gameStat.statId  = @(i+1);
+        gameStat.gameId  = @(1);
+        gameStat.statistics = [GameStatistics makeStatisticsFrom:sounds[arc4random_uniform((int)sounds.count)] totalPlayedTime:@20 incorrectTimes:@(arc4random_uniform(20))];
+        
+        NSDate *now = [NSDate date];
+        NSDate *newDate1 = [now dateByAddingTimeInterval:60*60*24*i];
+        gameStat.dateAdded = newDate1;
     }
     
     return YES;

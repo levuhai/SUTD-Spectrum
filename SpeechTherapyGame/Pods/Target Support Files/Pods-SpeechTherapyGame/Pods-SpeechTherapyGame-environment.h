@@ -6,6 +6,12 @@
 // project.
 
 
+// ActionSheetPicker-3.0
+#define COCOAPODS_POD_AVAILABLE_ActionSheetPicker_3_0
+#define COCOAPODS_VERSION_MAJOR_ActionSheetPicker_3_0 2
+#define COCOAPODS_VERSION_MINOR_ActionSheetPicker_3_0 0
+#define COCOAPODS_VERSION_PATCH_ActionSheetPicker_3_0 1
+
 // FrameAccessor
 #define COCOAPODS_POD_AVAILABLE_FrameAccessor
 #define COCOAPODS_VERSION_MAJOR_FrameAccessor 1
