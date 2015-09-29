@@ -13,10 +13,6 @@
 		2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04441BB06A3500FA14CC /* NGSplitMenuController.m */; settings = {ASSET_TAGS = (); }; };
 		2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04471BB06A3E00FA14CC /* MenuTableCell.m */; settings = {ASSET_TAGS = (); }; };
 		2D1A044B1BB06C1D00FA14CC /* GameManagerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A044A1BB06C1D00FA14CC /* GameManagerDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
-		2D1A04581BB0723B00FA14CC /* nav-icons-email2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D1A044E1BB0723B00FA14CC /* nav-icons-email2x.png */; settings = {ASSET_TAGS = (); }; };
-		2D1A04591BB0723B00FA14CC /* nav-icons-email2x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D1A044F1BB0723B00FA14CC /* nav-icons-email2x@2x.png */; settings = {ASSET_TAGS = (); }; };
-		2D1A045A1BB0723B00FA14CC /* nav-icons-home2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D1A04501BB0723B00FA14CC /* nav-icons-home2x.png */; settings = {ASSET_TAGS = (); }; };
-		2D1A045B1BB0723B00FA14CC /* nav-icons-home2x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D1A04511BB0723B00FA14CC /* nav-icons-home2x@2x.png */; settings = {ASSET_TAGS = (); }; };
 		2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2875431B977F310068818D /* SKScene+Unarchive.m */; };
 		2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064721BA99E6B00410B0E /* CoreDataManager.m */; };
 		2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */; };
@@ -70,10 +66,6 @@
 		2D1A04471BB06A3E00FA14CC /* MenuTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableCell.m; sourceTree = "<group>"; };
 		2D1A04491BB06C1D00FA14CC /* GameManagerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManagerDetailViewController.h; sourceTree = "<group>"; };
 		2D1A044A1BB06C1D00FA14CC /* GameManagerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameManagerDetailViewController.m; sourceTree = "<group>"; };
-		2D1A044E1BB0723B00FA14CC /* nav-icons-email2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-icons-email2x.png"; sourceTree = "<group>"; };
-		2D1A044F1BB0723B00FA14CC /* nav-icons-email2x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-icons-email2x@2x.png"; sourceTree = "<group>"; };
-		2D1A04501BB0723B00FA14CC /* nav-icons-home2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-icons-home2x.png"; sourceTree = "<group>"; };
-		2D1A04511BB0723B00FA14CC /* nav-icons-home2x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-icons-home2x@2x.png"; sourceTree = "<group>"; };
 		2D2875421B977F310068818D /* SKScene+Unarchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKScene+Unarchive.h"; sourceTree = "<group>"; };
 		2D2875431B977F310068818D /* SKScene+Unarchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKScene+Unarchive.m"; sourceTree = "<group>"; };
 		2D6064711BA99E6B00410B0E /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
@@ -361,10 +353,6 @@
 				2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */,
 				2DF6B7401B94A14800B7F92C /* Info.plist */,
 				2DF6B76A1B94B53E00B7F92C /* SpeechTherapyGame-Prefix.pch */,
-				2D1A044E1BB0723B00FA14CC /* nav-icons-email2x.png */,
-				2D1A044F1BB0723B00FA14CC /* nav-icons-email2x@2x.png */,
-				2D1A04501BB0723B00FA14CC /* nav-icons-home2x.png */,
-				2D1A04511BB0723B00FA14CC /* nav-icons-home2x@2x.png */,
 				2DF6B7511B94A14800B7F92C /* Images.xcassets */,
 				2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */,
 			);
@@ -490,12 +478,8 @@
 			files = (
 				2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */,
 				2DF6B7521B94A14800B7F92C /* Images.xcassets in Resources */,
-				2D1A04591BB0723B00FA14CC /* nav-icons-email2x@2x.png in Resources */,
 				2DF6B74A1B94A14800B7F92C /* HomeScene.sks in Resources */,
-				2D1A04581BB0723B00FA14CC /* nav-icons-email2x.png in Resources */,
-				2D1A045B1BB0723B00FA14CC /* nav-icons-home2x@2x.png in Resources */,
 				2DF6B7501B94A14800B7F92C /* Main.storyboard in Resources */,
-				2D1A045A1BB0723B00FA14CC /* nav-icons-home2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

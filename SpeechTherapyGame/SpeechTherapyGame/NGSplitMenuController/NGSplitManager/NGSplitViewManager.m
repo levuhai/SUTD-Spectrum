@@ -95,11 +95,21 @@ static NGSplitViewManager *_sharedInstance;
 }
 
 - (void)setMasterViewController:(UIViewController*)masterViewController{
-    [self.ngSplitMenuController setMasterView:masterViewController];
+    if (masterViewController == nil) {
+        [masterViewController removeFromParentViewController];
+        [masterViewController.view removeFromSuperview];
+        masterViewController = nil;
+    } else
+        [self.ngSplitMenuController setMasterView:masterViewController];
 }
 
 - (void)setDetailViewController:(UIViewController*)detailViewController{
-    [self.ngSplitMenuController setDetailView:detailViewController];
+    if (detailViewController == nil) {
+        [detailViewController removeFromParentViewController];
+        [detailViewController.view removeFromSuperview];
+        detailViewController = nil;
+    } else
+        [self.ngSplitMenuController setDetailView:detailViewController];
 }
 
 - (void)setMenuItems:(NSArray *)menuItems{

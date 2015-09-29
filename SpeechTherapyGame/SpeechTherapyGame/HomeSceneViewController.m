@@ -9,6 +9,8 @@
 #import "HomeSceneViewController.h"
 #import "HomeScene.h"
 #import "ScheduleViewController.h"
+#import "GameManagerMasterView.h"
+
 
 @implementation HomeSceneViewController
 
@@ -61,4 +63,8 @@
     [self presentViewController:svc animated:YES completion:nil];
 }
 
+-(IBAction) managerButton_pressed {
+    GameManagerMasterView* gmm = [self.storyboard instantiateViewControllerWithIdentifier:@"GameManagerMasterView"];
+    [self presentViewController:gmm animated:YES completion:nil];
+}
 @end

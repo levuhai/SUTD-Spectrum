@@ -23,7 +23,7 @@
     [[NGSplitViewManager sharedInstance]setDefaultOptions:@{kNGMenuBackgroundColorKey : RGB(47, 139, 193),
                                                             kNGMenuItemFontKey             : [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f],
                                                             kNGMenuItemFontColorKey     :[UIColor whiteColor],
-                                                            kNGMenuitemSelectionColorKey        : [UIColor colorWithRed:0.890f green:0.494f blue:0.322f alpha:1.00f],
+                                                            kNGMenuitemSelectionColorKey        : [UIColor colorWithRed:1 green:1 blue:1 alpha:0.4f],
                                                             kNGMenuSeperatorColorKey  : RGB(47, 139, 193),
                                                             kNGMenuLineSeperatorKey     : @(YES),
                                                             }];
@@ -37,6 +37,13 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(menuItemSelected:) name:kMenuItemSelectesNotification object:nil];
     
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    _detailViewController = nil;
+    [[NGSplitViewManager sharedInstance] setMasterViewController:nil];
+    [[NGSplitViewManager sharedInstance] setDetailViewController:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,12 +77,12 @@
     
     NGMenuItem *menuItem2 = [[NGMenuItem alloc]init];
     menuItem2.itemDescription = @"";
-    menuItem2.itemImage = [UIImage imageNamed:@"nav-icons-email2x.png"];
+    menuItem2.itemImage = [UIImage imageNamed:@"schedule-icon"];
     [menuItem addObject:menuItem2];
     
     NGMenuItem *menuItem3 = [[NGMenuItem alloc]init];
     menuItem3.itemDescription = @"";
-    menuItem3.itemImage = [UIImage imageNamed:@"nav-icons-home2x.png.png"];
+    menuItem3.itemImage = [UIImage imageNamed:@"home-icon"];
     [menuItem addObject:menuItem3];
     
     

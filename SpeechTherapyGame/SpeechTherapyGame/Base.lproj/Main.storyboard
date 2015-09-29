@@ -18,14 +18,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UZf-iU-lab">
-                                <rect key="frame" x="534" y="20" width="46" height="30"/>
+                                <rect key="frame" x="467" y="20" width="113" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="soF-p8-VW3"/>
-                                    <constraint firstAttribute="width" constant="46" id="wuD-Pz-onh"/>
+                                    <constraint firstAttribute="width" constant="113" id="wuD-Pz-onh"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Manager"/>
                                 <connections>
-                                    <segue destination="Fd5-aA-ipY" kind="show" id="YeD-7b-lty"/>
+                                    <action selector="managerButton_pressed" destination="BV1-FR-VrT" eventType="touchUpInside" id="2DZ-h1-c5V"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -46,7 +46,7 @@
         <!--Game Manager Master View-->
         <scene sceneID="l4j-8Z-Qw3">
             <objects>
-                <viewController id="Fd5-aA-ipY" customClass="GameManagerMasterView" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameManagerMasterView" id="Fd5-aA-ipY" customClass="GameManagerMasterView" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bWp-hZ-9pv"/>
                         <viewControllerLayoutGuide type="bottom" id="hew-dN-pAM"/>
@@ -219,7 +219,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sound" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRE-eW-7d2">
                                         <rect key="frame" x="21" y="1" width="105" height="45"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="23"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>

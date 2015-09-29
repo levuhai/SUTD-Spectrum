@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "chart-icon.png",
+      "filename" : "schedule-icon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "chart-icon@2x.png",
+      "filename" : "schedule-icon@2x.png",
       "scale" : "2x"
     },
     {
