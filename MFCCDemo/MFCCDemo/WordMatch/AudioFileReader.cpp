@@ -45,30 +45,11 @@ AudioFileReader::AudioFileReader(CFURLRef url) :
     //on iOS available. We use a different approach to check for file existance
     //therefore.
     
-    SInt32 errorCode = 0;
+    // ====================================================
+    // CHECK FILE EXIST
     
-    CFTypeRef property = CFURLCreatePropertyFromResource(kCFAllocatorDefault, 
-                                                         url, 
-                                                         kCFURLFileExists, 
-                                                         &errorCode);
-    
-    
-    if (property == NULL) {
-        //error code holds useful information, probably
-        std::ostringstream oss;
-        oss << "There has been error checking file availability. ErrorCode: '"
-            << errorCode << "'." << std::endl;
-        throw std::runtime_error(oss.str());
-    }
-    
-    Boolean file_exists = CFBooleanGetValue((CFBooleanRef)property);
-    
-    if (!file_exists) {
-        throw std::invalid_argument("File '" +url_string_+ "' does not exist.");
-    }
-
-    CFRelease(property);    
-    
+    // ====================================================
+    // READ FILE
     UInt32 prop_size = 0;
 	
 	XThrowIfError( ExtAudioFileOpenURL(url, &ext_af_ref_),

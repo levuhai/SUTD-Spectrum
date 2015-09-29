@@ -38,8 +38,8 @@ FeatureTypeDTW::Features get_mfcc_features(const boost::shared_ptr<WM::AudioFile
     //This seems to be a pretty robust configuration, and is the same
     //as we used in our Matlab prototype.
     
-    static const size_t window_frame_size = 400;
-    static const Float64 sample_rate = 16000.0f;
+    static const size_t window_frame_size = 1024;
+    static const Float64 sample_rate = 44100.0f;
     static const float interval_time_duration = 0.01f;
     static const float preemphasis_coefficient = 0.97f;
     static const float min_frequency = 133.33f;
@@ -138,9 +138,9 @@ FeatureTypeDTW::Features get_mfcc_features(const boost::shared_ptr<WM::AudioFile
 
         //copy MFCC's 2th to 8th as our features (as in Matlab prototype)
         FeatureTypeDTW::FeatureVector mfcc_vector;
-        const size_t offset = 1;
+        const size_t offset = 0;
         std::copy(&cepstra[offset], 
-                  &cepstra[offset + FeatureTypeDTW::feature_number_size], 
+                  &cepstra[offset + FeatureTypeDTW::feature_number_size],
                   mfcc_vector.begin());
 
         mfcc_features.push_back(mfcc_vector);
