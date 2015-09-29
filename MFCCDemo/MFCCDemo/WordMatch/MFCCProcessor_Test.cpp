@@ -181,14 +181,14 @@ BOOST_FIXTURE_TEST_CASE( OutputRegressionTest, PulloverReaderFixture ) {
     
     //The following variable are fixed parameters for the regression test
     
-    static const size_t window_frame_size = 400;
-    static const size_t num_cepstrum_components = 13;
-    static const size_t num_mel_bands = 40;
-    static const Float64 sample_rate = 16000.0f;
-    static const float interval_time_duration = 0.01;
-    static const float preemphasis_coefficient = 0.97f;
-    static const float min_frequency = 133.33f;
-    static const float max_frequency = 6855.6f;
+    static const size_t window_frame_size = 400; //1024 Tw*sample rate
+    static const size_t num_cepstrum_components = 13; // C
+    static const size_t num_mel_bands = 40; // M
+    static const Float64 sample_rate = 16000.0f; //44100
+    static const float interval_time_duration = 0.01; // Ts
+    static const float preemphasis_coefficient = 0.97f; // alpha
+    static const float min_frequency = 133.33f; // LF
+    static const float max_frequency = 6855.6f; // HF
     
     WMAudioSampleType data[window_frame_size];
     
