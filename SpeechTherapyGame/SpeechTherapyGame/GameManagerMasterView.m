@@ -12,6 +12,7 @@
 @interface GameManagerMasterView ()
 {
     GameManagerDetailViewController* _detailViewController;
+    NGSplitViewManager* _splitViewManager;
 }
 @end
 
@@ -19,31 +20,33 @@
 
 - (void)viewDidLoad {
     
-    // Side menu settings
-    [[NGSplitViewManager sharedInstance]setDefaultOptions:@{kNGMenuBackgroundColorKey : RGB(47, 139, 193),
-                                                            kNGMenuItemFontKey             : [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f],
-                                                            kNGMenuItemFontColorKey     :[UIColor whiteColor],
-                                                            kNGMenuitemSelectionColorKey        : [UIColor colorWithRed:1 green:1 blue:1 alpha:0.4f],
-                                                            kNGMenuSeperatorColorKey  : RGB(47, 139, 193),
-                                                            kNGMenuLineSeperatorKey     : @(YES),
-                                                            }];
-    
     [super viewDidLoad];
+    
+    // Side menu settings
+    
+    _splitViewManager = [[NGSplitViewManager alloc] init];
+    [_splitViewManager setDefaultOptions:@{kNGMenuBackgroundColorKey : RGB(47, 139, 193),
+                                          kNGMenuItemFontKey             : [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f],
+                                          kNGMenuItemFontColorKey     :[UIColor whiteColor],
+                                          kNGMenuitemSelectionColorKey        : [UIColor colorWithRed:1 green:1 blue:1 alpha:0.4f],
+                                          kNGMenuSeperatorColorKey  : RGB(47, 139, 193),
+                                          kNGMenuLineSeperatorKey     : @(YES),
+                                           }];
+    
     
     _detailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GameManagerDetailViewController"];
 
-    [[NGSplitViewManager sharedInstance]setRootViewController:self masterViewController:_detailViewController detailViewController:[[UIViewController alloc] init]];
-    [[NGSplitViewManager sharedInstance]setMenuItems:[self menuItems]];
-    
+    // Bind detail view into master view
+    [_splitViewManager setRootViewController:self masterViewController:_detailViewController detailViewController:[[UIViewController alloc] init]];
+    // Add left menu
+    [_splitViewManager setMenuItems:[self menuItems]];
+    // Menu actions
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(menuItemSelected:) name:kMenuItemSelectesNotification object:nil];
     
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    _detailViewController = nil;
-    [[NGSplitViewManager sharedInstance] setMasterViewController:nil];
-    [[NGSplitViewManager sharedInstance] setDetailViewController:nil];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -13,7 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIView* lineGraphContainer;
 @property (weak, nonatomic) IBOutlet UIView* barGraphContainer;
 
-@property (strong, nonatomic) NSArray* lineGraphData;
+@property (strong, nonatomic) NSMutableArray* lineGraphData;
 @property (strong, nonatomic) NSMutableArray* barGraphData;
 
 @end

@@ -30,19 +30,29 @@
     [super viewDidLoad];
     self.view.backgroundColor = RGB(47,139,193);
     
-    _lineBottomLabels = @[@"1", @"2", @"3", @"4", @"5", @"6", @"7"];
-    self.lineGraphData = @[ @[@20, @40, @20, @60, @40, @140, @80] ];
+    _lineBottomLabels = [NSMutableArray array];
+    _lineGraphData = [NSMutableArray array];
     
 //    _barBottomLabels = @[@"a", @"b", @"c", @"d", @"e", @"f", @"g"];
     _barBottomLabels = [NSMutableArray array];
-    self.barGraphData = [NSMutableArray array];
+    _barGraphData = [NSMutableArray array];
     
     NSArray* gameStatData = [GameStatistics MR_findAllSortedBy:@"statId" ascending:NO];
+    NSMutableArray* tmpLineDate = [NSMutableArray array];
     for (GameStatistics* gs in gameStatData) {
         if (![_barBottomLabels containsObject:[gs.statistics allKeys][0]]) {
             [_barBottomLabels addObject:[gs.statistics allKeys][0]];
         }
+        
+        [tmpLineDate addObject:@([GameStatistics getPointsFrom:(NSDictionary*)gs.statistics])];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"EEE"];
+        NSString *dateString = [dateFormatter stringFromDate:gs.dateAdded];
+        
+        [_lineBottomLabels addObject:dateString];
     }
+    [_lineGraphData addObject:tmpLineDate];
     
     for (NSString* letter in _barBottomLabels) {
         NSInteger sum = 0;
@@ -53,26 +63,24 @@
                 incorrect = incorrect + [[[gs.statistics valueForKey:letter] valueForKey:@"incorrect"] integerValue];
             }
         }
-        
-        [self.barGraphData addObject:@(((sum - incorrect) / (float)sum) * 100)];
-        
+        [_barGraphData addObject:@(((sum - incorrect) / (float)sum) * 100)];
     }
     
     
     // Line graph
-    _lGraph = [[GKLineGraph alloc] initWithFrame:CGRectMake(0, 100 - 30, self.view.width, self.lineGraphContainer.height - 100)];
+    _lGraph = [[GKLineGraph alloc] initWithFrame:CGRectMake(0, 100 - 30, self.view.width, _lineGraphContainer.height - 100)];
     _lGraph.backgroundColor = [UIColor clearColor];
     _lGraph.dataSource = self;
     _lGraph.lineWidth = 8.0;
     _lGraph.valueLabelCount = 3;
     _lGraph.margin = 40;
-    [self.lineGraphContainer addSubview:_lGraph];
-    self.lineGraphContainer.layer.cornerRadius = 10;
+    [_lineGraphContainer addSubview:_lGraph];
+    _lineGraphContainer.layer.cornerRadius = 10;
     
     // Bar graph
     
     
-    _bGraph = [[GKBarGraph alloc] initWithFrame:CGRectMake(0, 90 - 30, self.barGraphContainer.width, self.barGraphContainer.height - 90)];
+    _bGraph = [[GKBarGraph alloc] initWithFrame:CGRectMake(0, 90 - 30, _barGraphContainer.width, _barGraphContainer.height - 90)];
     _bGraph.dataSource = self;
     _bGraph.backgroundColor = [UIColor clearColor];
     _bGraph.barWidth = 50;
@@ -80,9 +88,9 @@
     _bGraph.marginBar = 70;
     _bGraph.animationDuration = 2.0;
     
-    _bGraph.centerX = self.barGraphContainer.width/2 - 40;
-    [self.barGraphContainer addSubview:_bGraph];
-    self.barGraphContainer.layer.cornerRadius = 10;
+    _bGraph.centerX = _barGraphContainer.width/2 - 40;
+    [_barGraphContainer addSubview:_bGraph];
+    _barGraphContainer.layer.cornerRadius = 10;
 }
 
 - (void)fetchData {
@@ -103,20 +111,16 @@
 #pragma mark - GKLineGraphDataSource
 
 - (NSInteger)numberOfLines {
-    return [self.lineGraphData count];
+    return [_lineGraphData count];
 }
 
 - (UIColor *)colorForLineAtIndex:(NSInteger)index {
-    id colors = @[[UIColor gk_turquoiseColor],
-                  [UIColor gk_peterRiverColor],
-                  [UIColor gk_alizarinColor],
-                  [UIColor gk_sunflowerColor]
-                  ];
+    id colors = @[ RGB(47,139,193) ];
     return [colors objectAtIndex:index];
 }
 
 - (NSArray *)valuesForLineAtIndex:(NSInteger)index {
-    return [self.lineGraphData objectAtIndex:index];
+    return [_lineGraphData objectAtIndex:index];
 }
 
 - (NSString *)titleForLineAtIndex:(NSInteger)index {
@@ -127,11 +131,11 @@
 #pragma mark - GKBarGraphDataSource
 
 - (NSInteger)numberOfBars {
-    return [self.barGraphData count];
+    return [_barGraphData count];
 }
 
 - (NSNumber *)valueForBarAtIndex:(NSInteger)index {
-    return [self.barGraphData objectAtIndex:index];
+    return [_barGraphData objectAtIndex:index];
 }
 
 - (UIColor *)colorForBarAtIndex:(NSInteger)index {
