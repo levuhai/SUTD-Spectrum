@@ -2,21 +2,21 @@
 //  Sounds.h
 //  SpeechTherapyGame
 //
-//  Created by Vit on 9/16/15.
-//  Copyright (c) 2015 SUTD. All rights reserved.
+//  Created by Vit on 9/27/15.
+//  Copyright © 2015 SUTD. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface Sounds : NSManagedObject
 
-@property (nonatomic, retain) NSString * colorCode;
-@property (nonatomic, retain) NSDate * dateAdded;
-@property (nonatomic, retain) NSDate * dateModified;
-@property (nonatomic, retain) NSString * filePath;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * soundId;
+// Insert code here to declare functionality of your managed object subclass
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "Sounds+CoreDataProperties.h"

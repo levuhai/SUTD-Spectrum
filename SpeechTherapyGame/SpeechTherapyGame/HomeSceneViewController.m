@@ -8,6 +8,9 @@
 
 #import "HomeSceneViewController.h"
 #import "HomeScene.h"
+#import "ScheduleViewController.h"
+#import "GameManagerMasterView.h"
+
 
 @implementation HomeSceneViewController
 
@@ -36,13 +39,10 @@
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return UIInterfaceOrientationMaskAllButUpsideDown;
-    } else {
-        return UIInterfaceOrientationMaskAll;
-    }
+
+    return UIInterfaceOrientationMaskAll;
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,7 +59,12 @@
 #pragma mark - Action methods
 
 - (void)showScheduleScene {
-    [self performSegueWithIdentifier:@"gotoScheduleScene" sender:self];
+    ScheduleViewController* svc = [self.storyboard instantiateViewControllerWithIdentifier:@"ScheduleViewController"];
+    [self presentViewController:svc animated:YES completion:nil];
 }
 
+-(IBAction) managerButton_pressed {
+    GameManagerMasterView* gmm = [self.storyboard instantiateViewControllerWithIdentifier:@"GameManagerMasterView"];
+    [self presentViewController:gmm animated:YES completion:nil];
+}
 @end
