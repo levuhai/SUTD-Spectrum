@@ -32,6 +32,11 @@
     scene.homeSceneViewController = self;
     // Present the scene.
     [skView presentScene:scene];
+    
+    UIButton* gameButton = (UIButton*)[self.view viewWithTag:1];
+    gameButton.layer.cornerRadius = 30;
+    gameButton.layer.borderWidth = 8;
+    gameButton.layer.borderColor = [UIColor whiteColor].CGColor;
 }
 
 - (BOOL)shouldAutorotate
@@ -58,7 +63,7 @@
 
 #pragma mark - Action methods
 
-- (void)showScheduleScene {
+- (IBAction)showScheduleScene {
     ScheduleViewController* svc = [self.storyboard instantiateViewControllerWithIdentifier:@"ScheduleViewController"];
     [self presentViewController:svc animated:YES completion:nil];
 }

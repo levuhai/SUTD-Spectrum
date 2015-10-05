@@ -18,8 +18,13 @@
 {
     GKLineGraph* _lGraph;
     GKBarGraph* _bGraph;
+    
+    NSArray* _gameStatData;
     NSMutableArray* _lineBottomLabels;
     NSMutableArray* _barBottomLabels;
+    
+    IBOutlet UIButton* _playedTimeButton;
+    IBOutlet UIButton* _pointButton;
 }
 
 @end
@@ -30,41 +35,10 @@
     [super viewDidLoad];
     self.view.backgroundColor = RGB(47,139,193);
     
-    _lineBottomLabels = [NSMutableArray array];
-    _lineGraphData = [NSMutableArray array];
+    _gameStatData = [GameStatistics MR_findAllSortedBy:@"statId" ascending:NO];
+    [self loadDataForPlayedTimeLineChart:_gameStatData];
+    [self loadDataForWordsBarChart:_gameStatData];
     
-//    _barBottomLabels = @[@"a", @"b", @"c", @"d", @"e", @"f", @"g"];
-    _barBottomLabels = [NSMutableArray array];
-    _barGraphData = [NSMutableArray array];
-    
-    NSArray* gameStatData = [GameStatistics MR_findAllSortedBy:@"statId" ascending:NO];
-    NSMutableArray* tmpLineDate = [NSMutableArray array];
-    for (GameStatistics* gs in gameStatData) {
-        if (![_barBottomLabels containsObject:[gs.statistics allKeys][0]]) {
-            [_barBottomLabels addObject:[gs.statistics allKeys][0]];
-        }
-        
-        [tmpLineDate addObject:@([GameStatistics getPointsFrom:(NSDictionary*)gs.statistics])];
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"EEE"];
-        NSString *dateString = [dateFormatter stringFromDate:gs.dateAdded];
-        
-        [_lineBottomLabels addObject:dateString];
-    }
-    [_lineGraphData addObject:tmpLineDate];
-    
-    for (NSString* letter in _barBottomLabels) {
-        NSInteger sum = 0;
-        NSInteger incorrect = 0;
-        for (GameStatistics* gs in gameStatData) {
-            if ([[gs.statistics allKeys][0] isEqualToString:letter]) {
-                sum = sum + [[[gs.statistics valueForKey:letter] valueForKey:@"total"] integerValue];
-                incorrect = incorrect + [[[gs.statistics valueForKey:letter] valueForKey:@"incorrect"] integerValue];
-            }
-        }
-        [_barGraphData addObject:@(((sum - incorrect) / (float)sum) * 100)];
-    }
     
     
     // Line graph
@@ -91,10 +65,89 @@
     _bGraph.centerX = _barGraphContainer.width/2 - 40;
     [_barGraphContainer addSubview:_bGraph];
     _barGraphContainer.layer.cornerRadius = 10;
+    
+    
+    [self enableButton:_pointButton];
+    [self disableButton:_playedTimeButton];
 }
 
 - (void)fetchData {
     
+}
+
+- (void) loadDataForPlayedTimeLineChart:(NSArray*)gameStatData {
+    _lineBottomLabels = nil;
+    _lineGraphData = nil;
+    
+    _lineBottomLabels = [NSMutableArray array];
+    _lineGraphData = [NSMutableArray array];
+    
+    NSMutableArray* tmpLineDate = [NSMutableArray array];
+    for (GameStatistics* gs in gameStatData) {
+        
+        [tmpLineDate addObject:[NSNumber numberWithInteger:arc4random_uniform(100)]];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"EEE"];
+        NSString *dateString = [dateFormatter stringFromDate:gs.dateAdded];
+        
+        [_lineBottomLabels addObject:dateString];
+    }
+    
+    
+    [_lineGraphData addObject:tmpLineDate];
+}
+
+- (void) loadDataForPointsLineChart:(NSArray*)gameStatData {
+    _lineBottomLabels = nil;
+    _lineGraphData = nil;
+    
+    _lineBottomLabels = [NSMutableArray array];
+    _lineGraphData = [NSMutableArray array];
+    
+    NSMutableArray* tmpLineDate = [NSMutableArray array];
+    for (GameStatistics* gs in gameStatData) {
+        [tmpLineDate addObject:@([GameStatistics getPointsFrom:(NSDictionary*)gs.statistics])];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"EEE"];
+        NSString *dateString = [dateFormatter stringFromDate:gs.dateAdded];
+        
+        [_lineBottomLabels addObject:dateString];
+    }
+    [_lineGraphData addObject:tmpLineDate];
+}
+
+- (void) loadDataForWordsBarChart:(NSArray*) gameStatData {
+    _barBottomLabels = nil;
+    _barGraphData = nil;
+    _barBottomLabels = [NSMutableArray array];
+    _barGraphData = [NSMutableArray array];
+    
+    for (GameStatistics* gs in gameStatData) {
+        
+        if (![_barBottomLabels containsObject:[gs.statistics allKeys][0]]) {
+            [_barBottomLabels addObject:[gs.statistics allKeys][0]];
+        }
+    }
+    
+    
+    for (NSString* letter in _barBottomLabels) {
+        NSInteger sum = 0;
+        NSInteger incorrect = 0;
+        for (GameStatistics* gs in gameStatData) {
+            
+            if (![_barBottomLabels containsObject:[gs.statistics allKeys][0]]) {
+                [_barBottomLabels addObject:[gs.statistics allKeys][0]];
+            }
+            
+            if ([[gs.statistics allKeys][0] isEqualToString:letter]) {
+                sum = sum + [[[gs.statistics valueForKey:letter] valueForKey:@"total"] integerValue];
+                incorrect = incorrect + [[[gs.statistics valueForKey:letter] valueForKey:@"incorrect"] integerValue];
+            }
+        }
+        [_barGraphData addObject:@(((sum - incorrect) / (float)sum) * 100)];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -106,6 +159,34 @@
     [super viewWillAppear:animated];
     [_lGraph draw];
     [_bGraph draw];
+}
+
+-(IBAction) playedTimeButton_action {
+    [self enableButton:_playedTimeButton];
+    [self disableButton:_pointButton];
+    // Reload data
+//    [_lGraph reset];
+//    [self loadDataForPlayedTimeLineChart:_gameStatData];
+//    [_lGraph draw];
+}
+
+-(IBAction) pointButton_action {
+    [self enableButton:_pointButton];
+    [self disableButton:_playedTimeButton];
+    // Reload data
+//    [_lGraph reset];
+//    [self loadDataForPointsLineChart:_gameStatData];
+//    [_lGraph draw];
+}
+
+- (void) enableButton:(UIButton*) button {
+    button.backgroundColor = RGB(47,139,193);
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+}
+
+- (void) disableButton:(UIButton*) button {
+    button.backgroundColor = [UIColor whiteColor];
+    [button setTitleColor:RGB(47,139,193) forState:UIControlStateNormal];
 }
 
 #pragma mark - GKLineGraphDataSource

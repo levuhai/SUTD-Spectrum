@@ -84,13 +84,6 @@
     speechtherapytext.zPosition = 9;
     [self addChild:speechtherapytext];
     
-    
-    SKSpriteNode* star = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"star"] size:CGSizeMake(47, 46)];
-    star.position = CGPointMake(80, 80);
-    star.name = starButtonName;
-    star.zPosition = 11;
-    [self addChild:star];
-    
     // Animation for clouds
     
     SKAction* flyToLeft = [SKAction moveToX:-_cloud1.size.width/2 duration:30.0f];
@@ -109,17 +102,6 @@
 
 -(BOOL) handleButtonTouches:(NSSet *)touches {
     BOOL didTouchButton = NO;
-    
-    UITouch *touch = [touches anyObject];
-    CGPoint location = [touch locationInNode:self];
-    SKNode *node = [self nodeAtPoint:location];
-    //if fire button touched, bring the rain
-    if ([node.name isEqualToString:starButtonName]) {
-        didTouchButton = YES;
-        [_homeSceneViewController showScheduleScene];
-    }
-    
-    
     return didTouchButton;
 }
 
