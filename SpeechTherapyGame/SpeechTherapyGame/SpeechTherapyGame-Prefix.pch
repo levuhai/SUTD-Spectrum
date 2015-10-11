@@ -25,7 +25,6 @@
     #import "MagicalRecord.h"
     #include "NGSplitMenu.h"
     #include "Macro.h"
-    #import "GraphKit.h"
 #endif
 
 #endif

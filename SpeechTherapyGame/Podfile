@@ -3,7 +3,7 @@ platform :ios, "7.0"
 target "SpeechTherapyGame" do
 pod 'FrameAccessor', '~> 1.3.2'
 pod 'MagicalRecord'
-pod 'GraphKit'
+pod 'PNChart'
 pod 'ActionSheetPicker-3.0'
 end
 
