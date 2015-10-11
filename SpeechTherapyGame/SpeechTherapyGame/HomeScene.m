@@ -86,13 +86,26 @@
     
     // Animation for clouds
     
-    SKAction* flyToLeft = [SKAction moveToX:-_cloud1.size.width/2 duration:30.0f];
+    SKAction* flyToLeft = [SKAction moveToX:-_cloud1.size.width/2 duration:240.0f];
     SKAction* moveToRight = [SKAction runBlock:^{
         _cloud1.position = CGPointMake(self.size.width + _cloud1.size.width/2, _cloud1.position.y);
     }];
     SKAction* cloud1Sequence = [SKAction sequence:@[flyToLeft, moveToRight]];
     [_cloud1 runAction:[SKAction repeatActionForever:cloud1Sequence]];
     
+    SKAction* flyToLeft2 = [SKAction moveToX:-_cloud2.size.width/2 duration:120.0f];
+    SKAction* moveToRight2 = [SKAction runBlock:^{
+        _cloud2.position = CGPointMake(self.size.width + _cloud2.size.width/2, _cloud2.position.y);
+    }];
+    SKAction* cloud2Sequence = [SKAction sequence:@[flyToLeft2, moveToRight2]];
+    [_cloud2 runAction:[SKAction repeatActionForever:cloud2Sequence]];
+    
+    SKAction* flyToLeft3 = [SKAction moveToX:-_cloud3.size.width/2 duration:60.0f];
+    SKAction* moveToRight3 = [SKAction runBlock:^{
+        _cloud3.position = CGPointMake(self.size.width + _cloud3.size.width/2, _cloud3.position.y);
+    }];
+    SKAction* cloud3Sequence = [SKAction sequence:@[flyToLeft3, moveToRight3]];
+    [_cloud3 runAction:[SKAction repeatActionForever:cloud3Sequence]];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

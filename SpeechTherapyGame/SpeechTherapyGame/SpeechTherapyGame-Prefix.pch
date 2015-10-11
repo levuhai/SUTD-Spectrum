@@ -27,4 +27,6 @@
     #include "Macro.h"
 #endif
 
+#define kAchievementDays @"kAchievementDays"
+
 #endif

@@ -454,8 +454,6 @@
     collectedStar.textColor             = _monthAndDayTextColor;
     [self addSubview:collectedStar];
     
-    
-    
     // Month label
     NSDateFormatter *format         = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"MMMM yyyy"];
@@ -501,7 +499,7 @@
     
     // Current month
     NSDateComponents *regularComp = [[NSCalendar currentCalendar] components:NSCalendarUnitWeekday |NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
-
+    NSArray* achievementDays = [[NSUserDefaults standardUserDefaults] arrayForKey:kAchievementDays];
     for (NSInteger i= 0; i<monthLength; i++)
     {
         components.day      = i+1;
@@ -511,6 +509,21 @@
         NSDate* date = [_gregorian dateFromComponents:components];
         [self configureDayButton:button withDate:date];
         [self addSubview:button];
+        
+        for (NSDate* d in achievementDays) {
+            
+             NSDateComponents *comp1 = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:d];
+            NSDateComponents *comp2 = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+            
+            if (comp1.day == comp2.day && comp1.month == comp2.month && comp1.year == comp2.year) {
+                UIImageView* star = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star-icon"]];
+                star.width = 16;
+                star.height = 15;
+                star.x = button.width-40;
+                star.y = button.height-20;
+                [button addSubview:star];
+            }
+        }
         
         if (components.day == regularComp.day && components.month == regularComp.month) {
             UIView* todayCircle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];

@@ -50,6 +50,10 @@
         gameStat.dateAdded = newDate1;
     }
     
+    // Got star
+    [[NSUserDefaults standardUserDefaults] setObject:@[[NSDate date]] forKey:kAchievementDays];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     return YES;
 }
 

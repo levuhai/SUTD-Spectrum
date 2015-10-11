@@ -61,6 +61,7 @@
     PNLineChartData *data01 = [PNLineChartData new];
     data01.color = PNLightBlue;
     data01.itemCount = _lineBottomLabels.count;
+    data01.inflexionPointStyle = PNLineChartPointStyleCircle;
     data01.getData = ^(NSUInteger index) {
         CGFloat yValue = [_lineGraphData[index] floatValue];
         return [PNLineChartDataItem dataItemWithY:yValue];
@@ -68,6 +69,7 @@
     
     if (!_lineChart) {
         _lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 100 - 30, _lineGraphContainer.width, _lineGraphContainer.height - 100)];
+        _lineChart.xLabelFont = [UIFont fontWithName:@"Helvetica" size:15];
         [_lineChart setXLabels:_lineBottomLabels];
         _lineChart.chartData = @[data01];
         [_lineChart strokeChart];
@@ -84,7 +86,7 @@
     _barChart.yChartLabelWidth = 20;
     _barChart.barBackgroundColor = PNWhite;
     _barChart.labelTextColor = PNBlack;
-
+    _barChart.isShowNumbers = NO;
     _barChart.xLabels = _barBottomLabels;
     _barChart.yValues = _barGraphData;
     
