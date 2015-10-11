@@ -35,11 +35,31 @@
     bg.zPosition = -1;
     [self addChild:bg];
     
-    SKSpriteNode* owl = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"homeOwl"] size:CGSizeMake(156, 152)];
+    SKSpriteNode* owl = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"owl-body"] size:CGSizeMake(117, 152)];
     owl.position = CGPointMake(CGRectGetMidX(self.frame),
                                CGRectGetMidY(self.frame) - 150);
     owl.zPosition = 10;
     [self addChild:owl];
+    
+    
+    
+    SKSpriteNode* owlLeftWing = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"left-wing"] size:CGSizeMake(60, 49)];
+    
+    owlLeftWing.anchorPoint = CGPointMake(1, 0.5);
+    SKSpriteNode* wingContainer = [SKSpriteNode node];
+    wingContainer.zPosition = 9;
+    wingContainer.color = [UIColor clearColor];
+    wingContainer.size = CGSizeMake(owlLeftWing.size.width*2, owlLeftWing.size.height);
+    wingContainer.position = CGPointMake(owl.position.x + 40, owl.position.y+5);
+    
+    owlLeftWing.position = CGPointMake(wingContainer.size.width/2, 0);
+    [wingContainer addChild:owlLeftWing];
+    [self addChild:wingContainer];
+    
+    SKAction* rotateRight = [SKAction rotateToAngle:0.2 duration:1];
+    SKAction* rotateLeft = [SKAction rotateByAngle:-0.5 duration:1];
+    SKAction* wingSequence = [SKAction sequence:@[rotateRight, rotateLeft]];
+    [wingContainer runAction:[SKAction repeatActionForever:wingSequence]];
     
     // wind mill
     SKSpriteNode* windmillBody = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"windmill-body"] size:CGSizeMake(71, 115)];
