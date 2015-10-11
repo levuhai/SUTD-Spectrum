@@ -37,25 +37,22 @@
     self.view.backgroundColor = RGB(47,139,193);
     
     _gameStatData = [GameStatistics MR_findAllSortedBy:@"statId" ascending:NO];
+    // Get played time first
+    [self enableButton:_playedTimeButton];
+    [self disableButton:_pointButton];
+    // First line data
     [self loadDataForPlayedTimeLineChart:_gameStatData];
+    // Bar data
     [self loadDataForWordsBarChart:_gameStatData];
-    
-    
-    
-    // Line graph
-    [self setupLineChart];
+   
+    // setup chart
+    [self drawLineChart];
     _lineGraphContainer.layer.cornerRadius = 10;
-    
-    // Bar graph
-    [self setupBarChart];
+    [self drawBarChart];
     _barGraphContainer.layer.cornerRadius = 10;
-    
-    
-    [self enableButton:_pointButton];
-    [self disableButton:_playedTimeButton];
 }
 
-- (void)setupLineChart {
+- (void)drawLineChart {
     //For Line Chart
     // Line Chart No.1
     PNLineChartData *data01 = [PNLineChartData new];
@@ -81,7 +78,9 @@
     
 }
 
-- (void)setupBarChart {
+- (void)drawBarChart {
+    
+    if (!_barChart) {
     _barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, 90 - 30, _barGraphContainer.width - 100, _barGraphContainer.height - 90)];
     _barChart.yChartLabelWidth = 20;
     _barChart.barBackgroundColor = PNWhite;
@@ -92,6 +91,10 @@
     
     [_barChart strokeChart];
     [_barGraphContainer addSubview:_barChart];
+    } else {
+        _barChart.xLabels = _barBottomLabels;
+        [_barChart updateChartData:_barGraphData];
+    }
 }
 
 - (void) loadDataForPlayedTimeLineChart:(NSArray*)gameStatData {
@@ -103,7 +106,7 @@
     
     for (GameStatistics* gs in gameStatData) {
         
-        [_lineGraphData addObject:[NSNumber numberWithInteger:arc4random_uniform(100)]];
+        [_lineGraphData addObject:@([GameStatistics getPlayedTimeFrom:(NSDictionary*)gs.statistics])];
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"EEE"];
@@ -174,7 +177,7 @@
     // Reload data
     [self loadDataForPlayedTimeLineChart:_gameStatData];
     // Update line chart
-    [self setupLineChart];
+    [self drawLineChart];
 }
 
 -(IBAction) pointButton_action {
@@ -183,7 +186,7 @@
     // Reload data
     [self loadDataForPointsLineChart:_gameStatData];
     // Update line chart
-    [self setupLineChart];
+    [self drawLineChart];
 
 }
 

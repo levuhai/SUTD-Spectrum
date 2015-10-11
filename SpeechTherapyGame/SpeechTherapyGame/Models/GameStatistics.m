@@ -19,4 +19,8 @@
     return [[[[gameStat allValues] objectAtIndex:0] objectForKey:@"total"] integerValue] - [[[[gameStat allValues] objectAtIndex:0] objectForKey:@"incorrect"] integerValue];
 }
 
++ (NSInteger) getPlayedTimeFrom:(NSDictionary*) gameStat {
+    return [[[[gameStat allValues] objectAtIndex:0] objectForKey:@"total"] integerValue];
+}
+
 @end

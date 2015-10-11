@@ -43,7 +43,8 @@
         GameStatistics* gameStat = [GameStatistics MR_createEntity];
         gameStat.statId  = @(i+1);
         gameStat.gameId  = @(1);
-        gameStat.statistics = [GameStatistics makeStatisticsFrom:sounds[arc4random_uniform((int)sounds.count)] totalPlayedTime:@20 incorrectTimes:@(arc4random_uniform(20))];
+        NSInteger playedTime = arc4random_uniform(50);
+        gameStat.statistics = [GameStatistics makeStatisticsFrom:sounds[arc4random_uniform((int)sounds.count)] totalPlayedTime:@(playedTime) incorrectTimes:@(arc4random_uniform(playedTime))];
         
         NSDate *now = [NSDate date];
         NSDate *newDate1 = [now dateByAddingTimeInterval:60*60*24*i];
