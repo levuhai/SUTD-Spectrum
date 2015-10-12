@@ -32,17 +32,40 @@
     SKSpriteNode* bg = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"homeBackground"] size:self.frame.size];
     bg.position = CGPointMake(CGRectGetMidX(self.frame),
                               CGRectGetMidY(self.frame));
+    bg.zPosition = -1;
     [self addChild:bg];
     
-    SKSpriteNode* owl = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"homeOwl"] size:CGSizeMake(156, 152)];
+    SKSpriteNode* owl = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"owl-body"] size:CGSizeMake(117, 152)];
     owl.position = CGPointMake(CGRectGetMidX(self.frame),
                                CGRectGetMidY(self.frame) - 150);
+    owl.zPosition = 10;
     [self addChild:owl];
+    
+    
+    
+    SKSpriteNode* owlLeftWing = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"left-wing"] size:CGSizeMake(60, 49)];
+    
+    owlLeftWing.anchorPoint = CGPointMake(1, 0.5);
+    SKSpriteNode* wingContainer = [SKSpriteNode node];
+    wingContainer.zPosition = 9;
+    wingContainer.color = [UIColor clearColor];
+    wingContainer.size = CGSizeMake(owlLeftWing.size.width*2, owlLeftWing.size.height);
+    wingContainer.position = CGPointMake(owl.position.x + 40, owl.position.y+5);
+    
+    owlLeftWing.position = CGPointMake(wingContainer.size.width/2, 0);
+    [wingContainer addChild:owlLeftWing];
+    [self addChild:wingContainer];
+    
+    SKAction* rotateRight = [SKAction rotateToAngle:0.2 duration:1];
+    SKAction* rotateLeft = [SKAction rotateByAngle:-0.5 duration:1];
+    SKAction* wingSequence = [SKAction sequence:@[rotateRight, rotateLeft]];
+    [wingContainer runAction:[SKAction repeatActionForever:wingSequence]];
     
     // wind mill
     SKSpriteNode* windmillBody = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"windmill-body"] size:CGSizeMake(71, 115)];
     windmillBody.position = CGPointMake(self.frame.size.width - 85,
                                         CGRectGetMidY(self.frame)-65);
+    windmillBody.zPosition = 6;
     [self addChild:windmillBody];
     
     SKSpriteNode* windmillWings = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"windmill-wings"] size:CGSizeMake(111, 107)];
@@ -50,10 +73,12 @@
                                          windmillBody.position.y + 25);
     SKAction *action = [SKAction rotateByAngle:M_PI duration:20];
     [windmillWings runAction:[SKAction repeatActionForever:action]];
+    windmillWings.zPosition = 7;
     [self addChild:windmillWings];
     SKSpriteNode* windmillFrontGrass = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"windmill-front-grass"] size:CGSizeMake(44, 17)];
     windmillFrontGrass.position = CGPointMake(windmillBody.position.x - 45,
                                               windmillBody.position.y - 55);
+    windmillFrontGrass.zPosition = 8;
     [self addChild:windmillFrontGrass];
     
     // Clouds
@@ -71,26 +96,36 @@
     _cloud3.position = CGPointMake(self.view.width - 200, CGRectGetMidY(self.frame) + 100);
     [self addChild:_cloud3];
     
+    _cloud1.zPosition = _cloud2.zPosition = _cloud3.zPosition = 5;
+    
     // Text
     SKSpriteNode* speechtherapytext = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"speechtherapy-text"] size:CGSizeMake(480, 97)];
     speechtherapytext.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 200);
+    speechtherapytext.zPosition = 9;
     [self addChild:speechtherapytext];
-    
-    
-    SKSpriteNode* star = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"star"] size:CGSizeMake(47, 46)];
-    star.position = CGPointMake(80, 80);
-    star.name = starButtonName;
-    [self addChild:star];
     
     // Animation for clouds
     
-    SKAction* flyToLeft = [SKAction moveToX:-_cloud1.size.width/2 duration:30.0f];
+    SKAction* flyToLeft = [SKAction moveToX:-_cloud1.size.width/2 duration:240.0f];
     SKAction* moveToRight = [SKAction runBlock:^{
         _cloud1.position = CGPointMake(self.size.width + _cloud1.size.width/2, _cloud1.position.y);
     }];
     SKAction* cloud1Sequence = [SKAction sequence:@[flyToLeft, moveToRight]];
     [_cloud1 runAction:[SKAction repeatActionForever:cloud1Sequence]];
     
+    SKAction* flyToLeft2 = [SKAction moveToX:-_cloud2.size.width/2 duration:120.0f];
+    SKAction* moveToRight2 = [SKAction runBlock:^{
+        _cloud2.position = CGPointMake(self.size.width + _cloud2.size.width/2, _cloud2.position.y);
+    }];
+    SKAction* cloud2Sequence = [SKAction sequence:@[flyToLeft2, moveToRight2]];
+    [_cloud2 runAction:[SKAction repeatActionForever:cloud2Sequence]];
+    
+    SKAction* flyToLeft3 = [SKAction moveToX:-_cloud3.size.width/2 duration:60.0f];
+    SKAction* moveToRight3 = [SKAction runBlock:^{
+        _cloud3.position = CGPointMake(self.size.width + _cloud3.size.width/2, _cloud3.position.y);
+    }];
+    SKAction* cloud3Sequence = [SKAction sequence:@[flyToLeft3, moveToRight3]];
+    [_cloud3 runAction:[SKAction repeatActionForever:cloud3Sequence]];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -100,17 +135,6 @@
 
 -(BOOL) handleButtonTouches:(NSSet *)touches {
     BOOL didTouchButton = NO;
-    
-    UITouch *touch = [touches anyObject];
-    CGPoint location = [touch locationInNode:self];
-    SKNode *node = [self nodeAtPoint:location];
-    //if fire button touched, bring the rain
-    if ([node.name isEqualToString:starButtonName]) {
-        didTouchButton = YES;
-        [_homeSceneViewController showScheduleScene];
-    }
-    
-    
     return didTouchButton;
 }
 

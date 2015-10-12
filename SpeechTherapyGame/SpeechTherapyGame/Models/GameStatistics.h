@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Insert code here to declare functionality of your managed object subclass
 +(NSDictionary*)makeStatisticsFrom:(NSString*) letter totalPlayedTime:(NSNumber*) playedTimes incorrectTimes:(NSNumber*) incorrectTimes;
++ (NSInteger) getPointsFrom:(NSDictionary*) gameStat;
++ (NSInteger) getPlayedTimeFrom:(NSDictionary*) gameStat;
 
 @end
 

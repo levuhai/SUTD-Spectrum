@@ -11,15 +11,21 @@
 #import "Games.h"
 #import "Sounds.h"
 #import "GameStatistics.h"
+#import "PNChart.h"
 
 
-
-@interface GameStatsViewController () <GKLineGraphDataSource, GKBarGraphDataSource>
+@interface GameStatsViewController ()
 {
-    GKLineGraph* _lGraph;
-    GKBarGraph* _bGraph;
+    
+    NSArray* _gameStatData;
     NSMutableArray* _lineBottomLabels;
     NSMutableArray* _barBottomLabels;
+    
+    PNLineChart * _lineChart;
+    PNBarChart  * _barChart;
+    
+    IBOutlet UIButton* _playedTimeButton;
+    IBOutlet UIButton* _pointButton;
 }
 
 @end
@@ -30,19 +36,117 @@
     [super viewDidLoad];
     self.view.backgroundColor = RGB(47,139,193);
     
-    _lineBottomLabels = @[@"1", @"2", @"3", @"4", @"5", @"6", @"7"];
-    self.lineGraphData = @[ @[@20, @40, @20, @60, @40, @140, @80] ];
+    _gameStatData = [GameStatistics MR_findAllSortedBy:@"statId" ascending:NO];
+    // Get played time first
+    [self enableButton:_playedTimeButton];
+    [self disableButton:_pointButton];
+    // First line data
+    [self loadDataForPlayedTimeLineChart:_gameStatData];
+    // Bar data
+    [self loadDataForWordsBarChart:_gameStatData];
+   
+    // setup chart
+    [self drawLineChart];
+    _lineGraphContainer.layer.cornerRadius = 10;
+    [self drawBarChart];
+    _barGraphContainer.layer.cornerRadius = 10;
+}
+
+- (void)drawLineChart {
+    //For Line Chart
+    // Line Chart No.1
+    PNLineChartData *data01 = [PNLineChartData new];
+    data01.color = PNLightBlue;
+    data01.itemCount = _lineBottomLabels.count;
+    data01.inflexionPointStyle = PNLineChartPointStyleCircle;
+    data01.getData = ^(NSUInteger index) {
+        CGFloat yValue = [_lineGraphData[index] floatValue];
+        return [PNLineChartDataItem dataItemWithY:yValue];
+    };
     
-//    _barBottomLabels = @[@"a", @"b", @"c", @"d", @"e", @"f", @"g"];
-    _barBottomLabels = [NSMutableArray array];
-    self.barGraphData = [NSMutableArray array];
+    if (!_lineChart) {
+        _lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 100 - 30, _lineGraphContainer.width, _lineGraphContainer.height - 100)];
+        _lineChart.xLabelFont = [UIFont fontWithName:@"Helvetica" size:15];
+        [_lineChart setXLabels:_lineBottomLabels];
+        _lineChart.chartData = @[data01];
+        [_lineChart strokeChart];
+        [_lineGraphContainer addSubview:_lineChart];
+    } else {
+        [_lineChart setXLabels:_lineBottomLabels];
+        [_lineChart updateChartData:@[data01]];
+    }
     
-    NSArray* gameStatData = [GameStatistics MR_findAllSortedBy:@"statId" ascending:NO];
+}
+
+- (void)drawBarChart {
+    
+    if (!_barChart) {
+    _barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, 90 - 30, _barGraphContainer.width - 100, _barGraphContainer.height - 90)];
+    _barChart.yChartLabelWidth = 20;
+    _barChart.barBackgroundColor = PNWhite;
+    _barChart.labelTextColor = PNBlack;
+    _barChart.isShowNumbers = NO;
+    _barChart.xLabels = _barBottomLabels;
+    _barChart.yValues = _barGraphData;
+    
+    [_barChart strokeChart];
+    [_barGraphContainer addSubview:_barChart];
+    } else {
+        _barChart.xLabels = _barBottomLabels;
+        [_barChart updateChartData:_barGraphData];
+    }
+}
+
+- (void) loadDataForPlayedTimeLineChart:(NSArray*)gameStatData {
+    _lineBottomLabels = nil;
+    _lineGraphData = nil;
+    
+    _lineBottomLabels = [NSMutableArray array];
+    _lineGraphData = [NSMutableArray array];
+    
     for (GameStatistics* gs in gameStatData) {
+        
+        [_lineGraphData addObject:@([GameStatistics getPlayedTimeFrom:(NSDictionary*)gs.statistics])];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"EEE"];
+        NSString *dateString = [dateFormatter stringFromDate:gs.dateAdded];
+        
+        [_lineBottomLabels addObject:dateString];
+    }
+}
+
+- (void) loadDataForPointsLineChart:(NSArray*)gameStatData {
+    _lineBottomLabels = nil;
+    _lineGraphData = nil;
+    
+    _lineBottomLabels = [NSMutableArray array];
+    _lineGraphData = [NSMutableArray array];
+    
+    for (GameStatistics* gs in gameStatData) {
+        [_lineGraphData addObject:@([GameStatistics getPointsFrom:(NSDictionary*)gs.statistics])];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"EEE"];
+        NSString *dateString = [dateFormatter stringFromDate:gs.dateAdded];
+        
+        [_lineBottomLabels addObject:dateString];
+    }
+}
+
+- (void) loadDataForWordsBarChart:(NSArray*) gameStatData {
+    _barBottomLabels = nil;
+    _barGraphData = nil;
+    _barBottomLabels = [NSMutableArray array];
+    _barGraphData = [NSMutableArray array];
+    
+    for (GameStatistics* gs in gameStatData) {
+        
         if (![_barBottomLabels containsObject:[gs.statistics allKeys][0]]) {
             [_barBottomLabels addObject:[gs.statistics allKeys][0]];
         }
     }
+    
     
     for (NSString* letter in _barBottomLabels) {
         NSInteger sum = 0;
@@ -53,40 +157,8 @@
                 incorrect = incorrect + [[[gs.statistics valueForKey:letter] valueForKey:@"incorrect"] integerValue];
             }
         }
-        
-        [self.barGraphData addObject:@(((sum - incorrect) / (float)sum) * 100)];
-        
+        [_barGraphData addObject:@(((sum - incorrect) / (float)sum) * 100)];
     }
-    
-    
-    // Line graph
-    _lGraph = [[GKLineGraph alloc] initWithFrame:CGRectMake(0, 100 - 30, self.view.width, self.lineGraphContainer.height - 100)];
-    _lGraph.backgroundColor = [UIColor clearColor];
-    _lGraph.dataSource = self;
-    _lGraph.lineWidth = 8.0;
-    _lGraph.valueLabelCount = 3;
-    _lGraph.margin = 40;
-    [self.lineGraphContainer addSubview:_lGraph];
-    self.lineGraphContainer.layer.cornerRadius = 10;
-    
-    // Bar graph
-    
-    
-    _bGraph = [[GKBarGraph alloc] initWithFrame:CGRectMake(0, 90 - 30, self.barGraphContainer.width, self.barGraphContainer.height - 90)];
-    _bGraph.dataSource = self;
-    _bGraph.backgroundColor = [UIColor clearColor];
-    _bGraph.barWidth = 50;
-    _bGraph.barHeight = 200;
-    _bGraph.marginBar = 70;
-    _bGraph.animationDuration = 2.0;
-    
-    _bGraph.centerX = self.barGraphContainer.width/2 - 40;
-    [self.barGraphContainer addSubview:_bGraph];
-    self.barGraphContainer.layer.cornerRadius = 10;
-}
-
-- (void)fetchData {
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,68 +168,36 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [_lGraph draw];
-    [_bGraph draw];
+
 }
 
-#pragma mark - GKLineGraphDataSource
-
-- (NSInteger)numberOfLines {
-    return [self.lineGraphData count];
+-(IBAction) playedTimeButton_action {
+    [self enableButton:_playedTimeButton];
+    [self disableButton:_pointButton];
+    // Reload data
+    [self loadDataForPlayedTimeLineChart:_gameStatData];
+    // Update line chart
+    [self drawLineChart];
 }
 
-- (UIColor *)colorForLineAtIndex:(NSInteger)index {
-    id colors = @[[UIColor gk_turquoiseColor],
-                  [UIColor gk_peterRiverColor],
-                  [UIColor gk_alizarinColor],
-                  [UIColor gk_sunflowerColor]
-                  ];
-    return [colors objectAtIndex:index];
+-(IBAction) pointButton_action {
+    [self enableButton:_pointButton];
+    [self disableButton:_playedTimeButton];
+    // Reload data
+    [self loadDataForPointsLineChart:_gameStatData];
+    // Update line chart
+    [self drawLineChart];
+
 }
 
-- (NSArray *)valuesForLineAtIndex:(NSInteger)index {
-    return [self.lineGraphData objectAtIndex:index];
+- (void) enableButton:(UIButton*) button {
+    button.backgroundColor = RGB(47,139,193);
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
-- (NSString *)titleForLineAtIndex:(NSInteger)index {
-    return  [_lineBottomLabels objectAtIndex:index];
-}
-
-
-#pragma mark - GKBarGraphDataSource
-
-- (NSInteger)numberOfBars {
-    return [self.barGraphData count];
-}
-
-- (NSNumber *)valueForBarAtIndex:(NSInteger)index {
-    return [self.barGraphData objectAtIndex:index];
-}
-
-- (UIColor *)colorForBarAtIndex:(NSInteger)index {
-    id colors = @[[UIColor gk_turquoiseColor],
-                  [UIColor gk_peterRiverColor],
-                  [UIColor gk_alizarinColor],
-                  [UIColor gk_amethystColor],
-                  [UIColor gk_emerlandColor],
-                  [UIColor gk_sunflowerColor],
-                  [UIColor gk_belizeHoleColor]
-                  ];
-    return [colors objectAtIndex:index];
-}
-
-- (UIColor *)colorForBarBackgroundAtIndex:(NSInteger)index {
-    return [UIColor whiteColor];
-}
-
-- (CFTimeInterval)animationDurationForBarAtIndex:(NSInteger)index {
-    CGFloat percentage = [[self valueForBarAtIndex:index] doubleValue];
-    percentage = (percentage / 100);
-    return (_bGraph.animationDuration * percentage);
-}
-
-- (NSString *)titleForBarAtIndex:(NSInteger)index {
-    return [_barBottomLabels objectAtIndex:index];
+- (void) disableButton:(UIButton*) button {
+    button.backgroundColor = [UIColor whiteColor];
+    [button setTitleColor:RGB(47,139,193) forState:UIControlStateNormal];
 }
 
 
