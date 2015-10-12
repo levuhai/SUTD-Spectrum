@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D761191B1BBA47280027706B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D761191A1BBA47280027706B /* CoreFoundation.framework */; };
+		D7A542ED1BC3A1AC00A16386 /* MatrixOuput.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A542EC1BC3A1AC00A16386 /* MatrixOuput.m */; settings = {ASSET_TAGS = (); }; };
 		D7C075E41BB2572A000DB38A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C075E31BB2572A000DB38A /* main.m */; };
 		D7C075E71BB2572A000DB38A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C075E61BB2572A000DB38A /* AppDelegate.m */; };
 		D7C075EA1BB2572A000DB38A /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D7C075E91BB2572A000DB38A /* ViewController.mm */; };
@@ -63,6 +64,8 @@
 		D76119221BBA473B0027706B /* libboost_unit_test_framework-xgcc42-mt-1_46_OSX_10_6_32_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_unit_test_framework-xgcc42-mt-1_46_OSX_10_6_32_64.a"; path = "boost_ext/lib/libboost_unit_test_framework-xgcc42-mt-1_46_OSX_10_6_32_64.a"; sourceTree = "<group>"; };
 		D76119231BBA473B0027706B /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a"; path = "boost_ext/lib/libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a"; sourceTree = "<group>"; };
 		D76119241BBA473B0027706B /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; path = "boost_ext/lib/libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; sourceTree = "<group>"; };
+		D7A542EB1BC3A1AC00A16386 /* MatrixOuput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixOuput.h; sourceTree = "<group>"; };
+		D7A542EC1BC3A1AC00A16386 /* MatrixOuput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatrixOuput.m; sourceTree = "<group>"; };
 		D7C075DE1BB2572A000DB38A /* MFCCDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MFCCDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C075E21BB2572A000DB38A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7C075E31BB2572A000DB38A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 				D7C075EE1BB2572A000DB38A /* Images.xcassets */,
 				D7C075F01BB2572A000DB38A /* LaunchScreen.xib */,
 				D7C075E11BB2572A000DB38A /* Supporting Files */,
+				D7A542EB1BC3A1AC00A16386 /* MatrixOuput.h */,
+				D7A542EC1BC3A1AC00A16386 /* MatrixOuput.m */,
 			);
 			path = MFCCDemo;
 			sourceTree = "<group>";
@@ -419,6 +424,7 @@
 				D7C076A91BB273C8000DB38A /* CAHostTimeBase.cpp in Sources */,
 				D7C075E41BB2572A000DB38A /* main.m in Sources */,
 				D7C08ADC1BB3AAFF000DB38A /* MelFilterBank.cpp in Sources */,
+				D7A542ED1BC3A1AC00A16386 /* MatrixOuput.m in Sources */,
 				D7C08AD71BB3AAFF000DB38A /* AudioFileReader.cpp in Sources */,
 				D7C08AE01BB3AAFF000DB38A /* TriangleFilter.cpp in Sources */,
 				D7C076A81BB273C8000DB38A /* CADebugPrintf.cpp in Sources */,
