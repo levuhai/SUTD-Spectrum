@@ -26,7 +26,7 @@
     _h = h;
     _data = data;
     _frameRect = rect;
-    _size = MAX((int)rect.size.width / w, 1);
+    _size = MAX((int)rect.size.height / 2/h, 1);
     _maxVal = maxVal;
     _drawFit = NO;
 }
@@ -44,6 +44,7 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
     if (!_drawFit) {
+        _size = MAX(self.bounds.size.width/_w, 1);
         // Drawing code
         for (int i = 0; i <_h; i++) {
             for (int j = 0; j<_w; j++) {

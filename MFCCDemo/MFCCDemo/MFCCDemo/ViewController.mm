@@ -28,16 +28,19 @@
 #define kAudioFile2 [[NSBundle mainBundle] pathForResource:@"good2" ofType:@"wav"]
 
 //const float kDefaultComparisonThreshold = 3.09f;
-const float kDefaultTrimBeginThreshold = -27.0f;
-const float kDefaultTrimEndThreshold = -40.0f;
+const float kDefaultTrimBeginThreshold = -25.0f;
+const float kDefaultTrimEndThreshold = -25.0f;
 
-@interface ViewController () {
+@interface ViewController () <EZMicrophoneDelegate, EZRecorderDelegate> {
     WMAudioFilePreProcessInfo _fileAInfo;
     WMAudioFilePreProcessInfo _fileBInfo;
+    BOOL _lastRecordingState;
+    BOOL _currentRecordingState;
 }
 
 @property (nonatomic, weak) IBOutlet MatrixOuput *matrixView;
 @property (nonatomic, weak) IBOutlet MatrixOuput *fitQualityView;
+
 
 @end
 
@@ -46,19 +49,127 @@ const float kDefaultTrimEndThreshold = -40.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self _setupMicrofone];
+}
+
+#pragma mark - Private
+- (IBAction)compareTouched:(id)sender {
+    [self _compareFileA:kAudioFile1 fileB:[self testFilePath]];
+}
+- (IBAction)toggleRecording:(id)sender
+{
+    if ([sender isOn])
+    {
+        //
+        // Create the recorder
+        //
+        
+        self.recorder = [EZRecorder recorderWithURL:[self testFilePathURL]
+                                       clientFormat:[self.microphone audioStreamBasicDescription]
+                                           fileType:EZRecorderFileTypeWAV
+                                           delegate:self];
+        //self.playButton.enabled = YES;
+    } else {
+        [self.recorder closeAudioFile];
+    }
+    self.isRecording = (BOOL)[sender isOn];
+    self.lbRecordingState.text = self.isRecording ? @"Recording" : @"Not Recording";
+}
+
+- (void)_setupMicrofone {
+    //
+    // Setup the AVAudioSession. EZMicrophone will not work properly on iOS
+    // if you don't do this!
+    //
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    NSError *error;
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+    if (error)
+    {
+        NSLog(@"Error setting up audio session category: %@", error.localizedDescription);
+    }
+    [session setActive:YES error:&error];
+    if (error)
+    {
+        NSLog(@"Error setting up audio session active: %@", error.localizedDescription);
+    }
+    
+    // Create an instance of the microphone and tell it to use this view controller instance as the delegate
+    self.microphone = [EZMicrophone microphoneWithDelegate:self];
+    
+    //
+    // Start the microphone
+    //
+    [self.microphone startFetchingAudio];
+}
+
+- (float)_getDecibelsFromVolume:(float**)buffer withBufferSize:(UInt32)bufferSize {
+    
+    // Decibel Calculation.
+    
+    float one = 1.0;
+    float meanVal = 0.0;
+    float tiny = 0.1;
+    float lastdbValue = 0.0;
+    
+    vDSP_vsq(buffer[0], 1, buffer[0], 1, bufferSize);
+    
+    vDSP_meanv(buffer[0], 1, &meanVal, bufferSize);
+    
+    vDSP_vdbcon(&meanVal, 1, &one, &meanVal, 1, 1, 0);
+    
+    
+    // Exponential moving average to dB level to only get continous sounds.
+    
+    float currentdb = 1.0 - (fabs(meanVal) / 100);
+    
+    if (lastdbValue == INFINITY || lastdbValue == -INFINITY || std::isnan(lastdbValue)) {
+        lastdbValue = 0.0;
+    }
+    
+    float dbValue = ((1.0 - tiny) * lastdbValue) + tiny * currentdb;
+    
+    lastdbValue = dbValue;
+    
+    return dbValue;
+}
+
+- (FeatureTypeDTW::Features)_getPreProcessInfo:(NSURL*)url beginThreshold:(float)bt endThreshold:(float)et info:(WMAudioFilePreProcessInfo*) fileInfo{
+
+    CFURLRef cfurl = (CFURLRef)CFBridgingRetain(url);
+    
+    AudioFileReaderRef reader(new WM::AudioFileReader(cfurl));
+    
+    WMAudioFilePreProcessInfo fileInf = reader->preprocess(kDefaultTrimBeginThreshold,
+                                    kDefaultTrimEndThreshold,
+                                    1.0f);
+    NSLog(@"For file %@", url);
+    NSLog(@"Peak: %f", fileInf.max_peak);
+    NSLog(@"Begin: %f", fileInf.threshold_start_time);
+    NSLog(@"End: %f", fileInf.threshold_end_time);
+    NSLog(@"Norm Factor: %f", fileInf.normalization_factor);
+    
+    *fileInfo = fileInf;
+    
+    AudioFileReaderRef reader_a(new WM::AudioFileReader(cfurl));
+    return get_mfcc_features(reader_a, fileInfo);
+    
+}
+
+- (void)_compareFileA:(NSString*)pathA fileB:(NSString*)pathB {
     // ==================================================================
     // Read audio files from file paths
-    NSURL *urlA = [NSURL URLWithString:kAudioFile1];
+    NSURL *urlA = [NSURL URLWithString:pathA];
     FeatureTypeDTW::Features featureA = [self _getPreProcessInfo:urlA
-              beginThreshold:kDefaultTrimBeginThreshold
-                endThreshold:kDefaultTrimEndThreshold
-                        info:&_fileAInfo];
+                                                  beginThreshold:kDefaultTrimBeginThreshold
+                                                    endThreshold:kDefaultTrimEndThreshold
+                                                            info:&_fileAInfo];
     
-    NSURL *urlB = [NSURL URLWithString:kAudioFile2];
+    NSURL *urlB = [NSURL URLWithString:pathB];
     FeatureTypeDTW::Features featureB = [self _getPreProcessInfo:urlB
-              beginThreshold:kDefaultTrimBeginThreshold
-                endThreshold:kDefaultTrimEndThreshold
-                        info:&_fileBInfo];
+                                                  beginThreshold:kDefaultTrimBeginThreshold
+                                                    endThreshold:kDefaultTrimEndThreshold
+                                                            info:&_fileBInfo];
     
     // ==================================================================
     // Init SortedOutput[a*b]
@@ -123,6 +234,7 @@ const float kDefaultTrimEndThreshold = -40.0f;
             } else {
                 float value = (maxDiff - output[i][j])/maxDiff;
                 normalizeOutput[i][j] = value;
+                
                 if (value > maxVal) {
                     maxVal = value;
                 }
@@ -133,53 +245,70 @@ const float kDefaultTrimEndThreshold = -40.0f;
     // centroids
     float *dataY = new float[featureA.size()]; // = cendroids
     float *dataX = new float[featureA.size()];
-    float *buffer = new float[featureA.size()];
-    float slope;
-    float intercept;
-    
     for (int i = 0; i < featureA.size(); i++) {
         float *temp = normalizeOutput[i];
         float a = 0.0f;
         float sum = 0.0f;
         for (int j = 0; j < featureB.size(); j++) {
-            a += normalizeOutput[i][j]*(j+1);
+            a += normalizeOutput[i][j]*(j);
             sum+= temp[j];
         }
         dataY[i] = a / sum;
         dataX[i] = i+1;
     }
-    
+    //    // centroids
+    //    std::vector<float> centroids; // dataY
+    //    std::vector<float> indices; // dataX
+    //
+    //
+    //
+    //    for (int i = 0; i < featureA.size(); i++) {
+    //        float centroid = 0.0f;
+    //        float sum = 0.0f;
+    //        for (int j = 0; j < featureB.size(); j++) {
+    //            centroid += normalizeOutput[i][j]*(float)j;
+    //            sum += normalizeOutput[i][j];
+    //        }
+    //        centroids.push_back(centroid/sum);
+    //        indices.push_back(i); // index from 0, not 1 so don't use i+1 here
+    //    }
+    //
+    //    float* dataY = &centroids[0];
+    //    float* dataX = &indices[0];
+    float *buffer = new float[featureA.size()];
+    float slope;
+    float intercept;
     getLinearFit(dataX, dataY, buffer, featureA.size(), &slope, &intercept);
     
-//    % estimate quality of match at each part of the word
-//    timeTolerance = 10; % check values in the region +-timeTolerance frames of deviation from the best fit line
-//    fitQuality = zeros(size(MFCC2,2),1);
+    //    % estimate quality of match at each part of the word
+    //    timeTolerance = 10; % check values in the region +-timeTolerance frames of deviation from the best fit line
+    //    fitQuality = zeros(size(MFCC2,2),1);
     float *fitQuality = new float[featureB.size()];
     float timeTolerance = 10;
     
     float fitLocation, toleranceWindowExcessLeft, toleranceWindowExcessRight, toleranceWindowStart, toleranceWindowEnd, maxGraph = 0.0f;
-    for (int j = 1; j <= featureB.size(); j++) {
-//        % find the location of the best fit line in the output matrix
-//        fitLocation = round(fitresult(j));
+    for (int j = 0; j < featureB.size(); j++) {
+        //        % find the location of the best fit line in the output matrix
+        //        fitLocation = round(fitresult(j));
         fitLocation = roundf(linearFun(j, slope, intercept));
         
-//    % find out if the tolerance region around the fit line hangs over
-//        % the left or right edge of the matrix
-//        toleranceWindowExcessLeft = max(timeTolerance - fitLocation + 1,0);
-//    toleranceWindowExcessRight = max(timeTolerance + fitLocation - size(MFCC1,2),0);
+        //    % find out if the tolerance region around the fit line hangs over
+        //        % the left or right edge of the matrix
+        //        toleranceWindowExcessLeft = max(timeTolerance - fitLocation + 1,0);
+        //    toleranceWindowExcessRight = max(timeTolerance + fitLocation - size(MFCC1,2),0);
         toleranceWindowExcessLeft = fmax(timeTolerance - fitLocation + 1,0);
-        toleranceWindowExcessRight = fmax(timeTolerance + fitLocation - featureB.size(),0);
+        toleranceWindowExcessRight = fmax(timeTolerance + fitLocation - featureA.size(),0);
         
-//    % taking the overhang at the edges into account, compute the
-//    % boundaries of the tolerance region
-//    toleranceWindowStart = fitLocation - timeTolerance + toleranceWindowExcessLeft;
-//    toleranceWindowEnd = fitLocation + timeTolerance - toleranceWindowExcessRight;
+        //    % taking the overhang at the edges into account, compute the
+        //    % boundaries of the tolerance region
+        //    toleranceWindowStart = fitLocation - timeTolerance + toleranceWindowExcessLeft;
+        //    toleranceWindowEnd = fitLocation + timeTolerance - toleranceWindowExcessRight;
         toleranceWindowStart = fitLocation - timeTolerance + toleranceWindowExcessLeft;
         toleranceWindowEnd = fitLocation + timeTolerance - toleranceWindowExcessRight;
         
-//    % the fit quality for the jth window is the best match value in the
-//        % region fitLocation (+-) timeTolerance
-//        fitQuality(j) = max(normalizedOutput(toleranceWindowStart:toleranceWindowEnd,j));
+        //    % the fit quality for the jth window is the best match value in the
+        //        % region fitLocation (+-) timeTolerance
+        //        fitQuality(j) = max(normalizedOutput(toleranceWindowStart:toleranceWindowEnd,j));
         float max = 0.0;
         for (int i = toleranceWindowStart-1; i<toleranceWindowEnd; i++) {
             if (normalizeOutput[i][j] > max) {
@@ -200,64 +329,133 @@ const float kDefaultTrimEndThreshold = -40.0f;
                                      rect:self.view.bounds
                                    maxVal:maxVal];
     [self.fitQualityView inputFitQualityW:(int)featureB.size()
-                                 data:fitQuality
-                                 rect:self.view.bounds
-                               maxVal:maxGraph];
+                                     data:fitQuality
+                                     rect:self.view.bounds
+                                   maxVal:MAX(maxGraph,1)];
     [self.matrixView setNeedsDisplay];
     [self.fitQualityView setNeedsDisplay];
 }
 
-#pragma mark - Private
 inline float linearFun(float x, float slope, float intercept) {
     return x*slope + intercept;
 }
 
-void getLinearFit(float* Xdata, float* Ydata, float* buffer, size_t length, float* slope, float* intercept)
+void getLinearFit(float* xData, float* yData, float* buffer, size_t length, float* slope, float* intercept)
 {
-    float xSum, ySum, xxSum, xySum;
+    float ssxx, ssxy, yMean, xMean, xSqSum, ySqSum, xyProdSum;
     
-    //    for (size_t i = 0; i < length; i++)
-    //    {
-    //        xSum += xData[i];
-    vDSP_sve(Xdata,1,&xSum,length);
+    // find the mean of the y and x values
+    vDSP_meanv(yData,1,&yMean,length);
+    vDSP_meanv(xData,1,&xMean,length);
     
-    //        ySum += data[i];
-    vDSP_sve(Ydata,1,&ySum,length);
+    // sum the squares of x and y
+    vDSP_svesq(yData,1,&ySqSum,length);
+    vDSP_svesq(xData,1,&xSqSum,length);
     
-    //        xxSum += xData[i] * xData[i];
-    vDSP_svesq(Xdata,1,&xxSum,length);
+    // sum the product of x and y
+    //
+    // multiply x * y and buffer the result into x
+    vDSP_vmul(xData,1,yData,1,xData,1,length);
+    vDSP_sve(xData,1,&xyProdSum,length);
     
-    //        xySum += xData[i] * data[i];
-    vDSP_vmul(Xdata,1,Ydata,1,Xdata,1,length); // buffer[i] = x[i]*y[i]
-    vDSP_sve(buffer,1,&xySum,length);
-    //    }
+    // ssxx is defined on line (17) of the mathworld link above
+    ssxx = xSqSum - (float)length*xMean*xMean;
     
+    // ssxy is defined on line (21)
+    ssxy = xyProdSum - (float)length*yMean*xMean;
     
-    *slope = (length * xySum - xSum * ySum) / (length * xxSum - xSum * xSum);
-    *intercept = (ySum - (*slope)*xSum) / length;
+    *slope = ssxy/ssxx;
+    *intercept = yMean - (*slope * xMean);
 }
 
-- (FeatureTypeDTW::Features)_getPreProcessInfo:(NSURL*)url beginThreshold:(float)bt endThreshold:(float)et info:(WMAudioFilePreProcessInfo*) fileInfo{
+//------------------------------------------------------------------------------
+#pragma mark - EZMicrophoneDelegate
+//------------------------------------------------------------------------------
 
-    CFURLRef cfurl = (CFURLRef)CFBridgingRetain(url);
-    
-    AudioFileReaderRef reader(new WM::AudioFileReader(cfurl));
-    
-    WMAudioFilePreProcessInfo fileInf = reader->preprocess(kDefaultTrimBeginThreshold,
-                                    kDefaultTrimEndThreshold,
-                                    1.0f);
-    NSLog(@"For file %@", url);
-    NSLog(@"Peak: %f", fileInf.max_peak);
-    NSLog(@"Begin: %f", fileInf.threshold_start_time);
-    NSLog(@"End: %f", fileInf.threshold_end_time);
-    NSLog(@"Norm Factor: %f", fileInf.normalization_factor);
-    
-    *fileInfo = fileInf;
-    
-    AudioFileReaderRef reader_a(new WM::AudioFileReader(cfurl));
-    return get_mfcc_features(reader_a, fileInfo);
+- (void)microphone:(EZMicrophone *)microphone changedPlayingState:(BOOL)isPlaying
+{
     
 }
 
+- (void)   microphone:(EZMicrophone *)microphone
+        hasBufferList:(AudioBufferList *)bufferList
+       withBufferSize:(UInt32)bufferSize
+ withNumberOfChannels:(UInt32)numberOfChannels
+{
+    // Getting audio data as a buffer list that can be directly fed into the EZRecorder. This is happening on the audio thread - any UI updating needs a GCD main queue block. This will keep appending data to the tail of the audio file.
+    if (self.isRecording)
+    {
+        [self.recorder appendDataFromBufferList:bufferList
+                                 withBufferSize:bufferSize];
+    }
+}
+
+- (void)   microphone:(EZMicrophone *)microphone
+     hasAudioReceived:(float **)buffer
+       withBufferSize:(UInt32)bufferSize
+ withNumberOfChannels:(UInt32)numberOfChannels
+{
+    // Getting audio data as an array of float buffer arrays. What does that mean? Because the audio is coming in as a stereo signal the data is split into a left and right channel. So buffer[0] corresponds to the float* data for the left channel while buffer[1] corresponds to the float* data for the right channel.
+    
+    // See the Thread Safety warning above, but in a nutshell these callbacks happen on a separate audio thread. We wrap any UI updating in a GCD block on the main thread to avoid blocking that audio flow.
+    __weak typeof (self) weakSelf = self;
+//    float decibels = [self _getDecibelsFromVolume:buffer withBufferSize:bufferSize];
+//    if (decibels > 0.072) {
+//        [self _startRecording];
+//    } else {
+//        [self _stopRecording];
+//    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // All the audio plot needs is the buffer data (float*) and the size. Internally the audio plot will handle all the drawing related code, history management, and freeing its own resources. Hence, one badass line of code gets you a pretty plot :)
+        //[weakSelf.recordingAudioPlot updateBuffer:buffer[0]
+          //                         withBufferSize:bufferSize];
+        weakSelf.recordingState.backgroundColor = weakSelf.isRecording ? [UIColor greenColor] : [UIColor redColor];
+//        weakSelf.lbRecordingState.text = _currentRecordingState ? @"Recording" : @"Not Recording";
+    });
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - EZRecorderDelegate
+//------------------------------------------------------------------------------
+
+- (void)recorderDidClose:(EZRecorder *)recorder
+{
+    recorder.delegate = nil;
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - Utility
+//------------------------------------------------------------------------------
+
+- (NSArray *)applicationDocuments
+{
+    return NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+}
+
+//------------------------------------------------------------------------------
+
+- (NSString *)applicationDocumentsDirectory
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    return basePath;
+}
+
+//------------------------------------------------------------------------------
+
+- (NSURL *)testFilePathURL
+{
+    return [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@",
+                                   [self applicationDocumentsDirectory],
+                                   @"test.wav"]];
+}
+
+- (NSString*)testFilePath {
+    NSString* x = [NSString stringWithFormat:@"%@/%@",
+                   [self applicationDocumentsDirectory],
+                   @"test.wav"];
+    NSLog(@"%@",x);
+    return x;
+}
 
 @end
