@@ -37,6 +37,7 @@ const float kDefaultTrimEndThreshold = -40.0f;
 }
 
 @property (nonatomic, weak) IBOutlet MatrixOuput *matrixView;
+@property (nonatomic, weak) IBOutlet MatrixOuput *fitQualityView;
 
 @end
 
@@ -193,16 +194,17 @@ const float kDefaultTrimEndThreshold = -40.0f;
     }
     
     // Draw normalized data
-//    [self.matrixView inputNormalizedDataW:(int)featureB.size()
-//                                  matrixH:(int)featureA.size()
-//                                     data:normalizeOutput
-//                                     rect:self.view.bounds
-//                                   maxVal:maxVal];
-    [self.matrixView inputFitQualityW:(int)featureB.size()
+    [self.matrixView inputNormalizedDataW:(int)featureB.size()
+                                  matrixH:(int)featureA.size()
+                                     data:normalizeOutput
+                                     rect:self.view.bounds
+                                   maxVal:maxVal];
+    [self.fitQualityView inputFitQualityW:(int)featureB.size()
                                  data:fitQuality
                                  rect:self.view.bounds
                                maxVal:maxGraph];
     [self.matrixView setNeedsDisplay];
+    [self.fitQualityView setNeedsDisplay];
 }
 
 #pragma mark - Private

@@ -55,13 +55,13 @@
             }
         }
     } else {
-        float maxH = self.bounds.size.height/2;
+        float maxH = self.bounds.size.height - 20;
         UIBezierPath *aPath = [UIBezierPath bezierPath];
         [aPath moveToPoint:CGPointMake(0.0, maxH)];
         for (int i = 0; i<_w; i++) {
-            [aPath addLineToPoint:CGPointMake(i*_size, maxH-(_fitData[i]/_maxVal*maxH))];
+            [aPath addLineToPoint:CGPointMake(i*_size, maxH-(_fitData[i]/_maxVal*maxH)+10)];
         }
-        [aPath moveToPoint:CGPointMake((_w-1)*_size, maxH-(_fitData[(_w-1)]/_maxVal*maxH))];
+        [aPath moveToPoint:CGPointMake((_w-1)*_size, maxH-(_fitData[(_w-1)]/_maxVal*maxH)+10)];
         [aPath closePath];
         [[UIColor redColor] setStroke];
         [aPath stroke];

@@ -18,20 +18,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cf8-cL-G8w" customClass="MatrixOuput">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="299.5"/>
                                 <color key="backgroundColor" red="0.10980392160000001" green="0.63137254899999995" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cm2-qO-570" customClass="MatrixOuput">
+                                <rect key="frame" x="0.0" y="300" width="600" height="299.5"/>
+                                <color key="backgroundColor" red="0.0097321278450000007" green="0.16307220610000001" blue="0.17440025249999999" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="cf8-cL-G8w" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="4uM-Tb-RZg"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cf8-cL-G8w" secondAttribute="bottom" id="8Z9-4J-JfA"/>
-                            <constraint firstItem="cf8-cL-G8w" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ADQ-CR-8Ro"/>
-                            <constraint firstAttribute="trailing" secondItem="cf8-cL-G8w" secondAttribute="trailing" id="TzI-Ck-M8g"/>
+                            <constraint firstItem="cf8-cL-G8w" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="DEX-w4-gQW"/>
+                            <constraint firstAttribute="trailing" secondItem="cf8-cL-G8w" secondAttribute="trailing" id="J0A-vQ-fQ5"/>
+                            <constraint firstItem="Cm2-qO-570" firstAttribute="height" secondItem="cf8-cL-G8w" secondAttribute="height" id="J5m-bD-ih0"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Cm2-qO-570" secondAttribute="bottom" id="ODR-7V-v7E"/>
+                            <constraint firstItem="Cm2-qO-570" firstAttribute="top" secondItem="cf8-cL-G8w" secondAttribute="bottom" constant="1" id="Tre-Gp-2wI"/>
+                            <constraint firstItem="Cm2-qO-570" firstAttribute="top" secondItem="cf8-cL-G8w" secondAttribute="bottom" constant="1" id="Wfw-CG-zuN"/>
+                            <constraint firstItem="Cm2-qO-570" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="j3n-vX-deh"/>
+                            <constraint firstItem="cf8-cL-G8w" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ltn-1V-pI0"/>
+                            <constraint firstAttribute="trailing" secondItem="Cm2-qO-570" secondAttribute="trailing" id="qm3-30-v74"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="fitQualityView" destination="Cm2-qO-570" id="SKe-VR-sq8"/>
                         <outlet property="matrixView" destination="cf8-cL-G8w" id="s3K-gC-Dy6"/>
                     </connections>
                 </viewController>
