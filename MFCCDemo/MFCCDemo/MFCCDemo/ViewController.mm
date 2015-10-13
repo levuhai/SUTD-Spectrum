@@ -77,7 +77,7 @@ const float kDefaultTrimEndThreshold = -40.0f;
             }
             output[i][j] = sqrtf(diff);
             // Copy all the data from output into sorted output
-            NSLog(@"%f",output[i][j]);
+            //NSLog(@"%f",output[i][j]);
             sortedOutput[i*featureB.size()+j] = output[i][j];
         }
     }
@@ -130,7 +130,12 @@ const float kDefaultTrimEndThreshold = -40.0f;
     }
     
     // centroids
-    float *centroids = new float[featureA.size()];
+    float *dataY = new float[featureA.size()]; // = cendroids
+    float *dataX = new float[featureA.size()];
+    float *buffer = new float[featureA.size()];
+    float slope;
+    float intercept;
+    
     for (int i = 0; i < featureA.size(); i++) {
         float *temp = normalizeOutput[i];
         float a = 0.0f;
@@ -139,17 +144,97 @@ const float kDefaultTrimEndThreshold = -40.0f;
             a += normalizeOutput[i][j]*(j+1);
             sum+= temp[j];
         }
-        centroids[i] = a / sum;
+        dataY[i] = a / sum;
+        dataX[i] = i+1;
     }
-    [self.matrixView inputMatrixW:(int)featureB.size()
-                          matrixH:(int)featureA.size()
-                             data:normalizeOutput
-                             rect:self.view.bounds
-                           maxVal:maxVal];
+    
+    getLinearFit(dataX, dataY, buffer, featureA.size(), &slope, &intercept);
+    
+//    % estimate quality of match at each part of the word
+//    timeTolerance = 10; % check values in the region +-timeTolerance frames of deviation from the best fit line
+//    fitQuality = zeros(size(MFCC2,2),1);
+    float *fitQuality = new float[featureB.size()];
+    float timeTolerance = 10;
+    
+    float fitLocation, toleranceWindowExcessLeft, toleranceWindowExcessRight, toleranceWindowStart, toleranceWindowEnd, maxGraph = 0.0f;
+    for (int j = 1; j <= featureB.size(); j++) {
+//        % find the location of the best fit line in the output matrix
+//        fitLocation = round(fitresult(j));
+        fitLocation = roundf(linearFun(j, slope, intercept));
+        
+//    % find out if the tolerance region around the fit line hangs over
+//        % the left or right edge of the matrix
+//        toleranceWindowExcessLeft = max(timeTolerance - fitLocation + 1,0);
+//    toleranceWindowExcessRight = max(timeTolerance + fitLocation - size(MFCC1,2),0);
+        toleranceWindowExcessLeft = fmax(timeTolerance - fitLocation + 1,0);
+        toleranceWindowExcessRight = fmax(timeTolerance + fitLocation - featureB.size(),0);
+        
+//    % taking the overhang at the edges into account, compute the
+//    % boundaries of the tolerance region
+//    toleranceWindowStart = fitLocation - timeTolerance + toleranceWindowExcessLeft;
+//    toleranceWindowEnd = fitLocation + timeTolerance - toleranceWindowExcessRight;
+        toleranceWindowStart = fitLocation - timeTolerance + toleranceWindowExcessLeft;
+        toleranceWindowEnd = fitLocation + timeTolerance - toleranceWindowExcessRight;
+        
+//    % the fit quality for the jth window is the best match value in the
+//        % region fitLocation (+-) timeTolerance
+//        fitQuality(j) = max(normalizedOutput(toleranceWindowStart:toleranceWindowEnd,j));
+        float max = 0.0;
+        for (int i = toleranceWindowStart-1; i<toleranceWindowEnd; i++) {
+            if (normalizeOutput[i][j] > max) {
+                max = normalizeOutput[i][j];
+            }
+        }
+        // For graph drawing scale
+        if (max > maxGraph) {
+            maxGraph = max;
+        }
+        fitQuality[j-1] = max;
+    }
+    
+    // Draw normalized data
+//    [self.matrixView inputNormalizedDataW:(int)featureB.size()
+//                                  matrixH:(int)featureA.size()
+//                                     data:normalizeOutput
+//                                     rect:self.view.bounds
+//                                   maxVal:maxVal];
+    [self.matrixView inputFitQualityW:(int)featureB.size()
+                                 data:fitQuality
+                                 rect:self.view.bounds
+                               maxVal:maxGraph];
     [self.matrixView setNeedsDisplay];
 }
 
 #pragma mark - Private
+inline float linearFun(float x, float slope, float intercept) {
+    return x*slope + intercept;
+}
+
+void getLinearFit(float* Xdata, float* Ydata, float* buffer, size_t length, float* slope, float* intercept)
+{
+    float xSum, ySum, xxSum, xySum;
+    
+    //    for (size_t i = 0; i < length; i++)
+    //    {
+    //        xSum += xData[i];
+    vDSP_sve(Xdata,1,&xSum,length);
+    
+    //        ySum += data[i];
+    vDSP_sve(Ydata,1,&ySum,length);
+    
+    //        xxSum += xData[i] * xData[i];
+    vDSP_svesq(Xdata,1,&xxSum,length);
+    
+    //        xySum += xData[i] * data[i];
+    vDSP_vmul(Xdata,1,Ydata,1,Xdata,1,length); // buffer[i] = x[i]*y[i]
+    vDSP_sve(buffer,1,&xySum,length);
+    //    }
+    
+    
+    *slope = (length * xySum - xSum * ySum) / (length * xxSum - xSum * xSum);
+    *intercept = (ySum - (*slope)*xSum) / length;
+}
+
 - (FeatureTypeDTW::Features)_getPreProcessInfo:(NSURL*)url beginThreshold:(float)bt endThreshold:(float)et info:(WMAudioFilePreProcessInfo*) fileInfo{
 
     CFURLRef cfurl = (CFURLRef)CFBridgingRetain(url);
