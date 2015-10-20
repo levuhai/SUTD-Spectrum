@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +18,87 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cf8-cL-G8w" customClass="MatrixOuput">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="347.5"/>
+                                <color key="backgroundColor" red="0.10980392160000001" green="0.63137254899999995" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cm2-qO-570" customClass="MatrixOuput">
+                                <rect key="frame" x="0.0" y="348" width="600" height="208"/>
+                                <color key="backgroundColor" red="0.0097321278450000007" green="0.16307220610000001" blue="0.17440025249999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q8n-70-RY5">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZIP-Qp-5zt">
+                                        <rect key="frame" x="15" y="7" width="30" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="JLe-on-n06"/>
+                                            <constraint firstAttribute="width" secondItem="ZIP-Qp-5zt" secondAttribute="height" multiplier="1:1" id="K0o-xH-yaG"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="INp-KK-bfE">
+                                        <rect key="frame" x="60" y="11" width="42" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iij-3J-8jN">
+                                        <rect key="frame" x="511" y="7" width="63" height="30"/>
+                                        <state key="normal" title="Compare"/>
+                                        <connections>
+                                            <action selector="compareTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BMd-SE-dsE"/>
+                                        </connections>
+                                    </button>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ir6-cF-PKb">
+                                        <rect key="frame" x="443" y="7" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="toggleRecording:" destination="BYZ-38-t0r" eventType="valueChanged" id="OTn-hf-ya9"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="1m8-vJ-k2B"/>
+                                    <constraint firstItem="iij-3J-8jN" firstAttribute="leading" secondItem="Ir6-cF-PKb" secondAttribute="trailing" constant="19" id="5lu-os-z3Z"/>
+                                    <constraint firstItem="INp-KK-bfE" firstAttribute="leading" secondItem="ZIP-Qp-5zt" secondAttribute="trailing" constant="15" id="FUm-nb-Ewy"/>
+                                    <constraint firstItem="Ir6-cF-PKb" firstAttribute="centerY" secondItem="iij-3J-8jN" secondAttribute="centerY" id="KAG-fg-Rwa"/>
+                                    <constraint firstAttribute="trailing" secondItem="iij-3J-8jN" secondAttribute="trailing" constant="26" id="aF5-ko-vZr"/>
+                                    <constraint firstItem="ZIP-Qp-5zt" firstAttribute="centerY" secondItem="Q8n-70-RY5" secondAttribute="centerY" id="hzY-IZ-PAM"/>
+                                    <constraint firstItem="ZIP-Qp-5zt" firstAttribute="leading" secondItem="Q8n-70-RY5" secondAttribute="leading" constant="15" id="jdo-Gu-gMH"/>
+                                    <constraint firstItem="iij-3J-8jN" firstAttribute="centerY" secondItem="INp-KK-bfE" secondAttribute="centerY" id="kiJ-QU-ShR"/>
+                                    <constraint firstItem="INp-KK-bfE" firstAttribute="centerY" secondItem="ZIP-Qp-5zt" secondAttribute="centerY" id="t4s-Bp-emI"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cf8-cL-G8w" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="DEX-w4-gQW"/>
+                            <constraint firstAttribute="trailing" secondItem="Q8n-70-RY5" secondAttribute="trailing" id="G9d-pg-Rnq"/>
+                            <constraint firstAttribute="trailing" secondItem="cf8-cL-G8w" secondAttribute="trailing" id="J0A-vQ-fQ5"/>
+                            <constraint firstItem="Cm2-qO-570" firstAttribute="height" secondItem="cf8-cL-G8w" secondAttribute="height" multiplier="0.6" id="J5m-bD-ih0"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Cm2-qO-570" secondAttribute="bottom" constant="44" id="ODR-7V-v7E"/>
+                            <constraint firstItem="Cm2-qO-570" firstAttribute="top" secondItem="cf8-cL-G8w" secondAttribute="bottom" constant="1" id="Tre-Gp-2wI"/>
+                            <constraint firstItem="Cm2-qO-570" firstAttribute="top" secondItem="cf8-cL-G8w" secondAttribute="bottom" constant="1" id="Wfw-CG-zuN"/>
+                            <constraint firstItem="Cm2-qO-570" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="j3n-vX-deh"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Q8n-70-RY5" secondAttribute="bottom" id="lAn-M0-9wO"/>
+                            <constraint firstItem="cf8-cL-G8w" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ltn-1V-pI0"/>
+                            <constraint firstAttribute="trailing" secondItem="Cm2-qO-570" secondAttribute="trailing" id="qm3-30-v74"/>
+                            <constraint firstItem="Q8n-70-RY5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="uh6-hO-xs5"/>
+                        </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="fitQualityView" destination="Cm2-qO-570" id="SKe-VR-sq8"/>
+                        <outlet property="lbRecordingState" destination="INp-KK-bfE" id="Y8j-Yv-V3F"/>
+                        <outlet property="matrixView" destination="cf8-cL-G8w" id="s3K-gC-Dy6"/>
+                        <outlet property="recordingState" destination="ZIP-Qp-5zt" id="dPc-YS-UCW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="237" y="206"/>
         </scene>
     </scenes>
 </document>
