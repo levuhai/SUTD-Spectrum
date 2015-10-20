@@ -23,6 +23,7 @@
                                     <constraint firstAttribute="height" constant="30" id="soF-p8-VW3"/>
                                     <constraint firstAttribute="width" constant="113" id="wuD-Pz-onh"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Manager"/>
                                 <connections>
                                     <action selector="managerButton_pressed" destination="BV1-FR-VrT" eventType="touchUpInside" id="2DZ-h1-c5V"/>
@@ -45,6 +46,9 @@
                                     <constraint firstAttribute="width" constant="100" id="2PU-qJ-HzN"/>
                                     <constraint firstAttribute="height" constant="100" id="KQv-4A-dSa"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="fishingGamebuton_pressed" destination="BV1-FR-VrT" eventType="touchUpInside" id="9nW-go-pkE"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -65,6 +69,180 @@
             </objects>
             <point key="canvasLocation" x="702" y="419"/>
         </scene>
+        <!--Manager Gate View Controller-->
+        <scene sceneID="1Zd-pv-VRZ">
+            <objects>
+                <viewController storyboardIdentifier="ManagerGateViewController" id="tOa-Vr-KxK" customClass="ManagerGateViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TjQ-m2-lgA"/>
+                        <viewControllerLayoutGuide type="bottom" id="el8-BY-Gy4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VKf-Ve-ySh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gQT-Za-aGm">
+                                <rect key="frame" x="70" y="160" width="460" height="280"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Holding &quot;six&quot; for 3 seconds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDh-db-zH9">
+                                        <rect key="frame" x="8" y="0.0" width="444" height="44"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csk-Rg-nOF">
+                                        <rect key="frame" x="174" y="164" width="40" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="2">
+                                            <color key="titleColor" red="0.1843137255" green="0.5450980392" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aMI-vb-s3L">
+                                        <rect key="frame" x="241" y="164" width="40" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="3">
+                                            <color key="titleColor" red="0.1843137255" green="0.5450980392" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K8v-Sj-771">
+                                        <rect key="frame" x="311" y="164" width="40" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="4">
+                                            <color key="titleColor" red="0.1843137255" green="0.5450980392" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v6H-Wi-pYC">
+                                        <rect key="frame" x="100" y="223" width="40" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="5">
+                                            <color key="titleColor" red="0.1843137255" green="0.5450980392" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6vI-JC-9ug">
+                                        <rect key="frame" x="174" y="223" width="40" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="6">
+                                            <color key="titleColor" red="0.1843137255" green="0.5450980392" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="targetButton_pressed" destination="tOa-Vr-KxK" eventType="touchDown" id="w2L-3T-XIq"/>
+                                            <action selector="targetButton_released" destination="tOa-Vr-KxK" eventType="touchUpInside" id="sr9-AB-rXh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZ5-yr-yI8">
+                                        <rect key="frame" x="241" y="223" width="40" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="7">
+                                            <color key="titleColor" red="0.1843137255" green="0.5450980392" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lip-Sb-2jZ">
+                                        <rect key="frame" x="311" y="223" width="40" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="8">
+                                            <color key="titleColor" red="0.1843137255" green="0.5450980392" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tj4-iU-mlH">
+                                        <rect key="frame" x="100" y="164" width="40" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="1">
+                                            <color key="titleColor" red="0.1843137255" green="0.5450980392" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hLj-Gc-wtK" customClass="MBCircularProgressBarView">
+                                        <rect key="frame" x="180" y="44" width="100" height="100"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                                                <real key="value" value="100"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showUnitString" value="NO"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showValueString" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.1843137255" green="0.5450980392" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gQT-Za-aGm" firstAttribute="centerX" secondItem="VKf-Ve-ySh" secondAttribute="centerX" id="EPs-ks-PeG"/>
+                            <constraint firstItem="gQT-Za-aGm" firstAttribute="centerY" secondItem="VKf-Ve-ySh" secondAttribute="centerY" id="NTA-ew-SlP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="progressBar" destination="hLj-Gc-wtK" id="rCP-sw-7Us"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fGh-mh-zId" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1348" y="-249"/>
+        </scene>
+        <!--Fishing Game View Controller-->
+        <scene sceneID="53X-hx-Be8">
+            <objects>
+                <viewController storyboardIdentifier="FishingGameViewController" id="9oU-Md-uij" customClass="FishingGameViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Fux-Fh-QAH"/>
+                        <viewControllerLayoutGuide type="bottom" id="gNG-Nw-c8b"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="znH-oq-9QZ" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Loc-pA-aQ5">
+                                <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5TD-O1-Qf3" customClass="MBCircularProgressBarView">
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                <real key="value" value="100"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                                                <real key="value" value="100"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showUnitString" value="NO"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showValueString" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mic" translatesAutoresizingMaskIntoConstraints="NO" id="mdB-Nh-hXj">
+                                        <rect key="frame" x="44" y="37" width="32" height="47"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="47" id="Eru-Y8-1wA"/>
+                                            <constraint firstAttribute="width" constant="32" id="ibm-3V-QxY"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="5TD-O1-Qf3" firstAttribute="top" secondItem="Loc-pA-aQ5" secondAttribute="top" id="2Ei-ni-L3l"/>
+                                    <constraint firstAttribute="bottom" secondItem="5TD-O1-Qf3" secondAttribute="bottom" id="9tc-5d-pqQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="5TD-O1-Qf3" secondAttribute="trailing" id="ZgD-PP-XpD"/>
+                                    <constraint firstItem="mdB-Nh-hXj" firstAttribute="centerY" secondItem="Loc-pA-aQ5" secondAttribute="centerY" id="fzC-6w-1zB"/>
+                                    <constraint firstItem="5TD-O1-Qf3" firstAttribute="leading" secondItem="Loc-pA-aQ5" secondAttribute="leading" id="pLp-Dz-g5z"/>
+                                    <constraint firstItem="mdB-Nh-hXj" firstAttribute="centerX" secondItem="Loc-pA-aQ5" secondAttribute="centerX" id="x8a-Y0-0Rh"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="countDownCircleContainer" destination="Loc-pA-aQ5" id="yTI-qv-dIh"/>
+                        <outlet property="countDownCircleView" destination="5TD-O1-Qf3" id="eOD-mf-YUh"/>
+                        <outlet property="micImage" destination="mdB-Nh-hXj" id="6q7-UW-gUC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oC4-Yt-tGd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1408" y="419"/>
+        </scene>
         <!--Game Manager Master View-->
         <scene sceneID="l4j-8Z-Qw3">
             <objects>
@@ -81,7 +259,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uig-dT-nQK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1388" y="419"/>
+            <point key="canvasLocation" x="78" y="-244"/>
         </scene>
         <!--Game Manager Detail View Controller-->
         <scene sceneID="Ret-5E-Yja">
@@ -100,7 +278,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zL9-KJ-lVo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2012" y="419"/>
+            <point key="canvasLocation" x="702" y="-244"/>
         </scene>
         <!--Game Stats View Controller-->
         <scene sceneID="xZv-FL-pgT">
@@ -444,6 +622,7 @@
     </scenes>
     <resources>
         <image name="homeBackground" width="1024" height="768"/>
+        <image name="mic" width="64" height="105"/>
         <image name="star" width="47" height="46"/>
         <image name="x-icon" width="37" height="36"/>
     </resources>

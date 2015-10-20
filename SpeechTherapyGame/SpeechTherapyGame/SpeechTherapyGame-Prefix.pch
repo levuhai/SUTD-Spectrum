@@ -23,8 +23,9 @@
     #import "FrameAccessor.h"
     #import "SKScene+Unarchive.h"
     #import "MagicalRecord.h"
-    #include "NGSplitMenu.h"
-    #include "Macro.h"
+    #import "MBCircularProgressBarView.h"
+    #import "NGSplitMenu.h"
+    #import "Macro.h"
 #endif
 
 #define kAchievementDays @"kAchievementDays"

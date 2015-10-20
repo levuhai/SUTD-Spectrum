@@ -16,6 +16,7 @@
 		2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2875431B977F310068818D /* SKScene+Unarchive.m */; };
 		2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064721BA99E6B00410B0E /* CoreDataManager.m */; };
 		2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */; };
+		2D75DD2A1BD57E9300112F4E /* ManagerGateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D75DD291BD57E9300112F4E /* ManagerGateViewController.m */; settings = {ASSET_TAGS = (); }; };
 		2D8931F41BA986AF006D2840 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D8931F31BA986AF006D2840 /* CoreData.framework */; };
 		2DC904171BB1D0580082DEAC /* GameStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904161BB1D0580082DEAC /* GameStatsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		2DC9041A1BB1D0710082DEAC /* SoundManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -29,6 +30,8 @@
 		2DE88ACB1BB8517A002438C6 /* Games.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC31BB8517A002438C6 /* Games.m */; settings = {ASSET_TAGS = (); }; };
 		2DE88ACC1BB8517A002438C6 /* GameStatistics+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC51BB8517A002438C6 /* GameStatistics+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		2DE88ACD1BB8517A002438C6 /* GameStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC71BB8517A002438C6 /* GameStatistics.m */; settings = {ASSET_TAGS = (); }; };
+		2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */; settings = {ASSET_TAGS = (); }; };
+		2DF67F821BD4A1A900EB7390 /* FishingGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F811BD4A1A900EB7390 /* FishingGameScene.m */; settings = {ASSET_TAGS = (); }; };
 		2DF6B7421B94A14800B7F92C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7411B94A14800B7F92C /* main.m */; };
 		2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7441B94A14800B7F92C /* AppDelegate.m */; };
 		2DF6B7481B94A14800B7F92C /* HomeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7471B94A14800B7F92C /* HomeScene.m */; };
@@ -71,6 +74,8 @@
 		2D6064711BA99E6B00410B0E /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		2D6064721BA99E6B00410B0E /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		2D6064751BA99FF100410B0E /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		2D75DD281BD57E9300112F4E /* ManagerGateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerGateViewController.h; sourceTree = "<group>"; };
+		2D75DD291BD57E9300112F4E /* ManagerGateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagerGateViewController.m; sourceTree = "<group>"; };
 		2D8931F31BA986AF006D2840 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2DC904141BB1C5430082DEAC /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
 		2DC904151BB1D0580082DEAC /* GameStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStatsViewController.h; sourceTree = "<group>"; };
@@ -97,6 +102,10 @@
 		2DE88AC51BB8517A002438C6 /* GameStatistics+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GameStatistics+CoreDataProperties.m"; sourceTree = "<group>"; };
 		2DE88AC61BB8517A002438C6 /* GameStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStatistics.h; sourceTree = "<group>"; };
 		2DE88AC71BB8517A002438C6 /* GameStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStatistics.m; sourceTree = "<group>"; };
+		2DF67F7D1BD4A18800EB7390 /* FishingGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingGameViewController.h; sourceTree = "<group>"; };
+		2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameViewController.m; sourceTree = "<group>"; };
+		2DF67F801BD4A1A900EB7390 /* FishingGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingGameScene.h; sourceTree = "<group>"; };
+		2DF67F811BD4A1A900EB7390 /* FishingGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameScene.m; sourceTree = "<group>"; };
 		2DF6B73C1B94A14800B7F92C /* SpeechTherapyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechTherapyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DF6B7401B94A14800B7F92C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DF6B7411B94A14800B7F92C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -150,6 +159,8 @@
 				2DC904161BB1D0580082DEAC /* GameStatsViewController.m */,
 				2DC904181BB1D0710082DEAC /* SoundManagerViewController.h */,
 				2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */,
+				2D75DD281BD57E9300112F4E /* ManagerGateViewController.h */,
+				2D75DD291BD57E9300112F4E /* ManagerGateViewController.m */,
 			);
 			name = GameManager;
 			sourceTree = "<group>";
@@ -206,6 +217,7 @@
 		2D28753A1B9770A00068818D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				2DF67F7C1BD4A14600EB7390 /* FishingGame */,
 				2D1A041F1BB0672700FA14CC /* GameManager */,
 				2DE0E12B1B9CAF2400BFEDA6 /* Loading */,
 				2D28753C1B977AD20068818D /* Schedule */,
@@ -313,6 +325,17 @@
 				2DE0E1391B9CB57900BFEDA6 /* CalendarView.m */,
 			);
 			name = CalendarView;
+			sourceTree = "<group>";
+		};
+		2DF67F7C1BD4A14600EB7390 /* FishingGame */ = {
+			isa = PBXGroup;
+			children = (
+				2DF67F7D1BD4A18800EB7390 /* FishingGameViewController.h */,
+				2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */,
+				2DF67F801BD4A1A900EB7390 /* FishingGameScene.h */,
+				2DF67F811BD4A1A900EB7390 /* FishingGameScene.m */,
+			);
+			name = FishingGame;
 			sourceTree = "<group>";
 		};
 		2DF6B7331B94A14800B7F92C = {
@@ -531,16 +554,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */,
+				2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */,
 				2D1A043E1BB06A0800FA14CC /* NGMenuItem.m in Sources */,
 				2DE88AC91BB8517A002438C6 /* Sounds.m in Sources */,
 				2DE88ACA1BB8517A002438C6 /* Games+CoreDataProperties.m in Sources */,
 				2DC904171BB1D0580082DEAC /* GameStatsViewController.m in Sources */,
 				2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */,
+				2DF67F821BD4A1A900EB7390 /* FishingGameScene.m in Sources */,
 				2DE88ACC1BB8517A002438C6 /* GameStatistics+CoreDataProperties.m in Sources */,
 				2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */,
 				2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */,
 				2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */,
 				2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */,
+				2D75DD2A1BD57E9300112F4E /* ManagerGateViewController.m in Sources */,
 				2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */,
 				2D1A04221BB0676B00FA14CC /* GameManagerMasterView.m in Sources */,
 				2D1A044B1BB06C1D00FA14CC /* GameManagerDetailViewController.m in Sources */,
