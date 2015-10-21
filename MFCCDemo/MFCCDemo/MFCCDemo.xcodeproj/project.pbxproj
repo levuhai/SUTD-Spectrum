@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D759FD1C1BCE33C900225400 /* test.wav in Resources */ = {isa = PBXBuildFile; fileRef = D759FD1B1BCE33C900225400 /* test.wav */; settings = {ASSET_TAGS = (); }; };
 		D761191B1BBA47280027706B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D761191A1BBA47280027706B /* CoreFoundation.framework */; };
+		D763E8A91BD77381000CDE19 /* MFCCProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D763E8A71BD77381000CDE19 /* MFCCProcessor.cpp */; settings = {ASSET_TAGS = (); }; };
+		D763E8AC1BD77565000CDE19 /* TPOscilloscopeLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = D763E8AB1BD77565000CDE19 /* TPOscilloscopeLayer.mm */; settings = {ASSET_TAGS = (); }; };
 		D7A0326A1BCCDF0400C11EB8 /* EZAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A032481BCCDF0400C11EB8 /* EZAudio.m */; settings = {ASSET_TAGS = (); }; };
 		D7A0326B1BCCDF0400C11EB8 /* EZAudioDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A0324A1BCCDF0400C11EB8 /* EZAudioDevice.m */; settings = {ASSET_TAGS = (); }; };
 		D7A0326C1BCCDF0400C11EB8 /* EZAudioDisplayLink.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A0324C1BCCDF0400C11EB8 /* EZAudioDisplayLink.m */; settings = {ASSET_TAGS = (); }; };
@@ -26,7 +29,7 @@
 		D7A032791BCCDF0400C11EB8 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = D7A032651BCCDF0400C11EB8 /* TPCircularBuffer.c */; settings = {ASSET_TAGS = (); }; };
 		D7A0327A1BCCDF0400C11EB8 /* CHANGELOG in Resources */ = {isa = PBXBuildFile; fileRef = D7A032681BCCDF0400C11EB8 /* CHANGELOG */; settings = {ASSET_TAGS = (); }; };
 		D7A0327B1BCCDF0400C11EB8 /* VERSION in Resources */ = {isa = PBXBuildFile; fileRef = D7A032691BCCDF0400C11EB8 /* VERSION */; settings = {ASSET_TAGS = (); }; };
-		D7A542ED1BC3A1AC00A16386 /* MatrixOuput.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A542EC1BC3A1AC00A16386 /* MatrixOuput.m */; settings = {ASSET_TAGS = (); }; };
+		D7A542ED1BC3A1AC00A16386 /* MatrixOuput.mm in Sources */ = {isa = PBXBuildFile; fileRef = D7A542EC1BC3A1AC00A16386 /* MatrixOuput.mm */; settings = {ASSET_TAGS = (); }; };
 		D7C075E41BB2572A000DB38A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C075E31BB2572A000DB38A /* main.m */; };
 		D7C075E71BB2572A000DB38A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C075E61BB2572A000DB38A /* AppDelegate.m */; };
 		D7C075EA1BB2572A000DB38A /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D7C075E91BB2572A000DB38A /* ViewController.mm */; };
@@ -59,6 +62,7 @@
 		D7C08AE21BB3AAFF000DB38A /* WordMatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7C08AD11BB3AAFF000DB38A /* WordMatch.cpp */; };
 		D7C08AE31BB3AAFF000DB38A /* WordMatchSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7C08AD31BB3AAFF000DB38A /* WordMatchSession.cpp */; };
 		D7C08AF71BB3AEED000DB38A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C08AF61BB3AEED000DB38A /* CoreMedia.framework */; };
+		FACCF35EBE96FA80F6F28DF6 /* libPods-MFCCDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C44AA08666DCA9410EF65F /* libPods-MFCCDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +76,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07C44AA08666DCA9410EF65F /* libPods-MFCCDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MFCCDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E15C89C5659778544E4952A /* Pods-MFCCDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFCCDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		70991DECC5FEC8561D7AD94F /* Pods-MFCCDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFCCDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo.release.xcconfig"; sourceTree = "<group>"; };
+		D759FD1B1BCE33C900225400 /* test.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test.wav; sourceTree = "<group>"; };
 		D761191A1BBA47280027706B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		D761191C1BBA473B0027706B /* libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; path = "boost_ext/lib/libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; sourceTree = "<group>"; };
 		D761191D1BBA473B0027706B /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a"; path = "boost_ext/lib/libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a"; sourceTree = "<group>"; };
@@ -82,6 +90,10 @@
 		D76119221BBA473B0027706B /* libboost_unit_test_framework-xgcc42-mt-1_46_OSX_10_6_32_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_unit_test_framework-xgcc42-mt-1_46_OSX_10_6_32_64.a"; path = "boost_ext/lib/libboost_unit_test_framework-xgcc42-mt-1_46_OSX_10_6_32_64.a"; sourceTree = "<group>"; };
 		D76119231BBA473B0027706B /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a"; path = "boost_ext/lib/libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a"; sourceTree = "<group>"; };
 		D76119241BBA473B0027706B /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; path = "boost_ext/lib/libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; sourceTree = "<group>"; };
+		D763E8A71BD77381000CDE19 /* MFCCProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MFCCProcessor.cpp; sourceTree = "<group>"; };
+		D763E8A81BD77381000CDE19 /* MFCCProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MFCCProcessor.hpp; sourceTree = "<group>"; };
+		D763E8AA1BD77565000CDE19 /* TPOscilloscopeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPOscilloscopeLayer.h; path = ../TPOscilloscopeLayer.h; sourceTree = "<group>"; };
+		D763E8AB1BD77565000CDE19 /* TPOscilloscopeLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TPOscilloscopeLayer.mm; path = ../TPOscilloscopeLayer.mm; sourceTree = "<group>"; };
 		D7A032471BCCDF0400C11EB8 /* EZAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudio.h; sourceTree = "<group>"; };
 		D7A032481BCCDF0400C11EB8 /* EZAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudio.m; sourceTree = "<group>"; };
 		D7A032491BCCDF0400C11EB8 /* EZAudioDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioDevice.h; sourceTree = "<group>"; };
@@ -117,7 +129,7 @@
 		D7A032681BCCDF0400C11EB8 /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
 		D7A032691BCCDF0400C11EB8 /* VERSION */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VERSION; sourceTree = "<group>"; };
 		D7A542EB1BC3A1AC00A16386 /* MatrixOuput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixOuput.h; sourceTree = "<group>"; };
-		D7A542EC1BC3A1AC00A16386 /* MatrixOuput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatrixOuput.m; sourceTree = "<group>"; };
+		D7A542EC1BC3A1AC00A16386 /* MatrixOuput.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MatrixOuput.mm; sourceTree = "<group>"; };
 		D7C075DE1BB2572A000DB38A /* MFCCDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MFCCDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C075E21BB2572A000DB38A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7C075E31BB2572A000DB38A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -195,6 +207,7 @@
 				D7C076361BB26132000DB38A /* GLKit.framework in Frameworks */,
 				D7C076341BB2612C000DB38A /* AVFoundation.framework in Frameworks */,
 				D7C076321BB25D60000DB38A /* AudioToolbox.framework in Frameworks */,
+				FACCF35EBE96FA80F6F28DF6 /* libPods-MFCCDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +221,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C303CBC18A1D2893FDDDB7F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4E15C89C5659778544E4952A /* Pods-MFCCDemo.debug.xcconfig */,
+				70991DECC5FEC8561D7AD94F /* Pods-MFCCDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D716D8B41BBA6F1500F9C105 /* SA */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +294,7 @@
 				D7C075E01BB2572A000DB38A /* MFCCDemo */,
 				D7C075FA1BB2572A000DB38A /* MFCCDemoTests */,
 				D7C075DF1BB2572A000DB38A /* Products */,
+				6C303CBC18A1D2893FDDDB7F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -296,7 +319,11 @@
 				D7C075F01BB2572A000DB38A /* LaunchScreen.xib */,
 				D7C075E11BB2572A000DB38A /* Supporting Files */,
 				D7A542EB1BC3A1AC00A16386 /* MatrixOuput.h */,
-				D7A542EC1BC3A1AC00A16386 /* MatrixOuput.m */,
+				D7A542EC1BC3A1AC00A16386 /* MatrixOuput.mm */,
+				D763E8A71BD77381000CDE19 /* MFCCProcessor.cpp */,
+				D763E8A81BD77381000CDE19 /* MFCCProcessor.hpp */,
+				D763E8AA1BD77565000CDE19 /* TPOscilloscopeLayer.h */,
+				D763E8AB1BD77565000CDE19 /* TPOscilloscopeLayer.mm */,
 			);
 			path = MFCCDemo;
 			sourceTree = "<group>";
@@ -304,6 +331,7 @@
 		D7C075E11BB2572A000DB38A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D759FD1B1BCE33C900225400 /* test.wav */,
 				D7C0762D1BB25D10000DB38A /* good1.wav */,
 				D7C0762E1BB25D10000DB38A /* good2.wav */,
 				D7C075E21BB2572A000DB38A /* Info.plist */,
@@ -385,6 +413,7 @@
 				D7C076351BB26132000DB38A /* GLKit.framework */,
 				D7C08A0E1BB2E173000DB38A /* QuartzCore.framework */,
 				D7C08A121BB2E1F4000DB38A /* UIKit.framework */,
+				07C44AA08666DCA9410EF65F /* libPods-MFCCDemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -421,9 +450,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D7C076011BB2572A000DB38A /* Build configuration list for PBXNativeTarget "MFCCDemo" */;
 			buildPhases = (
+				10BDFEFBC0804CBB4BF1CFC1 /* Check Pods Manifest.lock */,
 				D7C075DA1BB2572A000DB38A /* Sources */,
 				D7C075DB1BB2572A000DB38A /* Frameworks */,
 				D7C075DC1BB2572A000DB38A /* Resources */,
+				3B275DDE3DD227344188F9A3 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -458,7 +489,7 @@
 		D7C075D61BB2572A000DB38A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Hai Le";
 				TargetAttributes = {
 					D7C075DD1BB2572A000DB38A = {
@@ -498,6 +529,7 @@
 				D7A0327B1BCCDF0400C11EB8 /* VERSION in Resources */,
 				D7C075F21BB2572A000DB38A /* LaunchScreen.xib in Resources */,
 				D7C075EF1BB2572A000DB38A /* Images.xcassets in Resources */,
+				D759FD1C1BCE33C900225400 /* test.wav in Resources */,
 				D7C076301BB25D10000DB38A /* good2.wav in Resources */,
 				D7C0762F1BB25D10000DB38A /* good1.wav in Resources */,
 				D7A0327A1BCCDF0400C11EB8 /* CHANGELOG in Resources */,
@@ -513,6 +545,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		10BDFEFBC0804CBB4BF1CFC1 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		3B275DDE3DD227344188F9A3 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D7C075DA1BB2572A000DB38A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -521,8 +586,10 @@
 				D7A0326D1BCCDF0400C11EB8 /* EZAudioFFT.m in Sources */,
 				D7A032701BCCDF0400C11EB8 /* EZAudioFloatData.m in Sources */,
 				D7C08ADF1BB3AAFF000DB38A /* MFCCUtils.cpp in Sources */,
+				D763E8A91BD77381000CDE19 /* MFCCProcessor.cpp in Sources */,
 				D7A032731BCCDF0400C11EB8 /* EZAudioPlotGL.m in Sources */,
 				D7A032751BCCDF0400C11EB8 /* EZMicrophone.m in Sources */,
+				D763E8AC1BD77565000CDE19 /* TPOscilloscopeLayer.mm in Sources */,
 				D7C075EA1BB2572A000DB38A /* ViewController.mm in Sources */,
 				D7C08AE31BB3AAFF000DB38A /* WordMatchSession.cpp in Sources */,
 				D7A0326B1BCCDF0400C11EB8 /* EZAudioDevice.m in Sources */,
@@ -539,7 +606,7 @@
 				D7C076A91BB273C8000DB38A /* CAHostTimeBase.cpp in Sources */,
 				D7C075E41BB2572A000DB38A /* main.m in Sources */,
 				D7C08ADC1BB3AAFF000DB38A /* MelFilterBank.cpp in Sources */,
-				D7A542ED1BC3A1AC00A16386 /* MatrixOuput.m in Sources */,
+				D7A542ED1BC3A1AC00A16386 /* MatrixOuput.mm in Sources */,
 				D7A032791BCCDF0400C11EB8 /* TPCircularBuffer.c in Sources */,
 				D7C08AD71BB3AAFF000DB38A /* AudioFileReader.cpp in Sources */,
 				D7C08AE01BB3AAFF000DB38A /* TriangleFilter.cpp in Sources */,
@@ -612,6 +679,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -683,6 +751,7 @@
 		};
 		D7C076021BB2572A000DB38A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4E15C89C5659778544E4952A /* Pods-MFCCDemo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -699,9 +768,10 @@
 					/Developer/Extras/CoreAudio/PublicUtility,
 				);
 				INFOPLIST_FILE = MFCCDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-lstdc++";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sutd.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -709,6 +779,7 @@
 		};
 		D7C076031BB2572A000DB38A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 70991DECC5FEC8561D7AD94F /* Pods-MFCCDemo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -725,9 +796,10 @@
 					/Developer/Extras/CoreAudio/PublicUtility,
 				);
 				INFOPLIST_FILE = MFCCDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-lstdc++";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sutd.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -747,6 +819,7 @@
 				);
 				INFOPLIST_FILE = MFCCDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sutd.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MFCCDemo.app/MFCCDemo";
 			};
@@ -762,6 +835,7 @@
 				);
 				INFOPLIST_FILE = MFCCDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sutd.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MFCCDemo.app/MFCCDemo";
 			};

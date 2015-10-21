@@ -42,7 +42,7 @@ FeatureTypeDTW::Features get_mfcc_features(const boost::shared_ptr<WM::AudioFile
     static const Float64 sample_rate = 44100.0f;
     static const float interval_time_duration = 0.01f / 2.0f;
     static const float preemphasis_coefficient = 0.97f;
-    static const float min_frequency = 133.33f;
+    static const float min_frequency = 300.00f;
     static const float max_frequency = 3700.00f;
 
     static const float normalized_amplitude = 0.9f;

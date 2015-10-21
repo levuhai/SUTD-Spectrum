@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
+#include <vector>
+#include <math.h>
 
 @interface MatrixOuput : UIView
 
-- (void)inputNormalizedDataW:(int)w matrixH:(int)h data:(float**)data rect:(CGRect)rect maxVal:(float)maxVal;
-- (void)inputFitQualityW:(int)w data:(float*)data rect:(CGRect)rect maxVal:(float)maxVal;
+- (void)inputNormalizedDataW:(int)w matrixH:(int)h data:(std::vector< std::vector<float> >)data rect:(CGRect)rect maxVal:(float)maxVal;
+- (void)inputFitQualityW:(int)w data:(std::vector<float>)data rect:(CGRect)rect maxVal:(float)maxVal;
 
 @end

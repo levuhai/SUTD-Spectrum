@@ -7,22 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EZAudio.h"
+#import <TheAmazingAudioEngine/TheAmazingAudioEngine.h>
 
 @interface ViewController : UIViewController
 
+// Audio Controller
+@property (nonatomic, strong) AEAudioController* audioController;
+
+// Others UI Elements
+@property (nonatomic, strong) IBOutlet UIView* headerView;
+@property (nonatomic, strong) IBOutlet UIView* footerView;
 @property (nonatomic, weak) IBOutlet UIView *recordingState;
 @property (nonatomic, weak) IBOutlet UILabel *lbRecordingState;
-
-/**
- The recorder component
- */
-@property (nonatomic, strong) EZRecorder *recorder;
-
-/**
- The microphone component
- */
-@property (nonatomic, strong) EZMicrophone *microphone;
+@property (nonatomic, weak) IBOutlet UIButton *btnPlay;
 
 /**
  A flag indicating whether we are recording or not

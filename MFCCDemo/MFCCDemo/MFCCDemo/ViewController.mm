@@ -16,8 +16,12 @@
 #include "MFCCProcessor.hpp"
 #include "MFCCUtils.h"
 #include "CAHostTimeBase.h"
-#include "CAStreamBasicDescription.h"
 #include <Accelerate/Accelerate.h>
+
+// TAAE headers
+#import "TheAmazingAudioEngine.h"
+#import "TPOscilloscopeLayer.h"
+#import "AERecorder.h"
 
 #include <algorithm>
 #include <stdexcept>
@@ -26,123 +30,201 @@
 
 #define kAudioFile1 [[NSBundle mainBundle] pathForResource:@"good1" ofType:@"wav"]
 #define kAudioFile2 [[NSBundle mainBundle] pathForResource:@"good2" ofType:@"wav"]
+#define kAudioFile3 [[NSBundle mainBundle] pathForResource:@"test" ofType:@"wav"]
+#define MAX_NUM_FRAMES 500
 
 //const float kDefaultComparisonThreshold = 3.09f;
 const float kDefaultTrimBeginThreshold = -25.0f;
 const float kDefaultTrimEndThreshold = -25.0f;
 
-@interface ViewController () <EZMicrophoneDelegate, EZRecorderDelegate> {
+@interface ViewController () {
     WMAudioFilePreProcessInfo _fileAInfo;
     WMAudioFilePreProcessInfo _fileBInfo;
     BOOL _lastRecordingState;
     BOOL _currentRecordingState;
+    std::vector<float> centroids; // dataY
+    std::vector<float> indices; // dataX
+    std::vector< std::vector<float> > normalisedOutput;
+    std::vector<float> fitQuality;
+    
+    // TODO: replace these with NSMutableArray
+    float fitQualityArray [MAX_NUM_FRAMES];
+    float normalisedOutputArray [MAX_NUM_FRAMES][MAX_NUM_FRAMES];
 }
 
 @property (nonatomic, weak) IBOutlet MatrixOuput *matrixView;
 @property (nonatomic, weak) IBOutlet MatrixOuput *fitQualityView;
+
+@property (nonatomic, strong) TPOscilloscopeLayer *inputOscilloscope;
+@property (nonatomic, strong) CALayer *inputLevelLayer;
+@property (nonatomic, weak) NSTimer *levelsTimer;
+@property (nonatomic, strong) AERecorder *recorder;
+@property (nonatomic, strong) AEAudioFilePlayer *player;
 
 
 @end
 
 @implementation ViewController
 
+AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
+    .mFormatID          = kAudioFormatLinearPCM,
+    .mFormatFlags       = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked | kAudioFormatFlagIsNonInterleaved,
+    .mChannelsPerFrame  = 1,
+    .mBytesPerPacket    = sizeof(float),
+    .mFramesPerPacket   = 1,
+    .mBytesPerFrame     = sizeof(float),
+    .mBitsPerChannel    = 8 * sizeof(float),
+    .mSampleRate        = 44100.0,
+};
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"%@",[self applicationDocuments]);
+    [self _setupAudioController];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-    [self _setupMicrofone];
+    self.levelsTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
+                                                        target:self
+                                                      selector:@selector(_updateLevels:)
+                                                      userInfo:nil
+                                                       repeats:YES];
 }
 
 #pragma mark - Private
-- (IBAction)compareTouched:(id)sender {
-    [self _compareFileA:kAudioFile1 fileB:[self testFilePath]];
+// =============================================================================
+// Setup Audio Controller and Oscilloscope View
+- (void)_setupAudioController {
+    // Amazing Audio Controller
+    self.audioController = [[AEAudioController alloc] initWithAudioDescription:AEAudioStreamBasicDescriptionMono inputEnabled:YES];
+    _audioController.preferredBufferDuration = 0.005;
+    _audioController.useMeasurementMode = YES;
+    [_audioController start:NULL];
+    
+    // Oscilloscope
+    self.inputOscilloscope = [[TPOscilloscopeLayer alloc] initWithAudioDescription:_audioController.audioDescription];
+    _inputOscilloscope.frame = CGRectMake(0, 0, self.view.bounds.size.width, 44-10);
+    _inputOscilloscope.lineColor = [UIColor colorWithWhite:0.0 alpha:0.3];
+    [self.headerView.layer addSublayer:_inputOscilloscope];
+    [_audioController addInputReceiver:_inputOscilloscope];
+    [_inputOscilloscope start];
+    
+    // Volume
+    self.inputLevelLayer = [CALayer layer];
+    _inputLevelLayer.backgroundColor = [[UIColor colorWithWhite:0.0 alpha:0.3] CGColor];
+    _inputLevelLayer.frame = CGRectMake(0,
+                                        _headerView.bounds.size.height-10,
+                                        _headerView.bounds.size.width,
+                                        10);
+    [_headerView.layer addSublayer:_inputLevelLayer];
 }
+
+// =============================================================================
+// Update Volume
+
+static inline float translate(float val, float min, float max) {
+    if ( val < min ) val = min;
+    if ( val > max ) val = max;
+    return (val - min) / (max - min);
+}
+
+- (void)_updateLevels:(NSTimer*)timer {
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    
+    Float32 inputAvg, inputPeak;
+    [_audioController inputAveragePowerLevel:&inputAvg peakHoldLevel:&inputPeak];
+    
+    _inputLevelLayer.frame = CGRectMake(0,
+                                        _headerView.bounds.size.height-10,
+                                        translate(inputAvg,-40,0) * (_headerView.bounds.size.width),
+                                        10);
+    
+    
+    [CATransaction commit];
+}
+
+#pragma mark - Actions
+
+- (IBAction)compareTouched:(id)sender {
+    [self _compareFileA:kAudioFile2 fileB:[self testFilePath]];
+}
+
 - (IBAction)toggleRecording:(id)sender
 {
-    if ([sender isOn])
-    {
-        //
-        // Create the recorder
-        //
-        
-        self.recorder = [EZRecorder recorderWithURL:[self testFilePathURL]
-                                       clientFormat:[self.microphone audioStreamBasicDescription]
-                                           fileType:EZRecorderFileTypeWAV
-                                           delegate:self];
-        //self.playButton.enabled = YES;
+    if ( _recorder ) {
+        [_recorder finishRecording];
+        [_audioController removeOutputReceiver:_recorder];
+        [_audioController removeInputReceiver:_recorder];
+        self.recorder = nil;
+        self.btnPlay.enabled = YES;
+        //_recordButton.selected = NO;
     } else {
-        [self.recorder closeAudioFile];
+        self.recorder = [[AERecorder alloc] initWithAudioController:_audioController];
+        NSString *path = [self testFilePath];
+        NSError *error = nil;
+        if ( ![_recorder beginRecordingToFileAtPath:path fileType:kAudioFileWAVEType error:&error] ) {
+            [[[UIAlertView alloc] initWithTitle:@"Error"
+                                        message:[NSString stringWithFormat:@"Couldn't start recording: %@", [error localizedDescription]]
+                                       delegate:nil
+                              cancelButtonTitle:nil
+                              otherButtonTitles:@"OK", nil] show];
+            self.recorder = nil;
+            return;
+        }
+        
+        //_recordButton.selected = YES;
+        self.btnPlay.enabled = NO;
+        [_audioController addOutputReceiver:_recorder];
+        [_audioController addInputReceiver:_recorder];
     }
-    self.isRecording = (BOOL)[sender isOn];
-    self.lbRecordingState.text = self.isRecording ? @"Recording" : @"Not Recording";
 }
 
-- (void)_setupMicrofone {
-    //
-    // Setup the AVAudioSession. EZMicrophone will not work properly on iOS
-    // if you don't do this!
-    //
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    NSError *error;
-    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
-    if (error)
-    {
-        NSLog(@"Error setting up audio session category: %@", error.localizedDescription);
+- (IBAction)playClicked:(id)sender {
+    if ( _player ) {
+        [_audioController removeChannels:@[_player]];
+        self.player = nil;
+        self.btnPlay.selected = NO;
+    } else {
+        NSString *path = [self testFilePath];
+        if ( ![[NSFileManager defaultManager] fileExistsAtPath:path] ) return;
+        
+        NSError *error = nil;
+        self.player = [AEAudioFilePlayer audioFilePlayerWithURL:[NSURL fileURLWithPath:path] error:&error];
+        
+        if ( !_player ) {
+            [[[UIAlertView alloc] initWithTitle:@"Error"
+                                        message:[NSString stringWithFormat:@"Couldn't start playback: %@", [error localizedDescription]]
+                                       delegate:nil
+                              cancelButtonTitle:nil
+                              otherButtonTitles:@"OK", nil] show];
+            return;
+        }
+        
+        _player.removeUponFinish = YES;
+        __weak ViewController *weakSelf = self;
+        _player.completionBlock = ^{
+            ViewController *strongSelf = weakSelf;
+            strongSelf->_btnPlay.selected = NO;
+            weakSelf.player = nil;
+        };
+        [_audioController addChannels:@[_player]];
+        
+        _btnPlay.selected = YES;
     }
-    [session setActive:YES error:&error];
-    if (error)
-    {
-        NSLog(@"Error setting up audio session active: %@", error.localizedDescription);
-    }
-    
-    // Create an instance of the microphone and tell it to use this view controller instance as the delegate
-    self.microphone = [EZMicrophone microphoneWithDelegate:self];
-    
-    //
-    // Start the microphone
-    //
-    [self.microphone startFetchingAudio];
-}
-
-- (float)_getDecibelsFromVolume:(float**)buffer withBufferSize:(UInt32)bufferSize {
-    
-    // Decibel Calculation.
-    
-    float one = 1.0;
-    float meanVal = 0.0;
-    float tiny = 0.1;
-    float lastdbValue = 0.0;
-    
-    vDSP_vsq(buffer[0], 1, buffer[0], 1, bufferSize);
-    
-    vDSP_meanv(buffer[0], 1, &meanVal, bufferSize);
-    
-    vDSP_vdbcon(&meanVal, 1, &one, &meanVal, 1, 1, 0);
-    
-    
-    // Exponential moving average to dB level to only get continous sounds.
-    
-    float currentdb = 1.0 - (fabs(meanVal) / 100);
-    
-    if (lastdbValue == INFINITY || lastdbValue == -INFINITY || std::isnan(lastdbValue)) {
-        lastdbValue = 0.0;
-    }
-    
-    float dbValue = ((1.0 - tiny) * lastdbValue) + tiny * currentdb;
-    
-    lastdbValue = dbValue;
-    
-    return dbValue;
 }
 
 - (FeatureTypeDTW::Features)_getPreProcessInfo:(NSURL*)url beginThreshold:(float)bt endThreshold:(float)et info:(WMAudioFilePreProcessInfo*) fileInfo{
-
+    
     CFURLRef cfurl = (CFURLRef)CFBridgingRetain(url);
     
     AudioFileReaderRef reader(new WM::AudioFileReader(cfurl));
     
     WMAudioFilePreProcessInfo fileInf = reader->preprocess(kDefaultTrimBeginThreshold,
-                                    kDefaultTrimEndThreshold,
-                                    1.0f);
+                                                           kDefaultTrimEndThreshold,
+                                                           1.0f);
     NSLog(@"For file %@", url);
     NSLog(@"Peak: %f", fileInf.max_peak);
     NSLog(@"Begin: %f", fileInf.threshold_start_time);
@@ -157,7 +239,7 @@ const float kDefaultTrimEndThreshold = -25.0f;
 }
 
 - (void)_compareFileA:(NSString*)pathA fileB:(NSString*)pathB {
-    // ==================================================================
+    //------------------------------------------------------------------------------
     // Read audio files from file paths
     NSURL *urlA = [NSURL URLWithString:pathA];
     FeatureTypeDTW::Features featureA = [self _getPreProcessInfo:urlA
@@ -171,7 +253,7 @@ const float kDefaultTrimEndThreshold = -25.0f;
                                                     endThreshold:kDefaultTrimEndThreshold
                                                             info:&_fileBInfo];
     
-    // ==================================================================
+    //------------------------------------------------------------------------------
     // Init SortedOutput[a*b]
     float *sortedOutput = new float[featureA.size()*featureB.size()];
     // Init Output[a][b]
@@ -221,19 +303,28 @@ const float kDefaultTrimEndThreshold = -25.0f;
      end
      */
     // Initialize new matrix to store normalized output values
-    float **normalizeOutput = new float*[featureA.size()];
-    for(int i = 0; i < featureA.size(); ++i) {
-        normalizeOutput[i] = new float[featureB.size()];
+    //float **normalizeOutput = new float*[featureA.size()];
+    //    for(int i = 0; i < featureA.size(); ++i) {
+    //        normalisedOutput[i] = new float[featureB.size()];
+    //    }
+    
+    
+    // make sure normalisedOutput is empty and has the correct size
+    normalisedOutput.clear();
+    normalisedOutput.resize(featureA.size());
+    for (size_t i = 0; i<normalisedOutput.size(); i++){
+        //normalisedOutput[i].clear();
+        normalisedOutput[i].resize(featureB.size());
     }
     
     float maxVal = 0.0f; // Use to calculate alpha of matrix
     for (int i = 0; i<featureA.size(); i ++) {
         for (int j = 0; j<featureB.size(); j++) {
             if (output[i][j] > maxDiff) {
-                normalizeOutput[i][j] = 0.0f;
+                normalisedOutput[i][j] = 0.0f;
             } else {
                 float value = (maxDiff - output[i][j])/maxDiff;
-                normalizeOutput[i][j] = value;
+                normalisedOutput[i][j] = value;
                 
                 if (value > maxVal) {
                     maxVal = value;
@@ -242,48 +333,33 @@ const float kDefaultTrimEndThreshold = -25.0f;
         }
     }
     
-    // centroids
-    float *dataY = new float[featureA.size()]; // = cendroids
-    float *dataX = new float[featureA.size()];
+    
+    centroids.clear();
+    indices.clear();
     for (int i = 0; i < featureA.size(); i++) {
-        float *temp = normalizeOutput[i];
-        float a = 0.0f;
+        float weightedSum = 0.0f;
         float sum = 0.0f;
         for (int j = 0; j < featureB.size(); j++) {
-            a += normalizeOutput[i][j]*(j);
-            sum+= temp[j];
+            weightedSum += normalisedOutput[i][j]*(float)j;
+            sum += normalisedOutput[i][j];
         }
-        dataY[i] = a / sum;
-        dataX[i] = i+1;
+        // only push the result if the sum is nonzero
+        if (sum > 0.0f){
+            centroids.push_back(weightedSum/sum);
+            indices.push_back(i); // index from 0, not 1 so don't use i+1 here
+        }
     }
-    //    // centroids
-    //    std::vector<float> centroids; // dataY
-    //    std::vector<float> indices; // dataX
-    //
-    //
-    //
-    //    for (int i = 0; i < featureA.size(); i++) {
-    //        float centroid = 0.0f;
-    //        float sum = 0.0f;
-    //        for (int j = 0; j < featureB.size(); j++) {
-    //            centroid += normalizeOutput[i][j]*(float)j;
-    //            sum += normalizeOutput[i][j];
-    //        }
-    //        centroids.push_back(centroid/sum);
-    //        indices.push_back(i); // index from 0, not 1 so don't use i+1 here
-    //    }
-    //
-    //    float* dataY = &centroids[0];
-    //    float* dataX = &indices[0];
-    float *buffer = new float[featureA.size()];
+    
     float slope;
     float intercept;
-    getLinearFit(dataX, dataY, buffer, featureA.size(), &slope, &intercept);
+    getLinearFit(&indices[0], &centroids[0], indices.size(), &slope, &intercept);
     
     //    % estimate quality of match at each part of the word
     //    timeTolerance = 10; % check values in the region +-timeTolerance frames of deviation from the best fit line
     //    fitQuality = zeros(size(MFCC2,2),1);
-    float *fitQuality = new float[featureB.size()];
+    //float *fitQuality = new float[featureB.size()];
+    
+    fitQuality.resize(featureB.size());
     float timeTolerance = 10;
     
     float fitLocation, toleranceWindowExcessLeft, toleranceWindowExcessRight, toleranceWindowStart, toleranceWindowEnd, maxGraph = 0.0f;
@@ -311,8 +387,8 @@ const float kDefaultTrimEndThreshold = -25.0f;
         //        fitQuality(j) = max(normalizedOutput(toleranceWindowStart:toleranceWindowEnd,j));
         float max = 0.0;
         for (int i = toleranceWindowStart-1; i<toleranceWindowEnd; i++) {
-            if (normalizeOutput[i][j] > max) {
-                max = normalizeOutput[i][j];
+            if (normalisedOutput[i][j] > max) {
+                max = normalisedOutput[i][j];
             }
         }
         // For graph drawing scale
@@ -325,7 +401,7 @@ const float kDefaultTrimEndThreshold = -25.0f;
     // Draw normalized data
     [self.matrixView inputNormalizedDataW:(int)featureB.size()
                                   matrixH:(int)featureA.size()
-                                     data:normalizeOutput
+                                     data:normalisedOutput
                                      rect:self.view.bounds
                                    maxVal:maxVal];
     [self.fitQualityView inputFitQualityW:(int)featureB.size()
@@ -340,7 +416,7 @@ inline float linearFun(float x, float slope, float intercept) {
     return x*slope + intercept;
 }
 
-void getLinearFit(float* xData, float* yData, float* buffer, size_t length, float* slope, float* intercept)
+void getLinearFit(float* xData, float* yData, size_t length, float* slope, float* intercept)
 {
     float ssxx, ssxy, yMean, xMean, xSqSum, ySqSum, xyProdSum;
     
@@ -366,61 +442,6 @@ void getLinearFit(float* xData, float* yData, float* buffer, size_t length, floa
     
     *slope = ssxy/ssxx;
     *intercept = yMean - (*slope * xMean);
-}
-
-//------------------------------------------------------------------------------
-#pragma mark - EZMicrophoneDelegate
-//------------------------------------------------------------------------------
-
-- (void)microphone:(EZMicrophone *)microphone changedPlayingState:(BOOL)isPlaying
-{
-    
-}
-
-- (void)   microphone:(EZMicrophone *)microphone
-        hasBufferList:(AudioBufferList *)bufferList
-       withBufferSize:(UInt32)bufferSize
- withNumberOfChannels:(UInt32)numberOfChannels
-{
-    // Getting audio data as a buffer list that can be directly fed into the EZRecorder. This is happening on the audio thread - any UI updating needs a GCD main queue block. This will keep appending data to the tail of the audio file.
-    if (self.isRecording)
-    {
-        [self.recorder appendDataFromBufferList:bufferList
-                                 withBufferSize:bufferSize];
-    }
-}
-
-- (void)   microphone:(EZMicrophone *)microphone
-     hasAudioReceived:(float **)buffer
-       withBufferSize:(UInt32)bufferSize
- withNumberOfChannels:(UInt32)numberOfChannels
-{
-    // Getting audio data as an array of float buffer arrays. What does that mean? Because the audio is coming in as a stereo signal the data is split into a left and right channel. So buffer[0] corresponds to the float* data for the left channel while buffer[1] corresponds to the float* data for the right channel.
-    
-    // See the Thread Safety warning above, but in a nutshell these callbacks happen on a separate audio thread. We wrap any UI updating in a GCD block on the main thread to avoid blocking that audio flow.
-    __weak typeof (self) weakSelf = self;
-//    float decibels = [self _getDecibelsFromVolume:buffer withBufferSize:bufferSize];
-//    if (decibels > 0.072) {
-//        [self _startRecording];
-//    } else {
-//        [self _stopRecording];
-//    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // All the audio plot needs is the buffer data (float*) and the size. Internally the audio plot will handle all the drawing related code, history management, and freeing its own resources. Hence, one badass line of code gets you a pretty plot :)
-        //[weakSelf.recordingAudioPlot updateBuffer:buffer[0]
-          //                         withBufferSize:bufferSize];
-        weakSelf.recordingState.backgroundColor = weakSelf.isRecording ? [UIColor greenColor] : [UIColor redColor];
-//        weakSelf.lbRecordingState.text = _currentRecordingState ? @"Recording" : @"Not Recording";
-    });
-}
-
-//------------------------------------------------------------------------------
-#pragma mark - EZRecorderDelegate
-//------------------------------------------------------------------------------
-
-- (void)recorderDidClose:(EZRecorder *)recorder
-{
-    recorder.delegate = nil;
 }
 
 //------------------------------------------------------------------------------

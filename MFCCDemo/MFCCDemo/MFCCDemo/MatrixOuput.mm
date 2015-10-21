@@ -12,8 +12,8 @@
 @implementation MatrixOuput {
     int _w;
     int _h;
-    float** _data;
-    float* _fitData;
+    std::vector< std::vector<float> > _dataV;
+    std::vector<float> _fitDataV;
     float _paddingLeft;
     CGRect _frameRect;
     int _size;
@@ -21,20 +21,24 @@
     BOOL _drawFit;
 }
 
-- (void)inputNormalizedDataW:(int)w matrixH:(int)h data:(float**)data rect:(CGRect)rect maxVal:(float)maxVal {
+- (void)inputNormalizedDataW:(int)w
+                     matrixH:(int)h
+                        data:(std::vector< std::vector<float> >)data
+                        rect:(CGRect)rect
+                      maxVal:(float)maxVal {
     _w = w;
     _h = h;
-    _data = data;
+    _dataV = data;
     _frameRect = rect;
     _size = MAX((int)rect.size.height / 2/h, 1);
     _maxVal = maxVal;
     _drawFit = NO;
 }
 
-- (void)inputFitQualityW:(int)w data:(float *)data rect:(CGRect)rect maxVal:(float)maxVal {
+- (void)inputFitQualityW:(int)w data:(std::vector<float>)data rect:(CGRect)rect maxVal:(float)maxVal {
     _w = w;
-    _fitData = data;
-    _size = MAX((int)rect.size.width / w, 1);
+    _fitDataV = data;
+    _size = w==0?1:MAX((int)rect.size.width / w, 1);
     _maxVal = maxVal;
     _drawFit = YES;
 }
@@ -48,7 +52,7 @@
         // Drawing code
         for (int i = 0; i <_h; i++) {
             for (int j = 0; j<_w; j++) {
-                float temp = _data[i][j]/_maxVal;
+                float temp = _dataV[i][j]/_maxVal;
                 CGRect rectangle = CGRectMake(j*_size, i*_size , _size, _size);
                 CGContextRef context = UIGraphicsGetCurrentContext();
                 CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.1 + temp);   //this is the transparent color
@@ -60,9 +64,9 @@
         UIBezierPath *aPath = [UIBezierPath bezierPath];
         [aPath moveToPoint:CGPointMake(0.0, maxH)];
         for (int i = 0; i<_w; i++) {
-            [aPath addLineToPoint:CGPointMake(i*_size, maxH-(_fitData[i]/_maxVal*maxH)+10)];
+            [aPath addLineToPoint:CGPointMake(i*_size, maxH-(_fitDataV[i]/_maxVal*maxH)+10)];
         }
-        [aPath moveToPoint:CGPointMake((_w-1)*_size, maxH-(_fitData[(_w-1)]/_maxVal*maxH)+10)];
+        [aPath moveToPoint:CGPointMake((_w-1)*_size, maxH-(_fitDataV[(_w-1)]/_maxVal*maxH)+10)];
         [aPath closePath];
         [[UIColor redColor] setStroke];
         [aPath stroke];
