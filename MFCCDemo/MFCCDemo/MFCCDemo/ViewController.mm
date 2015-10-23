@@ -46,10 +46,6 @@ const float kDefaultTrimEndThreshold = -25.0f;
     std::vector<float> indices; // dataX
     std::vector< std::vector<float> > normalisedOutput;
     std::vector<float> fitQuality;
-    
-    // TODO: replace these with NSMutableArray
-    float fitQualityArray [MAX_NUM_FRAMES];
-    float normalisedOutputArray [MAX_NUM_FRAMES][MAX_NUM_FRAMES];
 }
 
 @property (nonatomic, weak) IBOutlet MatrixOuput *matrixView;
