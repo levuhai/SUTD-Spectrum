@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D72A2D6F1BDCAAC900997532 /* compMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = D72A2D6E1BDCAAC900997532 /* compMatrix.m */; settings = {ASSET_TAGS = (); }; };
 		D759FD1C1BCE33C900225400 /* test.wav in Resources */ = {isa = PBXBuildFile; fileRef = D759FD1B1BCE33C900225400 /* test.wav */; settings = {ASSET_TAGS = (); }; };
 		D761191B1BBA47280027706B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D761191A1BBA47280027706B /* CoreFoundation.framework */; };
 		D763E8A91BD77381000CDE19 /* MFCCProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D763E8A71BD77381000CDE19 /* MFCCProcessor.cpp */; settings = {ASSET_TAGS = (); }; };
@@ -62,7 +61,6 @@
 		07C44AA08666DCA9410EF65F /* libPods-MFCCDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MFCCDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E15C89C5659778544E4952A /* Pods-MFCCDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFCCDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		70991DECC5FEC8561D7AD94F /* Pods-MFCCDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFCCDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo.release.xcconfig"; sourceTree = "<group>"; };
-		D72A2D6E1BDCAAC900997532 /* compMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = compMatrix.m; sourceTree = "<group>"; };
 		D759FD1B1BCE33C900225400 /* test.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test.wav; sourceTree = "<group>"; };
 		D761191A1BBA47280027706B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		D761191C1BBA473B0027706B /* libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; path = "boost_ext/lib/libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 		D7C075D51BB2572A000DB38A = {
 			isa = PBXGroup;
 			children = (
-				D72A2D6E1BDCAAC900997532 /* compMatrix.m */,
 				D7C08A141BB2E238000DB38A /* Frameworks */,
 				D7C0762C1BB25975000DB38A /* References */,
 				D7C075E01BB2572A000DB38A /* MFCCDemo */,
@@ -486,7 +483,6 @@
 				D763E8A91BD77381000CDE19 /* MFCCProcessor.cpp in Sources */,
 				D763E8AC1BD77565000CDE19 /* TPOscilloscopeLayer.mm in Sources */,
 				D7C075EA1BB2572A000DB38A /* ViewController.mm in Sources */,
-				D72A2D6F1BDCAAC900997532 /* compMatrix.m in Sources */,
 				D7C08AE31BB3AAFF000DB38A /* WordMatchSession.cpp in Sources */,
 				D7C076AB1BB273C8000DB38A /* CAXException.cpp in Sources */,
 				D7C08AE21BB3AAFF000DB38A /* WordMatch.cpp in Sources */,

@@ -34,17 +34,20 @@
 #define MAX_NUM_FRAMES 500
 
 //const float kDefaultComparisonThreshold = 3.09f;
-const float kDefaultTrimBeginThreshold = -25.0f;
-const float kDefaultTrimEndThreshold = -25.0f;
+const float kDefaultTrimBeginThreshold = -100.0f;
+const float kDefaultTrimEndThreshold = -100.0f;
 
 @interface ViewController () {
     WMAudioFilePreProcessInfo _fileAInfo;
     WMAudioFilePreProcessInfo _fileBInfo;
     BOOL _lastRecordingState;
     BOOL _currentRecordingState;
+    
     std::vector<float> centroids; // dataY
     std::vector<float> indices; // dataX
+    std::vector<float> matchedFrameQuality;
     std::vector< std::vector<float> > normalisedOutput;
+    std::vector< std::vector<float> > trimmedNormalisedOutput;
     std::vector<float> fitQuality;
 }
 
@@ -89,77 +92,25 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
                                                        repeats:YES];
 }
 
-#pragma mark - Private
-// =============================================================================
-// Setup Audio Controller and Oscilloscope View
-- (void)_setupAudioController {
-    // Amazing Audio Controller
-    self.audioController = [[AEAudioController alloc] initWithAudioDescription:AEAudioStreamBasicDescriptionMono inputEnabled:YES];
-    _audioController.preferredBufferDuration = 0.005;
-    _audioController.useMeasurementMode = YES;
-    [_audioController start:NULL];
-    
-    // Oscilloscope
-    self.inputOscilloscope = [[TPOscilloscopeLayer alloc] initWithAudioDescription:_audioController.audioDescription];
-    _inputOscilloscope.frame = CGRectMake(0, 0, self.view.bounds.size.width, 44-10);
-    _inputOscilloscope.lineColor = [UIColor colorWithWhite:0.0 alpha:0.3];
-    [self.headerView.layer addSublayer:_inputOscilloscope];
-    [_audioController addInputReceiver:_inputOscilloscope];
-    [_inputOscilloscope start];
-    
-    // Volume
-    self.inputLevelLayer = [CALayer layer];
-    _inputLevelLayer.backgroundColor = [[UIColor colorWithWhite:0.0 alpha:0.3] CGColor];
-    _inputLevelLayer.frame = CGRectMake(0,
-                                        _headerView.bounds.size.height-10,
-                                        _headerView.bounds.size.width,
-                                        10);
-    [_headerView.layer addSublayer:_inputLevelLayer];
-}
-
-// =============================================================================
-// Update Volume
-
-static inline float translate(float val, float min, float max) {
-    if ( val < min ) val = min;
-    if ( val > max ) val = max;
-    return (val - min) / (max - min);
-}
-
-- (void)_updateLevels:(NSTimer*)timer {
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
-    
-    Float32 inputAvg, inputPeak;
-    [_audioController inputAveragePowerLevel:&inputAvg peakHoldLevel:&inputPeak];
-    
-    _inputLevelLayer.frame = CGRectMake(0,
-                                        _headerView.bounds.size.height-10,
-                                        translate(inputAvg,-40,0) * (_headerView.bounds.size.width),
-                                        10);
-    
-    
-    [CATransaction commit];
-}
-
 #pragma mark - Actions
 
 - (IBAction)compareTouched:(id)sender {
-    [self _compareFileA:kAudioFile2 fileB:[self testFilePath]];
+    [self _compareFileA:[self test2FilePath] fileB:[self test1FilePath]];//[self testFilePath]
 }
 
 - (IBAction)toggleRecording:(id)sender
 {
+    UISwitch* switchButton = (UISwitch*)sender;
     if ( _recorder ) {
         [_recorder finishRecording];
         [_audioController removeOutputReceiver:_recorder];
         [_audioController removeInputReceiver:_recorder];
         self.recorder = nil;
-        self.btnPlay.enabled = YES;
+        //self.btnPlay.enabled = YES;
         //_recordButton.selected = NO;
     } else {
         self.recorder = [[AERecorder alloc] initWithAudioController:_audioController];
-        NSString *path = [self testFilePath];
+        NSString *path = (switchButton.tag==1?[self test1FilePath]:[self test2FilePath]);
         NSError *error = nil;
         if ( ![_recorder beginRecordingToFileAtPath:path fileType:kAudioFileWAVEType error:&error] ) {
             [[[UIAlertView alloc] initWithTitle:@"Error"
@@ -172,19 +123,20 @@ static inline float translate(float val, float min, float max) {
         }
         
         //_recordButton.selected = YES;
-        self.btnPlay.enabled = NO;
+        //self.btnPlay.enabled = NO;
         [_audioController addOutputReceiver:_recorder];
         [_audioController addInputReceiver:_recorder];
     }
 }
 
 - (IBAction)playClicked:(id)sender {
+    UIButton* button = (UIButton*)sender;
     if ( _player ) {
         [_audioController removeChannels:@[_player]];
         self.player = nil;
-        self.btnPlay.selected = NO;
+        button.selected = NO;
     } else {
-        NSString *path = [self testFilePath];
+        NSString *path = (button.tag==3?[self test1FilePath]:[self test2FilePath]);
         if ( ![[NSFileManager defaultManager] fileExistsAtPath:path] ) return;
         
         NSError *error = nil;
@@ -202,14 +154,68 @@ static inline float translate(float val, float min, float max) {
         _player.removeUponFinish = YES;
         __weak ViewController *weakSelf = self;
         _player.completionBlock = ^{
-            ViewController *strongSelf = weakSelf;
-            strongSelf->_btnPlay.selected = NO;
+            button.selected = NO;
             weakSelf.player = nil;
         };
         [_audioController addChannels:@[_player]];
         
-        _btnPlay.selected = YES;
+        button.selected = YES;
     }
+}
+
+#pragma mark - Private
+// =============================================================================
+// Setup Audio Controller and Oscilloscope View
+- (void)_setupAudioController {
+    // Amazing Audio Controller
+    self.audioController = [[AEAudioController alloc] initWithAudioDescription:AEAudioStreamBasicDescriptionMono inputEnabled:YES];
+    _audioController.preferredBufferDuration = 0.005;
+    _audioController.useMeasurementMode = YES;
+    [_audioController start:NULL];
+    
+    if (self.headerView) {
+        // Oscilloscope
+        self.inputOscilloscope = [[TPOscilloscopeLayer alloc] initWithAudioDescription:_audioController.audioDescription];
+        _inputOscilloscope.frame = CGRectMake(0, 0, self.view.bounds.size.width, 44-10);
+        _inputOscilloscope.lineColor = [UIColor colorWithWhite:0.0 alpha:0.3];
+        [self.headerView.layer addSublayer:_inputOscilloscope];
+        [_audioController addInputReceiver:_inputOscilloscope];
+        [_inputOscilloscope start];
+        
+        // Volume
+        self.inputLevelLayer = [CALayer layer];
+        _inputLevelLayer.backgroundColor = [[UIColor colorWithWhite:0.0 alpha:0.3] CGColor];
+        _inputLevelLayer.frame = CGRectMake(0,
+                                            _headerView.bounds.size.height-10,
+                                            _headerView.bounds.size.width,
+                                            10);
+        [_headerView.layer addSublayer:_inputLevelLayer];
+    }
+}
+
+// =============================================================================
+// Update Volume
+
+static inline float _translate(float val, float min, float max) {
+    if ( val < min ) val = min;
+    if ( val > max ) val = max;
+    return (val - min) / (max - min);
+}
+
+- (void)_updateLevels:(NSTimer*)timer {
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    
+    Float32 inputAvg, inputPeak;
+    [_audioController inputAveragePowerLevel:&inputAvg peakHoldLevel:&inputPeak];
+    
+    _inputLevelLayer.frame = CGRectMake(0,
+                                        _headerView.bounds.size.height-10,
+                                        _translate(inputAvg,-40,0) * (_headerView.bounds.size.width),
+                                        10);
+    
+    
+    [CATransaction commit];
 }
 
 - (FeatureTypeDTW::Features)_getPreProcessInfo:(NSURL*)url beginThreshold:(float)bt endThreshold:(float)et info:(WMAudioFilePreProcessInfo*) fileInfo{
@@ -249,18 +255,37 @@ static inline float translate(float val, float min, float max) {
                                                     endThreshold:kDefaultTrimEndThreshold
                                                             info:&_fileBInfo];
     
+
+    int sizeA = (int)featureA.size();
+    int sizeB = (int)featureB.size();
+    if (sizeA <= sizeB) {
+        featureA = [self _getPreProcessInfo:urlB
+                             beginThreshold:kDefaultTrimBeginThreshold
+                               endThreshold:kDefaultTrimEndThreshold
+                                       info:&_fileAInfo];
+        featureB = [self _getPreProcessInfo:urlA
+                             beginThreshold:kDefaultTrimBeginThreshold
+                               endThreshold:kDefaultTrimEndThreshold
+                                       info:&_fileBInfo];
+        
+        
+    }
+    sizeA = (int)featureA.size();
+    sizeB = (int)featureB.size();
+    
     //------------------------------------------------------------------------------
     // Init SortedOutput[a*b]
-    float *sortedOutput = new float[featureA.size()*featureB.size()];
+    float *sortedOutput = new float[sizeA*sizeB];
+   
     // Init Output[a][b]
-    float **output = new float*[featureA.size()];
-    for(int i = 0; i < featureA.size(); ++i) {
-        output[i] = new float[featureB.size()];
+    float **output = new float*[sizeA];
+    for(int i = 0; i < sizeA; ++i) {
+        output[i] = new float[sizeB];
     }
     
     // Set up matrix of MFCC similarity
-    for (int i = 0; i<featureA.size(); i ++) {
-        for (int j = 0; j<featureB.size(); j++) {
+    for (int i = 0; i<sizeA; i ++) {
+        for (int j = 0; j<sizeB; j++) {
             float diff = 0;
             for (int k = 0; k<12; k++) {
                 diff += (featureA[i][k] - featureB[j][k])*(featureA[i][k] - featureB[j][k]);
@@ -268,18 +293,20 @@ static inline float translate(float val, float min, float max) {
             output[i][j] = sqrtf(diff);
             // Copy all the data from output into sorted output
             //NSLog(@"%f",output[i][j]);
-            sortedOutput[i*featureB.size()+j] = output[i][j];
+            sortedOutput[i*sizeB+j] = output[i][j];
         }
     }
     
     // Sort
-    vDSP_vsort(sortedOutput,featureA.size()*featureB.size(),1);
+    vDSP_vsort(sortedOutput,sizeA*sizeB,1);
+     NSLog(@"min %f max %f",sortedOutput[0],sortedOutput[sizeA*sizeB-1]);
     
     // Output count
-    float keepPct = 0.3f;
-    float outputCount = featureA.size()*featureB.size();
+    float keepPct = 0.25f;
+    float outputCount = sizeA*sizeB;
     float maxDiff = sortedOutput[(int)roundf(keepPct*outputCount)];
-    
+     NSLog(@"diff %f",maxDiff);
+    //maxDiff = 7;
     /*
      % initialize a new matrix to store the normalized output values
      normalizedOutput = output;
@@ -298,24 +325,18 @@ static inline float translate(float val, float min, float max) {
      end
      end
      */
-    // Initialize new matrix to store normalized output values
-    //float **normalizeOutput = new float*[featureA.size()];
-    //    for(int i = 0; i < featureA.size(); ++i) {
-    //        normalisedOutput[i] = new float[featureB.size()];
-    //    }
-    
-    
+        
     // make sure normalisedOutput is empty and has the correct size
     normalisedOutput.clear();
-    normalisedOutput.resize(featureA.size());
+    normalisedOutput.resize(sizeA);
     for (size_t i = 0; i<normalisedOutput.size(); i++){
         //normalisedOutput[i].clear();
-        normalisedOutput[i].resize(featureB.size());
+        normalisedOutput[i].resize(sizeB);
     }
     
     float maxVal = 0.0f; // Use to calculate alpha of matrix
-    for (int i = 0; i<featureA.size(); i ++) {
-        for (int j = 0; j<featureB.size(); j++) {
+    for (int i = 0; i<sizeA; i ++) {
+        for (int j = 0; j<sizeB; j++) {
             if (output[i][j] > maxDiff) {
                 normalisedOutput[i][j] = 0.0f;
             } else {
@@ -329,15 +350,207 @@ static inline float translate(float val, float min, float max) {
         }
     }
     
+/* -------------------------------------------------------------------------
+ % find the contiguous region of MFCC1 that has the most matches to
+ % MFCC2
+ %
+ %   find the total match quality for each frame of MFCC1
+ matchedFrameQuality = zeros(size(MFCC1,2),1);
+ for i = 1:size(MFCC1,2)
+    matchedFrameQuality(i) = max(normalizedOutput(i,:));
+ end
+ */
+    matchedFrameQuality.clear();
+    matchedFrameQuality.resize(sizeA);
+    for (int i = 0; i < sizeA; i++) {
+        matchedFrameQuality[i] = *std::max_element(normalisedOutput[i].begin(), normalisedOutput[i].end());
+    }
+/* -------------------------------------------------------------------------
+ %
+ %   find the sliding window in MFCC1 of length equal to the entire MFCC2 that
+ %   has the best match
+ maxWindowSum = 0;
+ maxWindowStart = 1;
+ windowLength = size(MFCC2,2);
+ for i = 1:(size(MFCC1,2)-size(MFCC2,2))
+    slidingSum = 0;
+    for j = i:(i + (windowLength-1))
+       slidingSum = slidingSum + matchedFrameQuality(j);
+    end
+    if slidingSum > maxWindowSum
+       maxWindowSum = slidingSum;
+       maxWindowStart = i;
+    end
+ end
+ */
+    // TODO: if sizeA < sizeB ?
     
+    float maxWindowSum = 0.0f;
+    size_t windowLength = sizeB;
+    int maxWindowStart = 0;
+    
+    //float windowSum = 0.0f;
+    //int maxWindowSum = 0, maxWindowStart = 0, windowLength = sizeB;
+//    for (size_t i = 0; i < windowLength; i++) {
+//        windowSum += matchedFrameQuality[i];
+//    }
+//    for (size_t i = 0; i < sizeA - sizeB; i++) {
+//        if (windowSum > maxWindowSum) {
+//            maxWindowSum = windowSum;
+//            maxWindowStart = i;
+//        }
+//        windowSum -= matchedFrameQuality[i];
+//        windowSum += matchedFrameQuality[i+windowLength];
+//    }
+    for (int i = 0; i < sizeA - sizeB; i++) {
+        float slidingSum = 0;
+        for (int j = i; j < i+sizeB-1; j++) {
+            slidingSum += matchedFrameQuality[j];
+        }
+        if (slidingSum > maxWindowSum) {
+            maxWindowSum = slidingSum;
+            maxWindowStart = i;
+        }
+    }
+    
+/* -------------------------------------------------------------------------
+ %
+ % the best MFCC2 length section of MFCC1 goes from maxWindowStart to
+ % (maxWindowStart + (windowLength-1))
+ %
+ % now we will see if the match can be improved by lengthening the
+ % window.
+ %
+ % scan back from the window start until we reach numZerosIgnorable consecutive frames
+ % with match quality below windowExtensionThreshold
+ */
+    /* i = maxWindowStart;
+     maxWindowEnd = maxWindowStart + windowLength - 1;
+     numFound = 0;
+     numZerosIgnorable = 2;
+     while i > 0 && numFound <= numZerosIgnorable
+        if matchedFrameQuality(i) < windowExtensionThreshold
+           % we found a frame below the threshold
+           numFound = numFound + 1;
+        else
+           % if this frame isn't below the threshold, reset the count
+           numFound = 0;
+        end
+        i = i - 1;
+     end
+     */
+    int i = maxWindowStart;
+    size_t maxWindowEnd = maxWindowStart + windowLength ;
+    int numFound = 0, numZerosIgnorable = 2;
+    float windowExtensionThreshold = 0.15;
+    while (i > 0 && numFound <= numZerosIgnorable) {
+        if (matchedFrameQuality[i] < windowExtensionThreshold) {
+            numFound += 1;
+        } else {
+            numFound = 0;
+        }
+        i -= 1;
+    }
+/*
+ if numFound > numZerosIgnorable % we actually found a region of low match quality
+ maxWindowStart = i + 1 + numZerosIgnorable;
+ else % we didn't find the low match quality region but we reached the beginning of the array
+ maxWindowStart = 1; % 0 in c++
+ end
+ */
+    float newWindowStart;
+    if (numFound > numZerosIgnorable) {
+        newWindowStart = i + 1 + numZerosIgnorable;
+    } else {
+        newWindowStart = 0;
+    }
+    windowLength += maxWindowStart - newWindowStart;
+    maxWindowStart = newWindowStart;
+
+/* -------------------------------------------------------------------------
+ %
+ % now scan forward from the end of the maxWindow
+ i = maxWindowStart + windowLength;
+ numFound = 0;
+ numZerosIgnorable = 3;
+ while i <= size(matchedFrameQuality,1) && numFound < numZerosIgnorable
+    if matchedFrameQuality(i) < windowExtensionThreshold
+       % we found a frame below the threshold
+       numFound = numFound + 1;
+    else
+       % if this frame isn't below the threshold, reset the count
+       numFound = 0;
+    end
+    i = i + 1;
+ end
+ */
+    
+    i = maxWindowStart + windowLength ;
+    numFound = 0;
+    numZerosIgnorable = 3;
+    while (i < matchedFrameQuality.size() && numFound < numZerosIgnorable) {
+        if (matchedFrameQuality[i] < windowExtensionThreshold) {
+            numFound += 1;
+        } else {
+            numFound = 0;
+        }
+        i += 1;
+    }
+    
+/* -------------------------------------------------------------------------
+ if numFound >= numZerosIgnorable % we actually found a region of low match quality
+    maxWindowEnd = i - 1 - numZerosIgnorable;
+ else % we didn't find the low match quality region but we reached the end of the array
+    maxWindowEnd = size(matchedFrameQuality,1);
+ end
+ */
+    if (numFound >= numZerosIgnorable)
+        maxWindowEnd = i - 1 - numZerosIgnorable;
+    else
+        maxWindowEnd = matchedFrameQuality.size();
+ 
+/* -------------------------------------------------------------------------
+ %
+ % we now know that the region between maxWindowStart and maxWindowEnd
+ % is the region for which MFCC1 has good matching with MFCC2. We can
+ % trum the normalizedOutput to discard the values outside this region
+ trimmedNormalisedOutput = zeros(maxWindowEnd-maxWindowStart + 1,size(MFCC2,2));
+ for i = maxWindowStart:maxWindowEnd
+    for j = 1:size(MFCC2,2)
+       trimmedNormalisedOutput(i - maxWindowStart + 1,j) = normalizedOutput(i,j);
+    end
+ end
+ */
+    // make sure normalisedOutput is empty and has the correct size
+    trimmedNormalisedOutput.clear();
+    trimmedNormalisedOutput.resize(maxWindowEnd-maxWindowStart + 1);
+    for (size_t i = 0; i<trimmedNormalisedOutput.size(); i++){
+        //normalisedOutput[i].clear();
+        trimmedNormalisedOutput[i].resize(sizeB);
+    }
+    
+    for (size_t i = maxWindowStart; i < maxWindowEnd; i++) {
+        for (int j = 0; j < sizeB; j++) {
+            trimmedNormalisedOutput[i - maxWindowStart + 1][j] = normalisedOutput[i][j];
+        }
+    }
+ 
+/* -------------------------------------------------------------------------
+ % find the centroid location in each row of the matrix using a weighted
+ % average
+ centroids = zeros(size(trimmedNormalisedOutput,1),1);
+ for i = 1:size(trimmedNormalisedOutput,1)
+    centroids(i) = trimmedNormalisedOutput(i,:)*(1:size(MFCC2,2))'/sum(trimmedNormalisedOutput(i,:));
+ end
+ */
     centroids.clear();
     indices.clear();
-    for (int i = 0; i < featureA.size(); i++) {
+    for (int i = 0; i < trimmedNormalisedOutput.size(); i++) {
         float weightedSum = 0.0f;
         float sum = 0.0f;
-        for (int j = 0; j < featureB.size(); j++) {
-            weightedSum += normalisedOutput[i][j]*(float)j;
-            sum += normalisedOutput[i][j];
+        for (int j = 0; j < sizeB; j++) {
+            weightedSum += trimmedNormalisedOutput[i][j]*(float)j;
+            sum += trimmedNormalisedOutput[i][j];
         }
         // only push the result if the sum is nonzero
         if (sum > 0.0f){
@@ -346,45 +559,59 @@ static inline float translate(float val, float min, float max) {
         }
     }
     
+/* -------------------------------------------------------------------------
+ % fit a linear function to the list of centroids
+ [xData, yData] = prepareCurveData( [], centroids );
+ 
+ % Set up fittype and options.
+ ft = fittype( 'poly1' ); % linear regression
+ opts = fitoptions( ft );
+ opts.Lower = [-Inf -Inf]; % unbounded
+ opts.Upper = [Inf Inf]; % unbounded
+ 
+ % Fit model to data.
+ [fitresult, gof] = fit( xData, yData, ft, opts );
+ */
     float slope;
     float intercept;
     getLinearFit(&indices[0], &centroids[0], indices.size(), &slope, &intercept);
-    
-    //    % estimate quality of match at each part of the word
-    //    timeTolerance = 10; % check values in the region +-timeTolerance frames of deviation from the best fit line
-    //    fitQuality = zeros(size(MFCC2,2),1);
-    //float *fitQuality = new float[featureB.size()];
+
+/* -------------------------------------------------------------------------
+//    % estimate quality of match at each part of the word
+//    timeTolerance = 10; % check values in the region +-timeTolerance frames of deviation from the best fit line
+//    fitQuality = zeros(size(MFCC2,2),1);
+*/
     
     fitQuality.resize(featureB.size());
     float timeTolerance = 10;
     
     float fitLocation, toleranceWindowExcessLeft, toleranceWindowExcessRight, toleranceWindowStart, toleranceWindowEnd, maxGraph = 0.0f;
     for (int j = 0; j < featureB.size(); j++) {
-        //        % find the location of the best fit line in the output matrix
-        //        fitLocation = round(fitresult(j));
+//        % find the location of the best fit line in the output matrix
+//        fitLocation = round(fitresult(j));
         fitLocation = roundf(linearFun(j, slope, intercept));
         
-        //    % find out if the tolerance region around the fit line hangs over
-        //        % the left or right edge of the matrix
-        //        toleranceWindowExcessLeft = max(timeTolerance - fitLocation + 1,0);
-        //    toleranceWindowExcessRight = max(timeTolerance + fitLocation - size(MFCC1,2),0);
+//    % find out if the tolerance region around the fit line hangs over
+//        % the left or right edge of the matrix
+//        toleranceWindowExcessLeft = max(timeTolerance - fitLocation + 1,0);
+//    toleranceWindowExcessRight = max(timeTolerance + fitLocation - size(MFCC1,2),0);
         toleranceWindowExcessLeft = fmax(timeTolerance - fitLocation + 1,0);
         toleranceWindowExcessRight = fmax(timeTolerance + fitLocation - featureA.size(),0);
         
-        //    % taking the overhang at the edges into account, compute the
-        //    % boundaries of the tolerance region
-        //    toleranceWindowStart = fitLocation - timeTolerance + toleranceWindowExcessLeft;
-        //    toleranceWindowEnd = fitLocation + timeTolerance - toleranceWindowExcessRight;
+//    % taking the overhang at the edges into account, compute the
+//    % boundaries of the tolerance region
+//    toleranceWindowStart = fitLocation - timeTolerance + toleranceWindowExcessLeft;
+//    toleranceWindowEnd = fitLocation + timeTolerance - toleranceWindowExcessRight;
         toleranceWindowStart = fitLocation - timeTolerance + toleranceWindowExcessLeft;
         toleranceWindowEnd = fitLocation + timeTolerance - toleranceWindowExcessRight;
         
-        //    % the fit quality for the jth window is the best match value in the
-        //        % region fitLocation (+-) timeTolerance
-        //        fitQuality(j) = max(normalizedOutput(toleranceWindowStart:toleranceWindowEnd,j));
+//    % the fit quality for the jth window is the best match value in the
+//        % region fitLocation (+-) timeTolerance
+//        fitQuality(j) = max(normalizedOutput(toleranceWindowStart:toleranceWindowEnd,j));
         float max = 0.0;
         for (int i = toleranceWindowStart-1; i<toleranceWindowEnd; i++) {
-            if (normalisedOutput[i][j] > max) {
-                max = normalisedOutput[i][j];
+            if (trimmedNormalisedOutput[i][j] > max) {
+                max = trimmedNormalisedOutput[i][j];
             }
         }
         // For graph drawing scale
@@ -395,12 +622,12 @@ static inline float translate(float val, float min, float max) {
     }
     
     // Draw normalized data
-    [self.matrixView inputNormalizedDataW:(int)featureB.size()
-                                  matrixH:(int)featureA.size()
-                                     data:normalisedOutput
+    [self.matrixView inputNormalizedDataW:(int)trimmedNormalisedOutput[0].size()
+                                  matrixH:(int)trimmedNormalisedOutput.size()
+                                     data:trimmedNormalisedOutput
                                      rect:self.view.bounds
                                    maxVal:maxVal];
-    [self.fitQualityView inputFitQualityW:(int)featureB.size()
+    [self.fitQualityView inputFitQualityW:(int)fitQuality.size()
                                      data:fitQuality
                                      rect:self.view.bounds
                                    maxVal:MAX(maxGraph,1)];
@@ -467,10 +694,18 @@ void getLinearFit(float* xData, float* yData, size_t length, float* slope, float
                                    @"test.wav"]];
 }
 
-- (NSString*)testFilePath {
+- (NSString*)test2FilePath {
     NSString* x = [NSString stringWithFormat:@"%@/%@",
                    [self applicationDocumentsDirectory],
-                   @"test.wav"];
+                   @"test2.wav"];
+    NSLog(@"%@",x);
+    return x;
+}
+
+- (NSString*)test1FilePath {
+    NSString* x = [NSString stringWithFormat:@"%@/%@",
+                   [self applicationDocumentsDirectory],
+                   @"test1.wav"];
     NSLog(@"%@",x);
     return x;
 }
