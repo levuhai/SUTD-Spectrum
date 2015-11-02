@@ -2,6 +2,7 @@ PODS:
   - ActionSheetPicker-3.0 (2.0.1)
   - FrameAccessor (1.3.2)
   - MagicalRecord (2.3.0)
+  - Masonry (0.6.3)
   - MBCircularProgressBar (0.3.2)
   - MZAppearance (1.1.5)
   - MZFormSheetController (3.1.1):
@@ -17,6 +18,7 @@ DEPENDENCIES:
   - ActionSheetPicker-3.0
   - FrameAccessor (~> 1.3.2)
   - MagicalRecord
+  - Masonry
   - MBCircularProgressBar
   - MZFormSheetController (from `https://github.com/m1entus/MZFormSheetController.git`)
   - PNChart
@@ -34,10 +36,11 @@ SPEC CHECKSUMS:
   ActionSheetPicker-3.0: eeb47e64b7af3e09a50e1ce5dfee9c8c957490c6
   FrameAccessor: 0f7ba6ce37be9a5d0302a27c731dca70af8d438b
   MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
+  Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MBCircularProgressBar: da24e75aa8a231564f10eb8d6d942fa78343486c
   MZAppearance: 6e9dc64e42074c0a19812a327f590746c3283bab
   MZFormSheetController: 3ea2e7add63016e05908af1c5df7bf20e7fe2678
   PNChart: c1755716bbd45386d2035b2bf2ce73e6d3f8cb22
   UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.2

@@ -13,6 +13,7 @@
 #import "FishingGameViewController.h"
 #import "ManagerGateViewController.h"
 #import "MZFormSheetController.h"
+#import "ParentMasterController.h"
 
 
 
@@ -83,7 +84,7 @@
 }
 
 - (void) showGameManager {
-    GameManagerMasterView* gmm = [self.storyboard instantiateViewControllerWithIdentifier:@"GameManagerMasterView"];
+    ParentMasterController* gmm = [self.storyboard instantiateViewControllerWithIdentifier:@"ParentMasterController"];
     [self presentViewController:gmm animated:YES completion:nil];
 }
 
