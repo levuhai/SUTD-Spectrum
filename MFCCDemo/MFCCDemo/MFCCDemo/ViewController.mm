@@ -48,10 +48,12 @@ const float kDefaultTrimEndThreshold = -100.0f;
     std::vector<float> matchedFrameQuality;
     std::vector< std::vector<float> > normalisedOutput;
     std::vector< std::vector<float> > trimmedNormalisedOutput;
+    std::vector< std::vector<float> > bestFitLine;
     std::vector<float> fitQuality;
 }
 
 @property (nonatomic, weak) IBOutlet MatrixOuput *matrixView;
+@property (nonatomic, weak) IBOutlet MatrixOuput *bestFitView;
 @property (nonatomic, weak) IBOutlet MatrixOuput *fitQualityView;
 
 @property (nonatomic, strong) TPOscilloscopeLayer *inputOscilloscope;
@@ -621,16 +623,43 @@ static inline float _translate(float val, float min, float max) {
         fitQuality[j-1] = max;
     }
     
+    
+    // Best fit line
+    bestFitLine.clear();
+    bestFitLine.resize(trimmedNormalisedOutput.size());
+    for (size_t i = 0; i<bestFitLine.size(); i++){
+        //normalisedOutput[i].clear();
+        bestFitLine[i].resize(trimmedNormalisedOutput[0].size());
+    }
+    for (int i = 0; i < trimmedNormalisedOutput.size();i++) {
+        for (int j = 0; j < trimmedNormalisedOutput[0].size();j++) {
+            bestFitLine[i][j] = 0;
+        }
+        int y = roundf(linearFun(i, slope, intercept));
+        if (y<0) y = 0;
+        if (y>trimmedNormalisedOutput[0].size()) y = 0;
+        bestFitLine[i][y] = 1;
+    }
+    
+    
     // Draw normalized data
+    [self.bestFitView inputNormalizedDataW:(int)bestFitLine[0].size()
+                                  matrixH:(int)bestFitLine.size()
+                                     data:bestFitLine
+                                     rect:self.view.bounds
+                                   maxVal:1];
+    
     [self.matrixView inputNormalizedDataW:(int)trimmedNormalisedOutput[0].size()
                                   matrixH:(int)trimmedNormalisedOutput.size()
                                      data:trimmedNormalisedOutput
                                      rect:self.view.bounds
-                                   maxVal:maxVal];
+                                   maxVal:maxGraph];
     [self.fitQualityView inputFitQualityW:(int)fitQuality.size()
                                      data:fitQuality
                                      rect:self.view.bounds
                                    maxVal:MAX(maxGraph,1)];
+    self.bestFitView.graphColor = [UIColor greenColor];
+    [self.bestFitView setNeedsDisplay];
     [self.matrixView setNeedsDisplay];
     [self.fitQualityView setNeedsDisplay];
 }

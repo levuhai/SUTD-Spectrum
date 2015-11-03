@@ -23,6 +23,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="320"/>
                                 <color key="backgroundColor" red="0.10980392160000001" green="0.63137254899999995" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oEn-dH-kR7" customClass="MatrixOuput">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="320"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cm2-qO-570" customClass="MatrixOuput">
                                 <rect key="frame" x="0.0" y="320" width="600" height="191.5"/>
                                 <color key="backgroundColor" red="0.0097321278450000007" green="0.16307220610000001" blue="0.17440025249999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -126,8 +130,12 @@
                             <constraint firstItem="K8z-Mc-Hdb" firstAttribute="top" secondItem="Cm2-qO-570" secondAttribute="bottom" id="MXf-lN-1i8"/>
                             <constraint firstItem="n9B-1E-a91" firstAttribute="leading" secondItem="2zp-IR-vhN" secondAttribute="trailing" constant="22" id="Nw4-zU-Pmz"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Cm2-qO-570" secondAttribute="bottom" constant="88" id="ODR-7V-v7E"/>
+                            <constraint firstItem="oEn-dH-kR7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="OT6-g1-SzV"/>
                             <constraint firstItem="Cm2-qO-570" firstAttribute="top" secondItem="cf8-cL-G8w" secondAttribute="bottom" id="Tre-Gp-2wI"/>
                             <constraint firstItem="Cm2-qO-570" firstAttribute="top" secondItem="cf8-cL-G8w" secondAttribute="bottom" id="Wfw-CG-zuN"/>
+                            <constraint firstAttribute="trailing" secondItem="oEn-dH-kR7" secondAttribute="trailing" id="avh-Y2-h8H"/>
+                            <constraint firstItem="Cm2-qO-570" firstAttribute="top" secondItem="oEn-dH-kR7" secondAttribute="bottom" id="eRc-a3-4ty"/>
+                            <constraint firstItem="oEn-dH-kR7" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ehY-Ac-bFm"/>
                             <constraint firstItem="Cm2-qO-570" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="j3n-vX-deh"/>
                             <constraint firstAttribute="bottomMargin" secondItem="n9B-1E-a91" secondAttribute="bottom" id="jlS-Lw-yo0"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Q8n-70-RY5" secondAttribute="bottom" id="lAn-M0-9wO"/>
@@ -140,8 +148,9 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="bestFitView" destination="oEn-dH-kR7" id="MZY-wR-OBX"/>
                         <outlet property="fitQualityView" destination="Cm2-qO-570" id="SKe-VR-sq8"/>
-                        <outlet property="matrixView" destination="cf8-cL-G8w" id="s3K-gC-Dy6"/>
+                        <outlet property="matrixView" destination="cf8-cL-G8w" id="h4z-4a-wfF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
