@@ -42,6 +42,7 @@ const float kDefaultTrimEndThreshold = -100.0f;
     WMAudioFilePreProcessInfo _fileBInfo;
     BOOL _lastRecordingState;
     BOOL _currentRecordingState;
+    NSString* _currentAudioPath;
     
     std::vector<float> centroids; // dataY
     std::vector<float> indices; // dataX
@@ -80,6 +81,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _currentAudioPath = kAudioFile1;
     NSLog(@"%@",[self applicationDocuments]);
     [self _setupAudioController];
 }
@@ -97,12 +99,33 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 #pragma mark - Actions
 
 - (IBAction)compareTouched:(id)sender {
-    [self _compareFileA:[self test2FilePath] fileB:[self test1FilePath]];//[self testFilePath]
+    [self _compareFileA:[self test1FilePath] fileB:_currentAudioPath];//[self testFilePath]
+}
+
+- (IBAction)changeSoundTouched:(UIButton*)sender {
+    switch (sender.tag) {
+        case 11:
+            _currentAudioPath = kAudioFile1;
+            break;
+        case 12:
+            _currentAudioPath = kAudioFile2;
+            break;
+        case 13:
+            _currentAudioPath = kAudioFile3;
+            break;
+        default:
+            break;
+    }
+    for (int i =11; i<=13;i++) {
+        UIButton* button = (UIButton*)[self.view viewWithTag:i];
+        button.selected = NO;
+    }
+    sender.selected = YES;
+    
 }
 
 - (IBAction)toggleRecording:(id)sender
 {
-    UISwitch* switchButton = (UISwitch*)sender;
     if ( _recorder ) {
         [_recorder finishRecording];
         [_audioController removeOutputReceiver:_recorder];
@@ -112,7 +135,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         //_recordButton.selected = NO;
     } else {
         self.recorder = [[AERecorder alloc] initWithAudioController:_audioController];
-        NSString *path = (switchButton.tag==1?[self test1FilePath]:[self test2FilePath]);
+        NSString *path = [self test1FilePath];
         NSError *error = nil;
         if ( ![_recorder beginRecordingToFileAtPath:path fileType:kAudioFileWAVEType error:&error] ) {
             [[[UIAlertView alloc] initWithTitle:@"Error"
@@ -138,7 +161,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         self.player = nil;
         button.selected = NO;
     } else {
-        NSString *path = (button.tag==3?[self test1FilePath]:[self test2FilePath]);
+        NSString *path = (button.tag==3?[self test1FilePath]:_currentAudioPath);
         if ( ![[NSFileManager defaultManager] fileExistsAtPath:path] ) return;
         
         NSError *error = nil;
@@ -611,7 +634,7 @@ static inline float _translate(float val, float min, float max) {
 //        % region fitLocation (+-) timeTolerance
 //        fitQuality(j) = max(normalizedOutput(toleranceWindowStart:toleranceWindowEnd,j));
         float max = 0.0;
-        for (int i = toleranceWindowStart-1; i<toleranceWindowEnd; i++) {
+        for (int i = toleranceWindowStart-1; i<MIN(toleranceWindowEnd,trimmedNormalisedOutput.size()); i++) {
             if (trimmedNormalisedOutput[i][j] > max) {
                 max = trimmedNormalisedOutput[i][j];
             }
@@ -657,7 +680,7 @@ static inline float _translate(float val, float min, float max) {
     [self.fitQualityView inputFitQualityW:(int)fitQuality.size()
                                      data:fitQuality
                                      rect:self.view.bounds
-                                   maxVal:MAX(maxGraph,1)];
+                                   maxVal:maxGraph];
     self.bestFitView.graphColor = [UIColor greenColor];
     [self.bestFitView setNeedsDisplay];
     [self.matrixView setNeedsDisplay];
