@@ -7,31 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D1A04221BB0676B00FA14CC /* GameManagerMasterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04211BB0676B00FA14CC /* GameManagerMasterView.m */; settings = {ASSET_TAGS = (); }; };
-		2D1A043E1BB06A0800FA14CC /* NGMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A043D1BB06A0800FA14CC /* NGMenuItem.m */; settings = {ASSET_TAGS = (); }; };
-		2D1A04421BB06A2400FA14CC /* NGSplitViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04411BB06A2400FA14CC /* NGSplitViewManager.m */; settings = {ASSET_TAGS = (); }; };
-		2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04441BB06A3500FA14CC /* NGSplitMenuController.m */; settings = {ASSET_TAGS = (); }; };
-		2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04471BB06A3E00FA14CC /* MenuTableCell.m */; settings = {ASSET_TAGS = (); }; };
-		2D1A044B1BB06C1D00FA14CC /* GameManagerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A044A1BB06C1D00FA14CC /* GameManagerDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
+		2D1A04221BB0676B00FA14CC /* GameManagerMasterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04211BB0676B00FA14CC /* GameManagerMasterView.m */; };
+		2D1A043E1BB06A0800FA14CC /* NGMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A043D1BB06A0800FA14CC /* NGMenuItem.m */; };
+		2D1A04421BB06A2400FA14CC /* NGSplitViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04411BB06A2400FA14CC /* NGSplitViewManager.m */; };
+		2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04441BB06A3500FA14CC /* NGSplitMenuController.m */; };
+		2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04471BB06A3E00FA14CC /* MenuTableCell.m */; };
+		2D1A044B1BB06C1D00FA14CC /* GameManagerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A044A1BB06C1D00FA14CC /* GameManagerDetailViewController.m */; };
 		2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2875431B977F310068818D /* SKScene+Unarchive.m */; };
 		2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064721BA99E6B00410B0E /* CoreDataManager.m */; };
 		2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */; };
-		2D75DD2A1BD57E9300112F4E /* ManagerGateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D75DD291BD57E9300112F4E /* ManagerGateViewController.m */; settings = {ASSET_TAGS = (); }; };
+		2D75DD2A1BD57E9300112F4E /* ManagerGateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D75DD291BD57E9300112F4E /* ManagerGateViewController.m */; };
 		2D8931F41BA986AF006D2840 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D8931F31BA986AF006D2840 /* CoreData.framework */; };
-		2DC904171BB1D0580082DEAC /* GameStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904161BB1D0580082DEAC /* GameStatsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		2DC9041A1BB1D0710082DEAC /* SoundManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */; settings = {ASSET_TAGS = (); }; };
+		2DC904171BB1D0580082DEAC /* GameStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904161BB1D0580082DEAC /* GameStatsViewController.m */; };
+		2DC9041A1BB1D0710082DEAC /* SoundManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */; };
 		2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E12D1B9CAF3C00BFEDA6 /* LoadingViewController.m */; };
 		2DE0E1311B9CAF6100BFEDA6 /* LoadingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1301B9CAF6100BFEDA6 /* LoadingScene.m */; };
 		2DE0E1341B9CB24B00BFEDA6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1331B9CB24B00BFEDA6 /* ScheduleViewController.m */; };
 		2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1391B9CB57900BFEDA6 /* CalendarView.m */; };
-		2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88ABD1BB8517A002438C6 /* Sounds+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		2DE88AC91BB8517A002438C6 /* Sounds.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88ABF1BB8517A002438C6 /* Sounds.m */; settings = {ASSET_TAGS = (); }; };
-		2DE88ACA1BB8517A002438C6 /* Games+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC11BB8517A002438C6 /* Games+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		2DE88ACB1BB8517A002438C6 /* Games.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC31BB8517A002438C6 /* Games.m */; settings = {ASSET_TAGS = (); }; };
-		2DE88ACC1BB8517A002438C6 /* GameStatistics+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC51BB8517A002438C6 /* GameStatistics+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		2DE88ACD1BB8517A002438C6 /* GameStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC71BB8517A002438C6 /* GameStatistics.m */; settings = {ASSET_TAGS = (); }; };
-		2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */; settings = {ASSET_TAGS = (); }; };
-		2DF67F821BD4A1A900EB7390 /* FishingGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F811BD4A1A900EB7390 /* FishingGameScene.m */; settings = {ASSET_TAGS = (); }; };
+		2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88ABD1BB8517A002438C6 /* Sounds+CoreDataProperties.m */; };
+		2DE88AC91BB8517A002438C6 /* Sounds.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88ABF1BB8517A002438C6 /* Sounds.m */; };
+		2DE88ACA1BB8517A002438C6 /* Games+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC11BB8517A002438C6 /* Games+CoreDataProperties.m */; };
+		2DE88ACB1BB8517A002438C6 /* Games.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC31BB8517A002438C6 /* Games.m */; };
+		2DE88ACC1BB8517A002438C6 /* GameStatistics+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC51BB8517A002438C6 /* GameStatistics+CoreDataProperties.m */; };
+		2DE88ACD1BB8517A002438C6 /* GameStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC71BB8517A002438C6 /* GameStatistics.m */; };
+		2DEA7EEB1BEA750200ED8A55 /* SpriteBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEA7EEA1BEA750200ED8A55 /* SpriteBar.m */; };
+		2DEA7F031BEA75EF00ED8A55 /* sb_default.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2DEA7F021BEA75EF00ED8A55 /* sb_default.atlas */; };
+		2DEA7F081BEA782100ED8A55 /* TCProgressTimerNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEA7F051BEA782100ED8A55 /* TCProgressTimerNode.m */; };
+		2DEA7F091BEA782100ED8A55 /* TCProgressTimerForegroundCropNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEA7F071BEA782100ED8A55 /* TCProgressTimerForegroundCropNode.m */; };
+		2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */; };
+		2DF67F821BD4A1A900EB7390 /* FishingGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F811BD4A1A900EB7390 /* FishingGameScene.m */; };
 		2DF6B7421B94A14800B7F92C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7411B94A14800B7F92C /* main.m */; };
 		2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7441B94A14800B7F92C /* AppDelegate.m */; };
 		2DF6B7481B94A14800B7F92C /* HomeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7471B94A14800B7F92C /* HomeScene.m */; };
@@ -102,6 +106,13 @@
 		2DE88AC51BB8517A002438C6 /* GameStatistics+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GameStatistics+CoreDataProperties.m"; sourceTree = "<group>"; };
 		2DE88AC61BB8517A002438C6 /* GameStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStatistics.h; sourceTree = "<group>"; };
 		2DE88AC71BB8517A002438C6 /* GameStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStatistics.m; sourceTree = "<group>"; };
+		2DEA7EE91BEA750200ED8A55 /* SpriteBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteBar.h; sourceTree = "<group>"; };
+		2DEA7EEA1BEA750200ED8A55 /* SpriteBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteBar.m; sourceTree = "<group>"; };
+		2DEA7F021BEA75EF00ED8A55 /* sb_default.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sb_default.atlas; sourceTree = "<group>"; };
+		2DEA7F041BEA782100ED8A55 /* TCProgressTimerNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCProgressTimerNode.h; sourceTree = "<group>"; };
+		2DEA7F051BEA782100ED8A55 /* TCProgressTimerNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCProgressTimerNode.m; sourceTree = "<group>"; };
+		2DEA7F061BEA782100ED8A55 /* TCProgressTimerForegroundCropNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCProgressTimerForegroundCropNode.h; sourceTree = "<group>"; };
+		2DEA7F071BEA782100ED8A55 /* TCProgressTimerForegroundCropNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCProgressTimerForegroundCropNode.m; sourceTree = "<group>"; };
 		2DF67F7D1BD4A18800EB7390 /* FishingGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingGameViewController.h; sourceTree = "<group>"; };
 		2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameViewController.m; sourceTree = "<group>"; };
 		2DF67F801BD4A1A900EB7390 /* FishingGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingGameScene.h; sourceTree = "<group>"; };
@@ -301,6 +312,11 @@
 		2DE0E1351B9CB55100BFEDA6 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2DEA7F041BEA782100ED8A55 /* TCProgressTimerNode.h */,
+				2DEA7F051BEA782100ED8A55 /* TCProgressTimerNode.m */,
+				2DEA7F061BEA782100ED8A55 /* TCProgressTimerForegroundCropNode.h */,
+				2DEA7F071BEA782100ED8A55 /* TCProgressTimerForegroundCropNode.m */,
+				2DEA7EE51BEA6FEE00ED8A55 /* CustomProgressBar */,
 				2D1A04231BB068BF00FA14CC /* NGSplitMenuController */,
 				2D6064701BA99E5B00410B0E /* CoreDataManager */,
 				2DE0E1371B9CB56B00BFEDA6 /* CalendarView */,
@@ -325,6 +341,16 @@
 				2DE0E1391B9CB57900BFEDA6 /* CalendarView.m */,
 			);
 			name = CalendarView;
+			sourceTree = "<group>";
+		};
+		2DEA7EE51BEA6FEE00ED8A55 /* CustomProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				2DEA7F021BEA75EF00ED8A55 /* sb_default.atlas */,
+				2DEA7EE91BEA750200ED8A55 /* SpriteBar.h */,
+				2DEA7EEA1BEA750200ED8A55 /* SpriteBar.m */,
+			);
+			name = CustomProgressBar;
 			sourceTree = "<group>";
 		};
 		2DF67F7C1BD4A14600EB7390 /* FishingGame */ = {
@@ -503,6 +529,7 @@
 				2DF6B7521B94A14800B7F92C /* Images.xcassets in Resources */,
 				2DF6B74A1B94A14800B7F92C /* HomeScene.sks in Resources */,
 				2DF6B7501B94A14800B7F92C /* Main.storyboard in Resources */,
+				2DEA7F031BEA75EF00ED8A55 /* sb_default.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,13 +583,16 @@
 				2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */,
 				2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */,
 				2D1A043E1BB06A0800FA14CC /* NGMenuItem.m in Sources */,
+				2DEA7F091BEA782100ED8A55 /* TCProgressTimerForegroundCropNode.m in Sources */,
 				2DE88AC91BB8517A002438C6 /* Sounds.m in Sources */,
 				2DE88ACA1BB8517A002438C6 /* Games+CoreDataProperties.m in Sources */,
 				2DC904171BB1D0580082DEAC /* GameStatsViewController.m in Sources */,
 				2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */,
 				2DF67F821BD4A1A900EB7390 /* FishingGameScene.m in Sources */,
 				2DE88ACC1BB8517A002438C6 /* GameStatistics+CoreDataProperties.m in Sources */,
+				2DEA7F081BEA782100ED8A55 /* TCProgressTimerNode.m in Sources */,
 				2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */,
+				2DEA7EEB1BEA750200ED8A55 /* SpriteBar.m in Sources */,
 				2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */,
 				2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */,
 				2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */,
