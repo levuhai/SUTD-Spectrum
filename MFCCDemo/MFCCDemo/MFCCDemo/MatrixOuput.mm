@@ -33,6 +33,7 @@
     _size = MAX((int)rect.size.height / 2/h, 1);
     _maxVal = maxVal;
     _drawFit = NO;
+    _graphColor = [UIColor redColor];
 }
 
 - (void)inputFitQualityW:(int)w data:(std::vector<float>)data rect:(CGRect)rect maxVal:(float)maxVal {
@@ -41,6 +42,7 @@
     _size = w==0?1:MAX((int)rect.size.width / w, 1);
     _maxVal = maxVal;
     _drawFit = YES;
+    _graphColor = [UIColor redColor];
 }
 
 
@@ -55,7 +57,9 @@
                 float temp = _dataV[i][j]/_maxVal;
                 CGRect rectangle = CGRectMake(j*_size, i*_size , _size, _size);
                 CGContextRef context = UIGraphicsGetCurrentContext();
-                CGContextSetRGBFillColor(context, 1.0, 0.0, 0.0, 0.1 + temp);   //this is the transparent color
+                CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha =0.0;
+                [_graphColor getRed:&red green:&green blue:&blue alpha:&alpha];
+                CGContextSetRGBFillColor(context, red, green, blue, 0.1 + temp);   //this is the transparent color
                 CGContextFillRect(context, rectangle);
             }
         }
@@ -68,7 +72,7 @@
         }
         [aPath moveToPoint:CGPointMake((_w-1)*_size, maxH-(_fitDataV[(_w-1)]/_maxVal*maxH)+10)];
         [aPath closePath];
-        [[UIColor redColor] setStroke];
+        [_graphColor setStroke];
         [aPath stroke];
     }
 }

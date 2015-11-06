@@ -19,7 +19,6 @@
 @property (nonatomic, strong) IBOutlet UIView* footerView;
 @property (nonatomic, weak) IBOutlet UIView *recordingState;
 @property (nonatomic, weak) IBOutlet UILabel *lbRecordingState;
-@property (nonatomic, weak) IBOutlet UIButton *btnPlay;
 
 /**
  A flag indicating whether we are recording or not

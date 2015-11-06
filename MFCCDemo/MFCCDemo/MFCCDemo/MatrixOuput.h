@@ -13,6 +13,8 @@
 
 @interface MatrixOuput : UIView
 
+@property (nonatomic, strong) UIColor* graphColor;
+
 - (void)inputNormalizedDataW:(int)w matrixH:(int)h data:(std::vector< std::vector<float> >)data rect:(CGRect)rect maxVal:(float)maxVal;
 - (void)inputFitQualityW:(int)w data:(std::vector<float>)data rect:(CGRect)rect maxVal:(float)maxVal;
 
