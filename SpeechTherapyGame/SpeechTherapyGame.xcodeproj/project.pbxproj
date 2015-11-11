@@ -14,7 +14,7 @@
 		2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2875431B977F310068818D /* SKScene+Unarchive.m */; };
 		2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064721BA99E6B00410B0E /* CoreDataManager.m */; };
 		2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */; };
-		2D75DD2A1BD57E9300112F4E /* ManagerGateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D75DD291BD57E9300112F4E /* ManagerGateViewController.m */; settings = {ASSET_TAGS = (); }; };
+		2D75DD2A1BD57E9300112F4E /* ParentSecurityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D75DD291BD57E9300112F4E /* ParentSecurityController.m */; settings = {ASSET_TAGS = (); }; };
 		2D8931F41BA986AF006D2840 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D8931F31BA986AF006D2840 /* CoreData.framework */; };
 		2DC904171BB1D0580082DEAC /* GameStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904161BB1D0580082DEAC /* GameStatsViewController.m */; settings = {ASSET_TAGS = (); }; };
 		2DC9041A1BB1D0710082DEAC /* SoundManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -69,8 +69,8 @@
 		2D6064711BA99E6B00410B0E /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		2D6064721BA99E6B00410B0E /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		2D6064751BA99FF100410B0E /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		2D75DD281BD57E9300112F4E /* ManagerGateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerGateViewController.h; sourceTree = "<group>"; };
-		2D75DD291BD57E9300112F4E /* ManagerGateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagerGateViewController.m; sourceTree = "<group>"; };
+		2D75DD281BD57E9300112F4E /* ParentSecurityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentSecurityController.h; sourceTree = "<group>"; };
+		2D75DD291BD57E9300112F4E /* ParentSecurityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentSecurityController.m; sourceTree = "<group>"; };
 		2D8931F31BA986AF006D2840 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2DC904141BB1C5430082DEAC /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
 		2DC904151BB1D0580082DEAC /* GameStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStatsViewController.h; sourceTree = "<group>"; };
@@ -152,8 +152,6 @@
 				2DC904161BB1D0580082DEAC /* GameStatsViewController.m */,
 				2DC904181BB1D0710082DEAC /* SoundManagerViewController.h */,
 				2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */,
-				2D75DD281BD57E9300112F4E /* ManagerGateViewController.h */,
-				2D75DD291BD57E9300112F4E /* ManagerGateViewController.m */,
 			);
 			name = GameManager;
 			sourceTree = "<group>";
@@ -244,10 +242,10 @@
 		2D2875451B9782DB0068818D /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				2D6064771BA9A35500410B0E /* Models */,
 				2DF6B7431B94A14800B7F92C /* AppDelegate.h */,
 				2DF6B7441B94A14800B7F92C /* AppDelegate.m */,
 				2DF6B74E1B94A14800B7F92C /* Main.storyboard */,
+				2D6064771BA9A35500410B0E /* Models */,
 				2DC904141BB1C5430082DEAC /* Macro.h */,
 			);
 			name = Common;
@@ -405,6 +403,8 @@
 		D716291C1BE7613300C56C77 /* Parent */ = {
 			isa = PBXGroup;
 			children = (
+				2D75DD281BD57E9300112F4E /* ParentSecurityController.h */,
+				2D75DD291BD57E9300112F4E /* ParentSecurityController.m */,
 				D716291D1BE76FFE00C56C77 /* ParentMasterController.h */,
 				D716291E1BE76FFE00C56C77 /* ParentMasterController.m */,
 			);
@@ -471,6 +471,7 @@
 				TargetAttributes = {
 					2DF6B73B1B94A14800B7F92C = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = L8GZZ588QM;
 					};
 					2DF6B7591B94A14800B7F92C = {
 						CreatedOnToolsVersion = 6.4;
@@ -569,7 +570,7 @@
 				2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */,
 				2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */,
 				2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */,
-				2D75DD2A1BD57E9300112F4E /* ManagerGateViewController.m in Sources */,
+				2D75DD2A1BD57E9300112F4E /* ParentSecurityController.m in Sources */,
 				2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */,
 				2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */,
 				2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */,
@@ -712,6 +713,8 @@
 			baseConfigurationReference = 482749E27D29E52B34F59317 /* Pods-SpeechTherapyGame.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpeechTherapyGame/SpeechTherapyGame-Prefix.pch";
@@ -720,6 +723,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.SUTD.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -729,6 +733,8 @@
 			baseConfigurationReference = B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpeechTherapyGame/SpeechTherapyGame-Prefix.pch";
@@ -737,6 +743,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.SUTD.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

@@ -11,7 +11,7 @@
 #import "ScheduleViewController.h"
 #import "GameManagerMasterView.h"
 #import "FishingGameViewController.h"
-#import "ManagerGateViewController.h"
+#import "ParentSecurityController.h"
 #import "MZFormSheetController.h"
 #import "ParentMasterController.h"
 
@@ -66,14 +66,14 @@
     
     
     // Show menu
-    ManagerGateViewController * vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ManagerGateViewController"];
+    ParentSecurityController * vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SecurityController"];
     
     MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
-    formSheet.transitionStyle = MZFormSheetTransitionStyleBounce;
-    formSheet.presentedFormSheetSize = CGSizeMake(460, 280);
+    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromBottom;
+    formSheet.presentedFormSheetSize = CGSizeMake(550, 630);
     formSheet.shouldDismissOnBackgroundViewTap = YES;
     formSheet.shouldCenterVertically = YES;
-    formSheet.cornerRadius = 8.0;
+    formSheet.cornerRadius = 70.0;
     vc.container = formSheet;
     vc.homeSceneVC = self;
     formSheet.didDismissCompletionHandler = ^(UIViewController *vc){};

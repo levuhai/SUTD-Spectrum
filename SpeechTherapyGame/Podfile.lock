@@ -4,11 +4,11 @@ PODS:
   - MagicalRecord (2.3.0)
   - Masonry (0.6.3)
   - MBCircularProgressBar (0.3.2)
-  - MZAppearance (1.1.5)
-  - MZFormSheetController (3.1.1):
+  - MZAppearance (1.1.6)
+  - MZFormSheetController (3.1.2):
     - MZAppearance
-    - MZFormSheetController/Core (= 3.1.1)
-  - MZFormSheetController/Core (3.1.1):
+    - MZFormSheetController/Core (= 3.1.2)
+  - MZFormSheetController/Core (3.1.2):
     - MZAppearance
   - PNChart (0.8.7):
     - UICountingLabel (~> 1.2.0)
@@ -20,17 +20,8 @@ DEPENDENCIES:
   - MagicalRecord
   - Masonry
   - MBCircularProgressBar
-  - MZFormSheetController (from `https://github.com/m1entus/MZFormSheetController.git`)
+  - MZFormSheetController
   - PNChart
-
-EXTERNAL SOURCES:
-  MZFormSheetController:
-    :git: https://github.com/m1entus/MZFormSheetController.git
-
-CHECKOUT OPTIONS:
-  MZFormSheetController:
-    :commit: 1b1e0cc6069ec56784e81d0690ff66539439ab72
-    :git: https://github.com/m1entus/MZFormSheetController.git
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: eeb47e64b7af3e09a50e1ce5dfee9c8c957490c6
@@ -38,8 +29,8 @@ SPEC CHECKSUMS:
   MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MBCircularProgressBar: da24e75aa8a231564f10eb8d6d942fa78343486c
-  MZAppearance: 6e9dc64e42074c0a19812a327f590746c3283bab
-  MZFormSheetController: 3ea2e7add63016e05908af1c5df7bf20e7fe2678
+  MZAppearance: 0c06d3fa9cc55142f1da14bc8631fbe8fd6e19d5
+  MZFormSheetController: 7909e75056fe18366ce00ef8756ce6181414c36c
   PNChart: c1755716bbd45386d2035b2bf2ce73e6d3f8cb22
   UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
 
