@@ -58,8 +58,22 @@
 #pragma mark - Action methods
 
 - (IBAction)showScheduleScene {
-    ScheduleViewController* svc = [self.storyboard instantiateViewControllerWithIdentifier:@"ScheduleViewController"];
-    [self presentViewController:svc animated:YES completion:nil];
+    ScheduleViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ScheduleViewController"];
+    
+    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
+    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromBottom;
+    float padding = 120;
+    formSheet.presentedFormSheetSize = CGSizeMake(self.view.width-padding, self.view.height-padding);
+    formSheet.shouldDismissOnBackgroundViewTap = YES;
+    formSheet.shouldCenterVertically = YES;
+    formSheet.cornerRadius = 0.0;
+    vc.container = formSheet;
+    vc.homeSceneVC = self;
+    formSheet.didDismissCompletionHandler = ^(UIViewController *vc){};
+    
+    [self mz_presentFormSheetController:formSheet
+                               animated:YES
+                      completionHandler:nil];
 }
 
 -(IBAction) managerButton_pressed {

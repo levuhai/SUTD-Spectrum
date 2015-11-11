@@ -9,15 +9,20 @@
 #import "ScheduleViewController.h"
 #import "CalendarView.h"
 #import "Games.h"
+#import <Masonry/Masonry.h>
+#import "MZFormSheetController.h"
+#import "HomeSceneViewController.h"
 
 #define CloseIconTag 1
 
 @interface ScheduleViewController () <CalendarDataSource, CalendarDelegate>
 {
-    CalendarView* _scheduleCalendar;
     NSCalendar * _gregorian;
     NSInteger _currentYear;
 }
+
+@property (nonatomic, weak) IBOutlet CalendarView* scheduleCalendar;
+
 @end
 
 @implementation ScheduleViewController
@@ -44,7 +49,8 @@
 - (void)setupCalendar {
     _gregorian       = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     
-    _scheduleCalendar                             = [[CalendarView alloc]initWithFrame:CGRectMake(0, 50, 898, 898)];
+//    _scheduleCalendar                             = [[CalendarView alloc]initWithFrame:CGRectMake(0, 0, 898, 858)];
+    _scheduleCalendar.frame = self.view.bounds;
     _scheduleCalendar.delegate                    = self;
     _scheduleCalendar.datasource                  = self;
     _scheduleCalendar.calendarDate                = [NSDate date];
@@ -64,13 +70,15 @@
     _scheduleCalendar.prevMonthAnimation          = UIViewAnimationOptionTransitionFlipFromLeft;
     _scheduleCalendar.titleFont                   = [UIFont fontWithName:@"Chalkboard SE" size:25.0];
     _scheduleCalendar.defaultFont                   = [UIFont fontWithName:@"MarkerFelt-Wide" size:27];
+
 //    _scheduleCalendar.backgroundColor = [UIColor lightGrayColor];
+    //_scheduleCalendar.backgroundColor = [UIColor whiteColor];
     
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.view insertSubview:_scheduleCalendar belowSubview:[self.view viewWithTag:CloseIconTag]];
-        _scheduleCalendar.center = CGPointMake(self.view.center.x, _scheduleCalendar.center.y);
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.view insertSubview:_scheduleCalendar belowSubview:[self.view viewWithTag:CloseIconTag]];
+//        _scheduleCalendar.x = (self.view.width - _scheduleCalendar.width)/2.0;
+//         _scheduleCalendar.y = (self.view.height - _scheduleCalendar.height)/2.0;
+//    });
     
     NSDateComponents * yearComponent = [_gregorian components:NSYearCalendarUnit fromDate:[NSDate date]];
     _currentYear = yearComponent.year;
@@ -84,7 +92,7 @@
 
 #pragma mark - Action methods
 -(IBAction) closeButton_pressed {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [_container dismissAnimated:YES completionHandler:nil];
 }
 
 #pragma mark - Gesture recognizer

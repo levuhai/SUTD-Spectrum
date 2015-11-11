@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@class HomeSceneViewController;
+@class MZFormSheetController;
 
 @interface ScheduleViewController : UIViewController
+
+@property (nonatomic, weak) MZFormSheetController* container;
+@property (nonatomic, weak) HomeSceneViewController* homeSceneVC;
+
 
 @end
