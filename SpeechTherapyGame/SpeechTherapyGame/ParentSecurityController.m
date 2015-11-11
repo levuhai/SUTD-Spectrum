@@ -25,6 +25,7 @@
     NSArray* arr = @[@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9"];
     _numbers = [self _shuffleArray:arr];
     _selectedIndex = arc4random_uniform(6);
+    
     self.lbInstruction.text = [NSString stringWithFormat:@"Press the number \"%@\"\nfor 3 seconds",[self _textFromNumber:[_numbers[_selectedIndex] intValue]]];
     
     // Init buttons
@@ -116,8 +117,10 @@
         case 8:
             result = @"Eight";
             break;
-        default:
+        case 9:
             result = @"Nine";
+            break;
+        default:
             break;
     }
     return result;
