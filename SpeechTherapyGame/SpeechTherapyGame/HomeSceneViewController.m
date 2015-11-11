@@ -78,7 +78,6 @@
 
 -(IBAction) managerButton_pressed {
     
-    
     // Show menu
     ParentSecurityController * vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SecurityController"];
     

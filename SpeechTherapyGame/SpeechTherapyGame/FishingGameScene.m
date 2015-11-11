@@ -31,8 +31,6 @@
 
 - (void)didMoveToView:(SKView *)view {
     self.backgroundColor = RGB(66, 191, 254);
-    self.physicsWorld.gravity = CGVectorMake(0, 0);
-    
     [self setupGameScene];
 }
 

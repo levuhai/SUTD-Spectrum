@@ -24,6 +24,7 @@
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"DataModel"];
     [Games MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"gameId != 0"]];
     
+    /*
 #warning Demo data
     Games* game = [Games MR_createEntity];
     game.gameId = @(1);
@@ -50,6 +51,7 @@
         NSDate *newDate1 = [now dateByAddingTimeInterval:60*60*24*i];
         gameStat.dateAdded = newDate1;
     }
+     */
     
     // Got star
     [[NSUserDefaults standardUserDefaults] setObject:@[[NSDate date]] forKey:kAchievementDays];

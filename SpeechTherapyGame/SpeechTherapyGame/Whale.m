@@ -16,7 +16,7 @@
         self.name = @"Whale";
         
         self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width/2];
-        self.physicsBody.affectedByGravity = YES;
+        self.physicsBody.affectedByGravity = NO;
         self.physicsBody.dynamic = YES;
         //self.physicsBody.categoryBitMask = ballCategory;
         //self.physicsBody.collisionBitMask = barCategory | wallCategory;

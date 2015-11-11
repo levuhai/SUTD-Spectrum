@@ -37,19 +37,21 @@
     self.view.backgroundColor = RGB(47,139,193);
     
     _gameStatData = [GameStatistics MR_findAllSortedBy:@"statId" ascending:NO];
-    // Get played time first
-    [self enableButton:_playedTimeButton];
-    [self disableButton:_pointButton];
-    // First line data
-    [self loadDataForPlayedTimeLineChart:_gameStatData];
-    // Bar data
-    [self loadDataForWordsBarChart:_gameStatData];
-   
-    // setup chart
-    [self drawLineChart];
-    _lineGraphContainer.layer.cornerRadius = 10;
-    [self drawBarChart];
-    _barGraphContainer.layer.cornerRadius = 10;
+    
+    if (_gameStatData.count > 0) {
+        // Get played time first
+        [self enableButton:_playedTimeButton];
+        [self disableButton:_pointButton];
+        // First line data
+        [self loadDataForPlayedTimeLineChart:_gameStatData];
+        // Bar data
+        [self loadDataForWordsBarChart:_gameStatData];
+        // setup chart
+        [self drawLineChart];
+        [self drawBarChart];
+        _lineGraphContainer.layer.cornerRadius = 10;
+        _barGraphContainer.layer.cornerRadius = 10;
+    }
 }
 
 - (void)drawLineChart {
