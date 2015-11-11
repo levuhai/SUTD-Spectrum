@@ -7,29 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D1A043E1BB06A0800FA14CC /* NGMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A043D1BB06A0800FA14CC /* NGMenuItem.m */; settings = {ASSET_TAGS = (); }; };
-		2D1A04421BB06A2400FA14CC /* NGSplitViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04411BB06A2400FA14CC /* NGSplitViewManager.m */; settings = {ASSET_TAGS = (); }; };
-		2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04441BB06A3500FA14CC /* NGSplitMenuController.m */; settings = {ASSET_TAGS = (); }; };
-		2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04471BB06A3E00FA14CC /* MenuTableCell.m */; settings = {ASSET_TAGS = (); }; };
+		2D1A043E1BB06A0800FA14CC /* NGMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A043D1BB06A0800FA14CC /* NGMenuItem.m */; };
+		2D1A04421BB06A2400FA14CC /* NGSplitViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04411BB06A2400FA14CC /* NGSplitViewManager.m */; };
+		2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04441BB06A3500FA14CC /* NGSplitMenuController.m */; };
+		2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04471BB06A3E00FA14CC /* MenuTableCell.m */; };
 		2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2875431B977F310068818D /* SKScene+Unarchive.m */; };
 		2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064721BA99E6B00410B0E /* CoreDataManager.m */; };
 		2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */; };
-		2D75DD2A1BD57E9300112F4E /* ManagerGateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D75DD291BD57E9300112F4E /* ManagerGateViewController.m */; settings = {ASSET_TAGS = (); }; };
+		2D75DD2A1BD57E9300112F4E /* ManagerGateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D75DD291BD57E9300112F4E /* ManagerGateViewController.m */; };
 		2D8931F41BA986AF006D2840 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D8931F31BA986AF006D2840 /* CoreData.framework */; };
-		2DC904171BB1D0580082DEAC /* GameStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904161BB1D0580082DEAC /* GameStatsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		2DC9041A1BB1D0710082DEAC /* SoundManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */; settings = {ASSET_TAGS = (); }; };
+		2DAB36761BF251F200EF7478 /* TCProgressTimerForegroundCropNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB36731BF251F200EF7478 /* TCProgressTimerForegroundCropNode.m */; };
+		2DAB36771BF251F200EF7478 /* TCProgressTimerNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB36751BF251F200EF7478 /* TCProgressTimerNode.m */; };
+		2DAB367B1BF2580900EF7478 /* Whale.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB367A1BF2580900EF7478 /* Whale.m */; };
+		2DC904171BB1D0580082DEAC /* GameStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904161BB1D0580082DEAC /* GameStatsViewController.m */; };
+		2DC9041A1BB1D0710082DEAC /* SoundManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */; };
+		2DD3E1841BF25198008A8590 /* GameManagerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3E1811BF25198008A8590 /* GameManagerDetailViewController.m */; };
+		2DD3E1851BF25198008A8590 /* GameManagerMasterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3E1831BF25198008A8590 /* GameManagerMasterView.m */; };
 		2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E12D1B9CAF3C00BFEDA6 /* LoadingViewController.m */; };
 		2DE0E1311B9CAF6100BFEDA6 /* LoadingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1301B9CAF6100BFEDA6 /* LoadingScene.m */; };
 		2DE0E1341B9CB24B00BFEDA6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1331B9CB24B00BFEDA6 /* ScheduleViewController.m */; };
 		2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1391B9CB57900BFEDA6 /* CalendarView.m */; };
-		2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88ABD1BB8517A002438C6 /* Sounds+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		2DE88AC91BB8517A002438C6 /* Sounds.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88ABF1BB8517A002438C6 /* Sounds.m */; settings = {ASSET_TAGS = (); }; };
-		2DE88ACA1BB8517A002438C6 /* Games+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC11BB8517A002438C6 /* Games+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		2DE88ACB1BB8517A002438C6 /* Games.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC31BB8517A002438C6 /* Games.m */; settings = {ASSET_TAGS = (); }; };
-		2DE88ACC1BB8517A002438C6 /* GameStatistics+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC51BB8517A002438C6 /* GameStatistics+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		2DE88ACD1BB8517A002438C6 /* GameStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC71BB8517A002438C6 /* GameStatistics.m */; settings = {ASSET_TAGS = (); }; };
-		2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */; settings = {ASSET_TAGS = (); }; };
-		2DF67F821BD4A1A900EB7390 /* FishingGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F811BD4A1A900EB7390 /* FishingGameScene.m */; settings = {ASSET_TAGS = (); }; };
+		2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88ABD1BB8517A002438C6 /* Sounds+CoreDataProperties.m */; };
+		2DE88AC91BB8517A002438C6 /* Sounds.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88ABF1BB8517A002438C6 /* Sounds.m */; };
+		2DE88ACA1BB8517A002438C6 /* Games+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC11BB8517A002438C6 /* Games+CoreDataProperties.m */; };
+		2DE88ACB1BB8517A002438C6 /* Games.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC31BB8517A002438C6 /* Games.m */; };
+		2DE88ACC1BB8517A002438C6 /* GameStatistics+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC51BB8517A002438C6 /* GameStatistics+CoreDataProperties.m */; };
+		2DE88ACD1BB8517A002438C6 /* GameStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC71BB8517A002438C6 /* GameStatistics.m */; };
+		2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */; };
+		2DF67F821BD4A1A900EB7390 /* FishingGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F811BD4A1A900EB7390 /* FishingGameScene.m */; };
 		2DF6B7421B94A14800B7F92C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7411B94A14800B7F92C /* main.m */; };
 		2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7441B94A14800B7F92C /* AppDelegate.m */; };
 		2DF6B7481B94A14800B7F92C /* HomeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7471B94A14800B7F92C /* HomeScene.m */; };
@@ -39,7 +44,7 @@
 		2DF6B7521B94A14800B7F92C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B7511B94A14800B7F92C /* Images.xcassets */; };
 		2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */; };
 		2DF6B7611B94A14800B7F92C /* SpeechTherapyGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7601B94A14800B7F92C /* SpeechTherapyGameTests.m */; };
-		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; settings = {ASSET_TAGS = (); }; };
+		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; };
 		DB79796202A56F77A186A2EC /* libPods-SpeechTherapyGame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C4C953EE4CDC88969B0569 /* libPods-SpeechTherapyGame.a */; };
 /* End PBXBuildFile section */
 
@@ -72,11 +77,21 @@
 		2D75DD281BD57E9300112F4E /* ManagerGateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerGateViewController.h; sourceTree = "<group>"; };
 		2D75DD291BD57E9300112F4E /* ManagerGateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagerGateViewController.m; sourceTree = "<group>"; };
 		2D8931F31BA986AF006D2840 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2DAB36721BF251F200EF7478 /* TCProgressTimerForegroundCropNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCProgressTimerForegroundCropNode.h; sourceTree = "<group>"; };
+		2DAB36731BF251F200EF7478 /* TCProgressTimerForegroundCropNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCProgressTimerForegroundCropNode.m; sourceTree = "<group>"; };
+		2DAB36741BF251F200EF7478 /* TCProgressTimerNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCProgressTimerNode.h; sourceTree = "<group>"; };
+		2DAB36751BF251F200EF7478 /* TCProgressTimerNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCProgressTimerNode.m; sourceTree = "<group>"; };
+		2DAB36791BF2580900EF7478 /* Whale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Whale.h; sourceTree = "<group>"; };
+		2DAB367A1BF2580900EF7478 /* Whale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Whale.m; sourceTree = "<group>"; };
 		2DC904141BB1C5430082DEAC /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
 		2DC904151BB1D0580082DEAC /* GameStatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStatsViewController.h; sourceTree = "<group>"; };
 		2DC904161BB1D0580082DEAC /* GameStatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStatsViewController.m; sourceTree = "<group>"; };
 		2DC904181BB1D0710082DEAC /* SoundManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManagerViewController.h; sourceTree = "<group>"; };
 		2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManagerViewController.m; sourceTree = "<group>"; };
+		2DD3E1801BF25198008A8590 /* GameManagerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManagerDetailViewController.h; sourceTree = "<group>"; };
+		2DD3E1811BF25198008A8590 /* GameManagerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameManagerDetailViewController.m; sourceTree = "<group>"; };
+		2DD3E1821BF25198008A8590 /* GameManagerMasterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManagerMasterView.h; sourceTree = "<group>"; };
+		2DD3E1831BF25198008A8590 /* GameManagerMasterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameManagerMasterView.m; sourceTree = "<group>"; };
 		2DE0E12C1B9CAF3C00BFEDA6 /* LoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
 		2DE0E12D1B9CAF3C00BFEDA6 /* LoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
 		2DE0E12F1B9CAF6100BFEDA6 /* LoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingScene.h; sourceTree = "<group>"; };
@@ -148,6 +163,10 @@
 		2D1A041F1BB0672700FA14CC /* GameManager */ = {
 			isa = PBXGroup;
 			children = (
+				2DD3E1801BF25198008A8590 /* GameManagerDetailViewController.h */,
+				2DD3E1811BF25198008A8590 /* GameManagerDetailViewController.m */,
+				2DD3E1821BF25198008A8590 /* GameManagerMasterView.h */,
+				2DD3E1831BF25198008A8590 /* GameManagerMasterView.m */,
 				2DC904151BB1D0580082DEAC /* GameStatsViewController.h */,
 				2DC904161BB1D0580082DEAC /* GameStatsViewController.m */,
 				2DC904181BB1D0710082DEAC /* SoundManagerViewController.h */,
@@ -281,6 +300,26 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2DAB36711BF251E400EF7478 /* TCProgressTimerNode */ = {
+			isa = PBXGroup;
+			children = (
+				2DAB36721BF251F200EF7478 /* TCProgressTimerForegroundCropNode.h */,
+				2DAB36731BF251F200EF7478 /* TCProgressTimerForegroundCropNode.m */,
+				2DAB36741BF251F200EF7478 /* TCProgressTimerNode.h */,
+				2DAB36751BF251F200EF7478 /* TCProgressTimerNode.m */,
+			);
+			name = TCProgressTimerNode;
+			sourceTree = "<group>";
+		};
+		2DAB36781BF257E600EF7478 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				2DAB36791BF2580900EF7478 /* Whale.h */,
+				2DAB367A1BF2580900EF7478 /* Whale.m */,
+			);
+			name = Nodes;
+			sourceTree = "<group>";
+		};
 		2DE0E12B1B9CAF2400BFEDA6 /* Loading */ = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +334,7 @@
 		2DE0E1351B9CB55100BFEDA6 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2DAB36711BF251E400EF7478 /* TCProgressTimerNode */,
 				2D1A04231BB068BF00FA14CC /* NGSplitMenuController */,
 				2D6064701BA99E5B00410B0E /* CoreDataManager */,
 				2DE0E1371B9CB56B00BFEDA6 /* CalendarView */,
@@ -357,6 +397,7 @@
 			children = (
 				2DE0E1351B9CB55100BFEDA6 /* Helpers */,
 				2D2875451B9782DB0068818D /* Common */,
+				2DAB36781BF257E600EF7478 /* Nodes */,
 				2D28753A1B9770A00068818D /* Scenes */,
 				2DF6B73F1B94A14800B7F92C /* Supporting Files */,
 			);
@@ -558,9 +599,11 @@
 			files = (
 				2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */,
 				2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */,
+				2DAB36761BF251F200EF7478 /* TCProgressTimerForegroundCropNode.m in Sources */,
 				2D1A043E1BB06A0800FA14CC /* NGMenuItem.m in Sources */,
 				2DE88AC91BB8517A002438C6 /* Sounds.m in Sources */,
 				2DE88ACA1BB8517A002438C6 /* Games+CoreDataProperties.m in Sources */,
+				2DAB36771BF251F200EF7478 /* TCProgressTimerNode.m in Sources */,
 				2DC904171BB1D0580082DEAC /* GameStatsViewController.m in Sources */,
 				2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */,
 				2DF67F821BD4A1A900EB7390 /* FishingGameScene.m in Sources */,
@@ -573,9 +616,12 @@
 				2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */,
 				2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */,
 				2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */,
+				2DAB367B1BF2580900EF7478 /* Whale.m in Sources */,
+				2DD3E1841BF25198008A8590 /* GameManagerDetailViewController.m in Sources */,
 				2DC9041A1BB1D0710082DEAC /* SoundManagerViewController.m in Sources */,
 				2DE88ACB1BB8517A002438C6 /* Games.m in Sources */,
 				2DE88ACD1BB8517A002438C6 /* GameStatistics.m in Sources */,
+				2DD3E1851BF25198008A8590 /* GameManagerMasterView.m in Sources */,
 				2DE0E1311B9CAF6100BFEDA6 /* LoadingScene.m in Sources */,
 				2D1A04421BB06A2400FA14CC /* NGSplitViewManager.m in Sources */,
 				D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */,

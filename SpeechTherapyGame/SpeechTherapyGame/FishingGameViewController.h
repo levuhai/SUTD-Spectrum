@@ -12,11 +12,4 @@
 
 @interface FishingGameViewController : UIViewController
 
-@property (nonatomic, weak) IBOutlet UIView* countDownCircleContainer;
-@property (nonatomic, weak) IBOutlet UIImageView* micImage;
-@property (nonatomic, weak) IBOutlet MBCircularProgressBarView* countDownCircleView;
-
-- (void) updateProgressValue: (GLfloat) value duration:(GLfloat) duration;
-- (void) shouldShowCountDown:(BOOL) value;
-
 @end

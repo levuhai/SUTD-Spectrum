@@ -34,8 +34,7 @@
     scene.fishingGameVC = self;
     // Present the scene.
     [skView presentScene:scene];
-    
-    _countDownCircleContainer.alpha = 0;
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,25 +44,6 @@
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
-}
-
-- (void) shouldShowCountDown:(BOOL) value {
-    [UIView animateWithDuration:0.3 animations:^{
-        
-        _countDownCircleContainer.y = value ? _countDownCircleContainer.y - 20 : _countDownCircleContainer.y + 20;
-        
-        _countDownCircleContainer.alpha = value ? 1 : 0;
-    } completion:^(BOOL finished) {
-        if (!value)
-            [self updateProgressValue:100 duration:0];
-    }];
-}
-
-- (void) updateProgressValue: (GLfloat) value duration:(GLfloat) duration {
-    if (duration == 0)
-        [_countDownCircleView setValue:value];
-    else
-        [_countDownCircleView setValue:value animateWithDuration:duration];
 }
 
 @end

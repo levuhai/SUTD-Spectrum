@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3gr-A2-YTs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3gr-A2-YTs">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -195,51 +195,9 @@
                     <view key="view" contentMode="scaleToFill" id="znH-oq-9QZ" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Loc-pA-aQ5">
-                                <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5TD-O1-Qf3" customClass="MBCircularProgressBarView">
-                                        <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="value">
-                                                <real key="value" value="100"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
-                                                <real key="value" value="100"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showUnitString" value="NO"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showValueString" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mic" translatesAutoresizingMaskIntoConstraints="NO" id="mdB-Nh-hXj">
-                                        <rect key="frame" x="44" y="37" width="32" height="47"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="47" id="Eru-Y8-1wA"/>
-                                            <constraint firstAttribute="width" constant="32" id="ibm-3V-QxY"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="5TD-O1-Qf3" firstAttribute="top" secondItem="Loc-pA-aQ5" secondAttribute="top" id="2Ei-ni-L3l"/>
-                                    <constraint firstAttribute="bottom" secondItem="5TD-O1-Qf3" secondAttribute="bottom" id="9tc-5d-pqQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="5TD-O1-Qf3" secondAttribute="trailing" id="ZgD-PP-XpD"/>
-                                    <constraint firstItem="mdB-Nh-hXj" firstAttribute="centerY" secondItem="Loc-pA-aQ5" secondAttribute="centerY" id="fzC-6w-1zB"/>
-                                    <constraint firstItem="5TD-O1-Qf3" firstAttribute="leading" secondItem="Loc-pA-aQ5" secondAttribute="leading" id="pLp-Dz-g5z"/>
-                                    <constraint firstItem="mdB-Nh-hXj" firstAttribute="centerX" secondItem="Loc-pA-aQ5" secondAttribute="centerX" id="x8a-Y0-0Rh"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <connections>
-                        <outlet property="countDownCircleContainer" destination="Loc-pA-aQ5" id="yTI-qv-dIh"/>
-                        <outlet property="countDownCircleView" destination="5TD-O1-Qf3" id="eOD-mf-YUh"/>
-                        <outlet property="micImage" destination="mdB-Nh-hXj" id="6q7-UW-gUC"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oC4-Yt-tGd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -696,7 +654,6 @@
         <image name="chart-icon" width="128" height="114"/>
         <image name="home-icon" width="128" height="128"/>
         <image name="homeBackground" width="1024" height="768"/>
-        <image name="mic" width="64" height="105"/>
         <image name="schedule-icon" width="128" height="128"/>
         <image name="star" width="47" height="46"/>
         <image name="x-icon" width="37" height="36"/>

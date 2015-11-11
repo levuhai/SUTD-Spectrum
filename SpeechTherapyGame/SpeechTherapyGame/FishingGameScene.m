@@ -9,6 +9,7 @@
 #import "FishingGameScene.h"
 #import "FishingGameViewController.h"
 #import "TCProgressTimerNode.h"
+#import "Whale.h"
 
 
 #define speakingTimeOut 2
@@ -16,7 +17,7 @@
 #define WaterViewHeigh 460
 
 @interface FishingGameScene () {
-    SKSpriteNode* _whale;
+    Whale* _whale;
     SKSpriteNode* _buoy;
     SKSpriteNode* _potView;
     
@@ -107,7 +108,7 @@
     
     
     // Whale
-    _whale = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"whale"]];
+    _whale = [[Whale alloc] init];
     _whale.anchorPoint = CGPointMake(0.5, 0.5);
     _whale.position = CGPointMake(5, WaterViewHeigh);
     [self addChild:_whale];
