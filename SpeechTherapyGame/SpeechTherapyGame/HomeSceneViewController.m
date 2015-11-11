@@ -11,7 +11,7 @@
 #import "ScheduleViewController.h"
 #import "GameManagerMasterView.h"
 #import "FishingGameViewController.h"
-#import "ManagerGateViewController.h"
+#import "ParentSecurityController.h"
 #import "MZFormSheetController.h"
 #import "ParentMasterController.h"
 
@@ -58,22 +58,36 @@
 #pragma mark - Action methods
 
 - (IBAction)showScheduleScene {
-    ScheduleViewController* svc = [self.storyboard instantiateViewControllerWithIdentifier:@"ScheduleViewController"];
-    [self presentViewController:svc animated:YES completion:nil];
+    ScheduleViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ScheduleViewController"];
+    
+    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
+    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromBottom;
+    float padding = 120;
+    formSheet.presentedFormSheetSize = CGSizeMake(self.view.width-padding, self.view.height-padding);
+    formSheet.shouldDismissOnBackgroundViewTap = YES;
+    formSheet.shouldCenterVertically = YES;
+    formSheet.cornerRadius = 0.0;
+    vc.container = formSheet;
+    vc.homeSceneVC = self;
+    formSheet.didDismissCompletionHandler = ^(UIViewController *vc){};
+    
+    [self mz_presentFormSheetController:formSheet
+                               animated:YES
+                      completionHandler:nil];
 }
 
 -(IBAction) managerButton_pressed {
     
     
     // Show menu
-    ManagerGateViewController * vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ManagerGateViewController"];
+    ParentSecurityController * vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SecurityController"];
     
     MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
-    formSheet.transitionStyle = MZFormSheetTransitionStyleBounce;
-    formSheet.presentedFormSheetSize = CGSizeMake(460, 280);
+    formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromBottom;
+    formSheet.presentedFormSheetSize = CGSizeMake(550, 630);
     formSheet.shouldDismissOnBackgroundViewTap = YES;
     formSheet.shouldCenterVertically = YES;
-    formSheet.cornerRadius = 8.0;
+    formSheet.cornerRadius = 70.0;
     vc.container = formSheet;
     vc.homeSceneVC = self;
     formSheet.didDismissCompletionHandler = ^(UIViewController *vc){};

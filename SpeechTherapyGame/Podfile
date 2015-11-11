@@ -6,7 +6,7 @@ pod 'MagicalRecord'
 pod 'PNChart'
 pod 'ActionSheetPicker-3.0'
 pod 'MBCircularProgressBar'
-pod 'MZFormSheetController', :git => 'https://github.com/m1entus/MZFormSheetController.git'
+pod 'MZFormSheetController'#, :git => 'https://github.com/m1entus/MZFormSheetController.git'
 pod 'Masonry'
 
 end

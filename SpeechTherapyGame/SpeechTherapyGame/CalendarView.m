@@ -36,62 +36,21 @@
 
 #pragma mark - Init methods
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
+        [self _init];
+    }
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self)
     {
-        _dayWidth                   = frame.size.width/8;
-        _dayHeigh                   = _dayWidth/2;
-        _originX                    = (frame.size.width - 7*_dayWidth)/2;
-        _gregorian                  = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        _borderWidth                = 4;
-        _originY                    = _dayWidth;
-        _calendarDate               = [NSDate date];
-        _dayInfoUnits               = NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
-        
-        _monthAndDayTextColor       = [UIColor brownColor];
-        _dayBgColorWithoutData      = [UIColor whiteColor];
-        _dayBgColorWithData         = [UIColor whiteColor];
-        _dayBgColorSelected         = [UIColor brownColor];
-        
-        _dayTxtColorWithoutData     = [UIColor brownColor];;
-        _dayTxtColorWithData        = [UIColor brownColor];
-        _dayTxtColorSelected        = [UIColor whiteColor];
-        
-        _borderColor                = [UIColor brownColor];
-        _allowsChangeMonthByDayTap  = NO;
-        _allowsChangeMonthByButtons = NO;
-        _allowsChangeMonthBySwipe   = YES;
-        _hideMonthLabel             = NO;
-        _keepSelDayWhenMonthChange  = NO;
-        
-        _nextMonthAnimation         = UIViewAnimationOptionTransitionCrossDissolve;
-        _prevMonthAnimation         = UIViewAnimationOptionTransitionCrossDissolve;
-        
-        _defaultFont                = [UIFont fontWithName:@"HelveticaNeue" size:15.0f];
-        _titleFont                  = [UIFont fontWithName:@"Helvetica-Bold" size:15.0f];
-        
-        
-        _swipeleft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(showNextMonth)];
-        _swipeleft.direction=UISwipeGestureRecognizerDirectionLeft;
-        [self addGestureRecognizer:_swipeleft];
-        _swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(showPreviousMonth)];
-        _swipeRight.direction=UISwipeGestureRecognizerDirectionRight;
-        [self addGestureRecognizer:_swipeRight];
-        
-        NSDateComponents *components = [_gregorian components:_dayInfoUnits fromDate:[NSDate date]];
-        components.hour         = 0;
-        components.minute       = 0;
-        components.second       = 0;
-        
-        _selectedDate = [_gregorian dateFromComponents:components];
-        
-        NSArray * shortWeekdaySymbols = [[[NSDateFormatter alloc] init] shortWeekdaySymbols];
-        _weekDayNames  = @[shortWeekdaySymbols[1], shortWeekdaySymbols[2], shortWeekdaySymbols[3], shortWeekdaySymbols[4],
-                           shortWeekdaySymbols[5], shortWeekdaySymbols[6], shortWeekdaySymbols[0]];
-        
-        self.backgroundColor = [UIColor clearColor];
+        [self _init];
     }
     return self;
 }
@@ -104,6 +63,61 @@
         
     }
     return self;
+}
+
+- (void) _init {
+    _dayWidth                   = self.frame.size.width/8;
+    _dayHeigh                   = _dayWidth/2;
+    _originX                    = (self.frame.size.width - 7*_dayWidth)/2;
+    _originY                    = _dayWidth;
+    _gregorian                  = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    _borderWidth                = 4;
+    
+    _calendarDate               = [NSDate date];
+    _dayInfoUnits               = NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+    
+    _monthAndDayTextColor       = [UIColor brownColor];
+    _dayBgColorWithoutData      = [UIColor whiteColor];
+    _dayBgColorWithData         = [UIColor whiteColor];
+    _dayBgColorSelected         = [UIColor brownColor];
+    
+    _dayTxtColorWithoutData     = [UIColor brownColor];;
+    _dayTxtColorWithData        = [UIColor brownColor];
+    _dayTxtColorSelected        = [UIColor whiteColor];
+    
+    _borderColor                = [UIColor brownColor];
+    _allowsChangeMonthByDayTap  = NO;
+    _allowsChangeMonthByButtons = NO;
+    _allowsChangeMonthBySwipe   = YES;
+    _hideMonthLabel             = NO;
+    _keepSelDayWhenMonthChange  = NO;
+    
+    _nextMonthAnimation         = UIViewAnimationOptionTransitionCrossDissolve;
+    _prevMonthAnimation         = UIViewAnimationOptionTransitionCrossDissolve;
+    
+    _defaultFont                = [UIFont fontWithName:@"HelveticaNeue" size:15.0f];
+    _titleFont                  = [UIFont fontWithName:@"Helvetica-Bold" size:15.0f];
+    
+    
+    _swipeleft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(showNextMonth)];
+    _swipeleft.direction=UISwipeGestureRecognizerDirectionLeft;
+    [self addGestureRecognizer:_swipeleft];
+    _swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(showPreviousMonth)];
+    _swipeRight.direction=UISwipeGestureRecognizerDirectionRight;
+    [self addGestureRecognizer:_swipeRight];
+    
+    NSDateComponents *components = [_gregorian components:_dayInfoUnits fromDate:[NSDate date]];
+    components.hour         = 0;
+    components.minute       = 0;
+    components.second       = 0;
+    
+    _selectedDate = [_gregorian dateFromComponents:components];
+    
+    NSArray * shortWeekdaySymbols = [[[NSDateFormatter alloc] init] shortWeekdaySymbols];
+    _weekDayNames  = @[shortWeekdaySymbols[1], shortWeekdaySymbols[2], shortWeekdaySymbols[3], shortWeekdaySymbols[4],
+                       shortWeekdaySymbols[5], shortWeekdaySymbols[6], shortWeekdaySymbols[0]];
+    
+    self.backgroundColor = [UIColor clearColor];
 }
 
 #pragma mark - Custom setters
@@ -387,7 +401,14 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    NSDateComponents *components = [_gregorian components:_dayInfoUnits fromDate:_calendarDate];
+    NSInteger leftPadding = 15;
+    _dayWidth                   = (self.frame.size.width-leftPadding-leftPadding)/7;
+    _dayHeigh                   = (_dayWidth/2);
+    _originX                    = (self.frame.size.width - 7*_dayWidth)/2;
+    _originY                    = _dayWidth;
+    
+    NSDateComponents *components = [_gregorian components:_dayInfoUnits
+                                                 fromDate:_calendarDate];
     
     components.day = 1;
     NSDate *firstDayOfMonth         = [_gregorian dateFromComponents:components];
@@ -431,7 +452,7 @@
     [self addSubview:topBackground];
     
     // Top background
-    UIView* bottomBackground = [[UIView alloc] initWithFrame:CGRectMake(0, topBackground.y + topBackground.height + 10, self.width, 552)];
+    UIView* bottomBackground = [[UIView alloc] initWithFrame:CGRectMake(0, topBackground.y + topBackground.height + 15, self.width, self.height - topBackground.height - 15)];
     bottomBackground.layer.cornerRadius = 20;
     bottomBackground.backgroundColor = RGBCOLOR(52, 152, 219);
     [self addSubview:bottomBackground];
@@ -461,7 +482,7 @@
     
     if (!_hideMonthLabel)
     {
-        UILabel *titleText              = [[UILabel alloc]initWithFrame:CGRectMake(44, 0, self.bounds.size.width - 2*44, topBackground.height)];
+        UILabel *titleText              = [[UILabel alloc]initWithFrame:CGRectMake(44, 0, self.width - 2*44, topBackground.height)];
         titleText.textAlignment         = NSTextAlignmentLeft;
         titleText.text                  = dateString;
         titleText.font                  = [UIFont fontWithName:@"ChalkboardSE-Bold" size:54];
@@ -481,8 +502,8 @@
         [_delegate setMonthLabel:dateString];
     
     
-    _originY = 112 + 150;
-    NSInteger leftPadding = 15;
+    _originY = 112 + 140;
+    _dayHeigh = (self.height - _originY)/7.5;
     // Day labels
     __block CGRect frameWeekLabel = CGRectMake(0, _originY , _dayWidth, _dayHeigh);
     [_weekDayNames  enumerateObjectsUsingBlock:^(NSString * dayOfWeekString, NSUInteger idx, BOOL *stop)
