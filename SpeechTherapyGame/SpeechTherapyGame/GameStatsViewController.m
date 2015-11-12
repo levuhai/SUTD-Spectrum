@@ -26,6 +26,9 @@
     
     IBOutlet UIButton* _playedTimeButton;
     IBOutlet UIButton* _pointButton;
+    
+    IBOutlet UILabel* _chartNoDataLabel;
+    IBOutlet UILabel* _barNoDataLabel;
 }
 
 @end
@@ -49,57 +52,68 @@
         // setup chart
         [self drawLineChart];
         [self drawBarChart];
-        _lineGraphContainer.layer.cornerRadius = 10;
-        _barGraphContainer.layer.cornerRadius = 10;
+        _chartNoDataLabel.hidden = YES;
+        _barNoDataLabel.hidden = YES;
+    } else{
+        _chartNoDataLabel.hidden = NO;
+        _barNoDataLabel.hidden = NO;
     }
+    
+    _lineGraphContainer.layer.cornerRadius = 10;
+    _barGraphContainer.layer.cornerRadius = 10;
 }
 
 - (void)drawLineChart {
-    //For Line Chart
-    // Line Chart No.1
-    PNLineChartData *data01 = [PNLineChartData new];
-    data01.color = PNLightBlue;
-    data01.itemCount = _lineBottomLabels.count;
-    data01.inflexionPointStyle = PNLineChartPointStyleCircle;
-    data01.getData = ^(NSUInteger index) {
-        CGFloat yValue = [_lineGraphData[index] floatValue];
-        return [PNLineChartDataItem dataItemWithY:yValue];
-    };
-    
-    if (!_lineChart) {
-        _lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 100 - 30, _lineGraphContainer.width, _lineGraphContainer.height - 100)];
-        _lineChart.xLabelFont = [UIFont fontWithName:@"Helvetica" size:15];
-        [_lineChart setXLabels:_lineBottomLabels];
-        _lineChart.chartData = @[data01];
-        [_lineChart strokeChart];
-        [_lineGraphContainer addSubview:_lineChart];
-    } else {
-        [_lineChart setXLabels:_lineBottomLabels];
-        [_lineChart updateChartData:@[data01]];
+    if (_lineBottomLabels.count > 0) {
+        PNLineChartData *data01 = [PNLineChartData new];
+        data01.color = PNLightBlue;
+        data01.itemCount = _lineBottomLabels.count;
+        data01.inflexionPointStyle = PNLineChartPointStyleCircle;
+        data01.getData = ^(NSUInteger index) {
+            CGFloat yValue = [_lineGraphData[index] floatValue];
+            return [PNLineChartDataItem dataItemWithY:yValue];
+        };
+        
+        if (!_lineChart) {
+            _lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 100 - 30, _lineGraphContainer.width, _lineGraphContainer.height - 100)];
+            _lineChart.xLabelFont = [UIFont fontWithName:@"Helvetica" size:15];
+            [_lineChart setXLabels:_lineBottomLabels];
+            _lineChart.chartData = @[data01];
+            [_lineChart strokeChart];
+            [_lineGraphContainer addSubview:_lineChart];
+        } else {
+            [_lineChart setXLabels:_lineBottomLabels];
+            [_lineChart updateChartData:@[data01]];
+        }
     }
-    
 }
 
 - (void)drawBarChart {
-    
-    if (!_barChart) {
-    _barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, 90 - 30, _barGraphContainer.width - 100, _barGraphContainer.height - 90)];
-    _barChart.yChartLabelWidth = 20;
-    _barChart.barBackgroundColor = PNWhite;
-    _barChart.labelTextColor = PNBlack;
-    _barChart.isShowNumbers = NO;
-    _barChart.xLabels = _barBottomLabels;
-    _barChart.yValues = _barGraphData;
-    
-    [_barChart strokeChart];
-    [_barGraphContainer addSubview:_barChart];
-    } else {
-        _barChart.xLabels = _barBottomLabels;
-        [_barChart updateChartData:_barGraphData];
+    if (_barBottomLabels.count > 0) {
+        if (!_barChart) {
+            _barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, 90 - 30, _barGraphContainer.width - 100, _barGraphContainer.height - 90)];
+            _barChart.yChartLabelWidth = 20;
+            _barChart.barBackgroundColor = PNWhite;
+            _barChart.labelTextColor = PNBlack;
+            _barChart.isShowNumbers = NO;
+            _barChart.xLabels = _barBottomLabels;
+            _barChart.yValues = _barGraphData;
+            
+            [_barChart strokeChart];
+            [_barGraphContainer addSubview:_barChart];
+        } else {
+            _barChart.xLabels = _barBottomLabels;
+            [_barChart updateChartData:_barGraphData];
+        }
     }
 }
 
 - (void) loadDataForPlayedTimeLineChart:(NSArray*)gameStatData {
+    
+    if (gameStatData.count == 0) {
+        return;
+    }
+    
     _lineBottomLabels = nil;
     _lineGraphData = nil;
     
@@ -119,6 +133,11 @@
 }
 
 - (void) loadDataForPointsLineChart:(NSArray*)gameStatData {
+    
+    if (gameStatData.count == 0) {
+        return;
+    }
+    
     _lineBottomLabels = nil;
     _lineGraphData = nil;
     
@@ -137,6 +156,11 @@
 }
 
 - (void) loadDataForWordsBarChart:(NSArray*) gameStatData {
+    
+    if (gameStatData.count == 0) {
+        return;
+    }
+    
     _barBottomLabels = nil;
     _barGraphData = nil;
     _barBottomLabels = [NSMutableArray array];

@@ -26,6 +26,11 @@
     #import "MBCircularProgressBarView.h"
     #import "NGSplitMenu.h"
     #import "Macro.h"
+
+    // Models
+    #import "Games.h"
+    #import "Sounds.h"
+    #import "GameStatistics.h"
 #endif
 
 #define kAchievementDays @"kAchievementDays"

@@ -46,4 +46,8 @@
     return YES;
 }
 
+- (IBAction) homeBtn_clicked {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

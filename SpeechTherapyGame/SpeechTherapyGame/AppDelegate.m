@@ -7,9 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "Games.h"
-#import "Sounds.h"
-#import "GameStatistics.h"
+
 
 @interface AppDelegate ()
 
