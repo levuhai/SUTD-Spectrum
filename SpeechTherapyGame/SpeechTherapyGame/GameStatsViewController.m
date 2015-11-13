@@ -39,7 +39,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = RGB(47,139,193);
     
-    _gameStatData = [GameStatistics MR_findAllSortedBy:@"statId" ascending:NO];
+    _gameStatData = [GameStatistics MR_findAll];
     
     if (_gameStatData.count > 0) {
         // Get played time first
@@ -121,8 +121,7 @@
     _lineGraphData = [NSMutableArray array];
     
     for (GameStatistics* gs in gameStatData) {
-        
-        [_lineGraphData addObject:@([GameStatistics getPlayedTimeFrom:(NSDictionary*)gs.statistics])];
+        [_lineGraphData addObject:gs.totalPlayedCount];
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"EEE"];
@@ -145,7 +144,7 @@
     _lineGraphData = [NSMutableArray array];
     
     for (GameStatistics* gs in gameStatData) {
-        [_lineGraphData addObject:@([GameStatistics getPointsFrom:(NSDictionary*)gs.statistics])];
+        [_lineGraphData addObject:gs.correctCount];
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"EEE"];
@@ -168,22 +167,17 @@
     
     for (GameStatistics* gs in gameStatData) {
         
-        if (![_barBottomLabels containsObject:[gs.statistics allKeys][0]]) {
-            [_barBottomLabels addObject:[gs.statistics allKeys][0]];
+        if (![_barBottomLabels containsObject:gs.letter]) {
+            [_barBottomLabels addObject:gs.letter];
         }
     }
     
-    
     for (NSString* letter in _barBottomLabels) {
-        NSInteger sum = 0;
-        NSInteger incorrect = 0;
         for (GameStatistics* gs in gameStatData) {
-            if ([[gs.statistics allKeys][0] isEqualToString:letter]) {
-                sum = sum + [[[gs.statistics valueForKey:letter] valueForKey:@"total"] integerValue];
-                incorrect = incorrect + [[[gs.statistics valueForKey:letter] valueForKey:@"incorrect"] integerValue];
+            if ([gs.letter isEqualToString:letter]) {
+                [_barGraphData addObject:@((gs.correctCount.integerValue / (float)gs.totalPlayedCount.integerValue) * 100)];
             }
         }
-        [_barGraphData addObject:@(((sum - incorrect) / (float)sum) * 100)];
     }
 }
 

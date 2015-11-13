@@ -26,6 +26,7 @@
     #import "MBCircularProgressBarView.h"
     #import "NGSplitMenu.h"
     #import "Macro.h"
+    #import "NSDate+Helper.h"
 
     // Models
     #import "Games.h"
@@ -34,5 +35,8 @@
 #endif
 
 #define kAchievementDays @"kAchievementDays"
+#define kSaveMagicalRecordContext @"kSaveMagicalRecordContext"
+#define kDataDatetimeFormat @"DD MM YYYY"
+
 
 #endif

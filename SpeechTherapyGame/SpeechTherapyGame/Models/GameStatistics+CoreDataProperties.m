@@ -2,7 +2,7 @@
 //  GameStatistics+CoreDataProperties.m
 //  SpeechTherapyGame
 //
-//  Created by Vit on 9/27/15.
+//  Created by Vit on 11/13/15.
 //  Copyright © 2015 SUTD. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -13,9 +13,10 @@
 
 @implementation GameStatistics (CoreDataProperties)
 
-@dynamic statistics;
 @dynamic dateAdded;
 @dynamic gameId;
-@dynamic statId;
+@dynamic letter;
+@dynamic totalPlayedCount;
+@dynamic correctCount;
 
 @end
