@@ -30,8 +30,13 @@
 @implementation FishingGameScene
 
 - (void)didMoveToView:(SKView *)view {
-    self.backgroundColor = RGB(66, 191, 254);
+    //self.backgroundColor = RGB(66, 191, 254);
     [self setupGameScene];
+    [self _setup];
+}
+
+- (void)_setup {
+    
 }
 
 - (void) setupGameScene {

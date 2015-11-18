@@ -30,6 +30,7 @@
     
     // Create and configure the scene.
     FishingGameScene *scene = [[FishingGameScene alloc] initWithSize:self.view.bounds.size];
+//    FishingGameScene *scene = [FishingGameScene unarchiveFromFile:@"FishingScene"];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     scene.fishingGameVC = self;
     // Present the scene.

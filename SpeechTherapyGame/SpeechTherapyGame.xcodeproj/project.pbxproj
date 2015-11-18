@@ -43,6 +43,7 @@
 		2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */; };
 		2DF6B7611B94A14800B7F92C /* SpeechTherapyGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7601B94A14800B7F92C /* SpeechTherapyGameTests.m */; };
 		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; };
+		D770E31C1BF445D9001407AC /* FishingScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D770E31B1BF445D9001407AC /* FishingScene.sks */; settings = {ASSET_TAGS = (); }; };
 		DB79796202A56F77A186A2EC /* libPods-SpeechTherapyGame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C4C953EE4CDC88969B0569 /* libPods-SpeechTherapyGame.a */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +133,7 @@
 		B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.release.xcconfig"; sourceTree = "<group>"; };
 		D716291D1BE76FFE00C56C77 /* ParentMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentMasterController.h; sourceTree = "<group>"; };
 		D716291E1BE76FFE00C56C77 /* ParentMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentMasterController.m; sourceTree = "<group>"; };
+		D770E31B1BF445D9001407AC /* FishingScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FishingScene.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -356,6 +358,7 @@
 				2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */,
 				2DF67F801BD4A1A900EB7390 /* FishingGameScene.h */,
 				2DF67F811BD4A1A900EB7390 /* FishingGameScene.m */,
+				D770E31B1BF445D9001407AC /* FishingScene.sks */,
 			);
 			name = FishingGame;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D770E31C1BF445D9001407AC /* FishingScene.sks in Resources */,
 				2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */,
 				2DF6B7521B94A14800B7F92C /* Images.xcassets in Resources */,
 				2DF6B74A1B94A14800B7F92C /* HomeScene.sks in Resources */,
