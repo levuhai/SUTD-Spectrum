@@ -39,7 +39,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = RGB(47,139,193);
     
-    _gameStatData = [GameStatistics MR_findAll];
+    _gameStatData = [GameStatistics MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"dateAdded == %@", [[NSDate date] beginningOfDay]]];
     
     if (_gameStatData.count > 0) {
         // Get played time first
@@ -213,23 +213,28 @@
 - (void) enableButton:(UIButton*) button {
     button.backgroundColor = RGB(47,139,193);
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    button.selected = YES;
 }
 
 - (void) disableButton:(UIButton*) button {
     button.backgroundColor = [UIColor whiteColor];
     [button setTitleColor:RGB(47,139,193) forState:UIControlStateNormal];
+    button.selected = NO;
 }
 
 
 #pragma mark - Action methods
 - (IBAction) timeRange_pressed:(id)sender {
-    NSArray *rangeData = [NSArray arrayWithObjects:@"Last 7 days", @"Last 2 weeks", @"Last month", @"All time", nil];
+    __block NSArray *rangeData = [NSArray arrayWithObjects:@"Today",@"Yesterday",@"Last 7 days", @"Last 2 weeks",@"Last 30 days", @"Last month", @"All time", nil];
     
     [ActionSheetStringPicker showPickerWithTitle:@"Date ranges"
                                             rows:rangeData
                                 initialSelection:0
                                        doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
                                            [(UIButton*)sender setTitle:selectedValue forState:UIControlStateNormal];
+                                           
+                                           [self fetchDataByDateRange:selectedIndex];
+                                           
                                        }
                                      cancelBlock:^(ActionSheetStringPicker *picker) {
                                          
@@ -237,6 +242,82 @@
                                           origin:sender];
 }
 
+- (void) fetchDataByDateRange:(NSInteger) index {
+    NSPredicate *predicate = nil;
+    switch (index) {
+        case 0: // Today
+            predicate = [NSPredicate predicateWithFormat:@"dateAdded == %@", [[NSDate date] beginningOfDay]];
+            break;
+        case 1: // Yesterday
+            predicate = [NSPredicate predicateWithFormat:@"dateAdded == %@", [self getDateByDaysInterval:-1 andCurrentDate:[[NSDate date] beginningOfDay]]];
+            break;
+        case 2: // Last 7 days
+            predicate = [NSPredicate predicateWithFormat:@"(dateAdded >= %@) AND (dateAdded <= %@)", [self getDateByDaysInterval:-7 andCurrentDate:[[NSDate date] beginningOfDay]], [self getDateByDaysInterval:-1 andCurrentDate:[[NSDate date] beginningOfDay]]];
+            break;
+        case 3: // Last 2 weeks
+            predicate = [NSPredicate predicateWithFormat:@"(dateAdded >= %@) AND (dateAdded <= %@)", [self getDateByDaysInterval:-14 andCurrentDate:[[NSDate date] beginningOfDay]], [self getDateByDaysInterval:-1 andCurrentDate:[[NSDate date] beginningOfDay]]];
+            break;
+        case 4: // Last 30 days
+            predicate = [NSPredicate predicateWithFormat:@"(dateAdded >= %@) AND (dateAdded <= %@)", [self getDateByDaysInterval:-30 andCurrentDate:[[NSDate date] beginningOfDay]], [self getDateByDaysInterval:-1 andCurrentDate:[[NSDate date] beginningOfDay]]];
+            break;
+        case 5: // Last month
+            predicate = [NSPredicate predicateWithFormat:@"(dateAdded >= %@) AND (dateAdded <= %@)", [self getFirstDayOfPreviousMonth], [self getLastDayOfPreviousMonth]];
+            break;
+        case 6: // All time
+            break;
+        default:
+            break;
+    }
+    
+    if (predicate) {
+        _gameStatData = [GameStatistics MR_findAllWithPredicate:predicate];
+    } else {
+        _gameStatData = [GameStatistics MR_findAll];
+    }
+    
+    // Reload data
+    if (_playedTimeButton.selected)
+        [self loadDataForPlayedTimeLineChart:_gameStatData];
+    else
+        [self loadDataForPointsLineChart:_gameStatData];
+    [self loadDataForWordsBarChart:_gameStatData];
+    
+    // setup chart
+    [self drawLineChart];
+    [self drawBarChart];
+}
 
+- (NSDate*) getFirstDayOfPreviousMonth{
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:(NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:[NSDate date]];
+    
+    [components setDay:1];
+    [components setMonth:components.month-1];
+    
+    NSDate *targetedDate = [cal dateFromComponents:components];
+    
+    return targetedDate;
+}
+
+- (NSDate*) getLastDayOfPreviousMonth{
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:(NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:[NSDate date]];
+    
+    [components setDay:0];
+    
+    NSDate *targetedDate = [cal dateFromComponents:components];
+    
+    return targetedDate;
+}
+
+- (NSDate*) getDateByDaysInterval:(int) days andCurrentDate:(NSDate*) aDate {
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:(NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:aDate];
+    
+    [components setDay:days];
+    NSDate *targetedDate = [cal dateByAddingComponents:components toDate: aDate options:0];
+    
+    return targetedDate;
+}
 
 @end

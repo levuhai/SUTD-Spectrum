@@ -58,6 +58,7 @@
 - (NSString *)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle;
 - (NSDate *)beginningOfWeek;
 - (NSDate *)beginningOfDay;
+- (NSDate *)endingOfDay;
 - (NSDate *)endOfWeek;
 + (NSString *)dateFormatString;
 + (NSString *)timeFormatString;
