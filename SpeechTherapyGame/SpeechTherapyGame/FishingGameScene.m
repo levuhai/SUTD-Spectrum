@@ -187,7 +187,7 @@
     // Move up and down
     [flyingWhale runAction:[SKAction sequence:@[[SKAction moveByX:(_potView.position.x - _whale.position.x)/2 y:200 duration:0.5],[SKAction moveByX:(_potView.position.x - _whale.position.x)/2 y:-200 duration:0.5]]] completion:^{
         // Get point!
-        
+        [self getPoint];
     }];
     // Move to the pot
     // Scale down
@@ -215,6 +215,42 @@
     letter.fontColor = [UIColor whiteColor];
     letter.position = CGPointMake(-_whale.size.width/2 + 30, _whale.size.height/2 - 60);
     [_whale addChild:letter];
+}
+#pragma mark - Points
+
+- (void) getPoint {
+    [self resultTrackingWithLetter:@"t" isCorrect:YES];
+}
+
+- (void) resultTrackingWithLetter:(NSString*) letter isCorrect:(BOOL) correct {
+    
+    NSDate* today = [[NSDate date] beginningOfDay];
+    GameStatistics* stat = [GameStatistics getGameStatFromLetter:letter andDate:today];
+    
+    if (stat == nil) {
+        stat = [GameStatistics MR_createEntityInContext:[NSManagedObjectContext MR_defaultContext]];
+        stat.gameId  = @(1);
+        stat.letter = letter;
+        stat.totalPlayedCount = @(1);
+        stat.correctCount = correct ? @(1) : @(0);;
+        stat.dateAdded = today;
+    } else {
+        
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+            //GameStatistics *localStat = [stat MR_inContext:localContext];
+            stat.gameId  = @(1);
+            stat.letter = letter;
+            stat.totalPlayedCount = @(stat.totalPlayedCount.integerValue + 1);
+            if (correct) {
+                stat.correctCount = @(stat.correctCount.integerValue + 1);
+            }
+            stat.dateAdded = today;
+
+            
+        } completion:^(BOOL contextDidSave, NSError *error) {
+            NSLog(@"Error: %@",error);
+        }];
+    }
 }
 
 #pragma mark - Update

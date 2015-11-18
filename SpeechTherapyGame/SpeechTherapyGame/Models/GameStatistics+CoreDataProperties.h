@@ -2,7 +2,7 @@
 //  GameStatistics+CoreDataProperties.h
 //  SpeechTherapyGame
 //
-//  Created by Vit on 9/27/15.
+//  Created by Vit on 11/13/15.
 //  Copyright © 2015 SUTD. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -15,10 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GameStatistics (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) id statistics;
 @property (nullable, nonatomic, retain) NSDate *dateAdded;
 @property (nullable, nonatomic, retain) NSNumber *gameId;
-@property (nullable, nonatomic, retain) NSNumber *statId;
+@property (nullable, nonatomic, retain) NSString *letter;
+@property (nullable, nonatomic, retain) NSNumber *totalPlayedCount;
+@property (nullable, nonatomic, retain) NSNumber *correctCount;
 
 @end
 

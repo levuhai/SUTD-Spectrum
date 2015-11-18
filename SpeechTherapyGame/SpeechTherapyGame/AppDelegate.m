@@ -7,9 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "Games.h"
-#import "Sounds.h"
-#import "GameStatistics.h"
+
 
 @interface AppDelegate ()
 
@@ -20,9 +18,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [MagicalRecord cleanUp];
+    //[MagicalRecord cleanUp];
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"DataModel"];
-    [Games MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"gameId != 0"]];
+    //[Games MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"letter != 0"]];
     
     /*
 #warning Demo data
@@ -42,22 +40,36 @@
     
     for (int i = 0; i < 7; i++) {
         GameStatistics* gameStat = [GameStatistics MR_createEntity];
-        gameStat.statId  = @(i+1);
         gameStat.gameId  = @(1);
-        NSInteger playedTime = arc4random_uniform(50);
-        gameStat.statistics = [GameStatistics makeStatisticsFrom:sounds[arc4random_uniform((int)sounds.count)] totalPlayedTime:@(playedTime) incorrectTimes:@(arc4random_uniform(playedTime))];
+        NSInteger playedTime = arc4random_uniform(99);
+        gameStat.letter = @"a";
+        gameStat.totalPlayedCount = @(100);
+        gameStat.correctCount = @(100 - playedTime);
         
         NSDate *now = [NSDate date];
         NSDate *newDate1 = [now dateByAddingTimeInterval:60*60*24*i];
-        gameStat.dateAdded = newDate1;
+        gameStat.dateAdded = [newDate1 beginningOfDay];
     }
-     */
+    */
     
     // Got star
     [[NSUserDefaults standardUserDefaults] setObject:@[[NSDate date]] forKey:kAchievementDays];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveContext) name:kSaveMagicalRecordContext object:nil];
+    
     return YES;
+}
+
+- (void)saveContext {
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+        if (success) {
+            NSLog(@"You successfully saved your context.");
+        } else if (error) {
+            NSLog(@"Error saving context: %@", error.description);
+        }
+    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
