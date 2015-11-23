@@ -37,11 +37,13 @@
 - (void) setupGameScene {
     //Static objects
     // Water
-    SKSpriteNode* waterView = [[SKSpriteNode alloc] initWithColor:RGB(16, 100, 171) size:CGSizeMake(self.size.width, WaterViewHeigh)];
+    SKSpriteNode* waterView = [[SKSpriteNode alloc] initWithColor:RGB(58, 166, 221) size:CGSizeMake(self.size.width, WaterViewHeigh - 20)];
     waterView.anchorPoint = CGPointZero;
     waterView.position = CGPointZero;
     waterView.zPosition = -1;
     [self addChild:waterView];
+    
+    [self addParticalsAnimations];
 
     // Land
     SKSpriteNode* landView = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"land-sand"]];
@@ -112,6 +114,53 @@
     _whale.position = CGPointMake(5, WaterViewHeigh);
     [self addChild:_whale];
     [_whale runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction moveByX:0 y:-10 duration:0.5], [SKAction moveByX:0 y:10 duration:0.5]]]]];
+    
+}
+
+- (void) addParticalsAnimations {
+    SKSpriteNode *waves = [SKSpriteNode spriteNodeWithImageNamed:@"waves"];
+    waves.size = CGSizeMake(self.frame.size.width + 100, waves.size.height);
+    waves.position = CGPointMake(0, WaterViewHeigh - waves.size.height + 10);
+    waves.anchorPoint = CGPointZero;
+    [self addChild:waves];
+    
+    CGFloat waveYDelta = 5;
+    CGFloat waveXDelta = 100;
+    CGFloat waveXMovementPeriod = 10;
+    SKAction *wavesMoveUpAction = [SKAction moveByX:0 y:-waveYDelta duration:waveXMovementPeriod/2];
+    SKAction *wavesMoveDownAction = [SKAction moveByX:0 y:waveYDelta duration:waveXMovementPeriod/2];
+    SKAction *wavesUpDownAction = [SKAction sequence:@[wavesMoveUpAction, wavesMoveDownAction]];
+    SKAction *wavesMoveRightAction = [SKAction moveByX:waveXDelta y:0 duration:waveXMovementPeriod];
+    SKAction *wavesMoveLeftAction = [SKAction moveByX:-waveXDelta y:0 duration:waveXMovementPeriod];
+    SKAction *wavesGroupRightAction = [SKAction group:@[wavesUpDownAction, wavesMoveRightAction]];
+    SKAction *wavesGroupLeftAction = [SKAction group:@[wavesUpDownAction, wavesMoveLeftAction]];
+    SKAction *wavesAction = [SKAction repeatActionForever:[SKAction sequence:@[wavesGroupLeftAction, wavesGroupRightAction]]];
+    [waves runAction:wavesAction];
+    
+    CGPoint bubblesPosition = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMinY(self.frame));
+    [self addEmitterWithFileNamed:@"Bubbles" atPosition:bubblesPosition];
+    
+    CGFloat fishesXDelta = 50;
+    CGPoint fishLeftPosition = CGPointMake(-fishesXDelta, CGRectGetMinY(self.frame));
+    [self addEmitterWithFileNamed:@"FishLeft" atPosition:fishLeftPosition];
+    CGPoint fishRightPosition = CGPointMake(CGRectGetMaxX(self.frame) + fishesXDelta, CGRectGetMinY(self.frame));
+    [self addEmitterWithFileNamed:@"FishRight" atPosition:fishRightPosition];
+    
+    CGPoint sharkLeftPosition = CGPointMake(-fishesXDelta, CGRectGetMinY(self.frame));
+    [self addEmitterWithFileNamed:@"SharkLeft" atPosition:sharkLeftPosition];
+    CGPoint sharkRightPosition = CGPointMake(CGRectGetMaxX(self.frame) + fishesXDelta, CGRectGetMinY(self.frame));
+    [self addEmitterWithFileNamed:@"SharkRight" atPosition:sharkRightPosition];
+    
+    CGPoint whaleLeftPosition = CGPointMake(-fishesXDelta, CGRectGetMinY(self.frame));
+    [self addEmitterWithFileNamed:@"WhaleLeft" atPosition:whaleLeftPosition];
+    CGPoint whaleRightPosition = CGPointMake(CGRectGetMaxX(self.frame) + fishesXDelta, CGRectGetMinY(self.frame));
+    [self addEmitterWithFileNamed:@"WhaleRight" atPosition:whaleRightPosition];
+}
+
+- (void)addEmitterWithFileNamed:(NSString *)fileName atPosition:(CGPoint)position {
+    SKEmitterNode *emitter = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:fileName ofType:@"sks"]];
+    emitter.position = position;
+    [self addChild:emitter];
     
 }
 
