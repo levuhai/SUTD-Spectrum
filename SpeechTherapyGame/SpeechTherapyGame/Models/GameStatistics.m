@@ -11,8 +11,8 @@
 @implementation GameStatistics
 
 // Insert code here to add functionality to your managed object subclass
-+ (GameStatistics*) getGameStatFromLetter:(NSString*) letter andDate:(NSDate*) date {
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"letter == %@ AND dateAdded == %@",letter,date];
++ (GameStatistics*) getGameStatFromLetter:(NSString*) letter between:(NSArray*) dates {
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"(letter == %@) AND (dateAdded >= %@) AND (dateAdded <= %@)",letter,dates[0],dates[1]];
     GameStatistics* stats = [GameStatistics MR_findFirstWithPredicate:predicate];
     return stats;
 }

@@ -58,7 +58,6 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveContext) name:kSaveMagicalRecordContext object:nil];
-    
     return YES;
 }
 

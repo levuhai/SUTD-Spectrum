@@ -293,11 +293,14 @@ static NSDateFormatter *_displayFormatter = nil;
 }
 
 - (NSDate *)beginningOfDay {
-    NSCalendar *calendar = [[self class] sharedCalendar];
-    // Get the weekday component of the current date
-	NSDateComponents *components = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay)
-											   fromDate:self];
-	return [calendar dateFromComponents:components];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:self];
+    
+    [components setHour:-[components hour]];
+    [components setMinute:-[components minute]];
+    [components setSecond:-[components second]];
+    NSDate *today = [cal dateByAddingComponents:components toDate:self options:0];
+    return today;
 }
 
 - (NSDate *)endingOfDay {
@@ -340,6 +343,29 @@ static NSDateFormatter *_displayFormatter = nil;
 // preserving for compatibility
 + (NSString *)dbFormatString {
 	return [NSDate timestampFormatString];
+}
+
++ (NSDate*) beginningOfToday {
+        NSCalendar *cal = [NSCalendar currentCalendar];
+        NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:[[NSDate alloc] init]];
+        
+        [components setHour:-[components hour]];
+        [components setMinute:-[components minute]];
+        [components setSecond:-[components second]];
+        NSDate *today = [cal dateByAddingComponents:components toDate:[[NSDate alloc] init] options:0];
+        return today;
+}
+
++ (NSDate*) endOfToday {
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:[[NSDate alloc] init]];
+    [components setDay:1];
+    [components setHour:-[components hour]];
+    [components setMinute:-[components minute]];
+    [components setSecond:-[components second]-1];
+    
+    NSDate *today = [cal dateByAddingComponents:components toDate:[[NSDate alloc] init] options:0];
+    return today;
 }
 
 @end

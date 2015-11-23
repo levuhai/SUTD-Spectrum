@@ -219,16 +219,17 @@
 
 - (void) resultTrackingWithLetter:(NSString*) letter isCorrect:(BOOL) correct {
     
-    NSDate* today = [[NSDate date] beginningOfDay];
-    GameStatistics* stat = [GameStatistics getGameStatFromLetter:letter andDate:today];
+    
+    NSArray* dates = @[[NSDate beginningOfToday],[NSDate endOfToday]];
+    GameStatistics* stat = [GameStatistics getGameStatFromLetter:letter between:dates];
     
     if (stat == nil) {
         stat = [GameStatistics MR_createEntityInContext:[NSManagedObjectContext MR_defaultContext]];
         stat.gameId  = @(1);
         stat.letter = letter;
         stat.totalPlayedCount = @(1);
-        stat.correctCount = correct ? @(1) : @(0);;
-        stat.dateAdded = today;
+        stat.correctCount = correct ? @(1) : @(0);
+        stat.dateAdded = [NSDate date];
     } else {
         
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
@@ -239,7 +240,7 @@
             if (correct) {
                 stat.correctCount = @(stat.correctCount.integerValue + 1);
             }
-            stat.dateAdded = today;
+            stat.dateAdded = [NSDate date];
 
             
         } completion:^(BOOL contextDidSave, NSError *error) {
