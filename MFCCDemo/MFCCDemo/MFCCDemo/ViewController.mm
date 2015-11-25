@@ -60,6 +60,9 @@ const float kDefaultTrimEndThreshold = -100.0f;
     MFCC1Controller* _trim1VC;
     MatrixController* _matrixVC;
     MatrixController* _matrix2VC;
+    
+    float _startTrimPercentage;
+    float _endTrimPercentage;
 }
 
 @property (nonatomic, weak) IBOutlet MatrixOuput *matrixView;
@@ -148,7 +151,9 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 #pragma mark - Actions
 
 - (IBAction)compareTouched:(id)sender {
+    
     [self _compareFileA:[self test1FilePath] fileB:_currentAudioPath];//[self testFilePath]
+    [self playClicked:self.playrecord];
 }
 
 - (IBAction)changeSoundTouched:(UIButton*)sender {
@@ -204,6 +209,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 }
 
 - (IBAction)playClicked:(id)sender {
+    
     UIButton* button = (UIButton*)sender;
     if ( _player ) {
         [_audioController removeChannels:@[_player]];
@@ -225,6 +231,8 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
             return;
         }
         
+        
+        
         _player.removeUponFinish = YES;
         __weak ViewController *weakSelf = self;
         _player.completionBlock = ^{
@@ -232,9 +240,22 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
             weakSelf.player = nil;
         };
         [_audioController addChannels:@[_player]];
+        if (button.tag == 3) {
+            NSLog(@"%f",self.player.duration*_startTrimPercentage);
+            self.player.currentTime = self.player.duration*_startTrimPercentage;
+            [self performSelector:@selector(_stop)
+                       withObject:nil
+                       afterDelay:self.player.duration*(_endTrimPercentage-_startTrimPercentage)];
+        }
+        
         
         button.selected = YES;
     }
+}
+- (void)_stop {
+    [_audioController removeChannels:@[_player]];
+    self.player = nil;
+    self.playrecord.selected = NO;
 }
 
 #pragma mark - Private
@@ -713,6 +734,8 @@ static inline float _translate(float val, float min, float max) {
         bestFitLine[i][y] = 1;
     }
 
+    _startTrimPercentage = maxWindowStart/(float)sizeA;
+    _endTrimPercentage  = maxWindowEnd/(float)sizeA;
     // Page 1
     [_trimVC.graph1 inputMFCC:featureA start:(int)maxWindowStart end:(int)maxWindowEnd];
     [_trimVC.graph2 inputMFCC:featureB start:0 end:0];

@@ -63,7 +63,7 @@
             [aPath stroke];
         }
         
-        if (_start != 0 && _end != 0) {
+        if (_start != 0 || _end != 0) {
             CGRect start = CGRectMake(0.0f, 0.0f, _start, self.bounds.size.height);
             [[UIColor colorWithWhite:0.2f alpha:0.2f] setFill];
             UIRectFillUsingBlendMode(start, kCGBlendModeNormal);
