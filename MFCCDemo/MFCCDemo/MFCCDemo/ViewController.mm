@@ -680,8 +680,12 @@ static inline float _translate(float val, float min, float max) {
     fitQuality.resize(featureB.size());
     float timeTolerance = 10;
     
+    
     float fitLocation, toleranceWindowExcessLeft, toleranceWindowExcessRight, toleranceWindowStart, toleranceWindowEnd, maxGraph = 0.0f;
     for (int j = 0; j < featureB.size(); j++) {
+        if (slope<0) {
+            fitQuality[j] = 0.0f;
+        } else {
 //        % find the location of the best fit line in the output matrix
 //        fitLocation = round(fitresult(j));
         fitLocation = roundf(linearFun(j, slope, intercept));
@@ -713,7 +717,9 @@ static inline float _translate(float val, float min, float max) {
         if (max > maxGraph) {
             maxGraph = max;
         }
+        
         fitQuality[j-1] = max;
+        }
     }
     
     
