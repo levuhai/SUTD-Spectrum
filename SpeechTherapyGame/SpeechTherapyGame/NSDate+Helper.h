@@ -64,5 +64,6 @@
 + (NSString *)timeFormatString;
 + (NSString *)timestampFormatString;
 + (NSString *)dbFormatString;
-
++ (NSDate*) beginningOfToday;
++ (NSDate*) endOfToday;
 @end

@@ -39,12 +39,12 @@
     [super viewDidLoad];
     self.view.backgroundColor = RGB(47,139,193);
     
-    _gameStatData = [GameStatistics MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"dateAdded == %@", [[NSDate date] beginningOfDay]]];
+    _gameStatData = [GameStatistics MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"dateAdded >= %@ AND dateAdded <= %@", [NSDate beginningOfToday],[NSDate endOfToday]]];
+    [self enableButton:_playedTimeButton];
+    [self disableButton:_pointButton];
+    
     
     if (_gameStatData.count > 0) {
-        // Get played time first
-        [self enableButton:_playedTimeButton];
-        [self disableButton:_pointButton];
         // First line data
         [self loadDataForPlayedTimeLineChart:_gameStatData];
         // Bar data
@@ -113,6 +113,8 @@
     if (gameStatData.count == 0) {
         return;
     }
+    _chartNoDataLabel.hidden = YES;
+    _barNoDataLabel.hidden = YES;
     
     _lineBottomLabels = nil;
     _lineGraphData = nil;
@@ -124,7 +126,7 @@
         [_lineGraphData addObject:gs.totalPlayedCount];
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"EEE"];
+        [dateFormatter setDateFormat:@"EEE dd MMM"];
         NSString *dateString = [dateFormatter stringFromDate:gs.dateAdded];
         
         [_lineBottomLabels addObject:dateString];
@@ -136,6 +138,8 @@
     if (gameStatData.count == 0) {
         return;
     }
+    _chartNoDataLabel.hidden = YES;
+    _barNoDataLabel.hidden = YES;
     
     _lineBottomLabels = nil;
     _lineGraphData = nil;
@@ -147,7 +151,7 @@
         [_lineGraphData addObject:gs.correctCount];
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"EEE"];
+        [dateFormatter setDateFormat:@"EEE dd MMM"];
         NSString *dateString = [dateFormatter stringFromDate:gs.dateAdded];
         
         [_lineBottomLabels addObject:dateString];
@@ -159,6 +163,8 @@
     if (gameStatData.count == 0) {
         return;
     }
+    _chartNoDataLabel.hidden = YES;
+    _barNoDataLabel.hidden = YES;
     
     _barBottomLabels = nil;
     _barGraphData = nil;
@@ -213,19 +219,21 @@
 - (void) enableButton:(UIButton*) button {
     button.backgroundColor = RGB(47,139,193);
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setTintColor:[UIColor clearColor]];
     button.selected = YES;
 }
 
 - (void) disableButton:(UIButton*) button {
     button.backgroundColor = [UIColor whiteColor];
     [button setTitleColor:RGB(47,139,193) forState:UIControlStateNormal];
+    [button setTintColor:[UIColor clearColor]];
     button.selected = NO;
 }
 
 
 #pragma mark - Action methods
 - (IBAction) timeRange_pressed:(id)sender {
-    __block NSArray *rangeData = [NSArray arrayWithObjects:@"Today",@"Yesterday",@"Last 7 days", @"Last 2 weeks",@"Last 30 days", @"Last month", @"All time", nil];
+    __block NSArray *rangeData = [NSArray arrayWithObjects:@"Today",@"Yesterday",@"Last 7 days", @"Last 2 weeks",@"This month", @"Last month", @"All time", nil];
     
     [ActionSheetStringPicker showPickerWithTitle:@"Date ranges"
                                             rows:rangeData
@@ -243,25 +251,61 @@
 }
 
 - (void) fetchDataByDateRange:(NSInteger) index {
+    
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:[[NSDate alloc] init]];
+    
+    [components setHour:-[components hour]];
+    [components setMinute:-[components minute]];
+    [components setSecond:-[components second]];
+    NSDate *today = [cal dateByAddingComponents:components toDate:[[NSDate alloc] init] options:0]; //This variable should now be pointing at a date object that is the start of today (midnight);
+    
+    [components setHour:-24];
+    [components setMinute:0];
+    [components setSecond:0];
+    NSDate *yesterday = [cal dateByAddingComponents:components toDate: today options:0];
+    
+    components = [cal components:NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[[NSDate alloc] init]];
+    
+    [components setDay:([components day] - ([components weekday] - 1))];
+    NSDate *thisWeek  = [cal dateFromComponents:components];
+    
+    [components setDay:([components day] - 7)];
+    NSDate *lastWeek  = [cal dateFromComponents:components];
+    
+    [components setDay:([components day] - ([components day] -1))];
+    NSDate *thisMonth = [cal dateFromComponents:components];
+    
+    [components setMonth:([components month] - 1)];
+    NSDate *lastMonth = [cal dateFromComponents:components];
+    
+    NSLog(@"today=%@",today);
+    NSLog(@"yesterday=%@",yesterday);
+    NSLog(@"thisWeek=%@",thisWeek);
+    NSLog(@"lastWeek=%@",lastWeek);
+    NSLog(@"thisMonth=%@",thisMonth);
+    NSLog(@"lastMonth=%@",lastMonth);
+    
+    
     NSPredicate *predicate = nil;
     switch (index) {
         case 0: // Today
-            predicate = [NSPredicate predicateWithFormat:@"dateAdded == %@", [[NSDate date] beginningOfDay]];
+            predicate = [NSPredicate predicateWithFormat:@"dateAdded >= %@ AND dateAdded <= %@", [NSDate beginningOfToday],[NSDate endOfToday]];
             break;
         case 1: // Yesterday
-            predicate = [NSPredicate predicateWithFormat:@"dateAdded == %@", [self getDateByDaysInterval:-1 andCurrentDate:[[NSDate date] beginningOfDay]]];
+            predicate = [NSPredicate predicateWithFormat:@"dateAdded >= %@ AND dateAdded <= %@", yesterday,[NSDate beginningOfToday]];
             break;
         case 2: // Last 7 days
-            predicate = [NSPredicate predicateWithFormat:@"(dateAdded >= %@) AND (dateAdded <= %@)", [self getDateByDaysInterval:-7 andCurrentDate:[[NSDate date] beginningOfDay]], [self getDateByDaysInterval:-1 andCurrentDate:[[NSDate date] beginningOfDay]]];
+            predicate = [NSPredicate predicateWithFormat:@"(dateAdded >= %@) AND (dateAdded <= %@)", thisWeek, [NSDate beginningOfToday]];
             break;
         case 3: // Last 2 weeks
-            predicate = [NSPredicate predicateWithFormat:@"(dateAdded >= %@) AND (dateAdded <= %@)", [self getDateByDaysInterval:-14 andCurrentDate:[[NSDate date] beginningOfDay]], [self getDateByDaysInterval:-1 andCurrentDate:[[NSDate date] beginningOfDay]]];
+            predicate = [NSPredicate predicateWithFormat:@"(dateAdded >= %@) AND (dateAdded <= %@)", lastWeek, [NSDate beginningOfToday]];
             break;
-        case 4: // Last 30 days
-            predicate = [NSPredicate predicateWithFormat:@"(dateAdded >= %@) AND (dateAdded <= %@)", [self getDateByDaysInterval:-30 andCurrentDate:[[NSDate date] beginningOfDay]], [self getDateByDaysInterval:-1 andCurrentDate:[[NSDate date] beginningOfDay]]];
+        case 4: // This month
+            predicate = [NSPredicate predicateWithFormat:@"dateAdded >= %@",thisMonth];
             break;
         case 5: // Last month
-            predicate = [NSPredicate predicateWithFormat:@"(dateAdded >= %@) AND (dateAdded <= %@)", [self getFirstDayOfPreviousMonth], [self getLastDayOfPreviousMonth]];
+            predicate = [NSPredicate predicateWithFormat:@"(dateAdded >= %@) AND (dateAdded <= %@)", lastMonth, thisMonth];
             break;
         case 6: // All time
             break;
@@ -275,6 +319,12 @@
         _gameStatData = [GameStatistics MR_findAll];
     }
     
+    for (GameStatistics* gs in _gameStatData) {
+        NSLog(@"- %@",gs);
+    }
+    
+    //_gameStatData = [GameStatistics MR_findAll];
+    
     // Reload data
     if (_playedTimeButton.selected)
         [self loadDataForPlayedTimeLineChart:_gameStatData];
@@ -283,41 +333,33 @@
     [self loadDataForWordsBarChart:_gameStatData];
     
     // setup chart
-    [self drawLineChart];
-    [self drawBarChart];
+    if (_gameStatData.count > 0) {
+        _lineChart.hidden = NO;
+        _barChart.hidden = NO;
+        [self drawLineChart];
+        [self drawBarChart];
+    } else {
+        _lineChart.hidden = YES;
+        _barChart.hidden = YES;
+        _chartNoDataLabel.hidden = NO;
+        _barNoDataLabel.hidden = NO;
+    }
 }
 
-- (NSDate*) getFirstDayOfPreviousMonth{
+- (NSDate*) getYesterday{
     NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:(NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:[NSDate date]];
+    NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:[[NSDate alloc] init]];
     
-    [components setDay:1];
-    [components setMonth:components.month-1];
+    [components setHour:-[components hour]];
+    [components setMinute:-[components minute]];
+    [components setSecond:-[components second]];
+    NSDate *today = [cal dateByAddingComponents:components toDate:[[NSDate alloc] init] options:0]; //This variable should now be pointing at a date object that is the start of today (midnight);
     
-    NSDate *targetedDate = [cal dateFromComponents:components];
-    
-    return targetedDate;
-}
-
-- (NSDate*) getLastDayOfPreviousMonth{
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:(NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:[NSDate date]];
-    
-    [components setDay:0];
-    
-    NSDate *targetedDate = [cal dateFromComponents:components];
-    
-    return targetedDate;
-}
-
-- (NSDate*) getDateByDaysInterval:(int) days andCurrentDate:(NSDate*) aDate {
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:(NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:aDate];
-    
-    [components setDay:days];
-    NSDate *targetedDate = [cal dateByAddingComponents:components toDate: aDate options:0];
-    
-    return targetedDate;
+    [components setHour:-24];
+    [components setMinute:0];
+    [components setSecond:0];
+    NSDate *yesterday = [cal dateByAddingComponents:components toDate: today options:0];
+    return yesterday;
 }
 
 @end

@@ -12,6 +12,16 @@
 		2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04441BB06A3500FA14CC /* NGSplitMenuController.m */; };
 		2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1A04471BB06A3E00FA14CC /* MenuTableCell.m */; };
 		2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2875431B977F310068818D /* SKScene+Unarchive.m */; };
+		2D45C7031C03708E009FCFB8 /* Bubbles.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2D45C6FC1C03708E009FCFB8 /* Bubbles.sks */; };
+		2D45C7041C03708E009FCFB8 /* SharkRight.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2D45C6FD1C03708E009FCFB8 /* SharkRight.sks */; };
+		2D45C7051C03708E009FCFB8 /* SharkLeft.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2D45C6FE1C03708E009FCFB8 /* SharkLeft.sks */; };
+		2D45C7061C03708E009FCFB8 /* WhaleLeft.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2D45C6FF1C03708E009FCFB8 /* WhaleLeft.sks */; };
+		2D45C7071C03708E009FCFB8 /* WhaleRight.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2D45C7001C03708E009FCFB8 /* WhaleRight.sks */; };
+		2D45C7081C03708E009FCFB8 /* FishLeft.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2D45C7011C03708E009FCFB8 /* FishLeft.sks */; };
+		2D45C7091C03708E009FCFB8 /* FishRight.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2D45C7021C03708E009FCFB8 /* FishRight.sks */; };
+		2D45C70D1C03760C009FCFB8 /* small_fish.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2D45C70A1C03760C009FCFB8 /* small_fish.atlas */; };
+		2D45C70E1C03760C009FCFB8 /* shark.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2D45C70B1C03760C009FCFB8 /* shark.atlas */; };
+		2D45C70F1C03760C009FCFB8 /* whale.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2D45C70C1C03760C009FCFB8 /* whale.atlas */; };
 		2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064721BA99E6B00410B0E /* CoreDataManager.m */; };
 		2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */; };
 		2D75DD2A1BD57E9300112F4E /* ParentSecurityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D75DD291BD57E9300112F4E /* ParentSecurityController.m */; };
@@ -44,7 +54,6 @@
 		2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */; };
 		2DF6B7611B94A14800B7F92C /* SpeechTherapyGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7601B94A14800B7F92C /* SpeechTherapyGameTests.m */; };
 		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; };
-		D770E31C1BF445D9001407AC /* FishingScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D770E31B1BF445D9001407AC /* FishingScene.sks */; settings = {ASSET_TAGS = (); }; };
 		DB79796202A56F77A186A2EC /* libPods-SpeechTherapyGame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C4C953EE4CDC88969B0569 /* libPods-SpeechTherapyGame.a */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +80,16 @@
 		2D1A04471BB06A3E00FA14CC /* MenuTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableCell.m; sourceTree = "<group>"; };
 		2D2875421B977F310068818D /* SKScene+Unarchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKScene+Unarchive.h"; sourceTree = "<group>"; };
 		2D2875431B977F310068818D /* SKScene+Unarchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKScene+Unarchive.m"; sourceTree = "<group>"; };
+		2D45C6FC1C03708E009FCFB8 /* Bubbles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bubbles.sks; sourceTree = "<group>"; };
+		2D45C6FD1C03708E009FCFB8 /* SharkRight.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SharkRight.sks; sourceTree = "<group>"; };
+		2D45C6FE1C03708E009FCFB8 /* SharkLeft.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SharkLeft.sks; sourceTree = "<group>"; };
+		2D45C6FF1C03708E009FCFB8 /* WhaleLeft.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = WhaleLeft.sks; sourceTree = "<group>"; };
+		2D45C7001C03708E009FCFB8 /* WhaleRight.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = WhaleRight.sks; sourceTree = "<group>"; };
+		2D45C7011C03708E009FCFB8 /* FishLeft.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FishLeft.sks; sourceTree = "<group>"; };
+		2D45C7021C03708E009FCFB8 /* FishRight.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FishRight.sks; sourceTree = "<group>"; };
+		2D45C70A1C03760C009FCFB8 /* small_fish.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = small_fish.atlas; sourceTree = "<group>"; };
+		2D45C70B1C03760C009FCFB8 /* shark.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = shark.atlas; sourceTree = "<group>"; };
+		2D45C70C1C03760C009FCFB8 /* whale.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = whale.atlas; sourceTree = "<group>"; };
 		2D6064711BA99E6B00410B0E /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		2D6064721BA99E6B00410B0E /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		2D6064751BA99FF100410B0E /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -136,7 +155,6 @@
 		B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.release.xcconfig"; sourceTree = "<group>"; };
 		D716291D1BE76FFE00C56C77 /* ParentMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentMasterController.h; sourceTree = "<group>"; };
 		D716291E1BE76FFE00C56C77 /* ParentMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentMasterController.m; sourceTree = "<group>"; };
-		D770E31B1BF445D9001407AC /* FishingScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FishingScene.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -362,7 +380,6 @@
 				2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */,
 				2DF67F801BD4A1A900EB7390 /* FishingGameScene.h */,
 				2DF67F811BD4A1A900EB7390 /* FishingGameScene.m */,
-				D770E31B1BF445D9001407AC /* FishingScene.sks */,
 			);
 			name = FishingGame;
 			sourceTree = "<group>";
@@ -403,6 +420,16 @@
 		2DF6B73F1B94A14800B7F92C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2D45C70A1C03760C009FCFB8 /* small_fish.atlas */,
+				2D45C70B1C03760C009FCFB8 /* shark.atlas */,
+				2D45C70C1C03760C009FCFB8 /* whale.atlas */,
+				2D45C6FC1C03708E009FCFB8 /* Bubbles.sks */,
+				2D45C6FD1C03708E009FCFB8 /* SharkRight.sks */,
+				2D45C6FE1C03708E009FCFB8 /* SharkLeft.sks */,
+				2D45C6FF1C03708E009FCFB8 /* WhaleLeft.sks */,
+				2D45C7001C03708E009FCFB8 /* WhaleRight.sks */,
+				2D45C7011C03708E009FCFB8 /* FishLeft.sks */,
+				2D45C7021C03708E009FCFB8 /* FishRight.sks */,
 				2DF6B7411B94A14800B7F92C /* main.m */,
 				2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */,
 				2DF6B7401B94A14800B7F92C /* Info.plist */,
@@ -542,9 +569,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D770E31C1BF445D9001407AC /* FishingScene.sks in Resources */,
+				2D45C7061C03708E009FCFB8 /* WhaleLeft.sks in Resources */,
+				2D45C70D1C03760C009FCFB8 /* small_fish.atlas in Resources */,
+				2D45C7091C03708E009FCFB8 /* FishRight.sks in Resources */,
+				2D45C70E1C03760C009FCFB8 /* shark.atlas in Resources */,
+				2D45C7041C03708E009FCFB8 /* SharkRight.sks in Resources */,
+				2D45C7031C03708E009FCFB8 /* Bubbles.sks in Resources */,
+				2D45C7071C03708E009FCFB8 /* WhaleRight.sks in Resources */,
+				2D45C7081C03708E009FCFB8 /* FishLeft.sks in Resources */,
 				2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */,
+				2D45C7051C03708E009FCFB8 /* SharkLeft.sks in Resources */,
 				2DF6B7521B94A14800B7F92C /* Images.xcassets in Resources */,
+				2D45C70F1C03760C009FCFB8 /* whale.atlas in Resources */,
 				2DF6B74A1B94A14800B7F92C /* HomeScene.sks in Resources */,
 				2DF6B7501B94A14800B7F92C /* Main.storyboard in Resources */,
 			);

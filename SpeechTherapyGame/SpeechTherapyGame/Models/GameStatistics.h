@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GameStatistics : NSManagedObject
 
 // Insert code here to declare functionality of your managed object subclass
-+ (GameStatistics*) getGameStatFromLetter:(NSString*) letter andDate:(NSDate*) date;
++ (GameStatistics*) getGameStatFromLetter:(NSString*) letter between:(NSArray*) dates;
 @end
 
 NS_ASSUME_NONNULL_END
