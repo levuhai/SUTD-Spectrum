@@ -18,6 +18,10 @@
 #include "CAHostTimeBase.h"
 #include <Accelerate/Accelerate.h>
 
+#import "MFCCController.h"
+#import "MFCC1Controller.h"
+#import "MatrixController.h"
+
 // TAAE headers
 #import "TheAmazingAudioEngine.h"
 #import "TPOscilloscopeLayer.h"
@@ -51,6 +55,11 @@ const float kDefaultTrimEndThreshold = -100.0f;
     std::vector< std::vector<float> > trimmedNormalisedOutput;
     std::vector< std::vector<float> > bestFitLine;
     std::vector<float> fitQuality;
+    
+    MFCCController* _trimVC;
+    MFCC1Controller* _trim1VC;
+    MatrixController* _matrixVC;
+    MatrixController* _matrix2VC;
 }
 
 @property (nonatomic, weak) IBOutlet MatrixOuput *matrixView;
@@ -83,6 +92,46 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     [super viewDidLoad];
     _currentAudioPath = kAudioFile1;
     NSLog(@"%@",[self applicationDocuments]);
+    
+    // Setup UIScrollView
+    // Trimming
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    // First page
+    _trimVC = [storyboard instantiateViewControllerWithIdentifier:@"TrimmingController"];
+    _trimVC.view.frame = _scrollView.frame;
+    [self.scrollView addSubview:_trimVC.view];
+    [self addChildViewController:_trimVC];
+    [_trimVC didMoveToParentViewController:self];
+    // Second page
+    _trim1VC = [storyboard instantiateViewControllerWithIdentifier:@"MFCCController"];
+    CGRect f = _scrollView.frame;
+    f.origin.x = self.view.frame.size.width;
+    _trim1VC.view.frame = f ;
+    [self.scrollView addSubview:_trim1VC.view];
+    [self addChildViewController:_trim1VC];
+    [_trim1VC didMoveToParentViewController:self];
+    // Third page
+    _matrixVC = [storyboard instantiateViewControllerWithIdentifier:@"MatrixController"];
+    f = _scrollView.frame;
+    f.origin.x = self.view.frame.size.width*2;
+    _matrixVC.view.frame = f ;
+    [self.scrollView addSubview:_matrixVC.view];
+    [self addChildViewController:_matrixVC];
+    [_matrixVC didMoveToParentViewController:self];
+    // Forth page
+    _matrix2VC = [storyboard instantiateViewControllerWithIdentifier:@"MatrixController"];
+    f = _scrollView.frame;
+    f.origin.x = self.view.frame.size.width*3;
+    _matrix2VC.view.frame = f ;
+    [self.scrollView addSubview:_matrix2VC.view];
+    [self addChildViewController:_matrix2VC];
+    [_matrix2VC didMoveToParentViewController:self];
+    
+    // Set content size;
+    CGSize contentSize = _scrollView.frame.size;
+    contentSize.width = self.view.frame.size.width*4;
+    _scrollView.contentSize = contentSize;
+    
     [self _setupAudioController];
 }
 
@@ -663,28 +712,31 @@ static inline float _translate(float val, float min, float max) {
         if (y>trimmedNormalisedOutput[0].size()) y = 0;
         bestFitLine[i][y] = 1;
     }
+
+    // Page 1
+    [_trimVC.graph1 inputMFCC:featureA start:(int)maxWindowStart end:(int)maxWindowEnd];
+    [_trimVC.graph2 inputMFCC:featureB start:0 end:0];
     
+    // Page 2
+    [_trim1VC.graph1 inputMFCC:featureA start:(int)maxWindowStart end:(int)maxWindowEnd];
     
-    // Draw normalized data
-    [self.bestFitView inputNormalizedDataW:(int)bestFitLine[0].size()
+    // Page 3
+    _matrixVC.upperView.graphColor = [UIColor greenColor];
+    [_matrixVC.upperView inputNormalizedDataW:(int)bestFitLine[0].size()
                                   matrixH:(int)bestFitLine.size()
                                      data:bestFitLine
                                      rect:self.view.bounds
                                    maxVal:1];
-    
-    [self.matrixView inputNormalizedDataW:(int)trimmedNormalisedOutput[0].size()
+    [_matrixVC.lowerView inputNormalizedDataW:(int)trimmedNormalisedOutput[0].size()
                                   matrixH:(int)trimmedNormalisedOutput.size()
                                      data:trimmedNormalisedOutput
                                      rect:self.view.bounds
                                    maxVal:maxGraph];
-    [self.fitQualityView inputFitQualityW:(int)fitQuality.size()
+    // Page 4
+    [_matrix2VC.upperView inputFitQualityW:(int)fitQuality.size()
                                      data:fitQuality
                                      rect:self.view.bounds
                                    maxVal:maxGraph];
-    self.bestFitView.graphColor = [UIColor greenColor];
-    [self.bestFitView setNeedsDisplay];
-    [self.matrixView setNeedsDisplay];
-    [self.fitQualityView setNeedsDisplay];
 }
 
 inline float linearFun(float x, float slope, float intercept) {
