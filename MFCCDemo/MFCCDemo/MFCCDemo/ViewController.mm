@@ -401,7 +401,8 @@ static inline float _translate(float val, float min, float max) {
     float outputCount = sizeA*sizeB;
     float maxDiff = sortedOutput[(int)roundf(keepPct*outputCount)];
      NSLog(@"diff %f",maxDiff);
-    //maxDiff = 7;
+    // TODO: maxDiff
+    maxDiff = 7;
     /*
      % initialize a new matrix to store the normalized output values
      normalizedOutput = output;
