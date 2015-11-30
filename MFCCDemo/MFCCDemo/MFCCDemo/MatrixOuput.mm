@@ -21,6 +21,10 @@
     BOOL _drawFit;
 }
 
+- (void)awakeFromNib {
+    _graphColor = [UIColor redColor];
+}
+
 - (void)inputNormalizedDataW:(int)w
                      matrixH:(int)h
                         data:(std::vector< std::vector<float> >)data
@@ -30,10 +34,11 @@
     _h = h;
     _dataV = data;
     _frameRect = rect;
-    _size = MAX((int)rect.size.height / 2/h, 1);
+    _size = 1;
     _maxVal = maxVal;
     _drawFit = NO;
-    _graphColor = [UIColor redColor];
+    
+    [self setNeedsDisplay];
 }
 
 - (void)inputFitQualityW:(int)w data:(std::vector<float>)data rect:(CGRect)rect maxVal:(float)maxVal {
@@ -42,7 +47,8 @@
     _size = w==0?1:MAX((int)rect.size.width / w, 1);
     _maxVal = maxVal;
     _drawFit = YES;
-    _graphColor = [UIColor redColor];
+   
+    [self setNeedsDisplay];
 }
 
 

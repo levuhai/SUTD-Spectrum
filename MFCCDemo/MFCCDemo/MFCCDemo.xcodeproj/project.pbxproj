@@ -11,6 +11,10 @@
 		D761191B1BBA47280027706B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D761191A1BBA47280027706B /* CoreFoundation.framework */; };
 		D763E8A91BD77381000CDE19 /* MFCCProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D763E8A71BD77381000CDE19 /* MFCCProcessor.cpp */; settings = {ASSET_TAGS = (); }; };
 		D763E8AC1BD77565000CDE19 /* TPOscilloscopeLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = D763E8AB1BD77565000CDE19 /* TPOscilloscopeLayer.mm */; settings = {ASSET_TAGS = (); }; };
+		D76B34AD1C05788D00ACA397 /* GraphView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D76B34AC1C05788D00ACA397 /* GraphView.mm */; settings = {ASSET_TAGS = (); }; };
+		D76B34B01C05A62100ACA397 /* MFCCController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D76B34AF1C05A62100ACA397 /* MFCCController.mm */; settings = {ASSET_TAGS = (); }; };
+		D76B34B61C05BC6B00ACA397 /* MFCC1Controller.mm in Sources */ = {isa = PBXBuildFile; fileRef = D76B34B51C05BC6B00ACA397 /* MFCC1Controller.mm */; settings = {ASSET_TAGS = (); }; };
+		D76B34B91C06076A00ACA397 /* MatrixController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D76B34B81C06076A00ACA397 /* MatrixController.mm */; settings = {ASSET_TAGS = (); }; };
 		D7A542ED1BC3A1AC00A16386 /* MatrixOuput.mm in Sources */ = {isa = PBXBuildFile; fileRef = D7A542EC1BC3A1AC00A16386 /* MatrixOuput.mm */; settings = {ASSET_TAGS = (); }; };
 		D7C075E41BB2572A000DB38A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C075E31BB2572A000DB38A /* main.m */; };
 		D7C075E71BB2572A000DB38A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C075E61BB2572A000DB38A /* AppDelegate.m */; };
@@ -76,6 +80,14 @@
 		D763E8A81BD77381000CDE19 /* MFCCProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MFCCProcessor.hpp; sourceTree = "<group>"; };
 		D763E8AA1BD77565000CDE19 /* TPOscilloscopeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPOscilloscopeLayer.h; sourceTree = "<group>"; };
 		D763E8AB1BD77565000CDE19 /* TPOscilloscopeLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TPOscilloscopeLayer.mm; sourceTree = "<group>"; };
+		D76B34AB1C05788D00ACA397 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
+		D76B34AC1C05788D00ACA397 /* GraphView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GraphView.mm; sourceTree = "<group>"; };
+		D76B34AE1C05A62100ACA397 /* MFCCController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFCCController.h; sourceTree = "<group>"; };
+		D76B34AF1C05A62100ACA397 /* MFCCController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MFCCController.mm; sourceTree = "<group>"; };
+		D76B34B41C05BC6B00ACA397 /* MFCC1Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFCC1Controller.h; sourceTree = "<group>"; };
+		D76B34B51C05BC6B00ACA397 /* MFCC1Controller.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MFCC1Controller.mm; sourceTree = "<group>"; };
+		D76B34B71C06076A00ACA397 /* MatrixController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixController.h; sourceTree = "<group>"; };
+		D76B34B81C06076A00ACA397 /* MatrixController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MatrixController.mm; sourceTree = "<group>"; };
 		D7A542EB1BC3A1AC00A16386 /* MatrixOuput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixOuput.h; sourceTree = "<group>"; };
 		D7A542EC1BC3A1AC00A16386 /* MatrixOuput.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MatrixOuput.mm; sourceTree = "<group>"; };
 		D7C075DE1BB2572A000DB38A /* MFCCDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MFCCDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +199,41 @@
 			name = Oscilloscope;
 			sourceTree = "<group>";
 		};
+		D76B34B11C05A62700ACA397 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D76B34AE1C05A62100ACA397 /* MFCCController.h */,
+				D76B34AF1C05A62100ACA397 /* MFCCController.mm */,
+				D76B34B41C05BC6B00ACA397 /* MFCC1Controller.h */,
+				D76B34B51C05BC6B00ACA397 /* MFCC1Controller.mm */,
+				D7C075E81BB2572A000DB38A /* ViewController.h */,
+				D7C075E91BB2572A000DB38A /* ViewController.mm */,
+				D76B34B71C06076A00ACA397 /* MatrixController.h */,
+				D76B34B81C06076A00ACA397 /* MatrixController.mm */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D76B34B21C05A63200ACA397 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D76B34AB1C05788D00ACA397 /* GraphView.h */,
+				D76B34AC1C05788D00ACA397 /* GraphView.mm */,
+				D7A542EB1BC3A1AC00A16386 /* MatrixOuput.h */,
+				D7A542EC1BC3A1AC00A16386 /* MatrixOuput.mm */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		D76B34B31C05A65400ACA397 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D763E8A71BD77381000CDE19 /* MFCCProcessor.cpp */,
+				D763E8A81BD77381000CDE19 /* MFCCProcessor.hpp */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		D7C075D51BB2572A000DB38A = {
 			isa = PBXGroup;
 			children = (
@@ -213,12 +260,9 @@
 			children = (
 				D7C075E51BB2572A000DB38A /* AppDelegate.h */,
 				D7C075E61BB2572A000DB38A /* AppDelegate.m */,
-				D7C075E81BB2572A000DB38A /* ViewController.h */,
-				D7C075E91BB2572A000DB38A /* ViewController.mm */,
-				D7A542EB1BC3A1AC00A16386 /* MatrixOuput.h */,
-				D7A542EC1BC3A1AC00A16386 /* MatrixOuput.mm */,
-				D763E8A71BD77381000CDE19 /* MFCCProcessor.cpp */,
-				D763E8A81BD77381000CDE19 /* MFCCProcessor.hpp */,
+				D76B34B21C05A63200ACA397 /* Views */,
+				D76B34B11C05A62700ACA397 /* ViewControllers */,
+				D76B34B31C05A65400ACA397 /* Classes */,
 				D7C075E11BB2572A000DB38A /* Supporting Files */,
 			);
 			path = MFCCDemo;
@@ -479,12 +523,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D76B34AD1C05788D00ACA397 /* GraphView.mm in Sources */,
 				D7C08ADF1BB3AAFF000DB38A /* MFCCUtils.cpp in Sources */,
 				D763E8A91BD77381000CDE19 /* MFCCProcessor.cpp in Sources */,
 				D763E8AC1BD77565000CDE19 /* TPOscilloscopeLayer.mm in Sources */,
 				D7C075EA1BB2572A000DB38A /* ViewController.mm in Sources */,
+				D76B34B01C05A62100ACA397 /* MFCCController.mm in Sources */,
 				D7C08AE31BB3AAFF000DB38A /* WordMatchSession.cpp in Sources */,
 				D7C076AB1BB273C8000DB38A /* CAXException.cpp in Sources */,
+				D76B34B91C06076A00ACA397 /* MatrixController.mm in Sources */,
 				D7C08AE21BB3AAFF000DB38A /* WordMatch.cpp in Sources */,
 				D7C075E71BB2572A000DB38A /* AppDelegate.m in Sources */,
 				D7C076AA1BB273C8000DB38A /* CAStreamBasicDescription.cpp in Sources */,
@@ -493,6 +540,7 @@
 				D7C08ADC1BB3AAFF000DB38A /* MelFilterBank.cpp in Sources */,
 				D7A542ED1BC3A1AC00A16386 /* MatrixOuput.mm in Sources */,
 				D7C08AD71BB3AAFF000DB38A /* AudioFileReader.cpp in Sources */,
+				D76B34B61C05BC6B00ACA397 /* MFCC1Controller.mm in Sources */,
 				D7C08AE01BB3AAFF000DB38A /* TriangleFilter.cpp in Sources */,
 				D7C076A81BB273C8000DB38A /* CADebugPrintf.cpp in Sources */,
 				D7C08ADD1BB3AAFF000DB38A /* MFCCProcessor.cpp in Sources */,

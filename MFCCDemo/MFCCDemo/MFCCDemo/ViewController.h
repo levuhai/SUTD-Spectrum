@@ -16,7 +16,9 @@
 
 // Others UI Elements
 @property (nonatomic, strong) IBOutlet UIView* headerView;
+@property (nonatomic, strong) IBOutlet UIScrollView* scrollView;
 @property (nonatomic, strong) IBOutlet UIView* footerView;
+@property (nonatomic, strong) IBOutlet UIButton* playrecord;
 @property (nonatomic, weak) IBOutlet UIView *recordingState;
 @property (nonatomic, weak) IBOutlet UILabel *lbRecordingState;
 

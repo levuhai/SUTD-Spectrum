@@ -48,7 +48,13 @@ NSUInteger WHALETYPE = 2;
     self.backgroundColor = RGB(66, 191, 254);
     self.physicsWorld.gravity = CGVectorMake(0, 0);
     self.physicsWorld.contactDelegate = self;
+
     [self setupGameScene];
+    [self _setup];
+}
+
+- (void)_setup {
+    
 }
 
 - (void) setupGameScene {
