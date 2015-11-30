@@ -11,12 +11,19 @@
 #import "TCProgressTimerNode.h"
 #import "Whale.h"
 
+const uint32_t HOOK = 0x1 << 0;
+const uint32_t FISHIES = 0x1 << 1;
+const uint32_t BOUND = 0x1 << 2;
+
+NSUInteger FISHTYPE = 0;
+NSUInteger SHARKTYPE = 1;
+NSUInteger WHALETYPE = 2;
 
 #define speakingTimeOut 2
 #define kCyclesPerSecond 0.25f
 #define WaterViewHeigh 460
 
-@interface FishingGameScene () {
+@interface FishingGameScene () <SKPhysicsContactDelegate> {
     Whale* _whale;
     SKSpriteNode* _buoy;
     SKSpriteNode* _potView;
@@ -24,13 +31,23 @@
     BOOL didShowText;
     TCProgressTimerNode *_progressTimerNode3;
     NSTimeInterval _startTime;
+    
 }
+
+@property (nonatomic, strong) NSMutableArray *fishTypeArray;
+@property (nonatomic, strong) NSMutableArray *fishArray;
+@property (nonatomic, strong) NSArray *fishSwim;
+@property (nonatomic, strong) NSArray *sharkSwim;
+@property (nonatomic, strong) NSArray *whaleSwim;
+
 @end
 
 @implementation FishingGameScene
 
 - (void)didMoveToView:(SKView *)view {
     self.backgroundColor = RGB(66, 191, 254);
+    self.physicsWorld.gravity = CGVectorMake(0, 0);
+    self.physicsWorld.contactDelegate = self;
     [self setupGameScene];
 }
 
@@ -80,17 +97,6 @@
     [self addChild:bearView];
     
     // Dynamic objects
-    // ProgressBar
-    
-//    _progressBar = [self createSpriteMatchingSKShapeNodeSize:CGSizeMake(self.size.width/3, 32) WithCornerRadius:16 color:[UIColor whiteColor]];
-//    _progressBar.position = CGPointMake(self.size.width - _progressBar.size.width*1.5, self.size.height - _progressBar.size.height);
-//    [self addChild:_progressBar];
-//    
-//    SKSpriteNode* n = [[SKSpriteNode alloc] initWithColor:[UIColor redColor] size:CGSizeMake(100, 100)];
-//    n.position = CGPointZero;
-//    n.zPosition = 1;
-//    [_progressBar addChild:n];
-    
     // Buoy
     _buoy = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"buoy"]];
     _buoy.anchorPoint = CGPointMake(0.5, 0.5);
@@ -115,6 +121,14 @@
     [self addChild:_whale];
     [_whale runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction moveByX:0 y:-10 duration:0.5], [SKAction moveByX:0 y:10 duration:0.5]]]]];
     
+    // set up swimming fishes
+    _fishSwim = [self swimmingFramesWithAtlasNamed:@"small_fish"];
+    _sharkSwim = [self swimmingFramesWithAtlasNamed:@"shark"];
+    _whaleSwim = [self swimmingFramesWithAtlasNamed:@"whale"];
+    
+    _fishArray = [@[] mutableCopy];
+    _fishTypeArray = [@[] mutableCopy];
+    [self generateRandomFish];
 }
 
 - (void) addParticalsAnimations {
@@ -163,6 +177,96 @@
     [self addChild:emitter];
     
 }
+
+- (NSArray *)swimmingFramesWithAtlasNamed:(NSString *)atlasName {
+    NSMutableArray *swimmingFrames = [@[] mutableCopy];
+    SKTextureAtlas *animAtlas = [SKTextureAtlas atlasNamed:atlasName];
+    for (int i = 1; i < animAtlas.textureNames.count; ++i) {
+        NSString *tex = [NSString stringWithFormat:@"s%02d", i];
+        [swimmingFrames addObject:[animAtlas textureNamed:tex]];
+    }
+    return swimmingFrames;
+}
+
+#pragma mark generate random fish
+- (void)generateRandomFish {
+    // random fish swimming direction
+    BOOL goingRight = arc4random() % 100 <= 50;
+    // random fish type
+    NSUInteger fishToWhale = arc4random() % (int)50;
+    // default is small fish
+    NSArray *swim = self.fishSwim;
+    CGFloat fishAppearingYRangePercentage = 0.75;
+    CGFloat duration = 100.0/12.5;//fishSwimmingSpeed
+    CGFloat fishMouthXOffsetRatio = 0.9;
+    CGFloat fishMouthYOffsetRatio = 0.5;
+    NSUInteger fishTypeNum = FISHTYPE;
+    CGFloat fishMouthHitTargetRadius = 6.0;//fishMouthHitTargetRadius
+    
+    if (fishToWhale == 0) {
+        swim = self.whaleSwim;
+        fishAppearingYRangePercentage = 0.2;
+        duration = 100.0/4;//whaleSwimmingSpeed
+        fishMouthXOffsetRatio = 0.93;
+        fishMouthYOffsetRatio = 0.26;
+        fishTypeNum = WHALETYPE;
+        fishMouthHitTargetRadius = 6;//whaleMouthHitTargetRadius
+    } else if (fishToWhale % 10 == 0) { // fishToSharkFrequency
+        swim = self.sharkSwim;
+        fishAppearingYRangePercentage = 0.6;
+        duration = 100.0/8;//sharkSwimmingSpeed
+        fishMouthXOffsetRatio = 0.97;
+        fishMouthYOffsetRatio = 0.4;
+        fishTypeNum = SHARKTYPE;
+        fishMouthHitTargetRadius = 6;//sharkMouthHitTargetRadius
+    }
+    SKSpriteNode *fish = [SKSpriteNode spriteNodeWithTexture:[swim firstObject]];
+    fish.zPosition = 1;
+    [self.fishArray addObject:fish];
+    [self.fishTypeArray addObject:@(fishTypeNum)];
+    fish.anchorPoint = CGPointMake(fishMouthXOffsetRatio, fishMouthYOffsetRatio);
+    
+    CGFloat fishAppearingXDelta = 200;
+    CGFloat x = goingRight ? -fishAppearingXDelta : self.frame.size.width + fishAppearingXDelta;
+    CGFloat yOffset = [swim[0] size].height / 2;
+    int yInt = arc4random() % (int)(WaterViewHeigh * fishAppearingYRangePercentage) + yOffset;
+    CGFloat y = (CGFloat)yInt;
+    CGPoint fishLocation = CGPointMake(x, y);
+    
+    fish.position = fishLocation;
+    [self addChild:fish];
+    
+    fish.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:fishMouthHitTargetRadius];
+    fish.physicsBody.categoryBitMask = FISHIES;
+    fish.physicsBody.collisionBitMask = 0;
+    fish.physicsBody.contactTestBitMask = HOOK;
+    fish.physicsBody.usesPreciseCollisionDetection = YES;
+    
+    const NSTimeInterval kFishAnimSpeed = 1 / 5.0;
+    SKAction *fishSwimmingAction = [SKAction animateWithTextures:swim timePerFrame:kFishAnimSpeed];
+    SKAction *fishSwimmingForeverAction = [SKAction repeatActionForever:fishSwimmingAction];
+    [fish runAction:fishSwimmingForeverAction];
+    
+    NSUInteger deltaYInterval = 20;
+    CGFloat deltaY = arc4random() % deltaYInterval - deltaYInterval / 2.0;
+    CGFloat deltaX = 600;
+    SKAction *fishMoveAction = goingRight ? [SKAction moveByX:self.frame.size.width + deltaX y:deltaY duration:duration] : [SKAction moveByX:-1 * (self.frame.size.width + deltaX) y:deltaY duration:duration];
+    if (!goingRight) {
+        fish.xScale = -1;
+    }
+    __weak FishingGameScene *slf = self;
+    [fish runAction:fishMoveAction completion:^{
+        [fish removeFromParent];
+        NSUInteger index = [slf.fishArray indexOfObject:fish];
+        if (index != NSNotFound) {
+            [slf.fishArray removeObjectAtIndex:index];
+            [slf.fishTypeArray removeObjectAtIndex:index];
+        }
+    }];
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(generateRandomFish) userInfo:nil repeats:NO];
+}
+
+#pragma mark - Game play
 
 - (void) animateCountDownCircle {
     
