@@ -402,7 +402,7 @@ static inline float _translate(float val, float min, float max) {
     float maxDiff = sortedOutput[(int)roundf(keepPct*outputCount)];
      NSLog(@"diff %f",maxDiff);
     // TODO: maxDiff
-    maxDiff = 7;
+    maxDiff = maxDiff*0.5;
     /*
      % initialize a new matrix to store the normalized output values
      normalizedOutput = output;
@@ -766,7 +766,7 @@ static inline float _translate(float val, float min, float max) {
     [_matrix2VC.upperView inputFitQualityW:(int)fitQuality.size()
                                      data:fitQuality
                                      rect:self.view.bounds
-                                   maxVal:maxGraph];
+                                   maxVal:2];
 }
 
 inline float linearFun(float x, float slope, float intercept) {
