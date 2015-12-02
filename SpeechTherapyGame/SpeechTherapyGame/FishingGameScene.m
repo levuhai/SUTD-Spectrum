@@ -25,8 +25,11 @@ NSUInteger WHALETYPE = 2;
 
 @interface FishingGameScene () <SKPhysicsContactDelegate> {
     Whale* _whale;
-    SKSpriteNode* _buoy;
+    SKSpriteNode* _hook;
+    SKSpriteNode* _hookLine;
     SKSpriteNode* _potView;
+    SKSpriteNode* _fishBeingCaught;
+    
     
     BOOL didShowText;
     TCProgressTimerNode *_progressTimerNode3;
@@ -104,20 +107,20 @@ NSUInteger WHALETYPE = 2;
     
     // Dynamic objects
     // Buoy
-    _buoy = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"buoy"]];
-    _buoy.anchorPoint = CGPointMake(0.5, 0.5);
-    _buoy.position = CGPointMake(2*self.size.width/5, WaterViewHeigh);
-    [self addChild:_buoy];
-    [_buoy runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction moveByX:0 y:3 duration:0.5], [SKAction moveByX:0 y:-3 duration:0.5]]]]];
-    
-    SKShapeNode *yourline = [SKShapeNode node];
-    CGMutablePathRef pathToDraw = CGPathCreateMutable();
-    CGPathMoveToPoint(pathToDraw, NULL, bearView.position.x, bearView.position.y+bearView.size.height/2+25);
-    CGPathAddLineToPoint(pathToDraw, NULL, _buoy.position.x, _buoy.position.y);
-    yourline.path = pathToDraw;
-    [yourline setStrokeColor:[SKColor darkGrayColor]];
-    [self addChild:yourline];
-    [yourline runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction moveByX:0 y:3 duration:0.5], [SKAction moveByX:0 y:-3 duration:0.5]]]]];
+//    _hook = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"buoy"]];
+//    _hook.anchorPoint = CGPointMake(0.5, 0.5);
+//    _hook.position = CGPointMake(2*self.size.width/5, WaterViewHeigh);
+//    [self addChild:_hook];
+//    [_hook runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction moveByX:0 y:3 duration:0.5], [SKAction moveByX:0 y:-3 duration:0.5]]]]];
+//    
+//    SKShapeNode *yourline = [SKShapeNode node];
+//    CGMutablePathRef pathToDraw = CGPathCreateMutable();
+//    CGPathMoveToPoint(pathToDraw, NULL, bearView.position.x, bearView.position.y+bearView.size.height/2+25);
+//    CGPathAddLineToPoint(pathToDraw, NULL, _hook.position.x, _hook.position.y);
+//    yourline.path = pathToDraw;
+//    [yourline setStrokeColor:[SKColor darkGrayColor]];
+//    [self addChild:yourline];
+//    [yourline runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction moveByX:0 y:3 duration:0.5], [SKAction moveByX:0 y:-3 duration:0.5]]]]];
     
     
     // Whale
@@ -135,6 +138,25 @@ NSUInteger WHALETYPE = 2;
     _fishArray = [@[] mutableCopy];
     _fishTypeArray = [@[] mutableCopy];
     [self generateRandomFish];
+    
+    
+    // Hook
+    // set up hook and hook line
+    _hook = [SKSpriteNode spriteNodeWithImageNamed:@"buoy"];
+    _hook.position = CGPointMake(2*self.size.width/5, WaterViewHeigh);
+    _hook.anchorPoint = CGPointMake(0.5, 0.0);
+    [self addChild:_hook];
+    SKPhysicsBody *hookPhysicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(10, 10)];
+    hookPhysicsBody.categoryBitMask = HOOK;
+    hookPhysicsBody.collisionBitMask = BOUND;
+    hookPhysicsBody.contactTestBitMask = FISHIES | BOUND;
+    hookPhysicsBody.usesPreciseCollisionDetection = YES;
+    _hook.physicsBody = hookPhysicsBody;
+    
+    _hookLine = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(2, 6)];
+    _hookLine.anchorPoint = CGPointMake(0.5, 1.0);
+    _hookLine.position = CGPointMake(_hook.position.x - 4.5, _hook.position.y + 3 + _hook.size.height);
+    [self addChild:_hookLine];
 }
 
 - (void) addParticalsAnimations {
@@ -279,7 +301,7 @@ NSUInteger WHALETYPE = 2;
     _progressTimerNode3 = [[TCProgressTimerNode alloc] initWithForegroundImageNamed:@"progress_foreground"
                                                                backgroundImageNamed:@"progress_background"
                                                                 accessoryImageNamed:@"progress_accessory"];
-    _progressTimerNode3.position = CGPointMake(_buoy.position.x, _buoy.position.y + 50);
+    _progressTimerNode3.position = CGPointMake(_hook.position.x, _hook.position.y + 50);
     [self addChild:_progressTimerNode3];
     _progressTimerNode3.progress = 0.0;
     _startTime = CACurrentMediaTime();
@@ -308,7 +330,7 @@ NSUInteger WHALETYPE = 2;
 - (void) animateWhaleHooked {
     
     if (!didShowText) {
-        [_whale runAction:[SKAction moveTo:CGPointMake(_buoy.position.x - _whale.size.width/2 - 20, _whale.position.y + 10) duration:1] completion:^{
+        [_whale runAction:[SKAction moveTo:CGPointMake(_hook.position.x - _whale.size.width/2 - 20, _whale.position.y + 10) duration:1] completion:^{
             // Show count down
             [self addLetterToWhale];
             didShowText = YES;
@@ -420,9 +442,125 @@ NSUInteger WHALETYPE = 2;
     _progressTimerNode3.progress = progress;
 }
 
-#pragma mark - Touches
+#pragma mark hook actions
+- (void)dropHook {
+    [_hook removeAllActions];
+    [_hookLine removeAllActions];
+    CGFloat hookMovementDeltaY = 20;
+    SKAction *hookGoingDownOnceAction = [SKAction moveByX:0 y:-hookMovementDeltaY duration:1.0/(float)3.0f];
+    SKAction *hookGoingDownAction = [SKAction repeatActionForever:hookGoingDownOnceAction];
+    [_hook runAction:hookGoingDownAction];
+    SKAction *hookLineOnceAction = [SKAction resizeByWidth:0 height:hookMovementDeltaY duration:1.0/(float)3.0f];
+    SKAction *hookLineAction = [SKAction repeatActionForever:hookLineOnceAction];
+    [_hookLine runAction:hookLineAction];
+}
+
+- (void)raiseHook {
+    [_hook removeAllActions];
+    [_hookLine removeAllActions];
+    if (_hook.position.y >= WaterViewHeigh + 20) {
+        return;
+    }
+    CGFloat hookMovementDeltaY = 20;
+    SKAction *hookGoingUpOnceAction = [SKAction moveByX:0 y:hookMovementDeltaY duration:1/6.0f];
+    SKAction *hookGoingUpAction = [SKAction repeatActionForever:hookGoingUpOnceAction];
+    [_hook runAction:hookGoingUpAction];
+    SKAction *hookLineOnceAction = [SKAction resizeByWidth:0 height:-hookMovementDeltaY duration:1/6.0f];
+    SKAction *hookLineAction = [SKAction repeatActionForever:hookLineOnceAction];
+    [_hookLine runAction:hookLineAction];
+}
+
+#pragma mark touch events callback
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self animateWhaleHooked];
+    if (_fishBeingCaught)
+        return;
+    [self dropHook];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (_fishBeingCaught)
+        return;
+    [self raiseHook];
+}
+
+#pragma mark contact delegate
+- (void)didBeginContact:(SKPhysicsContact *)contact {
+    // hook going out of bound
+    if ((contact.bodyA.node == self.scene && contact.bodyB.node == _hook) ||
+        (contact.bodyB.node == self.scene && contact.bodyA.node == _hook)) {
+        [_hook removeAllActions];
+        [_hookLine removeAllActions];
+        if (contact.contactPoint.y > 0.7 * self.frame.size.height) { // if at the top
+            // reset hook and hookline positions
+            _hook.position = CGPointMake(WaterViewHeigh + _hook.size.width/2.0 - 5, WaterViewHeigh - _hook.size.height - 5);
+            _hookLine.position = CGPointMake(_hook.position.x - 4.5, _hook.position.y + 3 + _hook.size.height);
+            _hookLine.size = CGSizeMake(2, 6);
+            
+            if (_fishBeingCaught) {
+                [_fishBeingCaught removeAllActions];
+                
+                // show fish thrown away animation
+                SKAction *fishThrownAwayTraslateAction = [SKAction moveByX:150 y:150 duration:0.5];
+                SKAction *fishThrownAwayRotateAction = [SKAction rotateByAngle:-M_PI duration:0.5];
+                SKAction *fishThrownAwayAction = [SKAction group:@[fishThrownAwayTraslateAction, fishThrownAwayRotateAction]];
+                __weak FishingGameScene *slf = self;
+                [_fishBeingCaught runAction:fishThrownAwayAction completion:^{
+                    [_fishBeingCaught removeFromParent];
+                    NSUInteger index = [slf.fishArray indexOfObject:_fishBeingCaught];
+                    if (index != NSNotFound) {
+                        switch ([slf.fishTypeArray[index] integerValue]) {
+                            case 0: // fish
+                                //slf.score += FISHSCORE;
+                                break;
+                            case 1: // shark
+                                //slf.score += SHARKSCORE;
+                                break;
+                            case 2: // whale
+                                //slf.score += WHALESCORE;
+                                break;
+                            default:
+                                break;
+                        }
+                        [slf.fishArray removeObjectAtIndex:index];
+                        [slf.fishTypeArray removeObjectAtIndex:index];
+                    }
+                    _fishBeingCaught = nil;
+                }];
+            }
+            
+        }
+        return;
+    }
+    if (_fishBeingCaught)
+        return;
+    
+    // check if caught a fish
+    SKSpriteNode *fish = nil;
+    if ([self.fishArray containsObject:contact.bodyA.node]) {
+        fish = (SKSpriteNode *)contact.bodyA.node;
+    } else if ([self.fishArray containsObject:contact.bodyB.node]) {
+        fish = (SKSpriteNode *)contact.bodyB.node;
+    }
+    if (fish) {
+        _fishBeingCaught = fish;
+        [self raiseHook];
+        [fish removeAllActions];
+        
+        // put the fish onto the hook
+        CGFloat rotateAngle = 0.5 * M_PI;
+        if (fish.xScale == -1) {
+            rotateAngle = -0.5 * M_PI;
+        }
+        // raise the hook
+        SKAction *fishToHookTranslationAction = [SKAction moveTo:_hook.position duration:0];
+        SKAction *fishToHookRotationAction = [SKAction rotateByAngle:rotateAngle duration:1/6.0f];
+        SKAction *fishToHookAction = [SKAction group:@[fishToHookTranslationAction, fishToHookRotationAction]];
+        SKAction *followHookOnceAction = [SKAction moveByX:0 y:20 duration:1/6.0f];
+        SKAction *followHookAction = [SKAction repeatActionForever:followHookOnceAction];
+        SKAction *fishActions = [SKAction group:@[fishToHookAction, followHookAction]];
+        [fish runAction:fishActions];
+        
+    }
 }
 
 #pragma mark - Utilities
