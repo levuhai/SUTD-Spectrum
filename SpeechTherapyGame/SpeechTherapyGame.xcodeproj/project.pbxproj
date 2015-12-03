@@ -54,6 +54,12 @@
 		2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */; };
 		2DF6B7611B94A14800B7F92C /* SpeechTherapyGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7601B94A14800B7F92C /* SpeechTherapyGameTests.m */; };
 		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; };
+		D78865B51C1043B800C3944C /* LPCAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865B41C1043B800C3944C /* LPCAudioController.m */; settings = {ASSET_TAGS = (); }; };
+		D78865B81C1043E200C3944C /* LPCView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D78865B71C1043E200C3944C /* LPCView.mm */; settings = {ASSET_TAGS = (); }; };
+		D78865BB1C10453800C3944C /* NSMutableArray+Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865BA1C10453800C3944C /* NSMutableArray+Queue.m */; settings = {ASSET_TAGS = (); }; };
+		D78865C01C10454700C3944C /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865BD1C10454700C3944C /* UIColor+Expanded.m */; settings = {ASSET_TAGS = (); }; };
+		D78865C11C10454700C3944C /* UIColor+Flat.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865BF1C10454700C3944C /* UIColor+Flat.m */; settings = {ASSET_TAGS = (); }; };
+		D78865C41C1047D200C3944C /* NSUserDefaults+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865C31C1047D200C3944C /* NSUserDefaults+Convenience.m */; settings = {ASSET_TAGS = (); }; };
 		DB79796202A56F77A186A2EC /* libPods-SpeechTherapyGame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C4C953EE4CDC88969B0569 /* libPods-SpeechTherapyGame.a */; };
 /* End PBXBuildFile section */
 
@@ -155,6 +161,19 @@
 		B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.release.xcconfig"; sourceTree = "<group>"; };
 		D716291D1BE76FFE00C56C77 /* ParentMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentMasterController.h; sourceTree = "<group>"; };
 		D716291E1BE76FFE00C56C77 /* ParentMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentMasterController.m; sourceTree = "<group>"; };
+		D78865B31C1043B800C3944C /* LPCAudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPCAudioController.h; sourceTree = "<group>"; };
+		D78865B41C1043B800C3944C /* LPCAudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPCAudioController.m; sourceTree = "<group>"; };
+		D78865B61C1043E200C3944C /* LPCView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPCView.h; sourceTree = "<group>"; };
+		D78865B71C1043E200C3944C /* LPCView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LPCView.mm; sourceTree = "<group>"; };
+		D78865B91C10453800C3944C /* NSMutableArray+Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Queue.h"; sourceTree = "<group>"; };
+		D78865BA1C10453800C3944C /* NSMutableArray+Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Queue.m"; sourceTree = "<group>"; };
+		D78865BC1C10454700C3944C /* UIColor+Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Expanded.h"; sourceTree = "<group>"; };
+		D78865BD1C10454700C3944C /* UIColor+Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Expanded.m"; sourceTree = "<group>"; };
+		D78865BE1C10454700C3944C /* UIColor+Flat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Flat.h"; sourceTree = "<group>"; };
+		D78865BF1C10454700C3944C /* UIColor+Flat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Flat.m"; sourceTree = "<group>"; };
+		D78865C21C1047D200C3944C /* NSUserDefaults+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Convenience.h"; sourceTree = "<group>"; };
+		D78865C31C1047D200C3944C /* NSUserDefaults+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Convenience.m"; sourceTree = "<group>"; };
+		D78865C51C1047E200C3944C /* Configs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Configs.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +313,8 @@
 		2D6064771BA9A35500410B0E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D78865B31C1043B800C3944C /* LPCAudioController.h */,
+				D78865B41C1043B800C3944C /* LPCAudioController.m */,
 				2DE88ABC1BB8517A002438C6 /* Sounds+CoreDataProperties.h */,
 				2DE88ABD1BB8517A002438C6 /* Sounds+CoreDataProperties.m */,
 				2DE88ABE1BB8517A002438C6 /* Sounds.h */,
@@ -344,6 +365,15 @@
 		2DE0E1351B9CB55100BFEDA6 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D78865C51C1047E200C3944C /* Configs.h */,
+				D78865C21C1047D200C3944C /* NSUserDefaults+Convenience.h */,
+				D78865C31C1047D200C3944C /* NSUserDefaults+Convenience.m */,
+				D78865BC1C10454700C3944C /* UIColor+Expanded.h */,
+				D78865BD1C10454700C3944C /* UIColor+Expanded.m */,
+				D78865BE1C10454700C3944C /* UIColor+Flat.h */,
+				D78865BF1C10454700C3944C /* UIColor+Flat.m */,
+				D78865B91C10453800C3944C /* NSMutableArray+Queue.h */,
+				D78865BA1C10453800C3944C /* NSMutableArray+Queue.m */,
 				2DC195EB1BF63EA4008669A0 /* NSDate+Helper.h */,
 				2DC195EC1BF63EA4008669A0 /* NSDate+Helper.m */,
 				2DB4D6201BF391E100A12481 /* TCProgressTimerNode */,
@@ -376,6 +406,8 @@
 		2DF67F7C1BD4A14600EB7390 /* FishingGame */ = {
 			isa = PBXGroup;
 			children = (
+				D78865B61C1043E200C3944C /* LPCView.h */,
+				D78865B71C1043E200C3944C /* LPCView.mm */,
 				2DF67F7D1BD4A18800EB7390 /* FishingGameViewController.h */,
 				2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */,
 				2DF67F801BD4A1A900EB7390 /* FishingGameScene.h */,
@@ -633,10 +665,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D78865B81C1043E200C3944C /* LPCView.mm in Sources */,
 				2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */,
 				2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */,
 				2D1A043E1BB06A0800FA14CC /* NGMenuItem.m in Sources */,
 				2DB4D62A1BF3920C00A12481 /* Whale.m in Sources */,
+				D78865B51C1043B800C3944C /* LPCAudioController.m in Sources */,
 				2DE88AC91BB8517A002438C6 /* Sounds.m in Sources */,
 				2DE88ACA1BB8517A002438C6 /* Games+CoreDataProperties.m in Sources */,
 				2DC904171BB1D0580082DEAC /* GameStatsViewController.m in Sources */,
@@ -647,6 +681,7 @@
 				2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */,
 				2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */,
 				2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */,
+				D78865C41C1047D200C3944C /* NSUserDefaults+Convenience.m in Sources */,
 				2D75DD2A1BD57E9300112F4E /* ParentSecurityController.m in Sources */,
 				2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */,
 				2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */,
@@ -655,12 +690,15 @@
 				2DE88ACB1BB8517A002438C6 /* Games.m in Sources */,
 				2DB4D6251BF391F200A12481 /* TCProgressTimerForegroundCropNode.m in Sources */,
 				2DE0E1311B9CAF6100BFEDA6 /* LoadingScene.m in Sources */,
+				D78865C01C10454700C3944C /* UIColor+Expanded.m in Sources */,
 				2D1A04421BB06A2400FA14CC /* NGSplitViewManager.m in Sources */,
 				D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */,
 				2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */,
 				2DB4D6261BF391F200A12481 /* TCProgressTimerNode.m in Sources */,
 				2DF6B7481B94A14800B7F92C /* HomeScene.m in Sources */,
+				D78865BB1C10453800C3944C /* NSMutableArray+Queue.m in Sources */,
 				2DC195ED1BF63EA4008669A0 /* NSDate+Helper.m in Sources */,
+				D78865C11C10454700C3944C /* UIColor+Flat.m in Sources */,
 				2DF6B7421B94A14800B7F92C /* main.m in Sources */,
 				2DC195EA1BF6338B008669A0 /* GameStatistics.m in Sources */,
 				2DE0E1341B9CB24B00BFEDA6 /* ScheduleViewController.m in Sources */,

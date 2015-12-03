@@ -10,6 +10,8 @@
 #import "FishingGameViewController.h"
 #import "TCProgressTimerNode.h"
 #import "Whale.h"
+#import "LPCAudioController.h"
+#import "LPCView.h"
 
 const uint32_t HOOK = 0x1 << 0;
 const uint32_t FISHIES = 0x1 << 1;
@@ -34,7 +36,7 @@ NSUInteger WHALETYPE = 2;
     BOOL didShowText;
     TCProgressTimerNode *_progressTimerNode3;
     NSTimeInterval _startTime;
-    
+    NSTimer *_drawTimer;
 }
 
 @property (nonatomic, strong) NSMutableArray *fishTypeArray;
@@ -42,6 +44,7 @@ NSUInteger WHALETYPE = 2;
 @property (nonatomic, strong) NSArray *fishSwim;
 @property (nonatomic, strong) NSArray *sharkSwim;
 @property (nonatomic, strong) NSArray *whaleSwim;
+@property (strong, nonatomic) LPCView *lpcView;
 
 @end
 
@@ -54,6 +57,15 @@ NSUInteger WHALETYPE = 2;
 
     [self setupGameScene];
     [self _setup];
+    
+    // LPC Graph
+    float rectW = self.view.width/2;
+    float rectH = self.view.height/4;
+    CGRect LPCRect = CGRectMake(self.view.width-rectW, self.view.height-rectH, rectW, rectH);
+    self.lpcView = [[LPCView alloc] initWithFrame:LPCRect];
+    self.lpcView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.2];
+    [view addSubview:self.lpcView];
+    [self _startDrawing];
 }
 
 - (void)_setup {
@@ -431,6 +443,7 @@ NSUInteger WHALETYPE = 2;
 }
 
 #pragma mark - Update
+
 - (void)update:(NSTimeInterval)currentTime
 {
     [super update:currentTime];
@@ -587,6 +600,35 @@ NSUInteger WHALETYPE = 2;
     
     
     return sprite;
+}
+
+#pragma mark - LPC
+
+- (void)_startDrawing {
+    // Start LPC Instance
+    [[LPCAudioController sharedInstance] start];
+    
+    if (!_drawTimer) {
+        _drawTimer = [NSTimer scheduledTimerWithTimeInterval: 1/50
+                                                      target: self
+                                                    selector: @selector(_drawGraph)
+                                                    userInfo: nil
+                                                     repeats: YES];
+    }
+}
+
+- (void)_stopDrawing {
+    // Stop LPC Instance
+    [[LPCAudioController sharedInstance] stop];
+    
+    // Invalidate Timer
+    [_drawTimer invalidate];
+    _drawTimer = nil;
+}
+
+- (void)_drawGraph {
+    // LPC
+    [self.lpcView refresh];
 }
 
 @end

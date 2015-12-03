@@ -3,7 +3,6 @@ PODS:
   - FrameAccessor (1.3.2)
   - MagicalRecord (2.3.0)
   - Masonry (0.6.3)
-  - MBCircularProgressBar (0.3.2)
   - MZAppearance (1.1.6)
   - MZFormSheetController (3.1.2):
     - MZAppearance
@@ -19,7 +18,6 @@ DEPENDENCIES:
   - FrameAccessor (~> 1.3.2)
   - MagicalRecord
   - Masonry
-  - MBCircularProgressBar
   - MZFormSheetController
   - PNChart
 
@@ -28,7 +26,6 @@ SPEC CHECKSUMS:
   FrameAccessor: 0f7ba6ce37be9a5d0302a27c731dca70af8d438b
   MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
-  MBCircularProgressBar: da24e75aa8a231564f10eb8d6d942fa78343486c
   MZAppearance: 0c06d3fa9cc55142f1da14bc8631fbe8fd6e19d5
   MZFormSheetController: 7909e75056fe18366ce00ef8756ce6181414c36c
   PNChart: c1755716bbd45386d2035b2bf2ce73e6d3f8cb22

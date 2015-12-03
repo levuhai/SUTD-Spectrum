@@ -23,7 +23,6 @@
     #import "FrameAccessor.h"
     #import "SKScene+Unarchive.h"
     #import "MagicalRecord.h"
-    #import "MBCircularProgressBarView.h"
     #import "NGSplitMenu.h"
     #import "Macro.h"
     #import "NSDate+Helper.h"
