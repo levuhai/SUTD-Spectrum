@@ -24,6 +24,7 @@ NSUInteger WHALETYPE = 2;
 #define speakingTimeOut 2
 #define kCyclesPerSecond 0.25f
 #define WaterViewHeigh 460
+#define FishBeingCaughtDestination 460
 
 @interface FishingGameScene () <SKPhysicsContactDelegate> {
     Whale* _whale;
@@ -298,12 +299,12 @@ NSUInteger WHALETYPE = 2;
     [fish runAction:fishMoveAction completion:^{
         [fish removeFromParent];
         NSUInteger index = [slf.fishArray indexOfObject:fish];
-        if (index != NSNotFound) {
+        if (index != NSNotFound && index < slf.fishTypeArray.count) {
             [slf.fishArray removeObjectAtIndex:index];
             [slf.fishTypeArray removeObjectAtIndex:index];
         }
     }];
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(generateRandomFish) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(generateRandomFish) userInfo:nil repeats:NO];
 }
 
 #pragma mark - Game play
@@ -471,15 +472,17 @@ NSUInteger WHALETYPE = 2;
 - (void)raiseHook {
     [_hook removeAllActions];
     [_hookLine removeAllActions];
-    if (_hook.position.y >= WaterViewHeigh + 20) {
+    if (_hook.position.y > WaterViewHeigh) {
         return;
     }
-    CGFloat hookMovementDeltaY = 20;
+    CGFloat hookMovementDeltaY = 20.0f;
     SKAction *hookGoingUpOnceAction = [SKAction moveByX:0 y:hookMovementDeltaY duration:1/6.0f];
-    SKAction *hookGoingUpAction = [SKAction repeatActionForever:hookGoingUpOnceAction];
+    int count = ceilf((FishBeingCaughtDestination - _hook.position.y)/hookMovementDeltaY);
+    
+    SKAction *hookGoingUpAction = [SKAction repeatAction:hookGoingUpOnceAction count:(int)count];
     [_hook runAction:hookGoingUpAction];
     SKAction *hookLineOnceAction = [SKAction resizeByWidth:0 height:-hookMovementDeltaY duration:1/6.0f];
-    SKAction *hookLineAction = [SKAction repeatActionForever:hookLineOnceAction];
+    SKAction *hookLineAction = [SKAction repeatAction:hookLineOnceAction count:(int)count];
     [_hookLine runAction:hookLineAction];
 }
 
@@ -520,7 +523,7 @@ NSUInteger WHALETYPE = 2;
                 [_fishBeingCaught runAction:fishThrownAwayAction completion:^{
                     [_fishBeingCaught removeFromParent];
                     NSUInteger index = [slf.fishArray indexOfObject:_fishBeingCaught];
-                    if (index != NSNotFound) {
+                    if (index != NSNotFound && index < slf.fishTypeArray.count) {
                         switch ([slf.fishTypeArray[index] integerValue]) {
                             case 0: // fish
                                 //slf.score += FISHSCORE;
@@ -568,8 +571,10 @@ NSUInteger WHALETYPE = 2;
         SKAction *fishToHookTranslationAction = [SKAction moveTo:_hook.position duration:0];
         SKAction *fishToHookRotationAction = [SKAction rotateByAngle:rotateAngle duration:1/6.0f];
         SKAction *fishToHookAction = [SKAction group:@[fishToHookTranslationAction, fishToHookRotationAction]];
+        
         SKAction *followHookOnceAction = [SKAction moveByX:0 y:20 duration:1/6.0f];
-        SKAction *followHookAction = [SKAction repeatActionForever:followHookOnceAction];
+        int count = ceilf((FishBeingCaughtDestination-fish.position.y)/20);
+        SKAction *followHookAction = [SKAction repeatAction:followHookOnceAction count:count];
         SKAction *fishActions = [SKAction group:@[fishToHookAction, followHookAction]];
         [fish runAction:fishActions];
         
