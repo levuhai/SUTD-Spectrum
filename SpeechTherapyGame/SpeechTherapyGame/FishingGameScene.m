@@ -261,49 +261,52 @@ NSUInteger WHALETYPE = 2;
         fishTypeNum = SHARKTYPE;
         fishMouthHitTargetRadius = 6;//sharkMouthHitTargetRadius
     }
-    SKSpriteNode *fish = [SKSpriteNode spriteNodeWithTexture:[swim firstObject]];
-    fish.zPosition = 1;
-    [self.fishArray addObject:fish];
-    [self.fishTypeArray addObject:@(fishTypeNum)];
-    fish.anchorPoint = CGPointMake(fishMouthXOffsetRatio, fishMouthYOffsetRatio);
     
-    CGFloat fishAppearingXDelta = 200;
-    CGFloat x = goingRight ? -fishAppearingXDelta : self.frame.size.width + fishAppearingXDelta;
-    CGFloat yOffset = [swim[0] size].height / 2;
-    int yInt = arc4random() % (int)(WaterViewHeigh * fishAppearingYRangePercentage) + yOffset;
-    CGFloat y = (CGFloat)yInt;
-    CGPoint fishLocation = CGPointMake(x, y);
-    
-    fish.position = fishLocation;
-    [self addChild:fish];
-    
-    fish.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:fishMouthHitTargetRadius];
-    fish.physicsBody.categoryBitMask = FISHIES;
-    fish.physicsBody.collisionBitMask = 0;
-    fish.physicsBody.contactTestBitMask = HOOK;
-    fish.physicsBody.usesPreciseCollisionDetection = YES;
-    
-    const NSTimeInterval kFishAnimSpeed = 1 / 5.0;
-    SKAction *fishSwimmingAction = [SKAction animateWithTextures:swim timePerFrame:kFishAnimSpeed];
-    SKAction *fishSwimmingForeverAction = [SKAction repeatActionForever:fishSwimmingAction];
-    [fish runAction:fishSwimmingForeverAction];
-    
-    NSUInteger deltaYInterval = 20;
-    CGFloat deltaY = arc4random() % deltaYInterval - deltaYInterval / 2.0;
-    CGFloat deltaX = 600;
-    SKAction *fishMoveAction = goingRight ? [SKAction moveByX:self.frame.size.width + deltaX y:deltaY duration:duration] : [SKAction moveByX:-1 * (self.frame.size.width + deltaX) y:deltaY duration:duration];
-    if (!goingRight) {
-        fish.xScale = -1;
-    }
-    __weak FishingGameScene *slf = self;
-    [fish runAction:fishMoveAction completion:^{
-        [fish removeFromParent];
-        NSUInteger index = [slf.fishArray indexOfObject:fish];
-        if (index != NSNotFound && index < slf.fishTypeArray.count) {
-            [slf.fishArray removeObjectAtIndex:index];
-            [slf.fishTypeArray removeObjectAtIndex:index];
+    if (swim.count > 0) {
+        SKSpriteNode *fish = [SKSpriteNode spriteNodeWithTexture:[swim firstObject]];
+        fish.zPosition = 1;
+        [self.fishArray addObject:fish];
+        [self.fishTypeArray addObject:@(fishTypeNum)];
+        fish.anchorPoint = CGPointMake(fishMouthXOffsetRatio, fishMouthYOffsetRatio);
+        
+        CGFloat fishAppearingXDelta = 200;
+        CGFloat x = goingRight ? -fishAppearingXDelta : self.frame.size.width + fishAppearingXDelta;
+        CGFloat yOffset = [swim[0] size].height / 2;
+        int yInt = arc4random() % (int)(WaterViewHeigh * fishAppearingYRangePercentage) + yOffset;
+        CGFloat y = (CGFloat)yInt;
+        CGPoint fishLocation = CGPointMake(x, y);
+        
+        fish.position = fishLocation;
+        [self addChild:fish];
+        
+        fish.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:fishMouthHitTargetRadius];
+        fish.physicsBody.categoryBitMask = FISHIES;
+        fish.physicsBody.collisionBitMask = 0;
+        fish.physicsBody.contactTestBitMask = HOOK;
+        fish.physicsBody.usesPreciseCollisionDetection = YES;
+        
+        const NSTimeInterval kFishAnimSpeed = 1 / 5.0;
+        SKAction *fishSwimmingAction = [SKAction animateWithTextures:swim timePerFrame:kFishAnimSpeed];
+        SKAction *fishSwimmingForeverAction = [SKAction repeatActionForever:fishSwimmingAction];
+        [fish runAction:fishSwimmingForeverAction];
+        
+        NSUInteger deltaYInterval = 20;
+        CGFloat deltaY = arc4random() % deltaYInterval - deltaYInterval / 2.0;
+        CGFloat deltaX = 600;
+        SKAction *fishMoveAction = goingRight ? [SKAction moveByX:self.frame.size.width + deltaX y:deltaY duration:duration] : [SKAction moveByX:-1 * (self.frame.size.width + deltaX) y:deltaY duration:duration];
+        if (!goingRight) {
+            fish.xScale = -1;
         }
-    }];
+        __weak FishingGameScene *slf = self;
+        [fish runAction:fishMoveAction completion:^{
+            [fish removeFromParent];
+            NSUInteger index = [slf.fishArray indexOfObject:fish];
+            if (index != NSNotFound && index < slf.fishTypeArray.count) {
+                [slf.fishArray removeObjectAtIndex:index];
+                [slf.fishTypeArray removeObjectAtIndex:index];
+            }
+        }];
+    }
     [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(generateRandomFish) userInfo:nil repeats:NO];
 }
 
