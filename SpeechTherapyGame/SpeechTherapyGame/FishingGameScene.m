@@ -23,12 +23,8 @@ NSUInteger WHALETYPE = 2;
 
 #define speakingTimeOut 2
 #define kCyclesPerSecond 0.25f
-<<<<<<< HEAD
 #define WaterViewHeigh 470 //460
-=======
-#define WaterViewHeigh 460
 #define FishBeingCaughtDestination 460
->>>>>>> 75bac459c03ba197d8f37efe069d65a5ba1a0929
 
 @interface FishingGameScene () <SKPhysicsContactDelegate> {
     Whale* _whale;
