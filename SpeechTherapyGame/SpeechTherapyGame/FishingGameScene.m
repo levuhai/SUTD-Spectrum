@@ -110,7 +110,7 @@ NSUInteger WHALETYPE = 2;
     // Land
     SKSpriteNode* landView = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"land-sand"]];
     landView.anchorPoint = CGPointMake(-1, 0);
-    landView.position = CGPointMake(0, WaterViewHeigh - 10);
+    landView.position = CGPointMake(50, WaterViewHeigh - 10);
     landView.zPosition = -2;
     [self addChild:landView];
     
@@ -122,23 +122,23 @@ NSUInteger WHALETYPE = 2;
     [sunView runAction:[SKAction repeatActionForever:[SKAction rotateByAngle:2*M_PI duration:60]]];
     [self addChild:sunView];
     
-    // turtle
-    SKSpriteNode* turtleView = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"turtle"]];
-    turtleView.anchorPoint = CGPointMake(0, 0);
-    turtleView.position = CGPointMake(self.size.width - turtleView.size.width, WaterViewHeigh + 10);
-    [self addChild:turtleView];
+//    // turtle
+//    SKSpriteNode* turtleView = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"turtle"]];
+//    turtleView.anchorPoint = CGPointMake(0, 0);
+//    turtleView.position = CGPointMake(self.size.width - turtleView.size.width, WaterViewHeigh + 10);
+//    [self addChild:turtleView];
     
     // pot
-    _potView = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"fish-pot"]];
-    _potView.anchorPoint = CGPointMake(0.5, 0.5);
-    _potView.zPosition = 1;
-    _potView.position = CGPointMake(self.size.width - turtleView.size.width - _potView.size.width, WaterViewHeigh + _potView.size.height/2 + 5);
-    [self addChild:_potView];
+//    _potView = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"fish-pot"]];
+//    _potView.anchorPoint = CGPointMake(0.5, 0.5);
+//    _potView.zPosition = 1;
+//    _potView.position = CGPointMake(self.size.width - turtleView.size.width - _potView.size.width, WaterViewHeigh + _potView.size.height/2 + 5);
+//    [self addChild:_potView];
     
     // bear
     SKSpriteNode* bearView = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"pencil-bear"]];
     bearView.anchorPoint = CGPointMake(0, 0);
-    bearView.position = CGPointMake(self.size.width - bearView.size.width - 300, WaterViewHeigh + 20);
+    bearView.position = CGPointMake(self.size.width - bearView.size.width - 250, WaterViewHeigh + 20);
     [self addChild:bearView];
     
     // Dynamic objects
