@@ -448,20 +448,20 @@ NSUInteger WHALETYPE = 2;
 
 #pragma mark hook actions
 - (void)dropHook {
-    [_hook removeAllActions];
-    [_hookLine removeAllActions];
+    [_hook removeActionForKey:@"hook"];
+    [_hookLine removeActionForKey:@"hookline"];
     CGFloat hookMovementDeltaY = 20;
     SKAction *hookGoingDownOnceAction = [SKAction moveByX:0 y:-hookMovementDeltaY duration:1.0/(float)3.0f];
     SKAction *hookGoingDownAction = [SKAction repeatActionForever:hookGoingDownOnceAction];
-    [_hook runAction:hookGoingDownAction];
+    [_hook runAction:hookGoingDownAction withKey:@"hook"];
     SKAction *hookLineOnceAction = [SKAction resizeByWidth:0 height:hookMovementDeltaY duration:1.0/(float)3.0f];
     SKAction *hookLineAction = [SKAction repeatActionForever:hookLineOnceAction];
-    [_hookLine runAction:hookLineAction];
+    [_hookLine runAction:hookLineAction withKey:@"hookline"];
 }
 
 - (void)raiseHook {
-    [_hook removeAllActions];
-    [_hookLine removeAllActions];
+    [_hook removeActionForKey:@"hook"];
+    [_hookLine removeActionForKey:@"hookline"];
     if (_hook.position.y > WaterViewHeigh) {
         return;
     }
@@ -470,25 +470,34 @@ NSUInteger WHALETYPE = 2;
     int count = ceilf((FishBeingCaughtDestination - _hook.position.y)/hookMovementDeltaY);
     
     SKAction *hookGoingUpAction = [SKAction repeatAction:hookGoingUpOnceAction count:(int)count];
-    [_hook runAction:hookGoingUpAction];
+    [_hook runAction:hookGoingUpAction withKey:@"hook"];
     SKAction *hookLineOnceAction = [SKAction resizeByWidth:0 height:-hookMovementDeltaY duration:1/6.0f];
     SKAction *hookLineAction = [SKAction repeatAction:hookLineOnceAction count:(int)count];
-    [_hookLine runAction:hookLineAction];
+    [_hookLine runAction:hookLineAction withKey:@"hookline"];
 }
 
 #pragma mark touch events callback
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     if (_fishBeingCaught)
         return;
-    [_pencil runAction:[SKAction rotateByAngle:0.2 duration:0.5]];
+    [_pencil runAction:[SKAction rotateByAngle:0.3 duration:0.3]];
+    [_pencil runAction:[SKAction moveByX:15 y:-10 duration:0.3]];
+    
     [self dropHook];
+    [_hook runAction:[SKAction moveByX:-10 y:-15 duration:0.3]];
+    [_hookLine runAction:[SKAction moveByX:-10 y:-15 duration:0.3]];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (_fishBeingCaught)
         return;
-    [_pencil runAction:[SKAction rotateByAngle:-0.2 duration:0.5]];
+    [_pencil runAction:[SKAction rotateByAngle:-0.3 duration:0.3]];
+    [_pencil runAction:[SKAction moveByX:-15 y:10 duration:0.3]];
+    
+    
     [self raiseHook];
+    [_hook runAction:[SKAction moveByX:10 y:15 duration:0.3]];
+    [_hookLine runAction:[SKAction moveByX:10 y:15 duration:0.3]];
 }
 
 #pragma mark contact delegate
