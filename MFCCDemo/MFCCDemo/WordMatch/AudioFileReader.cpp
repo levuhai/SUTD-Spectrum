@@ -68,7 +68,7 @@ AudioFileReader::AudioFileReader(CFURLRef url) :
 	memset(&client_format_, 0, sizeof(AudioStreamBasicDescription));
     
 	client_format_.mFormatID = kAudioFormatLinearPCM;
-	client_format_.mSampleRate = 16000;
+	client_format_.mSampleRate = 44100;
 	client_format_.mFormatFlags = kAudioFormatFlagsNativeFloatPacked;
 	client_format_.mChannelsPerFrame = 1;
 	client_format_.mBitsPerChannel = 32; //single precision
