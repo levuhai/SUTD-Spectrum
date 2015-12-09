@@ -38,8 +38,8 @@
 #define MAX_NUM_FRAMES 500
 
 //const float kDefaultComparisonThreshold = 3.09f;
-const float kDefaultTrimBeginThreshold = -100.0f;
-const float kDefaultTrimEndThreshold = -100.0f;
+const float kDefaultTrimBeginThreshold = -200.0f;
+const float kDefaultTrimEndThreshold = -200.0f;
 
 @interface ViewController () {
     WMAudioFilePreProcessInfo _fileAInfo;
@@ -402,7 +402,7 @@ static inline float _translate(float val, float min, float max) {
     float maxDiff = sortedOutput[(int)roundf(keepPct*outputCount)];
      NSLog(@"diff %f",maxDiff);
     // TODO: maxDiff
-    maxDiff = maxDiff*0.5;
+    maxDiff = 5;//maxDiff*0.5;
     /*
      % initialize a new matrix to store the normalized output values
      normalizedOutput = output;
@@ -812,11 +812,8 @@ void getLinearFit(float* xData, float* yData, size_t length, float* slope, float
 
 //------------------------------------------------------------------------------
 
-- (NSString *)applicationDocumentsDirectory
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-    return basePath;
+- (NSString *)applicationDocumentsDirectory {
+    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 //------------------------------------------------------------------------------

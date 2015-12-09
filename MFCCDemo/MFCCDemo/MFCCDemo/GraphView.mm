@@ -47,13 +47,13 @@
 
 - (void)drawRect:(CGRect)rect {
     if (_feature.size() > 0) {
-        
+        float n = 12;
         float maxH = 0.0;
-        float sectionH = self.bounds.size.height/12;
-        for (float k = 0; k < 12.0; k++) {
+        float sectionH = self.bounds.size.height/n;
+        for (float k = 0; k < n; k++) {
             maxH += sectionH;
             UIBezierPath *aPath = [UIBezierPath bezierPath];
-            [aPath moveToPoint:CGPointMake(0.0, maxH)];
+            [aPath moveToPoint:CGPointMake(-1, maxH)];
             for (int i = 0; i<_feature.size(); i++) {
                 [aPath addLineToPoint:CGPointMake(i, maxH-((_feature[i][k]-_min)/(_max-_min)*sectionH))];
             }

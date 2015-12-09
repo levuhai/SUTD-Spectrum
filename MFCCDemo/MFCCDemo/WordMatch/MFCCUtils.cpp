@@ -38,9 +38,10 @@ FeatureTypeDTW::Features get_mfcc_features(const boost::shared_ptr<WM::AudioFile
     //This seems to be a pretty robust configuration, and is the same
     //as we used in our Matlab prototype.
     
-    static const size_t window_frame_size = 1024; // 1024
+   
     static const Float64 sample_rate = 44100.0f;
-    static const float interval_time_duration = 0.01f / 1.0f;
+    static const float interval_time_duration = 0.005;
+    static const size_t window_frame_size = sample_rate*0.005; // 1024
     static const float preemphasis_coefficient = 0.97f;
     static const float min_frequency = 300.00f;
     static const float max_frequency = 3700.00f;
