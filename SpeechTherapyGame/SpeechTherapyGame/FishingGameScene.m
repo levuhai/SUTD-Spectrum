@@ -32,7 +32,7 @@ NSUInteger WHALETYPE = 2;
     SKSpriteNode* _hookLine;
     SKSpriteNode* _potView;
     SKSpriteNode* _fishBeingCaught;
-    
+    SKSpriteNode* _pencil;
     
     BOOL didShowText;
     TCProgressTimerNode *_progressTimerNode3;
@@ -80,6 +80,7 @@ NSUInteger WHALETYPE = 2;
     //Static objects
     SKSpriteNode *waves = [SKSpriteNode spriteNodeWithImageNamed:@"waves"];
     waves.size = CGSizeMake(self.frame.size.width + 100, waves.size.height);
+    waves.zPosition = -1;
     waves.position = CGPointMake(0, WaterViewHeigh);
     waves.anchorPoint = CGPointZero;
     [self addChild:waves];
@@ -110,7 +111,7 @@ NSUInteger WHALETYPE = 2;
     // Land
     SKSpriteNode* landView = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"land-sand"]];
     landView.anchorPoint = CGPointMake(-1, 0);
-    landView.position = CGPointMake(50, WaterViewHeigh - 10);
+    landView.position = CGPointMake(-150, WaterViewHeigh - 10);
     landView.zPosition = -2;
     [self addChild:landView];
     
@@ -136,36 +137,17 @@ NSUInteger WHALETYPE = 2;
 //    [self addChild:_potView];
     
     // bear
-    SKSpriteNode* bearView = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"pencil-bear"]];
+    SKSpriteNode* bearView = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"bear"]];
     bearView.anchorPoint = CGPointMake(0, 0);
-    bearView.position = CGPointMake(self.size.width - bearView.size.width - 250, WaterViewHeigh + 20);
+    bearView.position = CGPointMake(self.size.width*0.5, WaterViewHeigh + 20);
     [self addChild:bearView];
     
+    _pencil = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"pencil"]];
+    _pencil.anchorPoint = CGPointMake(0, 0);
+    _pencil.position = CGPointMake(bearView.position.x - _pencil.size.width/2, bearView.position.y);
+    [self addChild:_pencil];
+    
     // Dynamic objects
-    // Buoy
-//    _hook = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"buoy"]];
-//    _hook.anchorPoint = CGPointMake(0.5, 0.5);
-//    _hook.position = CGPointMake(2*self.size.width/5, WaterViewHeigh);
-//    [self addChild:_hook];
-//    [_hook runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction moveByX:0 y:3 duration:0.5], [SKAction moveByX:0 y:-3 duration:0.5]]]]];
-//    
-//    SKShapeNode *yourline = [SKShapeNode node];
-//    CGMutablePathRef pathToDraw = CGPathCreateMutable();
-//    CGPathMoveToPoint(pathToDraw, NULL, bearView.position.x, bearView.position.y+bearView.size.height/2+25);
-//    CGPathAddLineToPoint(pathToDraw, NULL, _hook.position.x, _hook.position.y);
-//    yourline.path = pathToDraw;
-//    [yourline setStrokeColor:[SKColor darkGrayColor]];
-//    [self addChild:yourline];
-//    [yourline runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction moveByX:0 y:3 duration:0.5], [SKAction moveByX:0 y:-3 duration:0.5]]]]];
-    
-    
-    // Whale
-//    _whale = [[Whale alloc] init];
-//    _whale.anchorPoint = CGPointMake(0.5, 0.5);
-//    _whale.position = CGPointMake(5, WaterViewHeigh);
-//    [self addChild:_whale];
-//    [_whale runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction moveByX:0 y:-10 duration:0.5], [SKAction moveByX:0 y:10 duration:0.5]]]]];
-    
     // set up swimming fishes
     _fishSwim = [self swimmingFramesWithAtlasNamed:@"small_fish"];
     _sharkSwim = [self swimmingFramesWithAtlasNamed:@"shark"];
@@ -179,7 +161,7 @@ NSUInteger WHALETYPE = 2;
     // Hook
     // set up hook and hook line
     _hook = [SKSpriteNode spriteNodeWithImageNamed:@"buoy"];
-    _hook.position = CGPointMake(2*self.size.width/5, WaterViewHeigh);
+    _hook.position = CGPointMake(_pencil.position.x, WaterViewHeigh);
     _hook.anchorPoint = CGPointMake(0.5, 0.0);
     [self addChild:_hook];
     SKPhysicsBody *hookPhysicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(10, 10)];
@@ -189,9 +171,9 @@ NSUInteger WHALETYPE = 2;
     hookPhysicsBody.usesPreciseCollisionDetection = YES;
     _hook.physicsBody = hookPhysicsBody;
     
-    _hookLine = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(2, 6)];
+    _hookLine = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(2,(_pencil.position.y + _pencil.size.height) - (_hook.position.y + _hook.size.height) + 10)];
     _hookLine.anchorPoint = CGPointMake(0.5, 1.0);
-    _hookLine.position = CGPointMake(_hook.position.x - 4.5, _hook.position.y + 3 + _hook.size.height);
+    _hookLine.position = CGPointMake(_pencil.position.x, _pencil.position.y + _pencil.size.height);
     [self addChild:_hookLine];
 }
 
@@ -498,12 +480,14 @@ NSUInteger WHALETYPE = 2;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     if (_fishBeingCaught)
         return;
+    [_pencil runAction:[SKAction rotateByAngle:0.2 duration:0.5]];
     [self dropHook];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (_fishBeingCaught)
         return;
+    [_pencil runAction:[SKAction rotateByAngle:-0.2 duration:0.5]];
     [self raiseHook];
 }
 
