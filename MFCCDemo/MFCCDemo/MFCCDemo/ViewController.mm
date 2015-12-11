@@ -705,11 +705,14 @@ static inline float _translate(float val, float min, float max) {
     
     for (int i = 0; i < nearLineMatrix[0].size();i++) {
         float max = 0;
+        int selected = 0;
         for (int j = 0; j < nearLineMatrix.size();j++) {
-            if (nearLineMatrix[i][j]>max) {
-                max = nearLineMatrix[i][j];
+            if (nearLineMatrix[j][i]>max) {
+                max = nearLineMatrix[j][i];
+                selected = j;
             }
         }
+        trimmedNormalisedOutput[selected][i] = 999;
         fitQuality[i] = max;
     }
     
