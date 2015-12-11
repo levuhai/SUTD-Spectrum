@@ -56,7 +56,8 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
     if (!_drawFit) {
-        _size = MAX(self.bounds.size.width/_w, 1);
+        _maxVal = 1;
+        _size = 3;//MAX(self.bounds.size.width/_w, 1);
         // Drawing code
         for (int i = 0; i <_h; i++) {
             for (int j = 0; j<_w; j++) {
@@ -65,7 +66,10 @@
                 CGContextRef context = UIGraphicsGetCurrentContext();
                 CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha =0.0;
                 [_graphColor getRed:&red green:&green blue:&blue alpha:&alpha];
-                CGContextSetRGBFillColor(context, red, green, blue, 0.1 + temp);   //this is the transparent color
+                if (temp == 999) {
+                    CGContextSetRGBFillColor(context, 0, 1, 1, 0.4);
+                } else
+                    CGContextSetRGBFillColor(context, red, green, blue, 0.1 + temp);   //this is the transparent color
                 CGContextFillRect(context, rectangle);
             }
         }

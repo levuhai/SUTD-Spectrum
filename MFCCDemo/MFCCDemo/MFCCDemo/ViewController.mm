@@ -54,6 +54,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
     std::vector< std::vector<float> > normalisedOutput;
     std::vector< std::vector<float> > trimmedNormalisedOutput;
     std::vector< std::vector<float> > bestFitLine;
+    std::vector< std::vector<float> > nearLineMatrix;
     std::vector<float> fitQuality;
     
     MFCCController* _trimVC;
@@ -679,67 +680,49 @@ static inline float _translate(float val, float min, float max) {
 */
     
     fitQuality.resize(featureB.size());
-    float timeTolerance = 10;
-    
-    
-    float fitLocation, toleranceWindowExcessLeft, toleranceWindowExcessRight, toleranceWindowStart, toleranceWindowEnd, maxGraph = 0.0f;
-    for (int j = 0; j < featureB.size(); j++) {
-        if (slope<0) {
-            fitQuality[j] = 0.0f;
-        } else {
-//        % find the location of the best fit line in the output matrix
-//        fitLocation = round(fitresult(j));
-        fitLocation = roundf(linearFun(j, slope, intercept));
-        
-//    % find out if the tolerance region around the fit line hangs over
-//        % the left or right edge of the matrix
-//        toleranceWindowExcessLeft = max(timeTolerance - fitLocation + 1,0);
-//    toleranceWindowExcessRight = max(timeTolerance + fitLocation - size(MFCC1,2),0);
-        toleranceWindowExcessLeft = fmax(timeTolerance - fitLocation + 1,0);
-        toleranceWindowExcessRight = fmax(timeTolerance + fitLocation - featureA.size(),0);
-        
-//    % taking the overhang at the edges into account, compute the
-//    % boundaries of the tolerance region
-//    toleranceWindowStart = fitLocation - timeTolerance + toleranceWindowExcessLeft;
-//    toleranceWindowEnd = fitLocation + timeTolerance - toleranceWindowExcessRight;
-        toleranceWindowStart = fitLocation - timeTolerance + toleranceWindowExcessLeft;
-        toleranceWindowEnd = fitLocation + timeTolerance - toleranceWindowExcessRight;
-        
-//    % the fit quality for the jth window is the best match value in the
-//        % region fitLocation (+-) timeTolerance
-//        fitQuality(j) = max(normalizedOutput(toleranceWindowStart:toleranceWindowEnd,j));
-        float max = 0.0;
-        for (int i = toleranceWindowStart-1; i<MIN(toleranceWindowEnd,trimmedNormalisedOutput.size()); i++) {
-            if (trimmedNormalisedOutput[i][j] > max) {
-                max = trimmedNormalisedOutput[i][j];
-            }
-        }
-        // For graph drawing scale
-        if (max > maxGraph) {
-            maxGraph = max;
-        }
-        
-        fitQuality[j-1] = max;
-        }
-    }
-    
-    
     // Best fit line
     bestFitLine.clear();
+    nearLineMatrix.clear();
     bestFitLine.resize(trimmedNormalisedOutput.size());
+    nearLineMatrix.resize(trimmedNormalisedOutput.size());
     for (size_t i = 0; i<bestFitLine.size(); i++){
         //normalisedOutput[i].clear();
         bestFitLine[i].resize(trimmedNormalisedOutput[0].size());
+        nearLineMatrix[i].resize(trimmedNormalisedOutput[0].size());
     }
+    
+    // Point near fit line
+    float timeTolerance = 7;
     for (int i = 0; i < trimmedNormalisedOutput.size();i++) {
         for (int j = 0; j < trimmedNormalisedOutput[0].size();j++) {
-            bestFitLine[i][j] = 0;
+            if (pointToLineDistance(i,j,slope,intercept)>timeTolerance) {
+                nearLineMatrix[i][j] = 0;
+            } else {
+                nearLineMatrix[i][j] = trimmedNormalisedOutput[i][j];
+            }
         }
-        int y = roundf(linearFun(i, slope, intercept));
-        if (y<0) y = 0;
-        if (y>trimmedNormalisedOutput[0].size()) y = 0;
-        bestFitLine[i][y] = 1;
     }
+    
+    for (int i = 0; i < nearLineMatrix[0].size();i++) {
+        float max = 0;
+        for (int j = 0; j < nearLineMatrix.size();j++) {
+            if (nearLineMatrix[i][j]>max) {
+                max = nearLineMatrix[i][j];
+            }
+        }
+        fitQuality[i] = max;
+    }
+    
+    
+//    for (int i = 0; i < trimmedNormalisedOutput.size();i++) {
+//        for (int j = 0; j < trimmedNormalisedOutput[0].size();j++) {
+//            bestFitLine[i][j] = 0;
+//        }
+//        int y = roundf(linearFun(i, slope, intercept));
+//        if (y<0) y = 0;
+//        if (y>trimmedNormalisedOutput[0].size()) y = 0;
+//        bestFitLine[i][y] = 1;
+//    }
 
     _startTrimPercentage = maxWindowStart/(float)sizeA;
     _endTrimPercentage  = maxWindowEnd/(float)sizeA;
@@ -752,16 +735,16 @@ static inline float _translate(float val, float min, float max) {
     
     // Page 3
     _matrixVC.upperView.graphColor = [UIColor greenColor];
-    [_matrixVC.upperView inputNormalizedDataW:(int)bestFitLine[0].size()
-                                  matrixH:(int)bestFitLine.size()
-                                     data:bestFitLine
+    [_matrixVC.upperView inputNormalizedDataW:(int)nearLineMatrix[0].size()
+                                  matrixH:(int)nearLineMatrix.size()
+                                     data:nearLineMatrix
                                      rect:self.view.bounds
                                    maxVal:1];
     [_matrixVC.lowerView inputNormalizedDataW:(int)trimmedNormalisedOutput[0].size()
                                   matrixH:(int)trimmedNormalisedOutput.size()
                                      data:trimmedNormalisedOutput
                                      rect:self.view.bounds
-                                   maxVal:maxGraph];
+                                   maxVal:1];
     // Page 4
     [_matrix2VC.upperView inputFitQualityW:(int)fitQuality.size()
                                      data:fitQuality
@@ -771,6 +754,15 @@ static inline float _translate(float val, float min, float max) {
 
 inline float linearFun(float x, float slope, float intercept) {
     return x*slope + intercept;
+}
+
+inline float pointToLineDistance(float x, float y, float slope, float intercept) {
+    // ax + by + c = 0;
+    float a = slope;
+    float b = -1;
+    float c = intercept;
+    return fabsf(a*x + b*y + c)/sqrtf((a*a)+(b*b));
+    
 }
 
 void getLinearFit(float* xData, float* yData, size_t length, float* slope, float* intercept)
