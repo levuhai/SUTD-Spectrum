@@ -27,7 +27,6 @@ NSUInteger WHALETYPE = 2;
 #define FishBeingCaughtDestination 460
 
 @interface FishingGameScene () <SKPhysicsContactDelegate> {
-    Whale* _whale;
     SKSpriteNode* _hook;
     SKSpriteNode* _hookLine;
     SKSpriteNode* _potView;
@@ -318,9 +317,9 @@ NSUInteger WHALETYPE = 2;
             _progressTimerNode3 = nil;
         }
         if (/* DISABLES CODE */ (YES)) {
-            [self animateCatchAWhale];
+            //[self animateCatchAWhale];
         } else {
-            [self animateWhaleBack];
+            //[self animateWhaleBack];
         }
     });
 
@@ -330,70 +329,14 @@ NSUInteger WHALETYPE = 2;
 
 }
 
-- (void) animateWhaleHooked {
-    
-    if (!didShowText) {
-        [_whale runAction:[SKAction moveTo:CGPointMake(_hook.position.x - _whale.size.width/2 - 20, _whale.position.y + 10) duration:1] completion:^{
-            // Show count down
-            [self addLetterToWhale];
-            didShowText = YES;
-            [self animateCountDownCircle];
-        }];
-
-    }
-}
-
-- (void) animateWhaleBack {
-    if (didShowText) {
-        [_whale runAction:[SKAction scaleXBy:-1 y:1 duration:0.1] completion:^{
-            [_whale runAction:[SKAction moveTo:CGPointMake(5, WaterViewHeigh) duration:1] completion:^{
-                // Show count down
-                [_whale removeAllChildren];
-                didShowText = NO;
-                _whale.xScale*=-1;
-            }];
-        }];
-    }
-}
-
-- (void) animateCatchAWhale {
-    // Animate flying whale
-    SKSpriteNode* flyingWhale = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"whale-no-text"] color:[UIColor clearColor] size:CGSizeMake(152, 115)];
-    flyingWhale.zPosition = _potView.zPosition - 1;
-    flyingWhale.position = _whale.position;
-    [self addChild:flyingWhale];
-    
-    // Move up and down
-    [flyingWhale runAction:[SKAction sequence:@[[SKAction moveByX:(_potView.position.x - _whale.position.x)/2 y:200 duration:0.5],[SKAction moveByX:(_potView.position.x - _whale.position.x)/2 y:-200 duration:0.5]]] completion:^{
-        // Get point!
-        [self getPoint];
-    }];
-    // Move to the pot
-    // Scale down
-    [flyingWhale runAction:[SKAction scaleTo:0.1 duration:1] completion:^{
-        [_whale runAction:[SKAction fadeAlphaTo:1 duration:0.3]];
-        [flyingWhale removeFromParent];
-    }];
-    
-    
-    [_whale runAction:[SKAction fadeAlphaTo:0 duration:0.3] completion:^{
-        // Silently move whale to the start position
-        [_whale runAction:[SKAction moveTo:CGPointMake(5, WaterViewHeigh) duration:0] completion:^{
-            // Show count down
-            [_whale removeAllChildren];
-            didShowText = NO;
-        }];
-    }];
-}
-
 - (void) addLetterToWhale {
     SKLabelNode* letter = [SKLabelNode node];
     //letter.fontName = @"Arial-Bold";
     letter.text = @"T";
     letter.fontSize = 50;
     letter.fontColor = [UIColor whiteColor];
-    letter.position = CGPointMake(-_whale.size.width/2 + 30, _whale.size.height/2 - 60);
-    [_whale addChild:letter];
+    //letter.position = CGPointMake(-_whale.size.width/2 + 30, _whale.size.height/2 - 60);
+    //[_whale addChild:letter];
 }
 #pragma mark - Points
 
@@ -507,7 +450,7 @@ NSUInteger WHALETYPE = 2;
         (contact.bodyB.node == self.scene && contact.bodyA.node == _hook)) {
         [_hook removeAllActions];
         [_hookLine removeAllActions];
-        if (contact.contactPoint.y > 0.7 * self.frame.size.height) { // if at the top
+        if (contact.contactPoint.y > WaterViewHeigh) { // if at the top
             // reset hook and hookline positions
             _hook.position = CGPointMake(WaterViewHeigh + _hook.size.width/2.0 - 5, WaterViewHeigh - _hook.size.height - 5);
             _hookLine.position = CGPointMake(_hook.position.x - 4.5, _hook.position.y + 3 + _hook.size.height);
@@ -579,6 +522,40 @@ NSUInteger WHALETYPE = 2;
         SKAction *fishActions = [SKAction group:@[fishToHookAction, followHookAction]];
         [fish runAction:fishActions];
         
+    }
+}
+
+- (void) throwCaughtFish {
+    if (_fishBeingCaught) {
+        [_fishBeingCaught removeAllActions];
+        
+        // show fish thrown away animation
+        SKAction *fishThrownAwayTraslateAction = [SKAction moveByX:150 y:150 duration:0.5];
+        SKAction *fishThrownAwayRotateAction = [SKAction rotateByAngle:-M_PI duration:0.5];
+        SKAction *fishThrownAwayAction = [SKAction group:@[fishThrownAwayTraslateAction, fishThrownAwayRotateAction]];
+        __weak FishingGameScene *slf = self;
+        [_fishBeingCaught runAction:fishThrownAwayAction completion:^{
+            [_fishBeingCaught removeFromParent];
+            NSUInteger index = [slf.fishArray indexOfObject:_fishBeingCaught];
+            if (index != NSNotFound && index < slf.fishTypeArray.count) {
+                switch ([slf.fishTypeArray[index] integerValue]) {
+                    case 0: // fish
+                        //slf.score += FISHSCORE;
+                        break;
+                    case 1: // shark
+                        //slf.score += SHARKSCORE;
+                        break;
+                    case 2: // whale
+                        //slf.score += WHALESCORE;
+                        break;
+                    default:
+                        break;
+                }
+                [slf.fishArray removeObjectAtIndex:index];
+                [slf.fishTypeArray removeObjectAtIndex:index];
+            }
+            _fishBeingCaught = nil;
+        }];
     }
 }
 
