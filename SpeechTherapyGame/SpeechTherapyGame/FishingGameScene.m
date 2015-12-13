@@ -54,6 +54,11 @@ NSUInteger WHALETYPE = 2;
     self.backgroundColor = RGB(66, 191, 254);
     self.physicsWorld.gravity = CGVectorMake(0, 0);
     self.physicsWorld.contactDelegate = self;
+    SKPhysicsBody *boundPhysicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0, 0, self.frame.size.width, FishBeingCaughtDestination + 20)];
+    boundPhysicsBody.categoryBitMask = BOUND;
+    boundPhysicsBody.collisionBitMask = HOOK;
+    boundPhysicsBody.contactTestBitMask = HOOK;
+    self.physicsBody = boundPhysicsBody;
 
     [self setupGameScene];
     [self _setup];
@@ -83,6 +88,17 @@ NSUInteger WHALETYPE = 2;
     waves.position = CGPointMake(0, WaterViewHeigh);
     waves.anchorPoint = CGPointZero;
     [self addChild:waves];
+    
+    CGFloat cloudShiftXDelta = 100;
+    SKSpriteNode *cloud = [SKSpriteNode spriteNodeWithImageNamed:@"cloud-1"];
+    cloud.position = CGPointMake(-cloudShiftXDelta, self.frame.size.height - cloud.size.height - 10); // offset cloud y a bit
+    cloud.anchorPoint = CGPointZero;
+    [self addChild:cloud];
+    
+    SKAction *cloudMoveRightAction = [SKAction moveByX:self.frame.size.width+cloudShiftXDelta y:0 duration:120];
+    SKAction *cloudResetAction = [SKAction moveByX:-self.frame.size.width-cloudShiftXDelta y:0 duration:0];
+    SKAction *cloudAction = [SKAction repeatActionForever:[SKAction sequence:@[cloudMoveRightAction, cloudResetAction]]];
+    [cloud runAction:cloudAction];
     
     CGFloat waveYDelta = 5;
     CGFloat waveXDelta = 100;
@@ -141,6 +157,7 @@ NSUInteger WHALETYPE = 2;
     bearView.position = CGPointMake(self.size.width*0.5, WaterViewHeigh + 20);
     [self addChild:bearView];
     
+    
     _pencil = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"pencil"]];
     _pencil.anchorPoint = CGPointMake(0, 0);
     _pencil.position = CGPointMake(bearView.position.x - _pencil.size.width/2, bearView.position.y);
@@ -174,6 +191,10 @@ NSUInteger WHALETYPE = 2;
     _hookLine.anchorPoint = CGPointMake(0.5, 1.0);
     _hookLine.position = CGPointMake(_pencil.position.x, _pencil.position.y + _pencil.size.height);
     [self addChild:_hookLine];
+    
+    
+    // bear thought
+    [self bearThoughtAnimation:CGPointMake(bearView.position.x + bearView.size.width/2 + 20, bearView.position.y + bearView.size.height/2 + 20)];
 }
 
 - (void) addParticalsAnimations {
@@ -213,6 +234,101 @@ NSUInteger WHALETYPE = 2;
         [swimmingFrames addObject:[animAtlas textureNamed:tex]];
     }
     return swimmingFrames;
+}
+
+- (void) bearThoughtAnimation:(CGPoint) pos {
+    
+    if (_fishBeingCaught) {
+        return;
+    }
+    
+    __block SKSpriteNode* tb1 = [[SKSpriteNode alloc] initWithTexture:nil color:[UIColor whiteColor] size:CGSizeMake(5, 5)];
+    tb1.position = CGPointMake(pos.x + 10, pos.y + 10);
+    [self addChild:tb1];
+    
+    __block SKSpriteNode* tb2 = [[SKSpriteNode alloc] initWithTexture:nil color:[UIColor whiteColor] size:CGSizeMake(10, 10)];
+    tb2.position = CGPointMake(pos.x + 20, pos.y + 20);
+    [self addChild:tb2];
+    
+    __block SKSpriteNode* tb3 = [[SKSpriteNode alloc] initWithTexture:nil color:[UIColor whiteColor] size:CGSizeMake(20, 20)];
+    tb3.position = CGPointMake(pos.x + 35, pos.y + 35);
+    [self addChild:tb3];
+    
+    __block SKSpriteNode* tb4 = [[SKSpriteNode alloc] initWithTexture:nil color:[UIColor whiteColor] size:CGSizeMake(70, 35)];
+    tb4.position = CGPointMake(pos.x + 60, pos.y + 60);
+    [self addChild:tb4];
+    
+    __block SKSpriteNode* afish = [[SKSpriteNode alloc] initWithTexture:_fishSwim[0]];
+    afish.position = CGPointMake(tb4.size.width/2, tb4.size.height/2);
+    [tb4 addChild:afish];
+    
+    tb1.anchorPoint = tb2.anchorPoint = tb3.anchorPoint = tb4.anchorPoint = CGPointMake(0, 0);
+    tb1.alpha = tb2.alpha = tb3.alpha = tb4.alpha = afish.alpha = 0;
+    
+    __weak FishingGameScene* weakSelf = self;
+    
+    [self shouldShowThoughtBox:YES with:tb1 :tb2 :tb3 :tb4 :afish completion:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf shouldShowThoughtBox:NO with:tb1 :tb2 :tb3 :tb4 :afish completion:^{
+                [tb1 removeFromParent];
+                tb1 = nil;
+                [tb2 removeFromParent];
+                tb2 = nil;
+                [tb3 removeFromParent];
+                tb3 = nil;
+                [tb4 removeFromParent];
+                tb4 = nil;
+                [afish removeFromParent];
+                afish = nil;
+                
+                [weakSelf bearThoughtAnimation:pos];
+            }];
+        });
+    }];
+}
+
+- (void) shouldShowThoughtBox:(BOOL) value with:(SKSpriteNode*) tb1 :(SKSpriteNode*) tb2 :(SKSpriteNode*) tb3 :(SKSpriteNode*) tb4 :(SKSpriteNode*) afish completion:(void (^)())block {
+    
+    int alpha = value ? 1 : 0;
+    
+    [tb1 runAction:[SKAction fadeAlphaTo:alpha duration:0.2] completion:^{
+        [tb1 runAction:[SKAction scaleTo:1.2 duration:0.1] completion:^{
+            [tb1 runAction:[SKAction scaleTo:1.0 duration:0.2] completion:^{
+                
+                [tb2 runAction:[SKAction fadeAlphaTo:alpha duration:0.2] completion:^{
+                    [tb2 runAction:[SKAction scaleTo:1.2 duration:0.1] completion:^{
+                        [tb2 runAction:[SKAction scaleTo:1.0 duration:0.2] completion:^{
+                            
+                            [tb3 runAction:[SKAction fadeAlphaTo:alpha duration:0.2] completion:^{
+                                [tb3 runAction:[SKAction scaleTo:1.2 duration:0.1] completion:^{
+                                    [tb3 runAction:[SKAction scaleTo:1.0 duration:0.2] completion:^{
+                                        
+                                        [tb4 runAction:[SKAction fadeAlphaTo:alpha duration:0.2] completion:^{
+                                            [tb4 runAction:[SKAction scaleTo:1.2 duration:0.1] completion:^{
+                                                [tb4 runAction:[SKAction scaleTo:1.0 duration:0.2] completion:^{
+                                                    
+                                                    [afish runAction:[SKAction fadeAlphaTo:alpha duration:0.3] completion:^{
+                                                        if (block)
+                                                            block();
+                                                    }];
+                                                    
+                                                }];
+                                            }];
+                                        }];
+                                        
+                                        
+                                    }];
+                                }];
+                            }];
+                            
+                        }];
+                    }];
+                }];
+                
+                
+            }];
+        }];
+    }];
 }
 
 #pragma mark generate random fish
@@ -450,44 +566,13 @@ NSUInteger WHALETYPE = 2;
         (contact.bodyB.node == self.scene && contact.bodyA.node == _hook)) {
         [_hook removeAllActions];
         [_hookLine removeAllActions];
-        if (contact.contactPoint.y > WaterViewHeigh) { // if at the top
-            // reset hook and hookline positions
-            _hook.position = CGPointMake(WaterViewHeigh + _hook.size.width/2.0 - 5, WaterViewHeigh - _hook.size.height - 5);
-            _hookLine.position = CGPointMake(_hook.position.x - 4.5, _hook.position.y + 3 + _hook.size.height);
-            _hookLine.size = CGSizeMake(2, 6);
-            
+        
+        NSLog(@"ctp : %f",contact.contactPoint.y);
+        
+        if (contact.contactPoint.y > FishBeingCaughtDestination - 50) { // if at the top
             if (_fishBeingCaught) {
-                [_fishBeingCaught removeAllActions];
-                
-                // show fish thrown away animation
-                SKAction *fishThrownAwayTraslateAction = [SKAction moveByX:150 y:150 duration:0.5];
-                SKAction *fishThrownAwayRotateAction = [SKAction rotateByAngle:-M_PI duration:0.5];
-                SKAction *fishThrownAwayAction = [SKAction group:@[fishThrownAwayTraslateAction, fishThrownAwayRotateAction]];
-                __weak FishingGameScene *slf = self;
-                [_fishBeingCaught runAction:fishThrownAwayAction completion:^{
-                    [_fishBeingCaught removeFromParent];
-                    NSUInteger index = [slf.fishArray indexOfObject:_fishBeingCaught];
-                    if (index != NSNotFound && index < slf.fishTypeArray.count) {
-                        switch ([slf.fishTypeArray[index] integerValue]) {
-                            case 0: // fish
-                                //slf.score += FISHSCORE;
-                                break;
-                            case 1: // shark
-                                //slf.score += SHARKSCORE;
-                                break;
-                            case 2: // whale
-                                //slf.score += WHALESCORE;
-                                break;
-                            default:
-                                break;
-                        }
-                        [slf.fishArray removeObjectAtIndex:index];
-                        [slf.fishTypeArray removeObjectAtIndex:index];
-                    }
-                    _fishBeingCaught = nil;
-                }];
+                //[self showSpeakBubbleAt:_fishBeingCaught.position];
             }
-            
         }
         return;
     }
@@ -523,6 +608,12 @@ NSUInteger WHALETYPE = 2;
         [fish runAction:fishActions];
         
     }
+}
+
+- (void) showSpeakBubbleAt:(CGPoint) pos {
+    SKSpriteNode* bubble = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"speak-bubble"]];
+    bubble.position = pos;
+    [self addChild:bubble];
 }
 
 - (void) throwCaughtFish {
