@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "speak-bubble.png",
+      "filename" : "speakbubble.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "speak-bubble@2x.png",
+      "filename" : "speakbubble@2x.png",
       "scale" : "2x"
     },
     {

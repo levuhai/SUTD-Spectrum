@@ -54,7 +54,7 @@ NSUInteger WHALETYPE = 2;
     self.backgroundColor = RGB(66, 191, 254);
     self.physicsWorld.gravity = CGVectorMake(0, 0);
     self.physicsWorld.contactDelegate = self;
-    SKPhysicsBody *boundPhysicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0, 0, self.frame.size.width, FishBeingCaughtDestination + 20)];
+    SKPhysicsBody *boundPhysicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0, 0, self.frame.size.width, FishBeingCaughtDestination)];
     boundPhysicsBody.categoryBitMask = BOUND;
     boundPhysicsBody.collisionBitMask = HOOK;
     boundPhysicsBody.contactTestBitMask = HOOK;
@@ -564,14 +564,14 @@ NSUInteger WHALETYPE = 2;
     // hook going out of bound
     if ((contact.bodyA.node == self.scene && contact.bodyB.node == _hook) ||
         (contact.bodyB.node == self.scene && contact.bodyA.node == _hook)) {
-        [_hook removeAllActions];
-        [_hookLine removeAllActions];
+        //[_hook removeAllActions];
+        //[_hookLine removeAllActions];
         
         NSLog(@"ctp : %f",contact.contactPoint.y);
         
-        if (contact.contactPoint.y > FishBeingCaughtDestination - 50) { // if at the top
+        if (contact.contactPoint.y >= FishBeingCaughtDestination - 100) { // if at the top
             if (_fishBeingCaught) {
-                //[self showSpeakBubbleAt:_fishBeingCaught.position];
+                [self showSpeakBubbleAt:_fishBeingCaught.position];
             }
         }
         return;
@@ -611,8 +611,16 @@ NSUInteger WHALETYPE = 2;
 }
 
 - (void) showSpeakBubbleAt:(CGPoint) pos {
-    SKSpriteNode* bubble = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"speak-bubble"]];
-    bubble.position = pos;
+    SKSpriteNode* bubble = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"speakbubble"]];
+    bubble.position = CGPointMake(pos.x - bubble.size.width/2 - 15, pos.y + bubble.size.height/2 + 15);
+    
+    SKLabelNode* text = [SKLabelNode node];
+    text.text = @"good";
+    text.fontName = @"HelveticaNeue-Bold";
+    text.fontColor = [UIColor redColor];
+    text.fontSize = 50;
+    text.zPosition = 10;
+    [bubble addChild:text];
     [self addChild:bubble];
 }
 
