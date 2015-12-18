@@ -26,6 +26,10 @@ NSUInteger WHALETYPE = 2;
 #define WaterViewHeigh 470 //460
 #define FishBeingCaughtDestination 460
 
+#define smallFishSpeed 2.0
+#define sharkSpeed 4.0
+#define whaleSpeed 6.0
+
 @interface FishingGameScene () <SKPhysicsContactDelegate> {
     SKSpriteNode* _hook;
     SKSpriteNode* _hookLine;
@@ -182,8 +186,8 @@ NSUInteger WHALETYPE = 2;
     [self addChild:_hook];
     SKPhysicsBody *hookPhysicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(10, 10)];
     hookPhysicsBody.categoryBitMask = HOOK;
-    hookPhysicsBody.collisionBitMask = BOUND;
-    hookPhysicsBody.contactTestBitMask = FISHIES | BOUND;
+    hookPhysicsBody.collisionBitMask = 0;
+    hookPhysicsBody.contactTestBitMask = FISHIES;
     hookPhysicsBody.usesPreciseCollisionDetection = YES;
     _hook.physicsBody = hookPhysicsBody;
     
@@ -340,7 +344,7 @@ NSUInteger WHALETYPE = 2;
     // default is small fish
     NSArray *swim = self.fishSwim;
     CGFloat fishAppearingYRangePercentage = 0.75;
-    CGFloat duration = 100.0/12.5;//fishSwimmingSpeed
+    CGFloat duration = 100.0/smallFishSpeed;
     CGFloat fishMouthXOffsetRatio = 0.9;
     CGFloat fishMouthYOffsetRatio = 0.5;
     NSUInteger fishTypeNum = FISHTYPE;
@@ -349,7 +353,7 @@ NSUInteger WHALETYPE = 2;
     if (fishToWhale == 0) {
         swim = self.whaleSwim;
         fishAppearingYRangePercentage = 0.2;
-        duration = 100.0/4;//whaleSwimmingSpeed
+        duration = 100.0/whaleSpeed;
         fishMouthXOffsetRatio = 0.93;
         fishMouthYOffsetRatio = 0.26;
         fishTypeNum = WHALETYPE;
@@ -357,7 +361,7 @@ NSUInteger WHALETYPE = 2;
     } else if (fishToWhale % 10 == 0) { // fishToSharkFrequency
         swim = self.sharkSwim;
         fishAppearingYRangePercentage = 0.6;
-        duration = 100.0/8;//sharkSwimmingSpeed
+        duration = 100.0/sharkSpeed;
         fishMouthXOffsetRatio = 0.97;
         fishMouthYOffsetRatio = 0.4;
         fishTypeNum = SHARKTYPE;
@@ -409,7 +413,7 @@ NSUInteger WHALETYPE = 2;
             }
         }];
     }
-    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(generateRandomFish) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(generateRandomFish) userInfo:nil repeats:NO];
 }
 
 #pragma mark - Game play
@@ -566,15 +570,18 @@ NSUInteger WHALETYPE = 2;
         (contact.bodyB.node == self.scene && contact.bodyA.node == _hook)) {
         //[_hook removeAllActions];
         //[_hookLine removeAllActions];
-        
-        NSLog(@"ctp : %f",contact.contactPoint.y);
-        
-        if (contact.contactPoint.y >= FishBeingCaughtDestination - 100) { // if at the top
-            if (_fishBeingCaught) {
-                [self showSpeakBubbleAt:_fishBeingCaught.position];
+        if (_fishBeingCaught) {
+            NSLog(@"ctp : %f",contact.contactPoint.y);
+            
+            if (contact.contactPoint.y >= FishBeingCaughtDestination - 100) { // if at the top
+                if (_fishBeingCaught) {
+                    [self showSpeakBubbleAt:_fishBeingCaught.position];
+                    _hook.physicsBody.collisionBitMask = 0;
+                    _hook.physicsBody.contactTestBitMask = FISHIES;
+                }
             }
+            return;
         }
-        return;
     }
     if (_fishBeingCaught)
         return;
@@ -587,6 +594,10 @@ NSUInteger WHALETYPE = 2;
         fish = (SKSpriteNode *)contact.bodyB.node;
     }
     if (fish) {
+        
+        _hook.physicsBody.collisionBitMask = BOUND;
+        _hook.physicsBody.contactTestBitMask = FISHIES | BOUND;
+        
         _fishBeingCaught = fish;
         [self raiseHook];
         [fish removeAllActions];
