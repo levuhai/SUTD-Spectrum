@@ -12,6 +12,7 @@
 #import "Whale.h"
 #import "LPCAudioController.h"
 #import "LPCView.h"
+#import "StarsNode.h"
 
 const uint32_t HOOK = 0x1 << 0;
 const uint32_t FISHIES = 0x1 << 1;
@@ -41,6 +42,8 @@ NSUInteger WHALETYPE = 2;
     TCProgressTimerNode *_progressTimerNode3;
     NSTimeInterval _startTime;
     NSTimer *_drawTimer;
+    
+    StarsNode* _starsContainer;
 }
 
 @property (nonatomic, strong) NSMutableArray *fishTypeArray;
@@ -199,6 +202,16 @@ NSUInteger WHALETYPE = 2;
     
     // bear thought
     [self bearThoughtAnimation:CGPointMake(bearView.position.x + bearView.size.width/2 + 20, bearView.position.y + bearView.size.height/2 + 20)];
+    
+    // Star container
+    _starsContainer = [[StarsNode alloc] initWithColor:[UIColor colorWithWhite:1.0 alpha:0.3] size:CGSizeMake(150, 50)];
+    _starsContainer.anchorPoint = CGPointMake(0.5, 0.5);
+    _starsContainer.position = CGPointMake(self.size.width/2, self.size.height - _starsContainer.size.height*.5);
+    [self addChild:_starsContainer];
+    
+    [_starsContainer setStar:0 active:YES];
+    [_starsContainer setStar:2 active:YES];
+    
 }
 
 - (void) addParticalsAnimations {
