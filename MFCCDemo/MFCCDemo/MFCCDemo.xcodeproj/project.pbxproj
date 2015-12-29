@@ -7,15 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D759FD1C1BCE33C900225400 /* test.wav in Resources */ = {isa = PBXBuildFile; fileRef = D759FD1B1BCE33C900225400 /* test.wav */; settings = {ASSET_TAGS = (); }; };
+		A746F86D1C27A51200150C25 /* ∫_action1.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F8651C27A51200150C25 /* ∫_action1.wav */; };
+		A746F86E1C27A51200150C25 /* ∫_action2.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F8661C27A51200150C25 /* ∫_action2.wav */; };
+		A746F86F1C27A51200150C25 /* ∫_cash1.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F8671C27A51200150C25 /* ∫_cash1.wav */; };
+		A746F8701C27A51200150C25 /* ∫_cash2.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F8681C27A51200150C25 /* ∫_cash2.wav */; };
+		A746F8711C27A51200150C25 /* action1.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F8691C27A51200150C25 /* action1.wav */; };
+		A746F8721C27A51200150C25 /* action2.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F86A1C27A51200150C25 /* action2.wav */; };
+		A746F8731C27A51200150C25 /* cash1.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F86B1C27A51200150C25 /* cash1.wav */; };
+		A746F8741C27A51200150C25 /* cash2.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F86C1C27A51200150C25 /* cash2.wav */; };
+		A746F8781C27A59100150C25 /* WordController.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F8771C27A59100150C25 /* WordController.m */; };
+		A746F87B1C27A80900150C25 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F87A1C27A80900150C25 /* Word.m */; };
+		A746F87E1C27A81C00150C25 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F87D1C27A81C00150C25 /* DataManager.m */; };
+		A746F8811C27BBBC00150C25 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F8801C27BBBC00150C25 /* BaseModel.m */; };
+		A746F8841C27BD7D00150C25 /* NSDictionary+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F8831C27BD7D00150C25 /* NSDictionary+ES.m */; };
+		A7BFD42F1C26A46A00A81D7B /* result.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A7BFD42E1C26A46A00A81D7B /* result.sqlite */; };
+		D759FD1C1BCE33C900225400 /* test.wav in Resources */ = {isa = PBXBuildFile; fileRef = D759FD1B1BCE33C900225400 /* test.wav */; };
 		D761191B1BBA47280027706B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D761191A1BBA47280027706B /* CoreFoundation.framework */; };
-		D763E8A91BD77381000CDE19 /* MFCCProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D763E8A71BD77381000CDE19 /* MFCCProcessor.cpp */; settings = {ASSET_TAGS = (); }; };
-		D763E8AC1BD77565000CDE19 /* TPOscilloscopeLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = D763E8AB1BD77565000CDE19 /* TPOscilloscopeLayer.mm */; settings = {ASSET_TAGS = (); }; };
-		D76B34AD1C05788D00ACA397 /* GraphView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D76B34AC1C05788D00ACA397 /* GraphView.mm */; settings = {ASSET_TAGS = (); }; };
-		D76B34B01C05A62100ACA397 /* MFCCController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D76B34AF1C05A62100ACA397 /* MFCCController.mm */; settings = {ASSET_TAGS = (); }; };
-		D76B34B61C05BC6B00ACA397 /* MFCC1Controller.mm in Sources */ = {isa = PBXBuildFile; fileRef = D76B34B51C05BC6B00ACA397 /* MFCC1Controller.mm */; settings = {ASSET_TAGS = (); }; };
-		D76B34B91C06076A00ACA397 /* MatrixController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D76B34B81C06076A00ACA397 /* MatrixController.mm */; settings = {ASSET_TAGS = (); }; };
-		D7A542ED1BC3A1AC00A16386 /* MatrixOuput.mm in Sources */ = {isa = PBXBuildFile; fileRef = D7A542EC1BC3A1AC00A16386 /* MatrixOuput.mm */; settings = {ASSET_TAGS = (); }; };
+		D763E8A91BD77381000CDE19 /* MFCCProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D763E8A71BD77381000CDE19 /* MFCCProcessor.cpp */; };
+		D763E8AC1BD77565000CDE19 /* TPOscilloscopeLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = D763E8AB1BD77565000CDE19 /* TPOscilloscopeLayer.mm */; };
+		D76B34AD1C05788D00ACA397 /* GraphView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D76B34AC1C05788D00ACA397 /* GraphView.mm */; };
+		D76B34B01C05A62100ACA397 /* MFCCController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D76B34AF1C05A62100ACA397 /* MFCCController.mm */; };
+		D76B34B61C05BC6B00ACA397 /* MFCC1Controller.mm in Sources */ = {isa = PBXBuildFile; fileRef = D76B34B51C05BC6B00ACA397 /* MFCC1Controller.mm */; };
+		D76B34B91C06076A00ACA397 /* MatrixController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D76B34B81C06076A00ACA397 /* MatrixController.mm */; };
+		D7A542ED1BC3A1AC00A16386 /* MatrixOuput.mm in Sources */ = {isa = PBXBuildFile; fileRef = D7A542EC1BC3A1AC00A16386 /* MatrixOuput.mm */; };
 		D7C075E41BB2572A000DB38A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C075E31BB2572A000DB38A /* main.m */; };
 		D7C075E71BB2572A000DB38A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C075E61BB2572A000DB38A /* AppDelegate.m */; };
 		D7C075EA1BB2572A000DB38A /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D7C075E91BB2572A000DB38A /* ViewController.mm */; };
@@ -65,6 +79,25 @@
 		07C44AA08666DCA9410EF65F /* libPods-MFCCDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MFCCDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E15C89C5659778544E4952A /* Pods-MFCCDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFCCDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		70991DECC5FEC8561D7AD94F /* Pods-MFCCDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFCCDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo.release.xcconfig"; sourceTree = "<group>"; };
+		A746F8651C27A51200150C25 /* ∫_action1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "∫_action1.wav"; sourceTree = "<group>"; };
+		A746F8661C27A51200150C25 /* ∫_action2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "∫_action2.wav"; sourceTree = "<group>"; };
+		A746F8671C27A51200150C25 /* ∫_cash1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "∫_cash1.wav"; sourceTree = "<group>"; };
+		A746F8681C27A51200150C25 /* ∫_cash2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "∫_cash2.wav"; sourceTree = "<group>"; };
+		A746F8691C27A51200150C25 /* action1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = action1.wav; sourceTree = "<group>"; };
+		A746F86A1C27A51200150C25 /* action2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = action2.wav; sourceTree = "<group>"; };
+		A746F86B1C27A51200150C25 /* cash1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cash1.wav; sourceTree = "<group>"; };
+		A746F86C1C27A51200150C25 /* cash2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cash2.wav; sourceTree = "<group>"; };
+		A746F8761C27A59100150C25 /* WordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordController.h; sourceTree = "<group>"; };
+		A746F8771C27A59100150C25 /* WordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordController.m; sourceTree = "<group>"; };
+		A746F8791C27A80900150C25 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
+		A746F87A1C27A80900150C25 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
+		A746F87C1C27A81C00150C25 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		A746F87D1C27A81C00150C25 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		A746F87F1C27BBBC00150C25 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		A746F8801C27BBBC00150C25 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		A746F8821C27BD7D00150C25 /* NSDictionary+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ES.h"; sourceTree = "<group>"; };
+		A746F8831C27BD7D00150C25 /* NSDictionary+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ES.m"; sourceTree = "<group>"; };
+		A7BFD42E1C26A46A00A81D7B /* result.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = result.sqlite; sourceTree = "<group>"; };
 		D759FD1B1BCE33C900225400 /* test.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test.wav; sourceTree = "<group>"; };
 		D761191A1BBA47280027706B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		D761191C1BBA473B0027706B /* libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; path = "boost_ext/lib/libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; sourceTree = "<group>"; };
@@ -190,6 +223,31 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A746F8641C27A4F800150C25 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A7BFD42E1C26A46A00A81D7B /* result.sqlite */,
+				A746F8651C27A51200150C25 /* ∫_action1.wav */,
+				A746F8661C27A51200150C25 /* ∫_action2.wav */,
+				A746F8671C27A51200150C25 /* ∫_cash1.wav */,
+				A746F8681C27A51200150C25 /* ∫_cash2.wav */,
+				A746F8691C27A51200150C25 /* action1.wav */,
+				A746F86A1C27A51200150C25 /* action2.wav */,
+				A746F86B1C27A51200150C25 /* cash1.wav */,
+				A746F86C1C27A51200150C25 /* cash2.wav */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		A746F8751C27A53600150C25 /* New */ = {
+			isa = PBXGroup;
+			children = (
+				A746F8761C27A59100150C25 /* WordController.h */,
+				A746F8771C27A59100150C25 /* WordController.m */,
+			);
+			name = New;
+			sourceTree = "<group>";
+		};
 		D763E8AD1BD7F4BF000CDE19 /* Oscilloscope */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,9 +257,11 @@
 			name = Oscilloscope;
 			sourceTree = "<group>";
 		};
-		D76B34B11C05A62700ACA397 /* ViewControllers */ = {
+		D76B34B11C05A62700ACA397 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D7C075EB1BB2572A000DB38A /* Main.storyboard */,
+				A746F8751C27A53600150C25 /* New */,
 				D76B34AE1C05A62100ACA397 /* MFCCController.h */,
 				D76B34AF1C05A62100ACA397 /* MFCCController.mm */,
 				D76B34B41C05BC6B00ACA397 /* MFCC1Controller.h */,
@@ -211,10 +271,10 @@
 				D76B34B71C06076A00ACA397 /* MatrixController.h */,
 				D76B34B81C06076A00ACA397 /* MatrixController.mm */,
 			);
-			name = ViewControllers;
+			name = Controller;
 			sourceTree = "<group>";
 		};
-		D76B34B21C05A63200ACA397 /* Views */ = {
+		D76B34B21C05A63200ACA397 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				D76B34AB1C05788D00ACA397 /* GraphView.h */,
@@ -222,21 +282,28 @@
 				D7A542EB1BC3A1AC00A16386 /* MatrixOuput.h */,
 				D7A542EC1BC3A1AC00A16386 /* MatrixOuput.mm */,
 			);
-			name = Views;
+			name = View;
 			sourceTree = "<group>";
 		};
-		D76B34B31C05A65400ACA397 /* Classes */ = {
+		D76B34B31C05A65400ACA397 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A746F87F1C27BBBC00150C25 /* BaseModel.h */,
+				A746F8801C27BBBC00150C25 /* BaseModel.m */,
 				D763E8A71BD77381000CDE19 /* MFCCProcessor.cpp */,
 				D763E8A81BD77381000CDE19 /* MFCCProcessor.hpp */,
+				A746F8791C27A80900150C25 /* Word.h */,
+				A746F87A1C27A80900150C25 /* Word.m */,
+				A746F87C1C27A81C00150C25 /* DataManager.h */,
+				A746F87D1C27A81C00150C25 /* DataManager.m */,
 			);
-			name = Classes;
+			name = Model;
 			sourceTree = "<group>";
 		};
 		D7C075D51BB2572A000DB38A = {
 			isa = PBXGroup;
 			children = (
+				A746F8641C27A4F800150C25 /* Data */,
 				D7C08A141BB2E238000DB38A /* Frameworks */,
 				D7C0762C1BB25975000DB38A /* References */,
 				D7C075E01BB2572A000DB38A /* MFCCDemo */,
@@ -260,9 +327,9 @@
 			children = (
 				D7C075E51BB2572A000DB38A /* AppDelegate.h */,
 				D7C075E61BB2572A000DB38A /* AppDelegate.m */,
-				D76B34B21C05A63200ACA397 /* Views */,
-				D76B34B11C05A62700ACA397 /* ViewControllers */,
-				D76B34B31C05A65400ACA397 /* Classes */,
+				D76B34B21C05A63200ACA397 /* View */,
+				D76B34B11C05A62700ACA397 /* Controller */,
+				D76B34B31C05A65400ACA397 /* Model */,
 				D7C075E11BB2572A000DB38A /* Supporting Files */,
 			);
 			path = MFCCDemo;
@@ -271,7 +338,6 @@
 		D7C075E11BB2572A000DB38A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D7C075EB1BB2572A000DB38A /* Main.storyboard */,
 				D7C075EE1BB2572A000DB38A /* Images.xcassets */,
 				D7C075F01BB2572A000DB38A /* LaunchScreen.xib */,
 				D759FD1B1BCE33C900225400 /* test.wav */,
@@ -304,6 +370,8 @@
 		D7C0762C1BB25975000DB38A /* References */ = {
 			isa = PBXGroup;
 			children = (
+				A746F8821C27BD7D00150C25 /* NSDictionary+ES.h */,
+				A746F8831C27BD7D00150C25 /* NSDictionary+ES.m */,
 				D763E8AD1BD7F4BF000CDE19 /* Oscilloscope */,
 				D7C08AB91BB3AAFF000DB38A /* WordMatch */,
 				D7C076991BB273C8000DB38A /* CAPublicUtility */,
@@ -397,6 +465,7 @@
 				D7C075DB1BB2572A000DB38A /* Frameworks */,
 				D7C075DC1BB2572A000DB38A /* Resources */,
 				3B275DDE3DD227344188F9A3 /* Copy Pods Resources */,
+				CCEDC2843FA699331C742444 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -468,11 +537,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7C075ED1BB2572A000DB38A /* Main.storyboard in Resources */,
+				A746F86F1C27A51200150C25 /* ∫_cash1.wav in Resources */,
 				D7C075F21BB2572A000DB38A /* LaunchScreen.xib in Resources */,
+				A746F86D1C27A51200150C25 /* ∫_action1.wav in Resources */,
 				D7C075EF1BB2572A000DB38A /* Images.xcassets in Resources */,
+				A746F86E1C27A51200150C25 /* ∫_action2.wav in Resources */,
 				D759FD1C1BCE33C900225400 /* test.wav in Resources */,
+				A746F8741C27A51200150C25 /* cash2.wav in Resources */,
+				A746F8701C27A51200150C25 /* ∫_cash2.wav in Resources */,
 				D7C076301BB25D10000DB38A /* good2.wav in Resources */,
+				A7BFD42F1C26A46A00A81D7B /* result.sqlite in Resources */,
+				A746F8711C27A51200150C25 /* action1.wav in Resources */,
+				A746F8721C27A51200150C25 /* action2.wav in Resources */,
 				D7C0762F1BB25D10000DB38A /* good1.wav in Resources */,
+				A746F8731C27A51200150C25 /* cash1.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +594,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		CCEDC2843FA699331C742444 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -524,14 +617,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				D76B34AD1C05788D00ACA397 /* GraphView.mm in Sources */,
+				A746F87E1C27A81C00150C25 /* DataManager.m in Sources */,
 				D7C08ADF1BB3AAFF000DB38A /* MFCCUtils.cpp in Sources */,
 				D763E8A91BD77381000CDE19 /* MFCCProcessor.cpp in Sources */,
 				D763E8AC1BD77565000CDE19 /* TPOscilloscopeLayer.mm in Sources */,
 				D7C075EA1BB2572A000DB38A /* ViewController.mm in Sources */,
+				A746F87B1C27A80900150C25 /* Word.m in Sources */,
 				D76B34B01C05A62100ACA397 /* MFCCController.mm in Sources */,
+				A746F8781C27A59100150C25 /* WordController.m in Sources */,
 				D7C08AE31BB3AAFF000DB38A /* WordMatchSession.cpp in Sources */,
 				D7C076AB1BB273C8000DB38A /* CAXException.cpp in Sources */,
 				D76B34B91C06076A00ACA397 /* MatrixController.mm in Sources */,
+				A746F8841C27BD7D00150C25 /* NSDictionary+ES.m in Sources */,
 				D7C08AE21BB3AAFF000DB38A /* WordMatch.cpp in Sources */,
 				D7C075E71BB2572A000DB38A /* AppDelegate.m in Sources */,
 				D7C076AA1BB273C8000DB38A /* CAStreamBasicDescription.cpp in Sources */,
@@ -540,6 +637,7 @@
 				D7C08ADC1BB3AAFF000DB38A /* MelFilterBank.cpp in Sources */,
 				D7A542ED1BC3A1AC00A16386 /* MatrixOuput.mm in Sources */,
 				D7C08AD71BB3AAFF000DB38A /* AudioFileReader.cpp in Sources */,
+				A746F8811C27BBBC00150C25 /* BaseModel.m in Sources */,
 				D76B34B61C05BC6B00ACA397 /* MFCC1Controller.mm in Sources */,
 				D7C08AE01BB3AAFF000DB38A /* TriangleFilter.cpp in Sources */,
 				D7C076A81BB273C8000DB38A /* CADebugPrintf.cpp in Sources */,

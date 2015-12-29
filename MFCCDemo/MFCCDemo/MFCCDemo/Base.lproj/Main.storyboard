@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="545-Qq-mu1">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -274,6 +275,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cv8-KM-IOt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-301" y="203"/>
+        </scene>
+        <!--Word Controller-->
+        <scene sceneID="LvY-jb-9w2">
+            <objects>
+                <viewController id="545-Qq-mu1" userLabel="Word Controller" customClass="WordController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="f2C-GV-yZF"/>
+                        <viewControllerLayoutGuide type="bottom" id="45B-Zo-4CJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1r9-yY-e9c">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7qw-X3-uxo">
+                                <rect key="frame" x="101.5" y="382.5" width="117" height="30"/>
+                                <state key="normal" title="Randomize Word"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vyl-iG-Lxd">
+                                <rect key="frame" x="139" y="160" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7qw-X3-uxo" firstAttribute="centerY" secondItem="1r9-yY-e9c" secondAttribute="centerY" multiplier="1.4" id="M5K-22-70G"/>
+                            <constraint firstItem="Vyl-iG-Lxd" firstAttribute="centerY" secondItem="1r9-yY-e9c" secondAttribute="centerY" multiplier="0.6" id="Utj-At-Ho9"/>
+                            <constraint firstItem="Vyl-iG-Lxd" firstAttribute="centerX" secondItem="1r9-yY-e9c" secondAttribute="centerX" id="c9n-dV-ZDc"/>
+                            <constraint firstItem="7qw-X3-uxo" firstAttribute="centerX" secondItem="1r9-yY-e9c" secondAttribute="centerX" id="pN9-m5-KJc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnRandomize" destination="7qw-X3-uxo" id="sXK-ZF-JPk"/>
+                        <outlet property="lbWord" destination="Vyl-iG-Lxd" id="Vft-P9-JTw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pAJ-if-y6d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-663" y="203"/>
         </scene>
     </scenes>
 </document>

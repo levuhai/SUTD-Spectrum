@@ -1,10 +1,17 @@
 PODS:
+  - FMDB (2.5):
+    - FMDB/standard (= 2.5)
+  - FMDB/common (2.5)
+  - FMDB/standard (2.5):
+    - FMDB/common
   - TheAmazingAudioEngine (1.5.2)
 
 DEPENDENCIES:
+  - FMDB
   - TheAmazingAudioEngine
 
 SPEC CHECKSUMS:
+  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   TheAmazingAudioEngine: 1151341915dc91620bc6b2a7a5bf5920001b4f75
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

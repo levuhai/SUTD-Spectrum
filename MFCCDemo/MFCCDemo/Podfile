@@ -4,6 +4,7 @@
 target 'MFCCDemo' do
 
 pod 'TheAmazingAudioEngine'
+pod 'FMDB'
 
 end
 
