@@ -631,11 +631,14 @@ static inline float _translate(float val, float min, float max) {
  end
  */
     // make sure normalisedOutput is empty and has the correct size
+    long recoredSize = maxWindowEnd - maxWindowStart + 1;
+    long originSize = sizeB;
+    
     trimmedNormalisedOutput.clear();
-    trimmedNormalisedOutput.resize(maxWindowEnd-maxWindowStart + 1);
+    trimmedNormalisedOutput.resize(recoredSize);
     for (size_t i = 0; i<trimmedNormalisedOutput.size(); i++){
         //normalisedOutput[i].clear();
-        trimmedNormalisedOutput[i].resize(sizeB);
+        trimmedNormalisedOutput[i].resize(originSize);
     }
     
     for (size_t i = maxWindowStart; i < maxWindowEnd; i++) {
@@ -652,23 +655,27 @@ static inline float _translate(float val, float min, float max) {
     centroids(i) = trimmedNormalisedOutput(i,:)*(1:size(MFCC2,2))'/sum(trimmedNormalisedOutput(i,:));
  end
  */
+    // Start/End of phoneme
+    Word* w = words[_currentIndex];
+    int start = sizeB*(float)w.start/(float)w.wLength;
+    int end = sizeB*(float)w.end/(float)w.wLength;
     
     centroids.clear();
     indices.clear();
-    centroids.resize(trimmedNormalisedOutput.size());
-    indices.resize(trimmedNormalisedOutput.size());
+    centroids.resize(originSize);
+    indices.resize(originSize);
     
-    for (int i = 0; i < trimmedNormalisedOutput.size(); i++) {
+    for (int x = start-1; x < end; x++) {
         float weightedSum = 0.0f;
         float sum = 0.0f;
-        for (int j = 0; j < sizeB; j++) {
-            weightedSum += trimmedNormalisedOutput[i][j]*(float)j;
-            sum += trimmedNormalisedOutput[i][j];
+        for (int y = 0; y < recoredSize; y++) {
+            weightedSum += trimmedNormalisedOutput[y][x]*(float)x;
+            sum += trimmedNormalisedOutput[y][x];
         }
         // only push the result if the sum is nonzero
         if (sum > 0.0f){
             centroids.push_back(weightedSum/sum);
-            indices.push_back(i); // index from 0, not 1 so don't use i+1 here
+            indices.push_back(x-start); // index from 0, not 1 so don't use i+1 here
         }
 //        else {
 //            centroids.push_back(0);
@@ -692,6 +699,7 @@ static inline float _translate(float val, float min, float max) {
     float slope;
     float intercept;
     getLinearFit(&indices[0], &centroids[0], indices.size(), &slope, &intercept);
+    
 
 /* -------------------------------------------------------------------------
 //    % estimate quality of match at each part of the word
@@ -713,12 +721,12 @@ static inline float _translate(float val, float min, float max) {
     
     // Point near fit line
     float timeTolerance = 10;
-    for (int i = 0; i < trimmedNormalisedOutput.size();i++) {
-        for (int j = 0; j < trimmedNormalisedOutput[0].size();j++) {
-            if (pointToLineDistance(i,j,slope,intercept)>timeTolerance) {
-                nearLineMatrix[i][j] = 0;
+    for (int y = 0; y < trimmedNormalisedOutput.size();y++) {
+        for (int x = start-1; x < end;x++) {
+            if (pointToLineDistance(x-start+1,y,slope,intercept)>timeTolerance) {
+                nearLineMatrix[y][x] = 0;
             } else {
-                nearLineMatrix[i][j] = trimmedNormalisedOutput[i][j];
+                nearLineMatrix[y][x] = trimmedNormalisedOutput[y][x];
             }
         }
     }
@@ -769,10 +777,6 @@ static inline float _translate(float val, float min, float max) {
                                      rect:self.view.bounds
                                    maxVal:1];
     // Page 4
-    // Start/End of phoneme
-    Word* w = words[_currentIndex];
-    int start = fitQuality.size()*(float)w.start/(float)w.wLength;
-    int end = fitQuality.size()*(float)w.end/(float)w.wLength;
     [_matrix2VC.upperView inputFitQualityW:(int)fitQuality.size()
                                      data:fitQuality
                                      rect:self.view.bounds
