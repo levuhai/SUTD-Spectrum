@@ -17,6 +17,8 @@
 #include "MFCCUtils.h"
 #include "CAHostTimeBase.h"
 #include <Accelerate/Accelerate.h>
+#import "DataManager.h"
+#import "Word.h"
 
 #import "MFCCController.h"
 #import "MFCC1Controller.h"
@@ -46,6 +48,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
     WMAudioFilePreProcessInfo _fileBInfo;
     BOOL _lastRecordingState;
     BOOL _currentRecordingState;
+    int _currentIndex;
     NSString* _currentAudioPath;
     
     std::vector<float> centroids; // dataY
@@ -64,6 +67,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
     
     float _startTrimPercentage;
     float _endTrimPercentage;
+    NSMutableArray* words;
 }
 
 @property (nonatomic, weak) IBOutlet MatrixOuput *matrixView;
@@ -94,8 +98,21 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _currentAudioPath = kAudioFile1;
+    
     NSLog(@"%@",[self applicationDocuments]);
+    // Randomize words
+    words = [[DataManager shared] getRandomWords];
+    [self setCurrentAudioToIndex:0];
+    for (int i =11; i<=13;i++) {
+        UIButton* button = (UIButton*)[self.view viewWithTag:i];
+        button.selected = NO;
+        if (i > 10 + words.count) {
+            button.hidden = YES;
+        } else {
+            Word *w = (Word*)words[i-11];
+            [button setTitle:w.wFile forState:UIControlStateNormal];
+        }
+    }
     
     // Setup UIScrollView
     // Trimming
@@ -158,25 +175,20 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 }
 
 - (IBAction)changeSoundTouched:(UIButton*)sender {
-    switch (sender.tag) {
-        case 11:
-            _currentAudioPath = kAudioFile1;
-            break;
-        case 12:
-            _currentAudioPath = kAudioFile2;
-            break;
-        case 13:
-            _currentAudioPath = kAudioFile3;
-            break;
-        default:
-            break;
-    }
+    [self setCurrentAudioToIndex:(int)(sender.tag-11)];
     for (int i =11; i<=13;i++) {
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
         button.selected = NO;
     }
     sender.selected = YES;
     
+}
+
+- (void)setCurrentAudioToIndex:(int)index {
+    _currentIndex = index;
+    Word* w1 = words[index];
+    
+    _currentAudioPath = [[NSBundle mainBundle] pathForResource:[w1.wFile stringByDeletingPathExtension] ofType:@"wav"];
 }
 
 - (IBAction)toggleRecording:(id)sender
@@ -640,8 +652,12 @@ static inline float _translate(float val, float min, float max) {
     centroids(i) = trimmedNormalisedOutput(i,:)*(1:size(MFCC2,2))'/sum(trimmedNormalisedOutput(i,:));
  end
  */
+    
     centroids.clear();
     indices.clear();
+    centroids.resize(trimmedNormalisedOutput.size());
+    indices.resize(trimmedNormalisedOutput.size());
+    
     for (int i = 0; i < trimmedNormalisedOutput.size(); i++) {
         float weightedSum = 0.0f;
         float sum = 0.0f;
@@ -654,6 +670,10 @@ static inline float _translate(float val, float min, float max) {
             centroids.push_back(weightedSum/sum);
             indices.push_back(i); // index from 0, not 1 so don't use i+1 here
         }
+//        else {
+//            centroids.push_back(0);
+//            indices.push_back(i);
+//        }
     }
     
 /* -------------------------------------------------------------------------
@@ -692,7 +712,7 @@ static inline float _translate(float val, float min, float max) {
     }
     
     // Point near fit line
-    float timeTolerance = 7;
+    float timeTolerance = 10;
     for (int i = 0; i < trimmedNormalisedOutput.size();i++) {
         for (int j = 0; j < trimmedNormalisedOutput[0].size();j++) {
             if (pointToLineDistance(i,j,slope,intercept)>timeTolerance) {
@@ -749,10 +769,14 @@ static inline float _translate(float val, float min, float max) {
                                      rect:self.view.bounds
                                    maxVal:1];
     // Page 4
+    // Start/End of phoneme
+    Word* w = words[_currentIndex];
+    int start = fitQuality.size()*(float)w.start/(float)w.wLength;
+    int end = fitQuality.size()*(float)w.end/(float)w.wLength;
     [_matrix2VC.upperView inputFitQualityW:(int)fitQuality.size()
                                      data:fitQuality
                                      rect:self.view.bounds
-                                   maxVal:2];
+                                   maxVal:2 start:start end:end];
 }
 
 inline float linearFun(float x, float slope, float intercept) {

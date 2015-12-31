@@ -13,4 +13,8 @@
 // Singleton methods
 + (id) shared;
 
+// Words
+- (NSMutableArray*)getWords;
+- (NSMutableArray*)getRandomWords;
+
 @end

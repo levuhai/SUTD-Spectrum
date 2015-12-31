@@ -21,21 +21,4 @@
     return self;
 }
 
-- (id)translated {
-    AppTranslator* at = [AppTranslator shared];
-    AppService* as = [AppService shared];
-    if (![at.currentTranslation isEqualToString:as.currentServerString]) {
-        NSString *strClass = NSStringFromClass([self class]);
-        id translated = [[DataManager shared] getEntityByClass:strClass
-                                                       byStrID:_IDString
-                                                   translation:at.currentTranslation];
-        if (!translated)
-            return self;
-        else
-            _translated = translated;
-        return translated;
-    }
-    return self;
-}
-
 @end

@@ -8,6 +8,7 @@
 
 #import "DataManager.h"
 #import <FMDB/FMDB.h>
+#import "Word.h"
 
 @implementation DataManager {
     NSString* _dbPath;
@@ -51,5 +52,75 @@ static DataManager *sharedInstance = nil;
 - (FMDatabaseQueue*)_dbQueue {
     return [FMDatabaseQueue databaseQueueWithPath:_dbPath];
 }
+
+#pragma mark - Word
+
+- (NSMutableArray*)getWords {
+    __block NSMutableArray* lvs = [NSMutableArray new];
+    FMDatabaseQueue* db = [self _dbQueue];
+    
+    [db inDatabase:^(FMDatabase *db) {
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db]"];
+        FMResultSet *results = [db executeQuery:sql];
+        while([results next]) {
+            @autoreleasepool {
+                NSDictionary* dict = results.resultDictionary;
+                Word* lv = [[Word alloc] initWithDictionary:dict];
+                if (lv != nil) {
+                    [lvs addObject:lv];
+                }
+                
+            }
+        }
+        [results close];
+    }];
+    [db close];
+    return lvs;
+}
+
+- (NSMutableArray*)getRandomWords {
+    // Select unique words from DB
+    __block NSMutableArray* uniqueWords = [NSMutableArray new];
+    FMDatabaseQueue* db = [self _dbQueue];
+    
+    [db inDatabase:^(FMDatabase *db) {
+        NSString * sql = [NSString stringWithFormat:@"SELECT DISTINCT w_text FROM [db]"];
+        FMResultSet *results = [db executeQuery:sql];
+        while([results next]) {
+            @autoreleasepool {
+                [uniqueWords addObject:[results stringForColumnIndex:0]];
+            }
+        }
+        [results close];
+    }];
+    [db close];
+    
+    
+    // Random index
+    int rndValue = 0 + arc4random() % (uniqueWords.count - 0);
+    
+    // Select all sounds from randomized word
+    __block NSMutableArray* result = [NSMutableArray new];
+    db = [self _dbQueue];
+    [db inDatabase:^(FMDatabase *db) {
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [w_text] = '%@'",uniqueWords[rndValue]];
+        FMResultSet *results = [db executeQuery:sql];
+        while([results next]) {
+            @autoreleasepool {
+                NSDictionary* dict = results.resultDictionary;
+                Word* w = [[Word alloc] initWithDictionary:dict];
+                if (w != nil) {
+                    [result addObject:w];
+                }
+                
+            }
+        }
+        [results close];
+    }];
+    [db close];
+    
+    return result;
+}
+
 
 @end

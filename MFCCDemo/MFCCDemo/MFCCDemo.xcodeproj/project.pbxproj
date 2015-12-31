@@ -23,7 +23,6 @@
 		A7BFD42F1C26A46A00A81D7B /* result.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A7BFD42E1C26A46A00A81D7B /* result.sqlite */; };
 		D759FD1C1BCE33C900225400 /* test.wav in Resources */ = {isa = PBXBuildFile; fileRef = D759FD1B1BCE33C900225400 /* test.wav */; };
 		D761191B1BBA47280027706B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D761191A1BBA47280027706B /* CoreFoundation.framework */; };
-		D763E8A91BD77381000CDE19 /* MFCCProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D763E8A71BD77381000CDE19 /* MFCCProcessor.cpp */; };
 		D763E8AC1BD77565000CDE19 /* TPOscilloscopeLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = D763E8AB1BD77565000CDE19 /* TPOscilloscopeLayer.mm */; };
 		D76B34AD1C05788D00ACA397 /* GraphView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D76B34AC1C05788D00ACA397 /* GraphView.mm */; };
 		D76B34B01C05A62100ACA397 /* MFCCController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D76B34AF1C05A62100ACA397 /* MFCCController.mm */; };
@@ -109,8 +108,6 @@
 		D76119221BBA473B0027706B /* libboost_unit_test_framework-xgcc42-mt-1_46_OSX_10_6_32_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_unit_test_framework-xgcc42-mt-1_46_OSX_10_6_32_64.a"; path = "boost_ext/lib/libboost_unit_test_framework-xgcc42-mt-1_46_OSX_10_6_32_64.a"; sourceTree = "<group>"; };
 		D76119231BBA473B0027706B /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a"; path = "boost_ext/lib/libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a"; sourceTree = "<group>"; };
 		D76119241BBA473B0027706B /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; path = "boost_ext/lib/libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; sourceTree = "<group>"; };
-		D763E8A71BD77381000CDE19 /* MFCCProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MFCCProcessor.cpp; sourceTree = "<group>"; };
-		D763E8A81BD77381000CDE19 /* MFCCProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MFCCProcessor.hpp; sourceTree = "<group>"; };
 		D763E8AA1BD77565000CDE19 /* TPOscilloscopeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPOscilloscopeLayer.h; sourceTree = "<group>"; };
 		D763E8AB1BD77565000CDE19 /* TPOscilloscopeLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TPOscilloscopeLayer.mm; sourceTree = "<group>"; };
 		D76B34AB1C05788D00ACA397 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
@@ -290,8 +287,6 @@
 			children = (
 				A746F87F1C27BBBC00150C25 /* BaseModel.h */,
 				A746F8801C27BBBC00150C25 /* BaseModel.m */,
-				D763E8A71BD77381000CDE19 /* MFCCProcessor.cpp */,
-				D763E8A81BD77381000CDE19 /* MFCCProcessor.hpp */,
 				A746F8791C27A80900150C25 /* Word.h */,
 				A746F87A1C27A80900150C25 /* Word.m */,
 				A746F87C1C27A81C00150C25 /* DataManager.h */,
@@ -619,7 +614,6 @@
 				D76B34AD1C05788D00ACA397 /* GraphView.mm in Sources */,
 				A746F87E1C27A81C00150C25 /* DataManager.m in Sources */,
 				D7C08ADF1BB3AAFF000DB38A /* MFCCUtils.cpp in Sources */,
-				D763E8A91BD77381000CDE19 /* MFCCProcessor.cpp in Sources */,
 				D763E8AC1BD77565000CDE19 /* TPOscilloscopeLayer.mm in Sources */,
 				D7C075EA1BB2572A000DB38A /* ViewController.mm in Sources */,
 				A746F87B1C27A80900150C25 /* Word.m in Sources */,

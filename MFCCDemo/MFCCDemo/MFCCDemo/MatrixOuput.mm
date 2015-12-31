@@ -19,6 +19,7 @@
     int _size;
     float _maxVal;
     BOOL _drawFit;
+    int _start, _end;
 }
 
 - (void)awakeFromNib {
@@ -41,12 +42,18 @@
     [self setNeedsDisplay];
 }
 
-- (void)inputFitQualityW:(int)w data:(std::vector<float>)data rect:(CGRect)rect maxVal:(float)maxVal {
+- (void)inputFitQualityW:(int)w data:(std::vector<float>)data
+                    rect:(CGRect)rect
+                  maxVal:(float)maxVal
+                   start:(int)start
+                     end:(int)end {
     _w = w;
     _fitDataV = data;
     _size = w==0?1:MAX((int)rect.size.width / w, 1);
     _maxVal = maxVal;
     _drawFit = YES;
+    _start = start;
+    _end = end;
    
     [self setNeedsDisplay];
 }
@@ -57,7 +64,7 @@
 - (void)drawRect:(CGRect)rect {
     if (!_drawFit) {
         _maxVal = 1;
-        _size = 3;//MAX(self.bounds.size.width/_w, 1);
+        _size = 2;//MAX(self.bounds.size.width/_w, 1);
         // Drawing code
         for (int i = 0; i <_h; i++) {
             for (int j = 0; j<_w; j++) {
@@ -84,6 +91,25 @@
         [aPath closePath];
         [_graphColor setStroke];
         [aPath stroke];
+        
+        
+        // Draw Start line
+        UIBezierPath *sPath = [UIBezierPath bezierPath];
+        [sPath moveToPoint:CGPointMake(_start*_size, maxH)];
+        [sPath addLineToPoint:CGPointMake(_start*_size, 0.0)];
+        [sPath moveToPoint:CGPointMake(_start*_size, 0.0)];
+        [sPath closePath];
+        [[UIColor greenColor] setStroke];
+        [sPath stroke];
+        
+        // Draw End line
+        UIBezierPath *ePath = [UIBezierPath bezierPath];
+        [ePath moveToPoint:CGPointMake(_end*_size, maxH)];
+        [ePath addLineToPoint:CGPointMake(_end*_size, 0.0)];
+        [ePath moveToPoint:CGPointMake(_end*_size, 0.0)];
+        [ePath closePath];
+        [[UIColor greenColor] setStroke];
+        [ePath stroke];
     }
 }
 
