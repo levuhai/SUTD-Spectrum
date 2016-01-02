@@ -96,17 +96,14 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     .mSampleRate        = 44100.0,
 };
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    NSLog(@"%@",[self applicationDocuments]);
+- (void)_randomWord {
     // Randomize words
     words = [[DataManager shared] getRandomWords];
     Word* firstW = (Word*)words[0];
     NSString* t = [NSString stringWithFormat:@"%@:%@",firstW.pText,firstW.wText];
     self.lbWord.text = t;
     [self setCurrentAudioToIndex:0];
-    for (int i =11; i<=13;i++) {
+    for (int i =11; i<=14;i++) {
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
         button.selected = NO;
         if (i > 10 + words.count) {
@@ -116,6 +113,13 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
             [button setTitle:w.speaker forState:UIControlStateNormal];
         }
     }
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    NSLog(@"%@",[self applicationDocuments]);
+    [self _randomWord];
     
     // Setup UIScrollView
     // Trimming
@@ -171,6 +175,10 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 
 #pragma mark - Actions
 
+- (IBAction)randomTouched:(id)sender {
+    [self _randomWord];
+}
+
 - (IBAction)compareTouched:(id)sender {
     
     [self _compareFileA:[self test1FilePath] fileB:_currentAudioPath];//[self testFilePath]
@@ -179,7 +187,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 
 - (IBAction)changeSoundTouched:(UIButton*)sender {
     [self setCurrentAudioToIndex:(int)(sender.tag-11)];
-    for (int i =11; i<=13;i++) {
+    for (int i =11; i<=14;i++) {
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
         button.selected = NO;
     }
@@ -783,6 +791,16 @@ static inline float _translate(float val, float min, float max) {
                                      data:fitQuality
                                      rect:self.view.bounds
                                    maxVal:2 start:start end:end];
+    [self _score:start end:end];
+}
+
+- (void)_score:(int)start end:(int)end {
+    float sum = 0.0f;
+    for (int i = start-1; i<end; i++) {
+        sum+= fitQuality[i];
+    }
+    float score = sum/(end-start+1);
+    self.lbScore.text = [NSString stringWithFormat:@"%.0f",score/0.5*100];
 }
 
 inline float linearFun(float x, float slope, float intercept) {

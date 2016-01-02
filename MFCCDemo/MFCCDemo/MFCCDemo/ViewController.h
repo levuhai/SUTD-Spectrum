@@ -19,7 +19,8 @@
 @property (nonatomic, strong) IBOutlet UIScrollView* scrollView;
 @property (nonatomic, strong) IBOutlet UIView* footerView;
 @property (nonatomic, strong) IBOutlet UIButton* playrecord;
-@property (nonatomic, weak) IBOutlet UIView *recordingState;
+@property (nonatomic, weak) IBOutlet UIButton *btnRandom;
+@property (nonatomic, weak) IBOutlet UILabel *lbScore;
 @property (nonatomic, weak) IBOutlet UILabel *lbWord;
 
 /**
