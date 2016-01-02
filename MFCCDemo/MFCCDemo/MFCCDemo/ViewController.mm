@@ -102,6 +102,9 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     NSLog(@"%@",[self applicationDocuments]);
     // Randomize words
     words = [[DataManager shared] getRandomWords];
+    Word* firstW = (Word*)words[0];
+    NSString* t = [NSString stringWithFormat:@"%@:%@",firstW.pText,firstW.wText];
+    self.lbWord.text = t;
     [self setCurrentAudioToIndex:0];
     for (int i =11; i<=13;i++) {
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
@@ -110,7 +113,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
             button.hidden = YES;
         } else {
             Word *w = (Word*)words[i-11];
-            [button setTitle:w.wFile forState:UIControlStateNormal];
+            [button setTitle:w.speaker forState:UIControlStateNormal];
         }
     }
     
@@ -187,8 +190,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 - (void)setCurrentAudioToIndex:(int)index {
     _currentIndex = index;
     Word* w1 = words[index];
-    
-    _currentAudioPath = [[NSBundle mainBundle] pathForResource:[w1.wFile stringByDeletingPathExtension] ofType:@"wav"];
+    _currentAudioPath = [[NSBundle mainBundle] pathForResource:[w1.wFile stringByDeletingPathExtension] ofType:@"wav" inDirectory:@"sounds"];
 }
 
 - (IBAction)toggleRecording:(id)sender
@@ -357,7 +359,7 @@ static inline float _translate(float val, float min, float max) {
                                                     endThreshold:kDefaultTrimEndThreshold
                                                             info:&_fileAInfo];
     
-    NSURL *urlB = [NSURL URLWithString:pathB];
+    NSURL *urlB = [NSURL URLWithString:[pathB stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     FeatureTypeDTW::Features featureB = [self _getPreProcessInfo:urlB
                                                   beginThreshold:kDefaultTrimBeginThreshold
                                                     endThreshold:kDefaultTrimEndThreshold

@@ -150,6 +150,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="lbWord" destination="gXg-E5-8g8" id="C57-t1-UsL"/>
                         <outlet property="playrecord" destination="2zp-IR-vhN" id="k0Q-lZ-h9a"/>
                         <outlet property="scrollView" destination="clh-tq-Jaz" id="Y79-79-e11"/>
                     </connections>

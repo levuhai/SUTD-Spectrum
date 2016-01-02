@@ -21,5 +21,6 @@
 @property(readonly, nonatomic) int end;
 @property(readonly, nonatomic) int wLength;
 @property(readonly, nonatomic) int pLength;
+@property(readonly, nonatomic) NSString* speaker;
 
 @end

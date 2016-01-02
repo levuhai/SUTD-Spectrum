@@ -21,6 +21,7 @@
 		A746F8811C27BBBC00150C25 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F8801C27BBBC00150C25 /* BaseModel.m */; };
 		A746F8841C27BD7D00150C25 /* NSDictionary+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F8831C27BD7D00150C25 /* NSDictionary+ES.m */; };
 		A7BFD42F1C26A46A00A81D7B /* result.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A7BFD42E1C26A46A00A81D7B /* result.sqlite */; };
+		A7D81BA61C377ECE00839158 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = A7D81BA51C377ECE00839158 /* sounds */; };
 		D759FD1C1BCE33C900225400 /* test.wav in Resources */ = {isa = PBXBuildFile; fileRef = D759FD1B1BCE33C900225400 /* test.wav */; };
 		D761191B1BBA47280027706B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D761191A1BBA47280027706B /* CoreFoundation.framework */; };
 		D763E8AC1BD77565000CDE19 /* TPOscilloscopeLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = D763E8AB1BD77565000CDE19 /* TPOscilloscopeLayer.mm */; };
@@ -97,6 +98,7 @@
 		A746F8821C27BD7D00150C25 /* NSDictionary+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ES.h"; sourceTree = "<group>"; };
 		A746F8831C27BD7D00150C25 /* NSDictionary+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ES.m"; sourceTree = "<group>"; };
 		A7BFD42E1C26A46A00A81D7B /* result.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = result.sqlite; sourceTree = "<group>"; };
+		A7D81BA51C377ECE00839158 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		D759FD1B1BCE33C900225400 /* test.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test.wav; sourceTree = "<group>"; };
 		D761191A1BBA47280027706B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		D761191C1BBA473B0027706B /* libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; path = "boost_ext/lib/libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 		A746F8641C27A4F800150C25 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				A7D81BA51C377ECE00839158 /* sounds */,
 				A7BFD42E1C26A46A00A81D7B /* result.sqlite */,
 				A746F8651C27A51200150C25 /* ∫_action1.wav */,
 				A746F8661C27A51200150C25 /* ∫_action2.wav */,
@@ -533,6 +536,7 @@
 			files = (
 				D7C075ED1BB2572A000DB38A /* Main.storyboard in Resources */,
 				A746F86F1C27A51200150C25 /* ∫_cash1.wav in Resources */,
+				A7D81BA61C377ECE00839158 /* sounds in Resources */,
 				D7C075F21BB2572A000DB38A /* LaunchScreen.xib in Resources */,
 				A746F86D1C27A51200150C25 /* ∫_action1.wav in Resources */,
 				D7C075EF1BB2572A000DB38A /* Images.xcassets in Resources */,
