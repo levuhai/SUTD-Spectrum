@@ -22,6 +22,10 @@ NSUInteger FISHTYPE = 0;
 NSUInteger SHARKTYPE = 1;
 NSUInteger WHALETYPE = 2;
 
+
+#define maximum_attempt_allow 15
+#define maximum_attempt_get_point 5
+
 #define speakingTimeOut 2
 #define kCyclesPerSecond 0.25f
 #define WaterViewHeigh 470 //460
@@ -38,12 +42,17 @@ NSUInteger WHALETYPE = 2;
     SKSpriteNode* _fishBeingCaught;
     SKSpriteNode* _pencil;
     
+    SKSpriteNode* _speakBubble;
+    
     BOOL didShowText;
     TCProgressTimerNode *_progressTimerNode3;
     NSTimeInterval _startTime;
     NSTimer *_drawTimer;
     
     StarsNode* _starsContainer;
+    
+    NSInteger _attemptCount;
+    NSInteger _incorrectAttemptCount;
 }
 
 @property (nonatomic, strong) NSMutableArray *fishTypeArray;
@@ -145,19 +154,6 @@ NSUInteger WHALETYPE = 2;
     [sunView runAction:[SKAction repeatActionForever:[SKAction rotateByAngle:2*M_PI duration:60]]];
     [self addChild:sunView];
     
-//    // turtle
-//    SKSpriteNode* turtleView = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"turtle"]];
-//    turtleView.anchorPoint = CGPointMake(0, 0);
-//    turtleView.position = CGPointMake(self.size.width - turtleView.size.width, WaterViewHeigh + 10);
-//    [self addChild:turtleView];
-    
-    // pot
-//    _potView = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"fish-pot"]];
-//    _potView.anchorPoint = CGPointMake(0.5, 0.5);
-//    _potView.zPosition = 1;
-//    _potView.position = CGPointMake(self.size.width - turtleView.size.width - _potView.size.width, WaterViewHeigh + _potView.size.height/2 + 5);
-//    [self addChild:_potView];
-    
     // bear
     SKSpriteNode* bearView = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"bear"]];
     bearView.anchorPoint = CGPointMake(0, 0);
@@ -211,6 +207,8 @@ NSUInteger WHALETYPE = 2;
     
     [_starsContainer setStar:0 active:YES];
     [_starsContainer setStar:2 active:YES];
+    
+    _attemptCount = 0;
     
 }
 
@@ -462,19 +460,28 @@ NSUInteger WHALETYPE = 2;
 
 }
 
-- (void) addLetterToWhale {
-    SKLabelNode* letter = [SKLabelNode node];
-    //letter.fontName = @"Arial-Bold";
-    letter.text = @"T";
-    letter.fontSize = 50;
-    letter.fontColor = [UIColor whiteColor];
-    //letter.position = CGPointMake(-_whale.size.width/2 + 30, _whale.size.height/2 - 60);
-    //[_whale addChild:letter];
+- (BOOL) canGoToNextPhoneme {
+    if (_incorrectAttemptCount == maximum_attempt_allow) {
+        return YES;
+    }
+    if (_attemptCount == maximum_attempt_get_point) {
+        return YES;
+    }
+    // Wait 20s ??
+    
+    return NO;
 }
+
 #pragma mark - Points
 
 - (void) getPoint {
-    [self resultTrackingWithLetter:@"t" isCorrect:YES];
+    _attemptCount++;
+    _incorrectAttemptCount = 0;
+    [self resultTrackingWithLetter:@"Good" isCorrect:YES];
+    
+    if (YES || [self canGoToNextPhoneme]) {
+        [self throwCaughtFish];
+    }
 }
 
 - (void) resultTrackingWithLetter:(NSString*) letter isCorrect:(BOOL) correct {
@@ -504,7 +511,7 @@ NSUInteger WHALETYPE = 2;
 
             
         } completion:^(BOOL contextDidSave, NSError *error) {
-            NSLog(@"Error: %@",error);
+            if (error) NSLog(@"Error: %@",error);
         }];
     }
 }
@@ -565,6 +572,17 @@ NSUInteger WHALETYPE = 2;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    SKNode *node = [self nodeAtPoint:location];
+    //if fire button touched, bring the rain
+    if ([node.name isEqualToString:@"playButton"]) {
+        NSLog(@"Play sound");
+        return;
+    }
+    
+    
     if (_fishBeingCaught)
         return;
     [_pencil runAction:[SKAction rotateByAngle:-0.3 duration:0.3]];
@@ -591,6 +609,11 @@ NSUInteger WHALETYPE = 2;
                     [self showSpeakBubbleAt:_fishBeingCaught.position];
                     _hook.physicsBody.collisionBitMask = 0;
                     _hook.physicsBody.contactTestBitMask = FISHIES;
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self getPoint];
+                    });
+                    
                 }
             }
             return;
@@ -635,22 +658,39 @@ NSUInteger WHALETYPE = 2;
 }
 
 - (void) showSpeakBubbleAt:(CGPoint) pos {
-    SKSpriteNode* bubble = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"speakbubble"]];
-    bubble.position = CGPointMake(pos.x - bubble.size.width/2 - 15, pos.y + bubble.size.height/2 + 15);
+    if (_speakBubble) {
+        [_speakBubble removeFromParent];
+        _speakBubble = nil;
+    }
+    
+    _speakBubble = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"speakbubble"]];
+    _speakBubble.position = CGPointMake(pos.x - _speakBubble.size.width/2 - 15, pos.y + _speakBubble.size.height/2 + 15);
+    
+    SKSpriteNode* playButton = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"play-icon"] color:[UIColor clearColor] size:CGSizeMake(64, 64)];
+    //playButton.anchorPoint = CGPointMake(0, 0);
+    playButton.zPosition = 9;
+    playButton.position = CGPointMake(0, -10);
+    playButton.name = @"playButton";
+    [_speakBubble addChild:playButton];
     
     SKLabelNode* text = [SKLabelNode node];
-    text.text = @"good";
+    text.position = CGPointMake(0, 35);
+    
+    text.text = @"/s/ /u/ /n/";
     text.fontName = @"HelveticaNeue-Bold";
     text.fontColor = [UIColor redColor];
-    text.fontSize = 50;
+    text.fontSize = 30;
     text.zPosition = 10;
-    [bubble addChild:text];
-    [self addChild:bubble];
+    [_speakBubble addChild:text];
+    [self addChild:_speakBubble];
 }
 
 - (void) throwCaughtFish {
     if (_fishBeingCaught) {
         [_fishBeingCaught removeAllActions];
+        if (_speakBubble) {
+            [_speakBubble runAction:[SKAction fadeOutWithDuration:0.3]];
+        }
         
         // show fish thrown away animation
         SKAction *fishThrownAwayTraslateAction = [SKAction moveByX:150 y:150 duration:0.5];
