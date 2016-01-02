@@ -102,7 +102,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     Word* firstW = (Word*)words[0];
     NSString* t = [NSString stringWithFormat:@"%@:%@",firstW.pText,firstW.wText];
     self.lbWord.text = t;
-    [self setCurrentAudioToIndex:0];
+    
     for (int i =11; i<=14;i++) {
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
         button.selected = NO;
@@ -113,6 +113,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
             [button setTitle:w.speaker forState:UIControlStateNormal];
         }
     }
+    [self setCurrentAudioToIndex:0];
 }
 
 - (void)viewDidLoad {
@@ -199,6 +200,8 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     _currentIndex = index;
     Word* w1 = words[index];
     _currentAudioPath = [[NSBundle mainBundle] pathForResource:[w1.wFile stringByDeletingPathExtension] ofType:@"wav" inDirectory:@"sounds"];
+    UIButton* button = (UIButton*)[self.view viewWithTag:index+11];
+    button.selected = YES;
 }
 
 - (IBAction)toggleRecording:(id)sender
@@ -800,7 +803,7 @@ static inline float _translate(float val, float min, float max) {
         sum+= fitQuality[i];
     }
     float score = sum/(end-start+1);
-    self.lbScore.text = [NSString stringWithFormat:@"%.0f",score/0.5*100];
+    self.lbScore.text = [NSString stringWithFormat:@"%f",score];
 }
 
 inline float linearFun(float x, float slope, float intercept) {
