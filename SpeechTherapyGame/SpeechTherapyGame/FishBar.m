@@ -23,7 +23,7 @@
             SKTexture* fishTex = [SKTexture textureWithImageNamed:@"smallfish"];
             SKSpriteNode* fish = [[SKSpriteNode alloc] initWithTexture:fishTex color:[UIColor clearColor] size:CGSizeMake(36, 23)];
             fish.position = CGPointMake(_container.size.width*i/5 - _container.size.width/2 + fish.size.width/2 + 5, 0);
-            fish.name = [NSString stringWithFormat:@"fish%d",i];
+            fish.name = [NSString stringWithFormat:@"fish%d",i+1];
             
             fish.color = [UIColor darkGrayColor];
             fish.blendMode = SKBlendModeAlpha;

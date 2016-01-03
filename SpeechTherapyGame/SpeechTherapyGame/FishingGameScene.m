@@ -45,7 +45,9 @@ NSUInteger WHALETYPE = 2;
     
     SKSpriteNode* _speakBubble;
     
-    BOOL didShowText;
+    BOOL _didAnimateRaiseHook;
+    
+    
     TCProgressTimerNode *_progressTimerNode3;
     NSTimeInterval _startTime;
     NSTimer *_drawTimer;
@@ -165,6 +167,7 @@ NSUInteger WHALETYPE = 2;
     _pencil = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"pencil"]];
     _pencil.anchorPoint = CGPointMake(0, 0);
     _pencil.position = CGPointMake(bearView.position.x - _pencil.size.width/2, bearView.position.y);
+    _pencil.zPosition = 999;
     [self addChild:_pencil];
     
     // Dynamic objects
@@ -204,10 +207,12 @@ NSUInteger WHALETYPE = 2;
     _fishBar = [[FishBar alloc] initWithColor:[UIColor colorWithWhite:1.0 alpha:0.3] size:CGSizeMake(250, 50)];
     _fishBar.anchorPoint = CGPointMake(0.5, 0.5);
     _fishBar.position = CGPointMake(self.size.width/2, self.size.height - _fishBar.size.height*.5);
+    _fishBar.zPosition = 999;
     [self addChild:_fishBar];
 
     _attemptCount = 0;
     _incorrectAttemptCount = 0;
+    _didAnimateRaiseHook = YES;
     
 }
 
@@ -480,7 +485,7 @@ NSUInteger WHALETYPE = 2;
     
     if (YES || [self canGoToNextPhoneme]) {
         [self throwCaughtFish];
-        [_fishBar setFish:0 active:YES];
+        [_fishBar setFish:_attemptCount active:YES];
     }
 }
 
@@ -563,9 +568,10 @@ NSUInteger WHALETYPE = 2;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     if (_fishBeingCaught)
         return;
+    
+    _didAnimateRaiseHook = NO;
     [_pencil runAction:[SKAction rotateByAngle:0.3 duration:0.3]];
     [_pencil runAction:[SKAction moveByX:15 y:-10 duration:0.3]];
-    
     [self dropHook];
     [_hook runAction:[SKAction moveByX:-10 y:-15 duration:0.3]];
     [_hookLine runAction:[SKAction moveByX:-10 y:-15 duration:0.3]];
@@ -585,10 +591,10 @@ NSUInteger WHALETYPE = 2;
     
     if (_fishBeingCaught)
         return;
+    
+    _didAnimateRaiseHook = YES;
     [_pencil runAction:[SKAction rotateByAngle:-0.3 duration:0.3]];
     [_pencil runAction:[SKAction moveByX:-15 y:10 duration:0.3]];
-    
-    
     [self raiseHook];
     [_hook runAction:[SKAction moveByX:10 y:15 duration:0.3]];
     [_hookLine runAction:[SKAction moveByX:10 y:15 duration:0.3]];
@@ -630,19 +636,24 @@ NSUInteger WHALETYPE = 2;
         fish = (SKSpriteNode *)contact.bodyB.node;
     }
     if (fish) {
-        
-        fish.position = CGPointMake(_hook.position.x, fish.position.y);
         _hook.physicsBody.collisionBitMask = BOUND;
         _hook.physicsBody.contactTestBitMask = FISHIES | BOUND;
         _fishBeingCaught = fish;
         [self raiseHook];
         [fish removeAllActions];
-        
-//        [_pencil runAction:[SKAction rotateByAngle:-0.3 duration:0.3]];
-//        [_pencil runAction:[SKAction moveByX:-15 y:10 duration:0.3]];
-//        [_hook runAction:[SKAction moveByX:-10 y:-15 duration:0.3]];
-//        [_hookLine runAction:[SKAction moveByX:-10 y:-15 duration:0.3]];
-        
+
+        if (!_didAnimateRaiseHook) {
+            _didAnimateRaiseHook = YES;
+            [_pencil runAction:[SKAction rotateByAngle:-0.3 duration:0.3]];
+            [_pencil runAction:[SKAction moveByX:-15 y:10 duration:0.3]];
+            [_hook runAction:[SKAction moveByX:10 y:15 duration:0.3]];
+            [_hookLine runAction:[SKAction moveByX:10 y:15 duration:0.3] completion:^{
+                _fishBeingCaught.position = CGPointMake(_hook.position.x, _hook.position.y - 1);
+            }];
+        } else {
+            _fishBeingCaught.position = CGPointMake(_hook.position.x, _hook.position.y - 1);
+        }
+
         // put the fish onto the hook
         CGFloat rotateAngle = 0.5 * M_PI;
         if (fish.xScale == -1) {
