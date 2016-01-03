@@ -24,6 +24,7 @@
 		2D45C70F1C03760C009FCFB8 /* whale.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2D45C70C1C03760C009FCFB8 /* whale.atlas */; };
 		2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064721BA99E6B00410B0E /* CoreDataManager.m */; };
 		2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */; };
+		2D61B2E41C38096E006FC272 /* FishBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D61B2E31C38096E006FC272 /* FishBar.m */; };
 		2D7580A31C2B062A0004B125 /* StarsNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7580A21C2B062A0004B125 /* StarsNode.m */; };
 		2D75DD2A1BD57E9300112F4E /* ParentSecurityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D75DD291BD57E9300112F4E /* ParentSecurityController.m */; };
 		2D8931F41BA986AF006D2840 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D8931F31BA986AF006D2840 /* CoreData.framework */; };
@@ -100,6 +101,8 @@
 		2D6064711BA99E6B00410B0E /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		2D6064721BA99E6B00410B0E /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		2D6064751BA99FF100410B0E /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		2D61B2E21C38096E006FC272 /* FishBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishBar.h; sourceTree = "<group>"; };
+		2D61B2E31C38096E006FC272 /* FishBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishBar.m; sourceTree = "<group>"; };
 		2D7580A11C2B062A0004B125 /* StarsNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarsNode.h; sourceTree = "<group>"; };
 		2D7580A21C2B062A0004B125 /* StarsNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarsNode.m; sourceTree = "<group>"; };
 		2D75DD281BD57E9300112F4E /* ParentSecurityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentSecurityController.h; sourceTree = "<group>"; };
@@ -352,6 +355,8 @@
 				2DB4D6281BF3920C00A12481 /* Whale.m */,
 				2D7580A11C2B062A0004B125 /* StarsNode.h */,
 				2D7580A21C2B062A0004B125 /* StarsNode.m */,
+				2D61B2E21C38096E006FC272 /* FishBar.h */,
+				2D61B2E31C38096E006FC272 /* FishBar.m */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -692,6 +697,7 @@
 				2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */,
 				2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */,
 				2DC9041A1BB1D0710082DEAC /* SoundManagerViewController.m in Sources */,
+				2D61B2E41C38096E006FC272 /* FishBar.m in Sources */,
 				2DE88ACB1BB8517A002438C6 /* Games.m in Sources */,
 				2DB4D6251BF391F200A12481 /* TCProgressTimerForegroundCropNode.m in Sources */,
 				2DE0E1311B9CAF6100BFEDA6 /* LoadingScene.m in Sources */,

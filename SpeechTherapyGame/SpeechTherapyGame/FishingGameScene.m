@@ -13,6 +13,7 @@
 #import "LPCAudioController.h"
 #import "LPCView.h"
 #import "StarsNode.h"
+#import "FishBar.h"
 
 const uint32_t HOOK = 0x1 << 0;
 const uint32_t FISHIES = 0x1 << 1;
@@ -31,9 +32,9 @@ NSUInteger WHALETYPE = 2;
 #define WaterViewHeigh 470 //460
 #define FishBeingCaughtDestination 460
 
-#define smallFishSpeed 2.0
+#define smallFishSpeed 6.0
 #define sharkSpeed 4.0
-#define whaleSpeed 6.0
+#define whaleSpeed 2.0
 
 @interface FishingGameScene () <SKPhysicsContactDelegate> {
     SKSpriteNode* _hook;
@@ -49,7 +50,7 @@ NSUInteger WHALETYPE = 2;
     NSTimeInterval _startTime;
     NSTimer *_drawTimer;
     
-    StarsNode* _starsContainer;
+    FishBar* _fishBar;
     
     NSInteger _attemptCount;
     NSInteger _incorrectAttemptCount;
@@ -149,9 +150,9 @@ NSUInteger WHALETYPE = 2;
     // The Sun
     SKSpriteNode* sunView = [[SKSpriteNode alloc] initWithTexture:[SKTexture textureWithImageNamed:@"thesun"]];
     sunView.anchorPoint = CGPointMake(0.5, 0.5);
-    sunView.position = CGPointMake(self.size.width - 20, self.size.height - 20);
+    sunView.position = CGPointMake(self.size.width - 10, self.size.height - 10);
     sunView.zPosition = -3;
-    [sunView runAction:[SKAction repeatActionForever:[SKAction rotateByAngle:2*M_PI duration:60]]];
+    [sunView runAction:[SKAction repeatActionForever:[SKAction rotateByAngle:2*M_PI duration:120]]];
     [self addChild:sunView];
     
     // bear
@@ -200,15 +201,13 @@ NSUInteger WHALETYPE = 2;
     [self bearThoughtAnimation:CGPointMake(bearView.position.x + bearView.size.width/2 + 20, bearView.position.y + bearView.size.height/2 + 20)];
     
     // Star container
-    _starsContainer = [[StarsNode alloc] initWithColor:[UIColor colorWithWhite:1.0 alpha:0.3] size:CGSizeMake(150, 50)];
-    _starsContainer.anchorPoint = CGPointMake(0.5, 0.5);
-    _starsContainer.position = CGPointMake(self.size.width/2, self.size.height - _starsContainer.size.height*.5);
-    [self addChild:_starsContainer];
-    
-    [_starsContainer setStar:0 active:YES];
-    [_starsContainer setStar:2 active:YES];
-    
+    _fishBar = [[FishBar alloc] initWithColor:[UIColor colorWithWhite:1.0 alpha:0.3] size:CGSizeMake(250, 50)];
+    _fishBar.anchorPoint = CGPointMake(0.5, 0.5);
+    _fishBar.position = CGPointMake(self.size.width/2, self.size.height - _fishBar.size.height*.5);
+    [self addChild:_fishBar];
+
     _attemptCount = 0;
+    _incorrectAttemptCount = 0;
     
 }
 
@@ -481,6 +480,7 @@ NSUInteger WHALETYPE = 2;
     
     if (YES || [self canGoToNextPhoneme]) {
         [self throwCaughtFish];
+        [_fishBar setFish:0 active:YES];
     }
 }
 
@@ -610,7 +610,7 @@ NSUInteger WHALETYPE = 2;
                     _hook.physicsBody.collisionBitMask = 0;
                     _hook.physicsBody.contactTestBitMask = FISHIES;
                     
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [self getPoint];
                     });
                     
@@ -631,12 +631,17 @@ NSUInteger WHALETYPE = 2;
     }
     if (fish) {
         
+        fish.position = CGPointMake(_hook.position.x, fish.position.y);
         _hook.physicsBody.collisionBitMask = BOUND;
         _hook.physicsBody.contactTestBitMask = FISHIES | BOUND;
-        
         _fishBeingCaught = fish;
         [self raiseHook];
         [fish removeAllActions];
+        
+//        [_pencil runAction:[SKAction rotateByAngle:-0.3 duration:0.3]];
+//        [_pencil runAction:[SKAction moveByX:-15 y:10 duration:0.3]];
+//        [_hook runAction:[SKAction moveByX:-10 y:-15 duration:0.3]];
+//        [_hookLine runAction:[SKAction moveByX:-10 y:-15 duration:0.3]];
         
         // put the fish onto the hook
         CGFloat rotateAngle = 0.5 * M_PI;
