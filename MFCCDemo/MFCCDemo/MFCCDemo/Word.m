@@ -27,6 +27,7 @@
         _pPhonetic = [dict stringForKey:@"p_phonetic"];
         _wFile = [dict stringForKey:@"w_file"];
         _pFile = [dict stringForKey:@"p_file"];
+        _speaker = [dict stringForKey:@"speaker"];
         
     }
     return self;

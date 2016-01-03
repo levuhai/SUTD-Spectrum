@@ -96,23 +96,31 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     .mSampleRate        = 44100.0,
 };
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    NSLog(@"%@",[self applicationDocuments]);
+- (void)_randomWord {
     // Randomize words
     words = [[DataManager shared] getRandomWords];
-    [self setCurrentAudioToIndex:0];
-    for (int i =11; i<=13;i++) {
+    Word* firstW = (Word*)words[0];
+    NSString* t = [NSString stringWithFormat:@"%@:%@",firstW.pText,firstW.wText];
+    self.lbWord.text = t;
+    
+    for (int i =11; i<=14;i++) {
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
         button.selected = NO;
         if (i > 10 + words.count) {
             button.hidden = YES;
         } else {
             Word *w = (Word*)words[i-11];
-            [button setTitle:w.wFile forState:UIControlStateNormal];
+            [button setTitle:w.speaker forState:UIControlStateNormal];
         }
     }
+    [self setCurrentAudioToIndex:0];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    NSLog(@"%@",[self applicationDocuments]);
+    [self _randomWord];
     
     // Setup UIScrollView
     // Trimming
@@ -168,6 +176,10 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 
 #pragma mark - Actions
 
+- (IBAction)randomTouched:(id)sender {
+    [self _randomWord];
+}
+
 - (IBAction)compareTouched:(id)sender {
     
     [self _compareFileA:[self test1FilePath] fileB:_currentAudioPath];//[self testFilePath]
@@ -176,7 +188,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 
 - (IBAction)changeSoundTouched:(UIButton*)sender {
     [self setCurrentAudioToIndex:(int)(sender.tag-11)];
-    for (int i =11; i<=13;i++) {
+    for (int i =11; i<=14;i++) {
         UIButton* button = (UIButton*)[self.view viewWithTag:i];
         button.selected = NO;
     }
@@ -187,8 +199,9 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 - (void)setCurrentAudioToIndex:(int)index {
     _currentIndex = index;
     Word* w1 = words[index];
-    
-    _currentAudioPath = [[NSBundle mainBundle] pathForResource:[w1.wFile stringByDeletingPathExtension] ofType:@"wav"];
+    _currentAudioPath = [[NSBundle mainBundle] pathForResource:[w1.wFile stringByDeletingPathExtension] ofType:@"wav" inDirectory:@"sounds"];
+    UIButton* button = (UIButton*)[self.view viewWithTag:index+11];
+    button.selected = YES;
 }
 
 - (IBAction)toggleRecording:(id)sender
@@ -357,7 +370,7 @@ static inline float _translate(float val, float min, float max) {
                                                     endThreshold:kDefaultTrimEndThreshold
                                                             info:&_fileAInfo];
     
-    NSURL *urlB = [NSURL URLWithString:pathB];
+    NSURL *urlB = [NSURL URLWithString:[pathB stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     FeatureTypeDTW::Features featureB = [self _getPreProcessInfo:urlB
                                                   beginThreshold:kDefaultTrimBeginThreshold
                                                     endThreshold:kDefaultTrimEndThreshold
@@ -781,6 +794,16 @@ static inline float _translate(float val, float min, float max) {
                                      data:fitQuality
                                      rect:self.view.bounds
                                    maxVal:2 start:start end:end];
+    [self _score:start end:end];
+}
+
+- (void)_score:(int)start end:(int)end {
+    float sum = 0.0f;
+    for (int i = start-1; i<end; i++) {
+        sum+= fitQuality[i];
+    }
+    float score = sum/(end-start+1);
+    self.lbScore.text = [NSString stringWithFormat:@"%f",score];
 }
 
 inline float linearFun(float x, float slope, float intercept) {
