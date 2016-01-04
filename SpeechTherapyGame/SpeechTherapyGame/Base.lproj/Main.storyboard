@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3gr-A2-YTs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3gr-A2-YTs">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -98,13 +98,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press the number &quot;Six&quot; for 3 seconds" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rs-FD-CDP">
-                                <rect key="frame" x="121" y="178" width="358" height="72"/>
+                                <rect key="frame" x="121" y="178" width="358" height="71.5"/>
                                 <fontDescription key="fontDescription" name="Arial-BoldItalicMT" family="Arial" pointSize="32"/>
                                 <color key="textColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14509803921568626" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="highlightedColor" red="0.14901960784313725" green="0.14901960784313725" blue="0.14509803921568629" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hGY-s2-sN9">
-                                <rect key="frame" x="52" y="293" width="496" height="30"/>
+                                <rect key="frame" x="52" y="293.5" width="496" height="30"/>
                                 <color key="backgroundColor" red="0.19607843137254902" green="0.19215686274509805" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.97254901960784312" green="1" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -112,7 +112,7 @@
                                 </constraints>
                                 <color key="trackTintColor" red="0.19607843137254902" green="0.19215686274509802" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
                             </progressView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bqh-vU-0VF">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bqh-vU-0VF">
                                 <rect key="frame" x="262" y="378" width="76" height="76"/>
                                 <color key="backgroundColor" red="0.97254901960784312" green="1" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -124,7 +124,7 @@
                                     <color key="titleColor" red="0.1960784314" green="0.19215686269999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOV-W9-lGW">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOV-W9-lGW">
                                 <rect key="frame" x="262" y="494" width="76" height="76"/>
                                 <color key="backgroundColor" red="0.5725490196078431" green="0.92941176470588238" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -135,7 +135,7 @@
                                     <color key="titleColor" red="0.1960784314" green="0.19215686269999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XiL-x2-HmL">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XiL-x2-HmL">
                                 <rect key="frame" x="112" y="494" width="76" height="76"/>
                                 <color key="backgroundColor" red="0.97254901960784312" green="1" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -146,7 +146,7 @@
                                     <color key="titleColor" red="0.1960784314" green="0.19215686269999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSg-Tb-gqa">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSg-Tb-gqa">
                                 <rect key="frame" x="112" y="378" width="76" height="76"/>
                                 <color key="backgroundColor" red="1" green="0.75686274509803919" blue="0.027450980392156862" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -157,7 +157,7 @@
                                     <color key="titleColor" red="0.1960784314" green="0.19215686269999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ort-U2-Vd8">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ort-U2-Vd8">
                                 <rect key="frame" x="412" y="494" width="76" height="76"/>
                                 <color key="backgroundColor" red="1" green="0.75686274509803919" blue="0.027450980392156862" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -168,7 +168,7 @@
                                     <color key="titleColor" red="0.1960784314" green="0.19215686269999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfb-7d-Gxp">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfb-7d-Gxp">
                                 <rect key="frame" x="412" y="378" width="76" height="76"/>
                                 <color key="backgroundColor" red="0.5725490196078431" green="0.92941176470588238" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -350,10 +350,10 @@
             </objects>
             <point key="canvasLocation" x="1456" y="419"/>
         </scene>
-        <!--Stats-->
+        <!--Parent Stats-->
         <scene sceneID="xZv-FL-pgT">
             <objects>
-                <viewController storyboardIdentifier="GameStatsViewController" id="rZF-Qc-F9E" userLabel="Stats" customClass="GameStatsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameStatsViewController" id="rZF-Qc-F9E" userLabel="Parent Stats" customClass="ParentStatsController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PTX-J6-XDx"/>
                         <viewControllerLayoutGuide type="bottom" id="t5Q-gV-hpe"/>
@@ -362,8 +362,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nJb-FF-ZsY">
-                                <rect key="frame" x="20" y="60" width="984" height="330"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nJb-FF-ZsY">
+                                <rect key="frame" x="20" y="40" width="984" height="330"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OmS-KJ-bwq">
                                         <rect key="frame" x="20" y="20" width="107" height="30"/>
@@ -500,10 +500,10 @@
             </objects>
             <point key="canvasLocation" x="2908" y="324"/>
         </scene>
-        <!--Sound-->
+        <!--Parent Sound-->
         <scene sceneID="ues-YP-BqB">
             <objects>
-                <viewController storyboardIdentifier="SoundManagerViewController" id="xL7-Fc-IYd" userLabel="Sound" customClass="SoundManagerViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SoundManagerViewController" id="xL7-Fc-IYd" userLabel="Parent Sound" customClass="SoundManagerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DTC-Eh-ZfB"/>
                         <viewControllerLayoutGuide type="bottom" id="Qbb-zQ-xSP"/>
@@ -515,18 +515,6 @@
                             <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kz1-d3-sUk">
                                 <rect key="frame" x="20" y="63" width="560" height="120"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFd-f3-wrk">
-                                        <rect key="frame" x="492" y="1" width="45" height="45"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="45" id="Jqt-Gj-TwL"/>
-                                            <constraint firstAttribute="height" constant="45.5" id="hOM-de-bUz"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="45"/>
-                                        <state key="normal" title="+"/>
-                                        <connections>
-                                            <segue destination="S7s-Yx-qKd" kind="show" id="DHK-PT-XBT"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sound" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRE-eW-7d2">
                                         <rect key="frame" x="21" y="1" width="105" height="45"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="23"/>
@@ -536,12 +524,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="XFd-f3-wrk" secondAttribute="trailing" constant="23" id="JXB-t9-xdd"/>
                                     <constraint firstAttribute="height" constant="120" id="LHG-Lu-0zT"/>
-                                    <constraint firstItem="XFd-f3-wrk" firstAttribute="top" secondItem="kz1-d3-sUk" secondAttribute="top" constant="1" id="f4A-61-lUL"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="I4b-Xa-2FM">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="I4b-Xa-2FM">
                                 <rect key="frame" x="20" y="96" width="560" height="299"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="prY-U7-0Ld">
@@ -551,7 +537,7 @@
                                     <inset key="sectionInset" minX="20" minY="20" maxX="20" maxY="20"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="letterCell" id="YFa-n8-Rms">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="letterCell" id="YFa-n8-Rms" customClass="PhonemeCell">
                                         <rect key="frame" x="20" y="20" width="70" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -573,6 +559,10 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <outlet property="background" destination="91d-0Z-pxe" id="qy6-IT-69v"/>
+                                            <outlet property="lbText" destination="5WJ-Rb-ZJF" id="wpL-6S-y1g"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -580,7 +570,7 @@
                                     <outlet property="delegate" destination="xL7-Fc-IYd" id="Myd-hN-w3V"/>
                                 </connections>
                             </collectionView>
-                            <view tag="3" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3RQ-mk-nru">
+                            <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3RQ-mk-nru">
                                 <rect key="frame" x="20" y="410" width="560" height="176"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylk-46-yz2">

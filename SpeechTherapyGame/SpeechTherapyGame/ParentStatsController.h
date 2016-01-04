@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GameStatsViewController : UIViewController
+@interface ParentStatsController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIView* lineGraphContainer;
 @property (weak, nonatomic) IBOutlet UIView* barGraphContainer;

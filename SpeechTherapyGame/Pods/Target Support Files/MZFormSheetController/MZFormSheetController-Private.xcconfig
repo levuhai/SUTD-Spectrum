@@ -1,6 +1,0 @@
-#include "MZFormSheetController.xcconfig"
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/MZFormSheetController" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ActionSheetPicker-3.0" "${PODS_ROOT}/Headers/Public/FrameAccessor" "${PODS_ROOT}/Headers/Public/MZAppearance" "${PODS_ROOT}/Headers/Public/MZFormSheetController" "${PODS_ROOT}/Headers/Public/MagicalRecord" "${PODS_ROOT}/Headers/Public/MagicalRecord/MagicalRecord" "${PODS_ROOT}/Headers/Public/Masonry" "${PODS_ROOT}/Headers/Public/PNChart" "${PODS_ROOT}/Headers/Public/UICountingLabel"
-OTHER_LDFLAGS = ${MZFORMSHEETCONTROLLER_OTHER_LDFLAGS}
-PODS_ROOT = ${SRCROOT}
-SKIP_INSTALL = YES

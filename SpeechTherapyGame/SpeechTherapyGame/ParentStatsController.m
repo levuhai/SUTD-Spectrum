@@ -6,7 +6,7 @@
 //  Copyright © 2015 SUTD. All rights reserved.
 //
 
-#import "GameStatsViewController.h"
+#import "ParentStatsController.h"
 #import "ActionSheetPicker.h"
 #import "Games.h"
 #import "Sounds.h"
@@ -14,7 +14,7 @@
 #import "PNChart.h"
 
 
-@interface GameStatsViewController ()
+@interface ParentStatsController ()
 {
     
     NSArray* _gameStatData;
@@ -33,7 +33,7 @@
 
 @end
 
-@implementation GameStatsViewController
+@implementation ParentStatsController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

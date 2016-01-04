@@ -7,6 +7,9 @@
 //
 
 #import "SoundManagerViewController.h"
+#import "PhonemeCell.h"
+#import "DataManager.h"
+#import "Word.h"
 
 @interface SoundManagerViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 {
@@ -23,10 +26,7 @@
 
     // Do any additional setup after loading the view.
     
-    _collectionViewData = [NSMutableArray array];
-    for (int i = 0; i<10; i++) {
-        [_collectionViewData addObject:@"a"];
-    }
+    _collectionViewData = [[DataManager shared] getUniquePhoneme];
     self.view.backgroundColor = RGB(47,139,193);
     _letterCollectionView.backgroundColor = [UIColor whiteColor];
 
@@ -52,10 +52,11 @@
 }
 // 3
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"letterCell" forIndexPath:indexPath];
+    PhonemeCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"letterCell"
+                                                      forIndexPath:indexPath];
     
-    UIView* backgroundView = [cell viewWithTag:1];
-    backgroundView.layer.cornerRadius = 15;
+    cell.background.layer.cornerRadius = 15;
+    cell.lbText.text = _collectionViewData[indexPath.row];
     
     return cell;
 }

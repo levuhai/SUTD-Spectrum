@@ -78,6 +78,25 @@ static DataManager *sharedInstance = nil;
     return lvs;
 }
 
+- (NSMutableArray *)getUniquePhoneme {
+    __block NSMutableArray* unique = [NSMutableArray new];
+    FMDatabaseQueue* db = [self _dbQueue];
+    
+    [db inDatabase:^(FMDatabase *db) {
+        NSString * sql = [NSString stringWithFormat:@"SELECT DISTINCT p_text FROM [db]"];
+        FMResultSet *results = [db executeQuery:sql];
+        while([results next]) {
+            @autoreleasepool {
+                [unique addObject:[results stringForColumnIndex:0]];
+            }
+        }
+        [results close];
+    }];
+    [db close];
+    
+    return unique;
+}
+
 - (NSMutableArray*)getRandomWords {
     // Select unique words from DB
     __block NSMutableArray* uniqueWords = [NSMutableArray new];

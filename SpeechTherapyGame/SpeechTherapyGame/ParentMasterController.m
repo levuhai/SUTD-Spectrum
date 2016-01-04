@@ -7,12 +7,12 @@
 //
 
 #import "ParentMasterController.h"
-#import "GameStatsViewController.h"
+#import "ParentStatsController.h"
 #import "SoundManagerViewController.h"
 #import <Masonry/Masonry.h>
 
 @interface ParentMasterController () {
-    GameStatsViewController* _statsViewController;
+    ParentStatsController* _statsViewController;
     SoundManagerViewController* _soundViewController;
     UIView* _statsView;
     UIView* _soundView;
