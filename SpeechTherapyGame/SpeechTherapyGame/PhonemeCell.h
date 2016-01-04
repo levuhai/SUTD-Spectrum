@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PhonemeCell : UICollectionViewCell
+@interface PhonemeCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel* lbText;
 @property (weak, nonatomic) IBOutlet UIView* background;

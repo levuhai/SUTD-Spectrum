@@ -12,10 +12,10 @@
 #import "DataManager.h"
 #import "Word.h"
 
-@interface ParentSoundController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ParentSoundController () <UITableViewDataSource, UITableViewDelegate>
 {
     NSMutableArray* _collectionViewData;
-    IBOutlet UICollectionView* _letterCollectionView;
+    IBOutlet UITableView* mainTable;
 }
 @end
 
@@ -29,11 +29,6 @@
     
     _collectionViewData = [[DataManager shared] getUniquePhoneme];
     self.view.backgroundColor = RGB(47,139,193);
-    _letterCollectionView.backgroundColor = [UIColor whiteColor];
-
-    [self.view viewWithTag:1].layer.cornerRadius = 20;
-    [self.view viewWithTag:2].layer.cornerRadius = 20;
-    [self.view viewWithTag:3].layer.cornerRadius = 20;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,29 +36,29 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - UICollectionView Datasource
-// 1
-- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+#pragma mark - UITableView Datasource
 
-    return [_collectionViewData count];
-}
-// 2
-- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
-    return 1;
-}
-// 3
-- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    PhonemeCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"letterCell"
-                                                      forIndexPath:indexPath];
-    
-    cell.background.backgroundColor = [UIColor colorWithRandomFlatColorOfShadeStyle:UIShadeStyleLight];
-    cell.background.layer.cornerRadius = 15;
+//static NSString* cellIdentifier = @"Cell";
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    PhonemeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"
+                                                        forIndexPath:indexPath];
+    cell.lbText.backgroundColor = [UIColor colorWithRandomFlatColorOfShadeStyle:UIShadeStyleLight];
+    cell.lbText.layer.cornerRadius = 15;
     cell.lbText.text = _collectionViewData[indexPath.row];
-    
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _collectionViewData.count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     NSString* selectedPhoneme = _collectionViewData[indexPath.row];
     NSLog(@"%@",selectedPhoneme);
     
