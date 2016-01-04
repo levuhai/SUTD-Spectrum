@@ -17,6 +17,7 @@
 - (NSMutableArray*)getWords;
 - (NSMutableArray*)getRandomWords;
 - (NSMutableArray*)getWordsFromPhoneme:(NSString*)p;
+- (NSMutableArray *)getUniqueWordsFromPhoneme:(NSString *)p;
 - (NSMutableArray*)getUniquePhoneme;
 
 @end

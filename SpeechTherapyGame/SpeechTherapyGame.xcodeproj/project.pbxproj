@@ -62,6 +62,7 @@
 		A752FBED1C3A2BF900B8ED60 /* PhonemeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBEC1C3A2BF900B8ED60 /* PhonemeCell.m */; };
 		A752FBF01C3A2D4100B8ED60 /* NSDictionary+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBEF1C3A2D4100B8ED60 /* NSDictionary+ES.m */; };
 		A752FBF21C3A2E8C00B8ED60 /* result.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A752FBF11C3A2E8C00B8ED60 /* result.sqlite */; };
+		A752FBF51C3AA79400B8ED60 /* WordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBF41C3AA79400B8ED60 /* WordCell.m */; };
 		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; };
 		D78865B51C1043B800C3944C /* LPCAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865B41C1043B800C3944C /* LPCAudioController.m */; };
 		D78865B81C1043E200C3944C /* LPCView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D78865B71C1043E200C3944C /* LPCView.mm */; };
@@ -183,6 +184,8 @@
 		A752FBEE1C3A2D4100B8ED60 /* NSDictionary+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ES.h"; sourceTree = "<group>"; };
 		A752FBEF1C3A2D4100B8ED60 /* NSDictionary+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ES.m"; sourceTree = "<group>"; };
 		A752FBF11C3A2E8C00B8ED60 /* result.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = result.sqlite; sourceTree = "<group>"; };
+		A752FBF31C3AA79400B8ED60 /* WordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCell.h; sourceTree = "<group>"; };
+		A752FBF41C3AA79400B8ED60 /* WordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCell.m; sourceTree = "<group>"; };
 		B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.release.xcconfig"; sourceTree = "<group>"; };
 		D716291D1BE76FFE00C56C77 /* ParentMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentMasterController.h; sourceTree = "<group>"; };
 		D716291E1BE76FFE00C56C77 /* ParentMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentMasterController.m; sourceTree = "<group>"; };
@@ -546,6 +549,8 @@
 				D716291E1BE76FFE00C56C77 /* ParentMasterController.m */,
 				A752FBEB1C3A2BF900B8ED60 /* PhonemeCell.h */,
 				A752FBEC1C3A2BF900B8ED60 /* PhonemeCell.m */,
+				A752FBF31C3AA79400B8ED60 /* WordCell.h */,
+				A752FBF41C3AA79400B8ED60 /* WordCell.m */,
 			);
 			name = Parent;
 			sourceTree = "<group>";
@@ -761,6 +766,7 @@
 				2DB4D6261BF391F200A12481 /* TCProgressTimerNode.m in Sources */,
 				2DF6B7481B94A14800B7F92C /* HomeScene.m in Sources */,
 				2D7580A31C2B062A0004B125 /* StarsNode.m in Sources */,
+				A752FBF51C3AA79400B8ED60 /* WordCell.m in Sources */,
 				D78865BB1C10453800C3944C /* NSMutableArray+Queue.m in Sources */,
 				2DC195ED1BF63EA4008669A0 /* NSDate+Helper.m in Sources */,
 				D78865C11C10454700C3944C /* UIColor+Flat.m in Sources */,
