@@ -7,6 +7,7 @@
 //
 
 #import "SoundManagerViewController.h"
+#import <ChameleonFramework/Chameleon.h>
 #import "PhonemeCell.h"
 #import "DataManager.h"
 #import "Word.h"
@@ -55,6 +56,7 @@
     PhonemeCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"letterCell"
                                                       forIndexPath:indexPath];
     
+    cell.background.backgroundColor = [UIColor colorWithRandomFlatColorOfShadeStyle:UIShadeStyleLight];
     cell.background.layer.cornerRadius = 15;
     cell.lbText.text = _collectionViewData[indexPath.row];
     

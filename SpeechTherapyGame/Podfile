@@ -8,6 +8,7 @@ pod 'ActionSheetPicker-3.0'
 pod 'MZFormSheetController'#, :git => 'https://github.com/m1entus/MZFormSheetController.git'
 pod 'Masonry'
 pod 'FMDB'
+pod 'ChameleonFramework'
 
 end
 
