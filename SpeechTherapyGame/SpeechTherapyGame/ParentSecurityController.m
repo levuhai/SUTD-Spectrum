@@ -82,7 +82,7 @@
 #pragma mark - Private
 
 - (void)_progress {
-    _progressView.progress += 1/180.0f;
+    _progressView.progress += 1/10.0f;
     if (_progressView.progress >= 1) {
         [_container dismissAnimated:NO completionHandler:^(UIViewController * _Nonnull presentedFSViewController) {
             [_homeSceneVC showGameManager];

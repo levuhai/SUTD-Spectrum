@@ -12,11 +12,14 @@
 #import "WordCell.h"
 #import "DataManager.h"
 #import "Word.h"
+#import "ActiveWord.h"
 
 @interface ParentSoundController () <UITableViewDataSource, UITableViewDelegate>
 {
     NSMutableArray* _collectionViewData;
     NSMutableArray* _wordData;
+    NSArray* _allActiveWords;
+    
     IBOutlet UITableView* mainTable;
     IBOutlet UITableView* subTable;
 }
@@ -34,6 +37,26 @@
     _wordData = [NSMutableArray new];
     
     self.view.backgroundColor = RGB(47,139,193);
+    
+    _allActiveWords = [ActiveWord MR_findAll];
+
+}
+
+- (IBAction) activateAll_buttonClicked{
+    
+    for (Word* word in _wordData) {
+        
+        NSArray* activeWordArr = [ActiveWord MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"(word == %@) AND (phoneme == %@)",word.wText, word.pText]];
+        if (activeWordArr.count == 0) {
+            ActiveWord* activeWord = [ActiveWord MR_createEntityInContext:[NSManagedObjectContext MR_defaultContext]];
+            activeWord.word = word.wText;
+            activeWord.phoneme = word.pText;
+            activeWord.fileName = word.wFile;
+        }
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSaveMagicalRecordContext object:nil];
+    _allActiveWords = [ActiveWord MR_findAll];
+    [subTable reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,7 +79,14 @@
     } else {
         WordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubCell"
                                                             forIndexPath:indexPath];
-        cell.lbText.text = ((Word*)_wordData[indexPath.row]).wText;
+        Word* word = _wordData[indexPath.row];
+        cell.lbText.text = word.wText;
+        if ([self isWordActive:word]) {
+            cell.lbText.textColor = [UIColor redColor];
+        } else {
+            cell.lbText.textColor = [UIColor lightGrayColor];
+        }
+        
         return cell;
     }
     
@@ -72,7 +102,6 @@
     } else {
         return _wordData.count;
     }
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -82,7 +111,24 @@
         
         _wordData = [[DataManager shared] getUniqueWordsFromPhoneme:selectedPhoneme];
         [subTable reloadData];
+    } else {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
     }
+}
+
+#pragma mark - Context menu
+
+
+- (BOOL) isWordActive:(Word*) word {
+    for (ActiveWord* activeWord in _allActiveWords) {
+        if ([word.wText isEqualToString:activeWord.word] &&
+            [word.pText isEqualToString:activeWord.phoneme]) {
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 @end

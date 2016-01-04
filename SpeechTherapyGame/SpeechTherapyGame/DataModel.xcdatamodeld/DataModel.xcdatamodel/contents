@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="14F27" minimumToolsVersion="Xcode 4.3">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="14F27" minimumToolsVersion="Xcode 4.3">
+    <entity name="ActiveWord" representedClassName="ActiveWord" syncable="YES">
+        <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phoneme" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="word" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Games" representedClassName="Games" syncable="YES">
         <attribute name="gameId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -25,5 +30,6 @@
         <element name="Games" positionX="313" positionY="-54" width="128" height="75"/>
         <element name="GameStatistics" positionX="151" positionY="72" width="128" height="120"/>
         <element name="Sounds" positionX="-20" positionY="-72" width="128" height="163"/>
+        <element name="ActiveWord" positionX="144" positionY="36" width="128" height="90"/>
     </elements>
 </model>
