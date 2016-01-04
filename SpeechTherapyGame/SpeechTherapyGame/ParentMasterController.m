@@ -8,12 +8,12 @@
 
 #import "ParentMasterController.h"
 #import "ParentStatsController.h"
-#import "SoundManagerViewController.h"
+#import "ParentSoundController.h"
 #import <Masonry/Masonry.h>
 
 @interface ParentMasterController () {
     ParentStatsController* _statsViewController;
-    SoundManagerViewController* _soundViewController;
+    ParentSoundController* _soundViewController;
     UIView* _statsView;
     UIView* _soundView;
 }

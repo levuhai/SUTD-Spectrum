@@ -97,6 +97,30 @@ static DataManager *sharedInstance = nil;
     return unique;
 }
 
+- (NSMutableArray *)getWordsFromPhoneme:(NSString *)p {
+    // Select all sounds from randomized word
+    __block NSMutableArray* result = [NSMutableArray new];
+    FMDatabaseQueue* db = [self _dbQueue];
+    [db inDatabase:^(FMDatabase *db) {
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [p_text] = '%@'",p];
+        FMResultSet *results = [db executeQuery:sql];
+        while([results next]) {
+            @autoreleasepool {
+                NSDictionary* dict = results.resultDictionary;
+                Word* w = [[Word alloc] initWithDictionary:dict];
+                if (w != nil) {
+                    [result addObject:w];
+                }
+                
+            }
+        }
+        [results close];
+    }];
+    [db close];
+    
+    return result;
+}
+
 - (NSMutableArray*)getRandomWords {
     // Select unique words from DB
     __block NSMutableArray* uniqueWords = [NSMutableArray new];

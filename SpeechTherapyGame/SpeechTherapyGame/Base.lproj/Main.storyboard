@@ -503,7 +503,7 @@
         <!--Parent Sound-->
         <scene sceneID="ues-YP-BqB">
             <objects>
-                <viewController storyboardIdentifier="SoundManagerViewController" id="xL7-Fc-IYd" userLabel="Parent Sound" customClass="SoundManagerViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SoundManagerViewController" id="xL7-Fc-IYd" userLabel="Parent Sound" customClass="ParentSoundController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DTC-Eh-ZfB"/>
                         <viewControllerLayoutGuide type="bottom" id="Qbb-zQ-xSP"/>
@@ -528,7 +528,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="I4b-Xa-2FM">
-                                <rect key="frame" x="20" y="96" width="560" height="299"/>
+                                <rect key="frame" x="20" y="96" width="560" height="268"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="prY-U7-0Ld">
                                     <size key="itemSize" width="70" height="70"/>
@@ -571,7 +571,7 @@
                                 </connections>
                             </collectionView>
                             <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3RQ-mk-nru">
-                                <rect key="frame" x="20" y="410" width="560" height="176"/>
+                                <rect key="frame" x="20" y="379" width="560" height="206"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylk-46-yz2">
                                         <rect key="frame" x="506" y="8" width="46" height="30"/>
@@ -627,7 +627,7 @@
                             <constraint firstItem="I4b-Xa-2FM" firstAttribute="top" secondItem="yR7-jO-9UY" secondAttribute="top" constant="96" id="8sT-mh-fOR"/>
                             <constraint firstAttribute="trailing" secondItem="I4b-Xa-2FM" secondAttribute="trailing" constant="20" id="Lfg-Jz-GFd"/>
                             <constraint firstAttribute="trailing" secondItem="kz1-d3-sUk" secondAttribute="trailing" constant="20" id="Lkn-Aa-er1"/>
-                            <constraint firstItem="I4b-Xa-2FM" firstAttribute="height" secondItem="3RQ-mk-nru" secondAttribute="height" multiplier="1.7" id="N5x-la-AhS"/>
+                            <constraint firstItem="I4b-Xa-2FM" firstAttribute="height" secondItem="3RQ-mk-nru" secondAttribute="height" multiplier="1.3" id="N5x-la-AhS"/>
                             <constraint firstItem="3RQ-mk-nru" firstAttribute="leading" secondItem="yR7-jO-9UY" secondAttribute="leading" constant="20" id="PfF-lg-jjl"/>
                             <constraint firstItem="kz1-d3-sUk" firstAttribute="top" secondItem="DTC-Eh-ZfB" secondAttribute="bottom" constant="43" id="QEc-0Z-8iY"/>
                             <constraint firstItem="I4b-Xa-2FM" firstAttribute="leading" secondItem="yR7-jO-9UY" secondAttribute="leading" constant="20" id="Zhd-xh-uMa"/>

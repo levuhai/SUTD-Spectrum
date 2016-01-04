@@ -6,20 +6,20 @@
 //  Copyright © 2015 SUTD. All rights reserved.
 //
 
-#import "SoundManagerViewController.h"
+#import "ParentSoundController.h"
 #import <ChameleonFramework/Chameleon.h>
 #import "PhonemeCell.h"
 #import "DataManager.h"
 #import "Word.h"
 
-@interface SoundManagerViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ParentSoundController () <UICollectionViewDataSource, UICollectionViewDelegate>
 {
     NSMutableArray* _collectionViewData;
     IBOutlet UICollectionView* _letterCollectionView;
 }
 @end
 
-@implementation SoundManagerViewController
+@implementation ParentSoundController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -61,6 +61,14 @@
     cell.lbText.text = _collectionViewData[indexPath.row];
     
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSString* selectedPhoneme = _collectionViewData[indexPath.row];
+    NSLog(@"%@",selectedPhoneme);
+    
+    NSArray* arr = [[DataManager shared] getWordsFromPhoneme:selectedPhoneme];
+    NSLog(@"%@",arr);
 }
 
 @end

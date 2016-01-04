@@ -35,7 +35,7 @@
 		2DC195EA1BF6338B008669A0 /* GameStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC195E81BF6338B008669A0 /* GameStatistics.m */; };
 		2DC195ED1BF63EA4008669A0 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC195EC1BF63EA4008669A0 /* NSDate+Helper.m */; };
 		2DC904171BB1D0580082DEAC /* ParentStatsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904161BB1D0580082DEAC /* ParentStatsController.m */; };
-		2DC9041A1BB1D0710082DEAC /* SoundManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */; };
+		2DC9041A1BB1D0710082DEAC /* ParentSoundController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904191BB1D0710082DEAC /* ParentSoundController.m */; };
 		2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E12D1B9CAF3C00BFEDA6 /* LoadingViewController.m */; };
 		2DE0E1311B9CAF6100BFEDA6 /* LoadingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1301B9CAF6100BFEDA6 /* LoadingScene.m */; };
 		2DE0E1341B9CB24B00BFEDA6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1331B9CB24B00BFEDA6 /* ScheduleViewController.m */; };
@@ -130,8 +130,8 @@
 		2DC904141BB1C5430082DEAC /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
 		2DC904151BB1D0580082DEAC /* ParentStatsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentStatsController.h; sourceTree = "<group>"; };
 		2DC904161BB1D0580082DEAC /* ParentStatsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentStatsController.m; sourceTree = "<group>"; };
-		2DC904181BB1D0710082DEAC /* SoundManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManagerViewController.h; sourceTree = "<group>"; };
-		2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManagerViewController.m; sourceTree = "<group>"; };
+		2DC904181BB1D0710082DEAC /* ParentSoundController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentSoundController.h; sourceTree = "<group>"; };
+		2DC904191BB1D0710082DEAC /* ParentSoundController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentSoundController.m; sourceTree = "<group>"; };
 		2DE0E12C1B9CAF3C00BFEDA6 /* LoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
 		2DE0E12D1B9CAF3C00BFEDA6 /* LoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
 		2DE0E12F1B9CAF6100BFEDA6 /* LoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingScene.h; sourceTree = "<group>"; };
@@ -538,8 +538,8 @@
 			children = (
 				2DC904151BB1D0580082DEAC /* ParentStatsController.h */,
 				2DC904161BB1D0580082DEAC /* ParentStatsController.m */,
-				2DC904181BB1D0710082DEAC /* SoundManagerViewController.h */,
-				2DC904191BB1D0710082DEAC /* SoundManagerViewController.m */,
+				2DC904181BB1D0710082DEAC /* ParentSoundController.h */,
+				2DC904191BB1D0710082DEAC /* ParentSoundController.m */,
 				2D75DD281BD57E9300112F4E /* ParentSecurityController.h */,
 				2D75DD291BD57E9300112F4E /* ParentSecurityController.m */,
 				D716291D1BE76FFE00C56C77 /* ParentMasterController.h */,
@@ -746,7 +746,7 @@
 				2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */,
 				2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */,
 				2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */,
-				2DC9041A1BB1D0710082DEAC /* SoundManagerViewController.m in Sources */,
+				2DC9041A1BB1D0710082DEAC /* ParentSoundController.m in Sources */,
 				A752FBED1C3A2BF900B8ED60 /* PhonemeCell.m in Sources */,
 				2D61B2E41C38096E006FC272 /* FishBar.m in Sources */,
 				2DE88ACB1BB8517A002438C6 /* Games.m in Sources */,
