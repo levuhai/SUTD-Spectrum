@@ -591,6 +591,7 @@ NSUInteger WHALETYPE = 2;
     if ([node.name isEqualToString:@"playButton"]) {
         NSLog(@"Play sound");
         if (_currentActiveWord) {
+            [node removeAllActions];
             [self runAction:[SKAction playSoundFileNamed:_currentActiveWord.fileName waitForCompletion:NO]];
         }
         
@@ -697,6 +698,12 @@ NSUInteger WHALETYPE = 2;
     playButton.position = CGPointMake(0, -10);
     playButton.name = @"playButton";
     [_speakBubble addChild:playButton];
+    
+    SKAction* rotate1 = [SKAction rotateByAngle:0.3 duration:0.2];
+    SKAction* rotate2 = [SKAction rotateByAngle:-0.3 duration:0.2];
+    SKAction* wait = [SKAction waitForDuration:0.5];
+    SKAction* sequence = [SKAction repeatAction:[SKAction sequence:@[wait, wait,rotate1, rotate2, rotate1, rotate2, rotate1, rotate2, wait,rotate1, rotate2, rotate1, rotate2]] count:5];
+    [playButton runAction:sequence];
     
     SKLabelNode* text = [SKLabelNode node];
     text.position = CGPointMake(0, 35);
