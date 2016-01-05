@@ -19,6 +19,8 @@ PODS:
     - MZAppearance
   - PNChart (0.8.7):
     - UICountingLabel (~> 1.2.0)
+  - SpinKit (1.2.0)
+  - TheAmazingAudioEngine (1.5.5)
   - UICountingLabel (1.2.0)
 
 DEPENDENCIES:
@@ -30,6 +32,8 @@ DEPENDENCIES:
   - Masonry
   - MZFormSheetController
   - PNChart
+  - SpinKit (~> 1.1)
+  - TheAmazingAudioEngine
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: eeb47e64b7af3e09a50e1ce5dfee9c8c957490c6
@@ -41,6 +45,8 @@ SPEC CHECKSUMS:
   MZAppearance: 0c06d3fa9cc55142f1da14bc8631fbe8fd6e19d5
   MZFormSheetController: 7909e75056fe18366ce00ef8756ce6181414c36c
   PNChart: c1755716bbd45386d2035b2bf2ce73e6d3f8cb22
+  SpinKit: 65906a8b534a4e14cbfd3f8b0b6c329131faef4a
+  TheAmazingAudioEngine: d867edf0da7c4d1283df5d721f5633d5523126b2
   UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
 
 COCOAPODS: 0.39.0

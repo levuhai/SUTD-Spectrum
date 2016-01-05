@@ -9,6 +9,8 @@ pod 'MZFormSheetController'#, :git => 'https://github.com/m1entus/MZFormSheetCon
 pod 'Masonry'
 pod 'FMDB'
 pod 'ChameleonFramework'
+pod 'TheAmazingAudioEngine'
+pod 'SpinKit', '~> 1.1'
 
 end
 
