@@ -24,6 +24,7 @@
     IBOutlet UITableView* subTable;
     
     IBOutlet UILabel* lbCurrentPhoneme;
+    IBOutlet UIButton* btnActive;
 }
 @end
 
@@ -41,6 +42,12 @@
     self.view.backgroundColor = RGB(47,139,193);
     
     _allActiveWords = [ActiveWord MR_findAll];
+    
+    // Active button
+    btnActive.layer.cornerRadius = 15;
+    btnActive.clipsToBounds = YES;
+    btnActive.layer.borderWidth = 3;
+    btnActive.layer.borderColor = [UIColor flatCoffeeColorDark].CGColor;
 
 }
 
@@ -86,10 +93,15 @@
                                                             forIndexPath:indexPath];
         Word* word = _wordData[indexPath.row];
         cell.lbText.text = word.wPhonetic;
+        cell.lbSubtext.hidden = YES;
+        if (![word.wPhonetic isEqualToString:word.wText]) {
+            cell.lbSubtext.text = word.wText;
+            cell.lbSubtext.hidden = NO;
+        }
         if ([self isWordActive:word]) {
-            cell.lbText.textColor = [UIColor redColor];
+            [cell.btnActive setSelected:YES];
         } else {
-            cell.lbText.textColor = [UIColor lightGrayColor];
+            [cell.btnActive setSelected:NO];
         }
         
         return cell;

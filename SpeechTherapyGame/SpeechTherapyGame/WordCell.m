@@ -19,6 +19,8 @@
     
     [self.btnActive setTitle:checkIcon forState:UIControlStateNormal];
     self.btnActive.titleLabel.font = [UIFont ioniconsOfSize:30];
+    
+    self.lbSubtext.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
