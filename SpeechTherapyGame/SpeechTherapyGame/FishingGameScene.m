@@ -14,6 +14,7 @@
 #import "LPCView.h"
 #import "StarsNode.h"
 #import "FishBar.h"
+#import "ActiveWord.h"
 
 const uint32_t HOOK = 0x1 << 0;
 const uint32_t FISHIES = 0x1 << 1;
@@ -56,6 +57,9 @@ NSUInteger WHALETYPE = 2;
     
     NSInteger _attemptCount;
     NSInteger _incorrectAttemptCount;
+    
+    NSArray* _allActiveWords;
+    ActiveWord* _currentActiveWord;
 }
 
 @property (nonatomic, strong) NSMutableArray *fishTypeArray;
@@ -78,7 +82,8 @@ NSUInteger WHALETYPE = 2;
     boundPhysicsBody.collisionBitMask = HOOK;
     boundPhysicsBody.contactTestBitMask = HOOK;
     self.physicsBody = boundPhysicsBody;
-
+    _allActiveWords = [ActiveWord MR_findAll];
+    
     [self setupGameScene];
     [self _setup];
     
@@ -585,6 +590,10 @@ NSUInteger WHALETYPE = 2;
     //if fire button touched, bring the rain
     if ([node.name isEqualToString:@"playButton"]) {
         NSLog(@"Play sound");
+        if (_currentActiveWord) {
+            [self runAction:[SKAction playSoundFileNamed:_currentActiveWord.fileName waitForCompletion:NO]];
+        }
+        
         return;
     }
     
@@ -692,7 +701,7 @@ NSUInteger WHALETYPE = 2;
     SKLabelNode* text = [SKLabelNode node];
     text.position = CGPointMake(0, 35);
     
-    text.text = @"/s/ /u/ /n/";
+    text.text = [self getRandomPhoneme];
     text.fontName = @"HelveticaNeue-Bold";
     text.fontColor = [UIColor redColor];
     text.fontSize = 30;
@@ -707,6 +716,7 @@ NSUInteger WHALETYPE = 2;
         if (_speakBubble) {
             [_speakBubble runAction:[SKAction fadeOutWithDuration:0.3]];
         }
+        _currentActiveWord = nil;
         
         // show fish thrown away animation
         SKAction *fishThrownAwayTraslateAction = [SKAction moveByX:150 y:150 duration:0.5];
@@ -739,6 +749,15 @@ NSUInteger WHALETYPE = 2;
 }
 
 #pragma mark - Utilities
+
+-(NSString*) getRandomPhoneme {
+    
+    NSUInteger randomIndex = arc4random() % [_allActiveWords count];
+    ActiveWord* word = _allActiveWords[randomIndex];
+    _currentActiveWord = word;
+    return _currentActiveWord.word;
+}
+
 -(SKSpriteNode *)createSpriteMatchingSKShapeNodeSize:(CGSize) size WithCornerRadius:(float)radius color:(SKColor *)color {
     CALayer *drawingLayer = [CALayer layer];
     CALayer *circleLayer = [CALayer layer];

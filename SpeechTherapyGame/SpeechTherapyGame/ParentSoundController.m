@@ -51,6 +51,11 @@
 
 }
 
+- (void) refreshData {
+    _allActiveWords = [ActiveWord MR_findAll];
+    [subTable reloadData];
+}
+
 - (IBAction) activateAll_buttonClicked{
     
     for (Word* word in _wordData) {
@@ -64,8 +69,7 @@
         }
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:kSaveMagicalRecordContext object:nil];
-    _allActiveWords = [ActiveWord MR_findAll];
-    [subTable reloadData];
+    [self refreshData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -134,7 +138,14 @@
     }
 }
 
-#pragma mark - Context menu
+#pragma mark - Data
+//TODO: Delete an Active word from db
+- (void) deactivateWord:(Word*) word {
+    ActiveWord* activeWord = [ActiveWord MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"(word == %@) AND (phoneme == %@)",word.wText, word.pText]];
+    [activeWord MR_deleteEntity];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSaveMagicalRecordContext object:nil];
+    [self refreshData];
+}
 
 
 - (BOOL) isWordActive:(Word*) word {
