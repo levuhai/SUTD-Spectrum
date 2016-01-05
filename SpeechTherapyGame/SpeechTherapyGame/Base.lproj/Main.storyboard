@@ -573,14 +573,14 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQ9-FK-fyl">
-                                            <rect key="frame" x="205" y="92" width="130" height="44"/>
+                                            <rect key="frame" x="200" y="92" width="140" height="44"/>
                                             <color key="backgroundColor" red="0.98624199629999998" green="0.77968657019999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="Caa-3O-RWD"/>
-                                                <constraint firstAttribute="width" constant="130" id="kuU-ZA-w9b"/>
+                                                <constraint firstAttribute="width" constant="140" id="kuU-ZA-w9b"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="23"/>
-                                            <state key="normal" title="Active">
+                                            <state key="normal" title="Select All">
                                                 <color key="titleColor" red="0.47660902142524719" green="0.37373736500740051" blue="0.28653344511985779" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
@@ -595,7 +595,7 @@
                                         <constraint firstItem="xEe-eL-pEa" firstAttribute="top" secondItem="Oou-VU-v3y" secondAttribute="top" id="GfC-g6-OsO"/>
                                         <constraint firstItem="xEe-eL-pEa" firstAttribute="leading" secondItem="Oou-VU-v3y" secondAttribute="leading" constant="25" id="Ogt-SQ-jdu"/>
                                         <constraint firstItem="sny-Z0-8ZF" firstAttribute="leading" secondItem="xEe-eL-pEa" secondAttribute="trailing" constant="20" id="aYr-jv-NdW"/>
-                                        <constraint firstAttribute="trailing" secondItem="mQ9-FK-fyl" secondAttribute="trailing" constant="23" id="fXx-fF-ZS2"/>
+                                        <constraint firstAttribute="trailing" secondItem="mQ9-FK-fyl" secondAttribute="trailing" constant="18" id="fXx-fF-ZS2"/>
                                         <constraint firstItem="sny-Z0-8ZF" firstAttribute="top" secondItem="Oou-VU-v3y" secondAttribute="top" constant="44" id="xrC-d3-qFs"/>
                                     </constraints>
                                 </view>
@@ -619,6 +619,9 @@
                                                         <constraint firstAttribute="width" secondItem="d5E-OQ-pdB" secondAttribute="height" multiplier="1:1" id="I5x-aC-cco"/>
                                                     </constraints>
                                                     <state key="normal" title="Button"/>
+                                                    <connections>
+                                                        <action selector="playClicked" destination="1pP-S6-cz6" eventType="touchUpInside" id="2Ak-Rf-vWW"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="The-5x-7wX">
                                                     <rect key="frame" x="273" y="0.0" width="70" height="70"/>

@@ -8,6 +8,7 @@
 
 #import "ParentSoundController.h"
 #import <ChameleonFramework/Chameleon.h>
+#import <TheAmazingAudioEngine/TheAmazingAudioEngine.h>
 #import "PhonemeCell.h"
 #import "WordCell.h"
 #import "DataManager.h"
@@ -26,6 +27,11 @@
     IBOutlet UILabel* lbCurrentPhoneme;
     IBOutlet UIButton* btnActive;
 }
+
+// Audio Controller
+@property (nonatomic, strong) AEAudioController* audioController;
+@property (nonatomic, strong) AEAudioFilePlayer *player;
+
 @end
 
 @implementation ParentSoundController
@@ -48,6 +54,12 @@
     btnActive.clipsToBounds = YES;
     btnActive.layer.borderWidth = 3;
     btnActive.layer.borderColor = [UIColor flatCoffeeColorDark].CGColor;
+    
+    // Amazing audio
+    self.audioController = [[AEAudioController alloc] initWithAudioDescription:AEAudioStreamBasicDescriptionNonInterleavedFloatStereo inputEnabled:YES];
+    _audioController.preferredBufferDuration = 0.005;
+    _audioController.useMeasurementMode = YES;
+    [_audioController start:NULL];
 
 }
 
@@ -98,6 +110,10 @@
         Word* word = _wordData[indexPath.row];
         cell.lbText.text = word.wPhonetic;
         cell.lbSubtext.hidden = YES;
+        cell.audioController = self.audioController;
+        cell.player = self.player;
+        cell.word = word;
+        
         if (![word.wPhonetic isEqualToString:word.wText]) {
             cell.lbSubtext.text = word.wText;
             cell.lbSubtext.hidden = NO;
@@ -133,8 +149,10 @@
         _wordData = [[DataManager shared] getUniqueWordsFromPhoneme:selectedPhoneme];
         [subTable reloadData];
     } else {
+//        WordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubCell"
+//                                                            forIndexPath:indexPath];
+//        Word* word = _wordData[indexPath.row];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        
     }
 }
 
