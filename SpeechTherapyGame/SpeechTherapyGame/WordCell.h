@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class AEAudioController;
+@class AEAudioFilePlayer;
+@class Word;
+
 
 @interface WordCell : UITableViewCell
 
@@ -14,5 +18,9 @@
 @property (weak, nonatomic) IBOutlet UILabel* lbSubtext;
 @property (weak, nonatomic) IBOutlet UIButton* btnPlay;
 @property (weak, nonatomic) IBOutlet UIButton* btnActive;
+
+@property (nonatomic, weak) AEAudioController* audioController;
+@property (nonatomic, weak) AEAudioFilePlayer *player;
+@property (nonatomic, weak) Word *word;
 
 @end
