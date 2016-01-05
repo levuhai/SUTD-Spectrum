@@ -7,11 +7,18 @@
 //
 
 #import "WordCell.h"
+#import "UIFont+ES.h"
 
 @implementation WordCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    NSString* checkIcon = @"\uf121";
+    NSString* playIcon = @"\uF215";
+    [self.btnPlay setTitle:playIcon forState:UIControlStateNormal];
+    self.btnPlay.titleLabel.font = [UIFont ioniconsOfSize:30];
+    
+    [self.btnActive setTitle:checkIcon forState:UIControlStateNormal];
+    self.btnActive.titleLabel.font = [UIFont ioniconsOfSize:30];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

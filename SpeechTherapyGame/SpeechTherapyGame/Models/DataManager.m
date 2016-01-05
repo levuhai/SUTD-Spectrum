@@ -102,7 +102,7 @@ static DataManager *sharedInstance = nil;
     __block NSMutableArray* result = [NSMutableArray new];
     FMDatabaseQueue* db = [self _dbQueue];
     [db inDatabase:^(FMDatabase *db) {
-        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [p_text] = '%@' GROUP BY [w_text]",p];
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [p_text] = '%@' GROUP BY [w_text] ORDER BY [w_phonetic]",p];
         FMResultSet *results = [db executeQuery:sql];
         while([results next]) {
             @autoreleasepool {

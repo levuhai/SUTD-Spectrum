@@ -22,6 +22,8 @@
     
     IBOutlet UITableView* mainTable;
     IBOutlet UITableView* subTable;
+    
+    IBOutlet UILabel* lbCurrentPhoneme;
 }
 @end
 
@@ -75,12 +77,15 @@
         cell.lbText.backgroundColor = [UIColor colorWithRandomFlatColorOfShadeStyle:UIShadeStyleLight];
         cell.lbText.layer.cornerRadius = 15;
         cell.lbText.text = _collectionViewData[indexPath.row];
+        UIView *myBackView = [[UIView alloc] initWithFrame:cell.frame];
+        myBackView.backgroundColor = cell.lbText.backgroundColor;
+        cell.selectedBackgroundView = myBackView;
         return cell;
     } else {
         WordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubCell"
                                                             forIndexPath:indexPath];
         Word* word = _wordData[indexPath.row];
-        cell.lbText.text = word.wText;
+        cell.lbText.text = word.wPhonetic;
         if ([self isWordActive:word]) {
             cell.lbText.textColor = [UIColor redColor];
         } else {
@@ -107,7 +112,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == mainTable) {
         NSString* selectedPhoneme = _collectionViewData[indexPath.row];
-        NSLog(@"%@",selectedPhoneme);
+        lbCurrentPhoneme.text = selectedPhoneme;
         
         _wordData = [[DataManager shared] getUniqueWordsFromPhoneme:selectedPhoneme];
         [subTable reloadData];

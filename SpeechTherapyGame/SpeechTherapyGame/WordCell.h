@@ -11,5 +11,7 @@
 @interface WordCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel* lbText;
+@property (weak, nonatomic) IBOutlet UIButton* btnPlay;
+@property (weak, nonatomic) IBOutlet UIButton* btnActive;
 
 @end

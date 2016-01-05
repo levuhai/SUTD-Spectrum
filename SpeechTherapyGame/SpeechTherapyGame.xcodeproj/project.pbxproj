@@ -65,6 +65,8 @@
 		A752FBF01C3A2D4100B8ED60 /* NSDictionary+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBEF1C3A2D4100B8ED60 /* NSDictionary+ES.m */; };
 		A752FBF21C3A2E8C00B8ED60 /* result.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A752FBF11C3A2E8C00B8ED60 /* result.sqlite */; };
 		A752FBF51C3AA79400B8ED60 /* WordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBF41C3AA79400B8ED60 /* WordCell.m */; };
+		A752FBF71C3B73AD00B8ED60 /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */; };
+		A752FBFA1C3B747300B8ED60 /* UIFont+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBF91C3B747300B8ED60 /* UIFont+ES.m */; };
 		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; };
 		D78865B51C1043B800C3944C /* LPCAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865B41C1043B800C3944C /* LPCAudioController.m */; };
 		D78865B81C1043E200C3944C /* LPCView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D78865B71C1043E200C3944C /* LPCView.mm */; };
@@ -192,6 +194,9 @@
 		A752FBF11C3A2E8C00B8ED60 /* result.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = result.sqlite; sourceTree = "<group>"; };
 		A752FBF31C3AA79400B8ED60 /* WordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCell.h; sourceTree = "<group>"; };
 		A752FBF41C3AA79400B8ED60 /* WordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCell.m; sourceTree = "<group>"; };
+		A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
+		A752FBF81C3B747300B8ED60 /* UIFont+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+ES.h"; sourceTree = "<group>"; };
+		A752FBF91C3B747300B8ED60 /* UIFont+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ES.m"; sourceTree = "<group>"; };
 		B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.release.xcconfig"; sourceTree = "<group>"; };
 		D716291D1BE76FFE00C56C77 /* ParentMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentMasterController.h; sourceTree = "<group>"; };
 		D716291E1BE76FFE00C56C77 /* ParentMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentMasterController.m; sourceTree = "<group>"; };
@@ -401,6 +406,8 @@
 		2DE0E1351B9CB55100BFEDA6 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				A752FBF81C3B747300B8ED60 /* UIFont+ES.h */,
+				A752FBF91C3B747300B8ED60 /* UIFont+ES.m */,
 				A752FBEE1C3A2D4100B8ED60 /* NSDictionary+ES.h */,
 				A752FBEF1C3A2D4100B8ED60 /* NSDictionary+ES.m */,
 				D78865C51C1047E200C3944C /* Configs.h */,
@@ -491,6 +498,7 @@
 		2DF6B73F1B94A14800B7F92C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */,
 				2D45C70A1C03760C009FCFB8 /* small_fish.atlas */,
 				2D45C70B1C03760C009FCFB8 /* shark.atlas */,
 				2D45C70C1C03760C009FCFB8 /* whale.atlas */,
@@ -660,6 +668,7 @@
 			files = (
 				2D45C7061C03708E009FCFB8 /* WhaleLeft.sks in Resources */,
 				2D45C70D1C03760C009FCFB8 /* small_fish.atlas in Resources */,
+				A752FBF71C3B73AD00B8ED60 /* ionicons.ttf in Resources */,
 				2D45C7091C03708E009FCFB8 /* FishRight.sks in Resources */,
 				2D45C70E1C03760C009FCFB8 /* shark.atlas in Resources */,
 				2D45C7041C03708E009FCFB8 /* SharkRight.sks in Resources */,
@@ -753,6 +762,7 @@
 				2DF67F821BD4A1A900EB7390 /* FishingGameScene.m in Sources */,
 				2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */,
 				2DC195E91BF6338B008669A0 /* GameStatistics+CoreDataProperties.m in Sources */,
+				A752FBFA1C3B747300B8ED60 /* UIFont+ES.m in Sources */,
 				2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */,
 				2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */,
 				2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */,
