@@ -70,17 +70,7 @@
 
 - (IBAction) activateAll_buttonClicked{
     
-    for (Word* word in _wordData) {
-        
-        NSArray* activeWordArr = [ActiveWord MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"(word == %@) AND (phoneme == %@)",word.wText, word.pText]];
-        if (activeWordArr.count == 0) {
-            ActiveWord* activeWord = [ActiveWord MR_createEntityInContext:[NSManagedObjectContext MR_defaultContext]];
-            activeWord.word = word.wText;
-            activeWord.phoneme = word.pText;
-            activeWord.fileName = word.wFile;
-        }
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSaveMagicalRecordContext object:nil];
+    [self activateAllWordsIn:_wordData];
     [self refreshData];
 }
 
@@ -158,13 +148,45 @@
 
 #pragma mark - Data
 //TODO: Delete an Active word from db
-- (void) deactivateWord:(Word*) word {
+- (void) deactivateAWord:(Word*) word {
     ActiveWord* activeWord = [ActiveWord MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"(word == %@) AND (phoneme == %@)",word.wText, word.pText]];
     [activeWord MR_deleteEntity];
     [[NSNotificationCenter defaultCenter] postNotificationName:kSaveMagicalRecordContext object:nil];
     [self refreshData];
 }
 
+//TODO: add an Active word into db
+- (void) activateAWord:(Word*) word {
+    ActiveWord* activeWord = [ActiveWord MR_createEntityInContext:[NSManagedObjectContext MR_defaultContext]];
+    activeWord.word = word.wText;
+    activeWord.phoneme = word.pText;
+    activeWord.fileName = word.wFile;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSaveMagicalRecordContext object:nil];
+    [self refreshData];
+}
+
+//TODO: add all active words in list words into db
+- (void) activateAllWordsIn:(NSArray*) words {
+    for (Word* word in words) {
+        NSArray* activeWordArr = [ActiveWord MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"(word == %@) AND (phoneme == %@)",word.wText, word.pText]];
+        if (activeWordArr.count == 0) {
+            ActiveWord* activeWord = [ActiveWord MR_createEntityInContext:[NSManagedObjectContext MR_defaultContext]];
+            activeWord.word = word.wText;
+            activeWord.phoneme = word.pText;
+            activeWord.fileName = word.wFile;
+        }
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSaveMagicalRecordContext object:nil];
+}
+
+//TODO: Delete all active words in list words from db
+- (void) deactivateAllWordsIn:(NSArray*) words {
+    for (Word* word in words) {
+        ActiveWord* activeWord = [ActiveWord MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"(word == %@) AND (phoneme == %@)",word.wText, word.pText]];
+        [activeWord MR_deleteEntity];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSaveMagicalRecordContext object:nil];
+}
 
 - (BOOL) isWordActive:(Word*) word {
     for (ActiveWord* activeWord in _allActiveWords) {
