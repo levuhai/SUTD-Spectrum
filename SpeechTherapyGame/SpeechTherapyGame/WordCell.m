@@ -44,7 +44,7 @@
         self.btnPlay.selected = NO;
     }
     
-    NSString* path = [[NSBundle mainBundle] pathForResource:[self.word.wFile stringByDeletingPathExtension] ofType:@"wav" inDirectory:@"sounds"];
+    NSString* path = [[NSBundle mainBundle] pathForResource:[self.word.wFile stringByDeletingPathExtension] ofType:@"wav"];
     if ( ![[NSFileManager defaultManager] fileExistsAtPath:path] ) return;
     
     NSError *error = nil;
