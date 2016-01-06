@@ -109,9 +109,9 @@
             cell.lbSubtext.hidden = NO;
         }
         if ([self isWordActive:word]) {
-            [cell.btnActive setSelected:YES];
+            [cell.btnActive setTitleColor:[UIColor flatGreenColor] forState:UIControlStateNormal];
         } else {
-            [cell.btnActive setSelected:NO];
+            [cell.btnActive setTitleColor:[UIColor flatGrayColor] forState:UIControlStateNormal];
         }
         
         return cell;
@@ -139,9 +139,17 @@
         _wordData = [[DataManager shared] getUniqueWordsFromPhoneme:selectedPhoneme];
         [subTable reloadData];
     } else {
-//        WordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubCell"
-//                                                            forIndexPath:indexPath];
-//        Word* word = _wordData[indexPath.row];
+        WordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubCell"
+                                                            forIndexPath:indexPath];
+        Word* word = _wordData[indexPath.row];
+        
+        if ([self isWordActive:word]) {
+            [self deactivateAWord:word];
+            [cell.btnActive setTitleColor:[UIColor flatGrayColor] forState:UIControlStateNormal] ;
+        } else {
+            [self activateAWord:word];
+            [cell.btnActive setTitleColor:[UIColor flatGreenColor] forState:UIControlStateNormal] ;
+        }
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }

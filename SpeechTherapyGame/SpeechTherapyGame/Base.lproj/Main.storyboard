@@ -549,7 +549,7 @@
                                     <outlet property="delegate" destination="xL7-Fc-IYd" id="zJH-nL-Led"/>
                                 </connections>
                             </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="70" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="yB6-9e-9eI">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="70" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="yB6-9e-9eI">
                                 <rect key="frame" x="242" y="0.0" width="358" height="600"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Oou-VU-v3y">
@@ -561,6 +561,9 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="120" id="aoC-GK-Vv9"/>
                                             </constraints>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="space" translatesAutoresizingMaskIntoConstraints="NO" id="PZM-dh-RkM">
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="152"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sny-Z0-8ZF">
                                             <rect key="frame" x="165" y="44" width="90" height="30"/>
@@ -593,14 +596,18 @@
                                         <constraint firstItem="xEe-eL-pEa" firstAttribute="centerY" secondItem="Oou-VU-v3y" secondAttribute="centerY" id="18f-Xy-jDK"/>
                                         <constraint firstAttribute="bottom" secondItem="mQ9-FK-fyl" secondAttribute="bottom" constant="16" id="2sg-6B-Mok"/>
                                         <constraint firstItem="xEe-eL-pEa" firstAttribute="top" secondItem="Oou-VU-v3y" secondAttribute="top" id="GfC-g6-OsO"/>
+                                        <constraint firstItem="PZM-dh-RkM" firstAttribute="leading" secondItem="Oou-VU-v3y" secondAttribute="leading" id="GiP-hP-MPw"/>
+                                        <constraint firstItem="PZM-dh-RkM" firstAttribute="top" secondItem="xEe-eL-pEa" secondAttribute="top" id="IzW-EN-q86"/>
                                         <constraint firstItem="xEe-eL-pEa" firstAttribute="leading" secondItem="Oou-VU-v3y" secondAttribute="leading" constant="25" id="Ogt-SQ-jdu"/>
                                         <constraint firstItem="sny-Z0-8ZF" firstAttribute="leading" secondItem="xEe-eL-pEa" secondAttribute="trailing" constant="20" id="aYr-jv-NdW"/>
+                                        <constraint firstAttribute="trailing" secondItem="PZM-dh-RkM" secondAttribute="trailing" id="dVI-yN-A4R"/>
+                                        <constraint firstItem="PZM-dh-RkM" firstAttribute="bottom" secondItem="xEe-eL-pEa" secondAttribute="bottom" id="dih-uZ-RsJ"/>
                                         <constraint firstAttribute="trailing" secondItem="mQ9-FK-fyl" secondAttribute="trailing" constant="18" id="fXx-fF-ZS2"/>
                                         <constraint firstItem="sny-Z0-8ZF" firstAttribute="top" secondItem="Oou-VU-v3y" secondAttribute="top" constant="44" id="xrC-d3-qFs"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SubCell" rowHeight="70" id="1pP-S6-cz6" customClass="WordCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SubCell" rowHeight="70" id="1pP-S6-cz6" customClass="WordCell">
                                         <rect key="frame" x="0.0" y="201.5" width="358" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1pP-S6-cz6" id="P0f-ow-MdH">
@@ -785,6 +792,7 @@
         <image name="in-game-home-btn" width="72" height="73"/>
         <image name="money" width="351" height="347"/>
         <image name="schedule-icon" width="128" height="128"/>
+        <image name="space" width="848" height="228"/>
         <image name="star" width="47" height="46"/>
         <image name="x-icon" width="37" height="36"/>
     </resources>
