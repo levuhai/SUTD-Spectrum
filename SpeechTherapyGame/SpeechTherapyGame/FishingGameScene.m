@@ -56,6 +56,7 @@ NSUInteger WHALETYPE = 2;
     FishBar* _fishBar;
     
     NSInteger _attemptCount;
+    NSInteger _correctAttemptInRowCount;
     NSInteger _incorrectAttemptCount;
     
     NSArray* _allActiveWords;
@@ -217,6 +218,7 @@ NSUInteger WHALETYPE = 2;
 
     _attemptCount = 0;
     _incorrectAttemptCount = 0;
+    _correctAttemptInRowCount = 0;
     _didAnimateRaiseHook = YES;
     
 }
@@ -393,7 +395,7 @@ NSUInteger WHALETYPE = 2;
         fish.zPosition = 1;
         [self.fishArray addObject:fish];
         [self.fishTypeArray addObject:@(fishTypeNum)];
-        fish.anchorPoint = CGPointMake(fishMouthXOffsetRatio, fishMouthYOffsetRatio);
+        //fish.anchorPoint = CGPointMake(fishMouthXOffsetRatio, fishMouthYOffsetRatio);
         
         CGFloat fishAppearingXDelta = 200;
         CGFloat x = goingRight ? -fishAppearingXDelta : self.frame.size.width + fishAppearingXDelta;
@@ -405,7 +407,7 @@ NSUInteger WHALETYPE = 2;
         fish.position = fishLocation;
         [self addChild:fish];
         
-        fish.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:fishMouthHitTargetRadius];
+        fish.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(fish.size.width, fish.size.height/2)];
         fish.physicsBody.categoryBitMask = FISHIES;
         fish.physicsBody.collisionBitMask = 0;
         fish.physicsBody.contactTestBitMask = HOOK;
@@ -473,7 +475,7 @@ NSUInteger WHALETYPE = 2;
     if (_incorrectAttemptCount == maximum_attempt_allow) {
         return YES;
     }
-    if (_attemptCount == maximum_attempt_get_point) {
+    if (_correctAttemptInRowCount == maximum_attempt_get_point) {
         return YES;
     }
     // Wait 20s ??
@@ -481,16 +483,47 @@ NSUInteger WHALETYPE = 2;
     return NO;
 }
 
+- (void) endGame {
+
+}
+
 #pragma mark - Points
 
-- (void) getPoint {
-    _attemptCount++;
-    _incorrectAttemptCount = 0;
-    [self resultTrackingWithLetter:@"Good" isCorrect:YES];
+- (void) generateResult {
     
-    if (YES || [self canGoToNextPhoneme]) {
+    NSUInteger random = arc4random() % 2;
+    
+    if (random == 0) {
+        [self correctAttempt];
+    } else {
+        [self incorrectAttempt];
+    }
+}
+
+- (void) correctAttempt {
+    _attemptCount++;
+    _correctAttemptInRowCount++;
+    
+    [self resultTrackingWithLetter:_currentActiveWord.word isCorrect:YES];
+    [self throwCaughtFish];
+    if ([self canGoToNextPhoneme]) {
+        [self gotTodayAchievement];
         [self throwCaughtFish];
-        [_fishBar setFish:_attemptCount active:YES];
+        _fishBar.caughtFishes++;
+        [_fishBar setFish:_fishBar.caughtFishes active:YES];
+    }
+    
+}
+
+- (void) incorrectAttempt {
+    _attemptCount++;
+    _correctAttemptInRowCount = 0;
+    _incorrectAttemptCount++;
+    
+    [self resultTrackingWithLetter:_currentActiveWord.word isCorrect:NO];
+    [self throwCaughtFish];
+    if ([self canGoToNextPhoneme]) {
+        [self throwCaughtFish];
     }
 }
 
@@ -498,12 +531,12 @@ NSUInteger WHALETYPE = 2;
     
     
     NSArray* dates = @[[NSDate beginningOfToday],[NSDate endOfToday]];
-    GameStatistics* stat = [GameStatistics getGameStatFromLetter:letter between:dates];
+    GameStatistics* stat = [GameStatistics getGameStatFromWord:letter between:dates];
     
     if (stat == nil) {
         stat = [GameStatistics MR_createEntityInContext:[NSManagedObjectContext MR_defaultContext]];
         stat.gameId  = @(1);
-        stat.letter = letter;
+        stat.word = letter;
         stat.totalPlayedCount = @(1);
         stat.correctCount = correct ? @(1) : @(0);
         stat.dateAdded = [NSDate date];
@@ -512,7 +545,7 @@ NSUInteger WHALETYPE = 2;
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
             //GameStatistics *localStat = [stat MR_inContext:localContext];
             stat.gameId  = @(1);
-            stat.letter = letter;
+            stat.word = letter;
             stat.totalPlayedCount = @(stat.totalPlayedCount.integerValue + 1);
             if (correct) {
                 stat.correctCount = @(stat.correctCount.integerValue + 1);
@@ -544,10 +577,10 @@ NSUInteger WHALETYPE = 2;
     [_hook removeActionForKey:@"hook"];
     [_hookLine removeActionForKey:@"hookline"];
     CGFloat hookMovementDeltaY = 20;
-    SKAction *hookGoingDownOnceAction = [SKAction moveByX:0 y:-hookMovementDeltaY duration:1.0/(float)3.0f];
+    SKAction *hookGoingDownOnceAction = [SKAction moveByX:0 y:-hookMovementDeltaY duration:1.0/(float)6.0f];
     SKAction *hookGoingDownAction = [SKAction repeatActionForever:hookGoingDownOnceAction];
     [_hook runAction:hookGoingDownAction withKey:@"hook"];
-    SKAction *hookLineOnceAction = [SKAction resizeByWidth:0 height:hookMovementDeltaY duration:1.0/(float)3.0f];
+    SKAction *hookLineOnceAction = [SKAction resizeByWidth:0 height:hookMovementDeltaY duration:1.0/(float)6.0f];
     SKAction *hookLineAction = [SKAction repeatActionForever:hookLineOnceAction];
     [_hookLine runAction:hookLineAction withKey:@"hookline"];
 }
@@ -559,12 +592,12 @@ NSUInteger WHALETYPE = 2;
         return;
     }
     CGFloat hookMovementDeltaY = 20.0f;
-    SKAction *hookGoingUpOnceAction = [SKAction moveByX:0 y:hookMovementDeltaY duration:1/6.0f];
+    SKAction *hookGoingUpOnceAction = [SKAction moveByX:0 y:hookMovementDeltaY duration:1/8.0f];
     int count = ceilf((FishBeingCaughtDestination - _hook.position.y)/hookMovementDeltaY);
     
     SKAction *hookGoingUpAction = [SKAction repeatAction:hookGoingUpOnceAction count:(int)count];
     [_hook runAction:hookGoingUpAction withKey:@"hook"];
-    SKAction *hookLineOnceAction = [SKAction resizeByWidth:0 height:-hookMovementDeltaY duration:1/6.0f];
+    SKAction *hookLineOnceAction = [SKAction resizeByWidth:0 height:-hookMovementDeltaY duration:1/8.0f];
     SKAction *hookLineAction = [SKAction repeatAction:hookLineOnceAction count:(int)count];
     [_hookLine runAction:hookLineAction withKey:@"hookline"];
 }
@@ -627,7 +660,7 @@ NSUInteger WHALETYPE = 2;
                     _hook.physicsBody.contactTestBitMask = FISHIES;
                     
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self getPoint];
+                        [self generateResult];
                     });
                     
                 }
@@ -658,10 +691,10 @@ NSUInteger WHALETYPE = 2;
             [_pencil runAction:[SKAction moveByX:-15 y:10 duration:0.3]];
             [_hook runAction:[SKAction moveByX:10 y:15 duration:0.3]];
             [_hookLine runAction:[SKAction moveByX:10 y:15 duration:0.3] completion:^{
-                _fishBeingCaught.position = CGPointMake(_hook.position.x, _hook.position.y - 1);
+                _fishBeingCaught.position = CGPointMake(_hook.position.x, _hook.position.y - _fishBeingCaught.size.width/2);
             }];
         } else {
-            _fishBeingCaught.position = CGPointMake(_hook.position.x, _hook.position.y - 1);
+            _fishBeingCaught.position = CGPointMake(_hook.position.x, _hook.position.y - - _fishBeingCaught.size.width/2);
         }
 
         // put the fish onto the hook
@@ -671,10 +704,10 @@ NSUInteger WHALETYPE = 2;
         }
         // raise the hook
         SKAction *fishToHookTranslationAction = [SKAction moveTo:_hook.position duration:0];
-        SKAction *fishToHookRotationAction = [SKAction rotateByAngle:rotateAngle duration:1/6.0f];
+        SKAction *fishToHookRotationAction = [SKAction rotateByAngle:rotateAngle duration:1/8.0f];
         SKAction *fishToHookAction = [SKAction group:@[fishToHookTranslationAction, fishToHookRotationAction]];
         
-        SKAction *followHookOnceAction = [SKAction moveByX:0 y:20 duration:1/6.0f];
+        SKAction *followHookOnceAction = [SKAction moveByX:0 y:20 duration:1/8.0f];
         int count = ceilf((FishBeingCaughtDestination-fish.position.y)/20);
         SKAction *followHookAction = [SKAction repeatAction:followHookOnceAction count:count];
         SKAction *fishActions = [SKAction group:@[fishToHookAction, followHookAction]];
@@ -698,13 +731,7 @@ NSUInteger WHALETYPE = 2;
     playButton.position = CGPointMake(0, -10);
     playButton.name = @"playButton";
     [_speakBubble addChild:playButton];
-    
-    SKAction* rotate1 = [SKAction rotateByAngle:0.3 duration:0.2];
-    SKAction* rotate2 = [SKAction rotateByAngle:-0.3 duration:0.2];
-    SKAction* wait = [SKAction waitForDuration:0.5];
-    SKAction* sequence = [SKAction repeatAction:[SKAction sequence:@[wait, wait,rotate1, rotate2, rotate1, rotate2, rotate1, rotate2, wait,rotate1, rotate2, rotate1, rotate2]] count:5];
-    [playButton runAction:sequence];
-    
+        
     SKLabelNode* text = [SKLabelNode node];
     text.position = CGPointMake(0, 35);
     
@@ -788,6 +815,37 @@ NSUInteger WHALETYPE = 2;
     
     
     return sprite;
+}
+
+- (void) gotTodayAchievement {
+    
+    NSMutableArray* achievements = [[[NSUserDefaults standardUserDefaults] arrayForKey:kAchievementDays] mutableCopy];
+    
+    unsigned int flags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents* components = [calendar components:flags fromDate:[NSDate date]];
+    NSDate* today = [calendar dateFromComponents:components];
+    
+    if (achievements) {
+        BOOL recored = NO;
+        for (NSDate* date in achievements) {
+            NSDateComponents* components2 = [calendar components:flags fromDate:date];
+            NSDate* date = [calendar dateFromComponents:components2];
+            
+            if ([date compare:today] != NSOrderedDescending &&
+                [date compare:today] != NSOrderedAscending) {
+                recored = YES;
+            }
+        }
+        if (!recored) {
+            [achievements addObject:today];
+        }
+    } else {
+        achievements = [NSMutableArray arrayWithObject:[[NSDate date] beginningOfDay]];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:achievements forKey:kAchievementDays];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - LPC

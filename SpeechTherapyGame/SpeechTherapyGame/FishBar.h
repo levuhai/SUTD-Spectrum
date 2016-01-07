@@ -11,4 +11,5 @@
 @interface FishBar : SKSpriteNode
 - (instancetype)initWithColor:(UIColor *)color size:(CGSize)size;
 - (void) setFish:(int) index active:(BOOL) active;
+@property (assign, nonatomic) NSInteger caughtFishes;
 @end

@@ -47,7 +47,7 @@
 }
 
 - (void)setupCalendar {
-    _gregorian       = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    _gregorian       = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     
 //    _scheduleCalendar                             = [[CalendarView alloc]initWithFrame:CGRectMake(0, 0, 898, 858)];
     _scheduleCalendar.frame = self.view.bounds;
@@ -80,7 +80,7 @@
 //         _scheduleCalendar.y = (self.view.height - _scheduleCalendar.height)/2.0;
 //    });
     
-    NSDateComponents * yearComponent = [_gregorian components:NSYearCalendarUnit fromDate:[NSDate date]];
+    NSDateComponents * yearComponent = [_gregorian components:NSCalendarUnitYear fromDate:[NSDate date]];
     _currentYear = yearComponent.year;
     
 }
@@ -125,7 +125,7 @@
 
 -(BOOL)canSwipeToDate:(NSDate *)date
 {
-    NSDateComponents * yearComponent = [_gregorian components:NSYearCalendarUnit fromDate:date];
+    NSDateComponents * yearComponent = [_gregorian components:NSCalendarUnitYear fromDate:date];
     return (yearComponent.year == _currentYear || yearComponent.year == _currentYear+1);
 }
 

@@ -20,42 +20,6 @@
     // Override point for customization after application launch.
     //[MagicalRecord cleanUp];
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"DataModel"];
-    //[Games MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"letter != 0"]];
-    
-    /*
-#warning Demo data
-    Games* game = [Games MR_createEntity];
-    game.gameId = @(1);
-    game.name = [NSString stringWithFormat:@"Fishing"];
-    
-    
-    NSArray* sounds = @[@"a",@"b",@"c",@"d",@"e",@"f",@"g"];
-    for (int i = 1; i <= sounds.count; i++) {
-        Sounds* sound = [Sounds MR_createEntity];
-        sound.soundId = @(i);
-        sound.name = sounds[i-1];
-        sound.dateAdded = [NSDate date];
-    }
-    
-    
-    for (int i = 0; i < 7; i++) {
-        GameStatistics* gameStat = [GameStatistics MR_createEntity];
-        gameStat.gameId  = @(1);
-        NSInteger playedTime = arc4random_uniform(99);
-        gameStat.letter = @"a";
-        gameStat.totalPlayedCount = @(100);
-        gameStat.correctCount = @(100 - playedTime);
-        
-        NSDate *now = [NSDate date];
-        NSDate *newDate1 = [now dateByAddingTimeInterval:60*60*24*i];
-        gameStat.dateAdded = [newDate1 beginningOfDay];
-    }
-    */
-    
-    // Got star
-    [[NSUserDefaults standardUserDefaults] setObject:@[[NSDate date]] forKey:kAchievementDays];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveContext) name:kSaveMagicalRecordContext object:nil];
     return YES;

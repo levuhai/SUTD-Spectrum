@@ -17,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, retain) NSDate *dateAdded;
 @property (nullable, nonatomic, retain) NSNumber *gameId;
-@property (nullable, nonatomic, retain) NSString *letter;
+@property (nullable, nonatomic, retain) NSString *word;
+@property (nullable, nonatomic, retain) NSString *phoneme;
 @property (nullable, nonatomic, retain) NSNumber *totalPlayedCount;
 @property (nullable, nonatomic, retain) NSNumber *correctCount;
 

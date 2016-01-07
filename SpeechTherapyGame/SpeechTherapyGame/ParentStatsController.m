@@ -46,7 +46,7 @@
     
     if (_gameStatData.count > 0) {
         // First line data
-        [self loadDataForPlayedTimeLineChart:_gameStatData];
+        [self loadDataForLineChart:YES];
         // Bar data
         [self loadDataForWordsBarChart:_gameStatData];
         // setup chart
@@ -108,9 +108,8 @@
     }
 }
 
-- (void) loadDataForPlayedTimeLineChart:(NSArray*)gameStatData {
-    
-    if (gameStatData.count == 0) {
+- (void) loadDataForLineChart:(BOOL) isCalculatingTotalPlayed {
+    if (_gameStatData.count == 0) {
         return;
     }
     _chartNoDataLabel.hidden = YES;
@@ -122,39 +121,25 @@
     _lineBottomLabels = [NSMutableArray array];
     _lineGraphData = [NSMutableArray array];
     
-    for (GameStatistics* gs in gameStatData) {
-        [_lineGraphData addObject:gs.totalPlayedCount];
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"EEE dd MMM"];
+    // Get bottom labels
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEE dd MMM"];
+    for (GameStatistics* gs in _gameStatData) {
         NSString *dateString = [dateFormatter stringFromDate:gs.dateAdded];
-        
-        [_lineBottomLabels addObject:dateString];
+        if (![_lineBottomLabels containsObject:dateString]) {
+            [_lineBottomLabels addObject:dateString];
+        }
     }
-}
-
-- (void) loadDataForPointsLineChart:(NSArray*)gameStatData {
     
-    if (gameStatData.count == 0) {
-        return;
-    }
-    _chartNoDataLabel.hidden = YES;
-    _barNoDataLabel.hidden = YES;
-    
-    _lineBottomLabels = nil;
-    _lineGraphData = nil;
-    
-    _lineBottomLabels = [NSMutableArray array];
-    _lineGraphData = [NSMutableArray array];
-    
-    for (GameStatistics* gs in gameStatData) {
-        [_lineGraphData addObject:gs.correctCount];
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"EEE dd MMM"];
-        NSString *dateString = [dateFormatter stringFromDate:gs.dateAdded];
-        
-        [_lineBottomLabels addObject:dateString];
+    for (NSString* dateString in _lineBottomLabels) {
+        int totalPlayedCount = 0;
+        for (GameStatistics* gs in _gameStatData) {
+            NSString *gsDate = [dateFormatter stringFromDate:gs.dateAdded];
+            if ([gsDate isEqualToString:dateString]) {
+                totalPlayedCount += isCalculatingTotalPlayed ? gs.totalPlayedCount.integerValue : gs.correctCount.integerValue;
+            }
+        }
+        [_lineGraphData addObject:@(totalPlayedCount)];
     }
 }
 
@@ -173,14 +158,14 @@
     
     for (GameStatistics* gs in gameStatData) {
         
-        if (![_barBottomLabels containsObject:gs.letter]) {
-            [_barBottomLabels addObject:gs.letter];
+        if (![_barBottomLabels containsObject:gs.word]) {
+            [_barBottomLabels addObject:gs.word];
         }
     }
     
     for (NSString* letter in _barBottomLabels) {
         for (GameStatistics* gs in gameStatData) {
-            if ([gs.letter isEqualToString:letter]) {
+            if ([gs.word isEqualToString:letter]) {
                 [_barGraphData addObject:@((gs.correctCount.integerValue / (float)gs.totalPlayedCount.integerValue) * 100)];
             }
         }
@@ -201,7 +186,7 @@
     [self enableButton:_playedTimeButton];
     [self disableButton:_pointButton];
     // Reload data
-    [self loadDataForPlayedTimeLineChart:_gameStatData];
+    [self loadDataForLineChart:YES];
     // Update line chart
     [self drawLineChart];
 }
@@ -210,7 +195,7 @@
     [self enableButton:_pointButton];
     [self disableButton:_playedTimeButton];
     // Reload data
-    [self loadDataForPointsLineChart:_gameStatData];
+    [self loadDataForLineChart:NO];
     // Update line chart
     [self drawLineChart];
 
@@ -326,10 +311,7 @@
     //_gameStatData = [GameStatistics MR_findAll];
     
     // Reload data
-    if (_playedTimeButton.selected)
-        [self loadDataForPlayedTimeLineChart:_gameStatData];
-    else
-        [self loadDataForPointsLineChart:_gameStatData];
+    [self loadDataForLineChart:_playedTimeButton.selected];
     [self loadDataForWordsBarChart:_gameStatData];
     
     // setup chart

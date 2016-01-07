@@ -13,8 +13,9 @@
         <attribute name="correctCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="dateAdded" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="gameId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="letter" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phoneme" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="totalPlayedCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="word" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Sounds" representedClassName="Sounds" syncable="YES">
         <attribute name="active" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -27,9 +28,9 @@
         <attribute name="soundId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Games" positionX="313" positionY="-54" width="128" height="75"/>
-        <element name="GameStatistics" positionX="151" positionY="72" width="128" height="120"/>
-        <element name="Sounds" positionX="-20" positionY="-72" width="128" height="163"/>
         <element name="ActiveWord" positionX="144" positionY="36" width="128" height="90"/>
+        <element name="Games" positionX="313" positionY="-54" width="128" height="75"/>
+        <element name="GameStatistics" positionX="151" positionY="72" width="128" height="135"/>
+        <element name="Sounds" positionX="-20" positionY="-72" width="128" height="163"/>
     </elements>
 </model>

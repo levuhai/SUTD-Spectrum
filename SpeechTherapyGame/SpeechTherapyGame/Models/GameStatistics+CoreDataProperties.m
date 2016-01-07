@@ -15,7 +15,8 @@
 
 @dynamic dateAdded;
 @dynamic gameId;
-@dynamic letter;
+@dynamic word;
+@dynamic phoneme;
 @dynamic totalPlayedCount;
 @dynamic correctCount;
 
