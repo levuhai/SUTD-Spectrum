@@ -49,12 +49,6 @@
     
     _allActiveWords = [ActiveWord MR_findAll];
     
-    // Active button
-    btnActive.layer.cornerRadius = 15;
-    btnActive.clipsToBounds = YES;
-    btnActive.layer.borderWidth = 3;
-    btnActive.layer.borderColor = [UIColor flatCoffeeColorDark].CGColor;
-    
     // Amazing audio
     self.audioController = [[AEAudioController alloc] initWithAudioDescription:AEAudioStreamBasicDescriptionNonInterleavedFloatStereo inputEnabled:YES];
     _audioController.preferredBufferDuration = 0.005;
@@ -134,7 +128,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == mainTable) {
         NSString* selectedPhoneme = _collectionViewData[indexPath.row];
-        lbCurrentPhoneme.text = selectedPhoneme;
+        lbCurrentPhoneme.text = [NSString stringWithFormat:@"Practice Sounds & Words\n%@",selectedPhoneme];
         
         _wordData = [[DataManager shared] getUniqueWordsFromPhoneme:selectedPhoneme];
         [subTable reloadData];
