@@ -128,32 +128,12 @@
     [_cloud3 runAction:[SKAction repeatActionForever:cloud3Sequence]];
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-
-    if ([self handleButtonTouches:touches]) return;
-}
-
--(BOOL) handleButtonTouches:(NSSet *)touches {
-    BOOL didTouchButton = NO;
-    return didTouchButton;
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [_homeSceneViewController showFishingGame];
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    /*
-    _cloud1.position = CGPointMake(_cloud1.position.x - 1.5, _cloud1.position.y);
-    _cloud2.position = CGPointMake(_cloud2.position.x - 1, _cloud2.position.y);
-    _cloud3.position = CGPointMake(_cloud3.position.x - 0.5, _cloud3.position.y);
-    
-    if (_cloud1.position.x < 0 - _cloud1.size.width/2) {
-        _cloud1.position = CGPointMake(self.size.width + _cloud1.size.width/2, _cloud1.position.y);
-    }
-    if (_cloud2.position.x < 0 - _cloud2.size.width/2) {
-        _cloud2.position = CGPointMake(self.size.width + _cloud2.size.width/2, _cloud2.position.y);
-    }
-    if (_cloud3.position.x < 0 - _cloud3.size.width/2) {
-        _cloud3.position = CGPointMake(self.size.width + _cloud3.size.width/2, _cloud3.position.y);
-    }
-    */
+
 }
 
 @end

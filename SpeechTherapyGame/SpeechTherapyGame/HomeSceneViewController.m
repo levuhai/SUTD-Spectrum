@@ -101,7 +101,7 @@
     [self presentViewController:gmm animated:YES completion:nil];
 }
 
-- (IBAction) fishingGamebuton_pressed {
+- (void) showFishingGame {
     GameManagerMasterView* fishingGame = [self.storyboard instantiateViewControllerWithIdentifier:@"FishingGameViewController"];
     [self presentViewController:fishingGame animated:YES completion:nil];
 }
