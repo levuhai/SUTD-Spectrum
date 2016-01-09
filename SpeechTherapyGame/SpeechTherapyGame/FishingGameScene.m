@@ -33,6 +33,7 @@ NSUInteger WHALETYPE = 2;
 #define WaterViewHeigh 470 //460
 #define FishBeingCaughtDestination 460
 
+#define generalFishSpeed 3.0
 #define smallFishSpeed 6.0
 #define sharkSpeed 4.0
 #define whaleSpeed 2.0
@@ -189,9 +190,10 @@ NSUInteger WHALETYPE = 2;
     
     // Hook
     // set up hook and hook line
-    _hook = [SKSpriteNode spriteNodeWithImageNamed:@"buoy"];
+    _hook = [SKSpriteNode spriteNodeWithImageNamed:@"hook"];
+    //_hook.size = CGSizeMake(_hook.size.width/2, _hook.size.height/2);
     _hook.position = CGPointMake(_pencil.position.x, WaterViewHeigh);
-    _hook.anchorPoint = CGPointMake(0.5, 0.0);
+    _hook.anchorPoint = CGPointMake(0.8, 0.0);
     [self addChild:_hook];
     SKPhysicsBody *hookPhysicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(10, 10)];
     hookPhysicsBody.categoryBitMask = HOOK;
@@ -362,16 +364,12 @@ NSUInteger WHALETYPE = 2;
     // random fish swimming direction
     BOOL goingRight = arc4random() % 100 <= 50;
     // random fish type
-    NSUInteger fishToWhale = arc4random() % (int)50;
     // default is small fish
     NSArray *swim = self.fishSwim;
     CGFloat fishAppearingYRangePercentage = 0.75;
-    CGFloat duration = 100.0/smallFishSpeed;
-    CGFloat fishMouthXOffsetRatio = 0.9;
-    CGFloat fishMouthYOffsetRatio = 0.5;
+    CGFloat duration = 100.0/generalFishSpeed;
     NSUInteger fishTypeNum = FISHTYPE;
-    CGFloat fishMouthHitTargetRadius = 6.0;//fishMouthHitTargetRadius
-    
+    /*
     if (fishToWhale == 0) {
         swim = self.whaleSwim;
         fishAppearingYRangePercentage = 0.2;
@@ -389,9 +387,13 @@ NSUInteger WHALETYPE = 2;
         fishTypeNum = SHARKTYPE;
         fishMouthHitTargetRadius = 6;//sharkMouthHitTargetRadius
     }
+     */
     
     if (swim.count > 0) {
-        SKSpriteNode *fish = [SKSpriteNode spriteNodeWithTexture:[swim firstObject]];
+        // Random from 1 to 9
+        int randomFishName = arc4random() % (int)9 + 1;
+        SKSpriteNode *fish = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"fish%d",randomFishName]]];
+        fish.size = CGSizeMake(fish.size.width*0.75, fish.size.height*0.75);
         fish.zPosition = 1;
         [self.fishArray addObject:fish];
         [self.fishTypeArray addObject:@(fishTypeNum)];
@@ -399,7 +401,7 @@ NSUInteger WHALETYPE = 2;
         
         CGFloat fishAppearingXDelta = 200;
         CGFloat x = goingRight ? -fishAppearingXDelta : self.frame.size.width + fishAppearingXDelta;
-        CGFloat yOffset = [swim[0] size].height / 2;
+        CGFloat yOffset = [fish size].height / 2;
         int yInt = arc4random() % (int)(WaterViewHeigh * fishAppearingYRangePercentage) + yOffset;
         CGFloat y = (CGFloat)yInt;
         CGPoint fishLocation = CGPointMake(x, y);
@@ -413,10 +415,19 @@ NSUInteger WHALETYPE = 2;
         fish.physicsBody.contactTestBitMask = HOOK;
         fish.physicsBody.usesPreciseCollisionDetection = YES;
         
+        SKAction* goUp = [SKAction moveBy:CGVectorMake(0, 40) duration:1];
+        SKAction* goDown = [SKAction moveBy:CGVectorMake(0, -40) duration:1];
+        SKAction* wait = [SKAction waitForDuration:0.2];
+        BOOL upOrDown = arc4random() % 100 <= 50;
+        SKAction* sequence = [SKAction sequence:@[upOrDown ? goUp : goDown, wait, upOrDown ? goDown : goUp, wait]];
+        [fish runAction:[SKAction repeatActionForever:sequence]];
+        
+        /*
         const NSTimeInterval kFishAnimSpeed = 1 / 5.0;
         SKAction *fishSwimmingAction = [SKAction animateWithTextures:swim timePerFrame:kFishAnimSpeed];
         SKAction *fishSwimmingForeverAction = [SKAction repeatActionForever:fishSwimmingAction];
         [fish runAction:fishSwimmingForeverAction];
+         */
         
         NSUInteger deltaYInterval = 20;
         CGFloat deltaY = arc4random() % deltaYInterval - deltaYInterval / 2.0;
@@ -608,11 +619,11 @@ NSUInteger WHALETYPE = 2;
         return;
     
     _didAnimateRaiseHook = NO;
-    [_pencil runAction:[SKAction rotateByAngle:0.3 duration:0.3]];
-    [_pencil runAction:[SKAction moveByX:15 y:-10 duration:0.3]];
+    //[_pencil runAction:[SKAction rotateByAngle:0.3 duration:0.3]];
+    //[_pencil runAction:[SKAction moveByX:15 y:-10 duration:0.3]];
     [self dropHook];
-    [_hook runAction:[SKAction moveByX:-10 y:-15 duration:0.3]];
-    [_hookLine runAction:[SKAction moveByX:-10 y:-15 duration:0.3]];
+    //[_hook runAction:[SKAction moveByX:-10 y:-15 duration:0.3]];
+    //[_hookLine runAction:[SKAction moveByX:-10 y:-15 duration:0.3]];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -636,11 +647,11 @@ NSUInteger WHALETYPE = 2;
         return;
     
     _didAnimateRaiseHook = YES;
-    [_pencil runAction:[SKAction rotateByAngle:-0.3 duration:0.3]];
-    [_pencil runAction:[SKAction moveByX:-15 y:10 duration:0.3]];
+    //[_pencil runAction:[SKAction rotateByAngle:-0.3 duration:0.3]];
+    //[_pencil runAction:[SKAction moveByX:-15 y:10 duration:0.3]];
     [self raiseHook];
-    [_hook runAction:[SKAction moveByX:10 y:15 duration:0.3]];
-    [_hookLine runAction:[SKAction moveByX:10 y:15 duration:0.3]];
+    //[_hook runAction:[SKAction moveByX:10 y:15 duration:0.3]];
+    //[_hookLine runAction:[SKAction moveByX:10 y:15 duration:0.3]];
 }
 
 #pragma mark contact delegate
@@ -653,7 +664,7 @@ NSUInteger WHALETYPE = 2;
         if (_fishBeingCaught) {
             NSLog(@"ctp : %f",contact.contactPoint.y);
             
-            if (contact.contactPoint.y >= FishBeingCaughtDestination - 100) { // if at the top
+            if (_hook.position.y >= FishBeingCaughtDestination - 10) { // if at the top
                 if (_fishBeingCaught) {
                     [self showSpeakBubbleAt:_fishBeingCaught.position];
                     _hook.physicsBody.collisionBitMask = 0;
@@ -684,18 +695,18 @@ NSUInteger WHALETYPE = 2;
         _fishBeingCaught = fish;
         [self raiseHook];
         [fish removeAllActions];
-
-        if (!_didAnimateRaiseHook) {
-            _didAnimateRaiseHook = YES;
-            [_pencil runAction:[SKAction rotateByAngle:-0.3 duration:0.3]];
-            [_pencil runAction:[SKAction moveByX:-15 y:10 duration:0.3]];
-            [_hook runAction:[SKAction moveByX:10 y:15 duration:0.3]];
-            [_hookLine runAction:[SKAction moveByX:10 y:15 duration:0.3] completion:^{
-                _fishBeingCaught.position = CGPointMake(_hook.position.x, _hook.position.y - _fishBeingCaught.size.width/2);
-            }];
-        } else {
-            _fishBeingCaught.position = CGPointMake(_hook.position.x, _hook.position.y - - _fishBeingCaught.size.width/2);
-        }
+        _fishBeingCaught.position = CGPointMake(_hookLine.position.x, _fishBeingCaught.position.y);
+        //if (!_didAnimateRaiseHook) {
+            //_didAnimateRaiseHook = YES;
+            //[_pencil runAction:[SKAction rotateByAngle:-0.3 duration:0.3]];
+            //[_pencil runAction:[SKAction moveByX:-15 y:10 duration:0.3]];
+            //[_hook runAction:[SKAction moveByX:10 y:15 duration:0.3]];
+            //[_hookLine runAction:[SKAction moveByX:10 y:15 duration:0.3] completion:^{
+                //_fishBeingCaught.position = CGPointMake(_hook.position.x, _hook.position.y - _fishBeingCaught.size.width/2);
+            //}];
+        //} else {
+            //_fishBeingCaught.position = CGPointMake(_hook.position.x, _hook.position.y - - _fishBeingCaught.size.width/2);
+        //}
 
         // put the fish onto the hook
         CGFloat rotateAngle = 0.5 * M_PI;

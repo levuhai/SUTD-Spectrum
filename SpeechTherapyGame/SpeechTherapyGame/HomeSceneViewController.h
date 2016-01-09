@@ -11,4 +11,5 @@
 
 @interface HomeSceneViewController : UIViewController
 - (void) showGameManager;
+- (void) showFishingGame;
 @end
