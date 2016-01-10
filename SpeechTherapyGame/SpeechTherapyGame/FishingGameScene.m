@@ -33,7 +33,7 @@ NSUInteger WHALETYPE = 2;
 #define WaterViewHeigh 470 //460
 #define FishBeingCaughtDestination 460
 
-#define generalFishSpeed 3.0
+#define generalFishSpeed 2.0
 #define smallFishSpeed 6.0
 #define sharkSpeed 4.0
 #define whaleSpeed 2.0
@@ -44,11 +44,10 @@ NSUInteger WHALETYPE = 2;
     SKSpriteNode* _potView;
     SKSpriteNode* _fishBeingCaught;
     SKSpriteNode* _pencil;
-    
     SKSpriteNode* _speakBubble;
+    SKSpriteNode* _endGameContainer;
     
     BOOL _didAnimateRaiseHook;
-    
     
     TCProgressTimerNode *_progressTimerNode3;
     NSTimeInterval _startTime;
@@ -57,7 +56,7 @@ NSUInteger WHALETYPE = 2;
     FishBar* _fishBar;
     
     NSInteger _attemptCount;
-    NSInteger _correctAttemptInRowCount;
+    NSInteger _correctAttemptCount;
     NSInteger _incorrectAttemptCount;
     
     NSArray* _allActiveWords;
@@ -220,7 +219,7 @@ NSUInteger WHALETYPE = 2;
 
     _attemptCount = 0;
     _incorrectAttemptCount = 0;
-    _correctAttemptInRowCount = 0;
+    _correctAttemptCount = 0;
     _didAnimateRaiseHook = YES;
     
 }
@@ -367,7 +366,7 @@ NSUInteger WHALETYPE = 2;
     // default is small fish
     NSArray *swim = self.fishSwim;
     CGFloat fishAppearingYRangePercentage = 0.75;
-    CGFloat duration = 100.0/generalFishSpeed;
+    CGFloat duration = 100.0/(generalFishSpeed + arc4random() % 2);
     NSUInteger fishTypeNum = FISHTYPE;
     /*
     if (fishToWhale == 0) {
@@ -486,7 +485,7 @@ NSUInteger WHALETYPE = 2;
     if (_incorrectAttemptCount == maximum_attempt_allow) {
         return YES;
     }
-    if (_correctAttemptInRowCount == maximum_attempt_get_point) {
+    if (_correctAttemptCount == maximum_attempt_get_point) {
         return YES;
     }
     // Wait 20s ??
@@ -495,7 +494,45 @@ NSUInteger WHALETYPE = 2;
 }
 
 - (void) endGame {
-
+    _endGameContainer = [[SKSpriteNode alloc] initWithTexture:nil color:[UIColor colorWithWhite:1.0 alpha:0.8] size:self.frame.size];
+    _endGameContainer.position = CGPointMake(self.size.width/2, self.size.height/2);
+    _endGameContainer.zPosition = 9999;
+    
+    SKSpriteNode* board = [[SKSpriteNode alloc] initWithImageNamed:@"black-board"];
+    board.zPosition = 1;
+    [_endGameContainer addChild:board];
+    // Result
+    SKLabelNode* text = [SKLabelNode node];
+    text.position = CGPointMake(0, 170);
+    text.text = @"Correct: 5";
+    text.fontName = @"HelveticaNeue-Bold";
+    text.fontColor = [UIColor whiteColor];
+    text.fontSize = 50;
+    text.zPosition = 10;
+    [board addChild:text];
+    
+    SKLabelNode* text2 = [SKLabelNode node];
+    text2.position = CGPointMake(0, 100);
+    text2.text = @"Total attempts: 14";
+    text2.fontName = @"HelveticaNeue-Bold";
+    text2.fontColor = [UIColor whiteColor];
+    text2.fontSize = 50;
+    text2.zPosition = 10;
+    [board addChild:text2];
+    
+    StarsNode* stars = [[StarsNode alloc] initWithColor:[UIColor clearColor] size:CGSizeMake(300, 100)];
+    stars.zPosition = 3;
+    [stars setStar:0 active:YES];
+    [stars setStar:2 active:YES];
+    [board addChild:stars];
+    
+    // Owl
+    SKSpriteNode* owl = [[SKSpriteNode alloc] initWithImageNamed:@"big-owl"];
+    owl.position = CGPointMake(board.position.x + board.size.width/2, owl.position.y);
+    owl.zPosition = 2;
+    [_endGameContainer addChild:owl];
+    
+    [self addChild:_endGameContainer];
 }
 
 #pragma mark - Points
@@ -509,13 +546,14 @@ NSUInteger WHALETYPE = 2;
     } else {
         [self incorrectAttempt];
     }
+    [self endGame];
 }
 
 - (void) correctAttempt {
     _attemptCount++;
-    _correctAttemptInRowCount++;
+    _correctAttemptCount++;
     
-    [self resultTrackingWithLetter:_currentActiveWord.word isCorrect:YES];
+    [self resultTrackingWithLetter:_currentActiveWord isCorrect:YES];
     [self throwCaughtFish];
     if ([self canGoToNextPhoneme]) {
         [self gotTodayAchievement];
@@ -528,26 +566,26 @@ NSUInteger WHALETYPE = 2;
 
 - (void) incorrectAttempt {
     _attemptCount++;
-    _correctAttemptInRowCount = 0;
     _incorrectAttemptCount++;
     
-    [self resultTrackingWithLetter:_currentActiveWord.word isCorrect:NO];
+    [self resultTrackingWithLetter:_currentActiveWord isCorrect:NO];
     [self throwCaughtFish];
     if ([self canGoToNextPhoneme]) {
         [self throwCaughtFish];
     }
 }
 
-- (void) resultTrackingWithLetter:(NSString*) letter isCorrect:(BOOL) correct {
+- (void) resultTrackingWithLetter:(ActiveWord*) word isCorrect:(BOOL) correct {
     
     
     NSArray* dates = @[[NSDate beginningOfToday],[NSDate endOfToday]];
-    GameStatistics* stat = [GameStatistics getGameStatFromWord:letter between:dates];
+    GameStatistics* stat = [GameStatistics getGameStatFromWord:word.word between:dates];
     
     if (stat == nil) {
         stat = [GameStatistics MR_createEntityInContext:[NSManagedObjectContext MR_defaultContext]];
         stat.gameId  = @(1);
-        stat.word = letter;
+        stat.word = word.word;
+        stat.phoneme = word.phoneme;
         stat.totalPlayedCount = @(1);
         stat.correctCount = correct ? @(1) : @(0);
         stat.dateAdded = [NSDate date];
@@ -556,7 +594,8 @@ NSUInteger WHALETYPE = 2;
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
             //GameStatistics *localStat = [stat MR_inContext:localContext];
             stat.gameId  = @(1);
-            stat.word = letter;
+            stat.word = word.word;
+            stat.phoneme = word.phoneme;
             stat.totalPlayedCount = @(stat.totalPlayedCount.integerValue + 1);
             if (correct) {
                 stat.correctCount = @(stat.correctCount.integerValue + 1);
