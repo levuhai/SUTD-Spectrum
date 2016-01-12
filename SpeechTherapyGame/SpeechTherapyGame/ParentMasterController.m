@@ -7,15 +7,11 @@
 //
 
 #import "ParentMasterController.h"
-#import "ParentStatsController.h"
-#import "ParentSoundController.h"
 #import <Masonry/Masonry.h>
 
 @interface ParentMasterController () {
-    ParentStatsController* _statsViewController;
-    ParentSoundController* _soundViewController;
-    UIView* _statsView;
-    UIView* _soundView;
+    UIViewController* _currentVC;
+    NSArray* _viewNames;
 }
 
 @end
@@ -25,38 +21,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    // Init and add stats vc
-//    _statsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GameStatsViewController"];
-//    [self addChildViewController:_statsViewController];
-//    _statsView = _statsViewController.view;
-//    [self.detailView addSubview:_statsView];
-//    [_statsView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.detailView);
-//    }];
-//    [_statsViewController didMoveToParentViewController:self];
-//    
-//    // Init and add sound vc
-//    _soundViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SoundManagerViewController"];
-//    [self addChildViewController:_soundViewController];
-//    _soundView = _soundViewController.view;
-//    [self.detailView addSubview:_soundView];
-//    [_soundView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.detailView);
-//    }];
-//    [_soundViewController didMoveToParentViewController:self];
-//    
-//    // Show stats by default
-//    [self showStatsViewController:nil];
+    _viewNames = @[@"GameStatsViewController", @"SoundManagerViewController"];
+    
+    // Init and add stats vc
+    [self displayViewController:_viewNames[0]];
 }
 
 - (IBAction)showStatsViewController:(id)sender {
-    _statsView.hidden = NO;
-    _soundView.hidden = YES;
+    [self displayViewController:_viewNames[0]];
 }
 
 - (IBAction)showSoundViewController:(id)sender {
-    _statsView.hidden = YES;
-    _soundView.hidden = NO;
+    [self displayViewController:_viewNames[1]];
 }
 
 - (IBAction)back:(id)sender {
@@ -66,5 +42,40 @@
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
+
+- (void)displayViewController:(NSString*)name {
+    
+
+    [UIView animateWithDuration:0.25f animations:^{
+        [self.detailView setAlpha:0.0];
+        self.detailView.x = self.view.width;
+    } completion:^(BOOL finished) {
+        [_currentVC.view removeFromSuperview];
+        [_currentVC removeFromParentViewController];
+        _currentVC = nil;
+        
+        UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:name];
+        _currentVC = vc;
+        [self addChildViewController:_currentVC];
+        
+        
+        UIView* view = _currentVC.view;
+        [self.detailView addSubview:view];
+        [view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.detailView);
+        }];
+        [_currentVC didMoveToParentViewController:self];
+        
+        //fade out
+        [UIView animateWithDuration:0.25f animations:^{
+            
+            [self.detailView setAlpha:1.0];
+            self.detailView.x = 150;
+            
+        } completion:nil];
+    }];
+    
+}
+
 
 @end
