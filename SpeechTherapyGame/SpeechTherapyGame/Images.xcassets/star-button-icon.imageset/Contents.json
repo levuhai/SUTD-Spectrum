@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "homeBackground.png",
+      "filename" : "star-button-icon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "homeBackground@2x.png",
+      "filename" : "star-button-icon@2x.png",
       "scale" : "2x"
     },
     {
