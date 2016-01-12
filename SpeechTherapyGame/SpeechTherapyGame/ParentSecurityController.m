@@ -86,6 +86,9 @@
     if (_progressView.progress >= 1) {
         [_container dismissAnimated:NO completionHandler:^(UIViewController * _Nonnull presentedFSViewController) {
             [_homeSceneVC showGameManager];
+            [_timer invalidate];
+            _timer = nil;
+            _progressView.progress = 0.0;
         }];
     }
 }

@@ -25,28 +25,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Init and add stats vc
-    _statsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GameStatsViewController"];
-    [self addChildViewController:_statsViewController];
-    _statsView = _statsViewController.view;
-    [self.detailView addSubview:_statsView];
-    [_statsView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.detailView);
-    }];
-    [_statsViewController didMoveToParentViewController:self];
-    
-    // Init and add sound vc
-    _soundViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SoundManagerViewController"];
-    [self addChildViewController:_soundViewController];
-    _soundView = _soundViewController.view;
-    [self.detailView addSubview:_soundView];
-    [_soundView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.detailView);
-    }];
-    [_soundViewController didMoveToParentViewController:self];
-    
-    // Show stats by default
-    [self showStatsViewController:nil];
+//    // Init and add stats vc
+//    _statsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GameStatsViewController"];
+//    [self addChildViewController:_statsViewController];
+//    _statsView = _statsViewController.view;
+//    [self.detailView addSubview:_statsView];
+//    [_statsView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.detailView);
+//    }];
+//    [_statsViewController didMoveToParentViewController:self];
+//    
+//    // Init and add sound vc
+//    _soundViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SoundManagerViewController"];
+//    [self addChildViewController:_soundViewController];
+//    _soundView = _soundViewController.view;
+//    [self.detailView addSubview:_soundView];
+//    [_soundView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.detailView);
+//    }];
+//    [_soundViewController didMoveToParentViewController:self];
+//    
+//    // Show stats by default
+//    [self showStatsViewController:nil];
 }
 
 - (IBAction)showStatsViewController:(id)sender {

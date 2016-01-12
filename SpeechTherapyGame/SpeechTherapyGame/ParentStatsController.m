@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorFromHexCode:@"A2E0F4"];
+    self.view.backgroundColor = [UIColor clearColor];
     
     _gameStatData = [GameStatistics MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"dateAdded >= %@ AND dateAdded <= %@", [NSDate beginningOfToday],[NSDate endOfToday]]];
     [self enableButton:_playedTimeButton];
