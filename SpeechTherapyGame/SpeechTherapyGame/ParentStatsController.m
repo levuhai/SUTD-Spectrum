@@ -12,6 +12,7 @@
 #import "Sounds.h"
 #import "GameStatistics.h"
 #import "PNChart.h"
+#import "UIColor+Flat.h"
 
 
 @interface ParentStatsController ()
@@ -37,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = RGB(47,139,193);
+    self.view.backgroundColor = [UIColor clearColor];
     
     _gameStatData = [GameStatistics MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"dateAdded >= %@ AND dateAdded <= %@", [NSDate beginningOfToday],[NSDate endOfToday]]];
     [self enableButton:_playedTimeButton];
