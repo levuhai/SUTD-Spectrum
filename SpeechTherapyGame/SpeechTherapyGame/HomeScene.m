@@ -36,8 +36,8 @@
     [self addChild:bg];
     
     SKSpriteNode* owl = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"owl-body"] size:CGSizeMake(117, 152)];
-    owl.position = CGPointMake(CGRectGetMidX(self.frame),
-                               CGRectGetMidY(self.frame) - 150);
+    owl.position = CGPointMake(CGRectGetMidX(self.frame) - 25,
+                               CGRectGetMidY(self.frame) - 240);
     owl.zPosition = 10;
     [self addChild:owl];
     
@@ -61,26 +61,6 @@
     SKAction* wingSequence = [SKAction sequence:@[rotateRight, rotateLeft]];
     [wingContainer runAction:[SKAction repeatActionForever:wingSequence]];
     
-    // wind mill
-    SKSpriteNode* windmillBody = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"windmill-body"] size:CGSizeMake(71, 115)];
-    windmillBody.position = CGPointMake(self.frame.size.width - 85,
-                                        CGRectGetMidY(self.frame)-65);
-    windmillBody.zPosition = 6;
-    [self addChild:windmillBody];
-    
-    SKSpriteNode* windmillWings = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"windmill-wings"] size:CGSizeMake(111, 107)];
-    windmillWings.position = CGPointMake(windmillBody.position.x,
-                                         windmillBody.position.y + 25);
-    SKAction *action = [SKAction rotateByAngle:M_PI duration:20];
-    [windmillWings runAction:[SKAction repeatActionForever:action]];
-    windmillWings.zPosition = 7;
-    [self addChild:windmillWings];
-    SKSpriteNode* windmillFrontGrass = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"windmill-front-grass"] size:CGSizeMake(44, 17)];
-    windmillFrontGrass.position = CGPointMake(windmillBody.position.x - 45,
-                                              windmillBody.position.y - 55);
-    windmillFrontGrass.zPosition = 8;
-    [self addChild:windmillFrontGrass];
-    
     // Clouds
     _cloud1 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"cloud-1"] size:CGSizeMake(125, 55)];
     _cloud1.position = CGPointMake(CGRectGetMidX(self.frame) - 200, CGRectGetMidY(self.frame) + 300);
@@ -99,8 +79,8 @@
     _cloud1.zPosition = _cloud2.zPosition = _cloud3.zPosition = 5;
     
     // Text
-    SKSpriteNode* speechtherapytext = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"speechtherapy-text"] size:CGSizeMake(480, 97)];
-    speechtherapytext.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 200);
+    SKSpriteNode* speechtherapytext = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"speechtherapy-text"]];
+    speechtherapytext.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 20);
     speechtherapytext.zPosition = 9;
     [self addChild:speechtherapytext];
     
