@@ -27,7 +27,6 @@
     PNLineChart * _lineChart;
     PNBarChart  * _barChart;
     
-    IBOutlet UILabel* _chartNoDataLabel;
     IBOutlet UILabel* _barNoDataLabel;
 }
 
@@ -117,6 +116,7 @@
     set.drawCircleHoleEnabled = YES;
     set.drawCirclesEnabled = YES;
     set.drawValuesEnabled = NO;
+    set.drawVerticalHighlightIndicatorEnabled = NO;
     set.axisDependency = AxisDependencyLeft;
     
     [lData addDataSet:set];
@@ -127,7 +127,6 @@
     [set1 setColor:[UIColor colorWithRed:60/255.f green:220/255.f blue:78/255.f alpha:1.f]];
     set1.valueTextColor = [UIColor colorWithRed:60/255.f green:220/255.f blue:78/255.f alpha:1.f];
     set1.valueFont = [UIFont systemFontOfSize:10.f];
-    
     set1.axisDependency = AxisDependencyLeft;
     set1.drawValuesEnabled = NO;
     
@@ -135,7 +134,7 @@
     
     // Line chart
     CombinedChartData *combinedData = [[CombinedChartData alloc] initWithXVals:dates];
-    //combinedData.lineData = lData;
+    combinedData.lineData = lData;
     combinedData.barData = bData;
 
     _chartView.data = combinedData;
@@ -146,7 +145,6 @@
     if (gameStatData.count == 0) {
         return;
     }
-    _chartNoDataLabel.hidden = YES;
     _barNoDataLabel.hidden = YES;
     
     _barBottomLabels = nil;
