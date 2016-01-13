@@ -9,7 +9,7 @@
 #import "ParentStatsController.h"
 #import "ActionSheetPicker.h"
 #import "PNChart.h"
-#import "UIColor+Flat.h"
+#import "UIColor+Chameleon.h"
 #import "DataManager.h"
 #import "Score.h"
 #import <Charts/Charts.h>
@@ -46,6 +46,7 @@
     _chartView.noDataTextDescription = @"NO DATA RECORDED";
     _chartView.drawGridBackgroundEnabled = NO;
     _chartView.drawBarShadowEnabled = NO;
+    _chartView.drawHighlightArrowEnabled = YES;
     _chartView.drawOrder = @[
                              @(CombinedChartDrawOrderBar),
                              @(CombinedChartDrawOrderLine)
@@ -54,6 +55,8 @@
     
     _chartView.leftAxis.drawGridLinesEnabled = NO;
     _chartView.xAxis.labelPosition = XAxisLabelPositionBottom;
+    _chartView.xAxis.drawAxisLineEnabled = NO;
+    _chartView.xAxis.drawGridLinesEnabled = NO;
     
     // Data
     [self fetchDataByDateRange:0];
@@ -107,10 +110,10 @@
     
     // Line Dataset
     LineChartDataSet *set = [[LineChartDataSet alloc] initWithYVals:lineEntries
-                                                              label:@"Line DataSet"];
-    [set setColor:[UIColor colorWithRed:240/255.f green:238/255.f blue:70/255.f alpha:1.f]];
+                                                              label:@"Correct Attempts"];
+    [set setColor:[UIColor flatSkyBlueColor]];
     set.lineWidth = 4;
-    [set setCircleColor:[UIColor colorWithRed:240/255.f green:238/255.f blue:70/255.f alpha:1.f]];
+    [set setCircleColor:[UIColor flatSkyBlueColor]];
     set.fillColor = [UIColor colorWithRed:240/255.f green:238/255.f blue:70/255.f alpha:1.f];
     set.drawCubicEnabled = NO;
     set.drawCircleHoleEnabled = YES;
@@ -123,8 +126,8 @@
     
     // Bar Dataset
     BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:barEntries
-                                                             label:@"Bar DataSet"];
-    [set1 setColor:[UIColor colorWithRed:60/255.f green:220/255.f blue:78/255.f alpha:1.f]];
+                                                             label:@"Attempts"];
+    [set1 setColor:[UIColor flatRedColor]];
     set1.valueTextColor = [UIColor colorWithRed:60/255.f green:220/255.f blue:78/255.f alpha:1.f];
     set1.valueFont = [UIFont systemFontOfSize:10.f];
     set1.axisDependency = AxisDependencyLeft;
