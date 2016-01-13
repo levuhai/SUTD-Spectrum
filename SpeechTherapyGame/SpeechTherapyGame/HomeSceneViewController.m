@@ -15,7 +15,12 @@
 #import "MZFormSheetController.h"
 #import "ParentMasterController.h"
 
+@interface HomeSceneViewController (){
+    IBOutlet UIButton* _soundButton;
+    IBOutlet UIButton* _bgMusicButton;
+}
 
+@end
 
 @implementation HomeSceneViewController
 
@@ -94,6 +99,14 @@
     [self mz_presentFormSheetController:formSheet
                                animated:YES
                       completionHandler:nil];
+}
+
+- (IBAction) soundButton_pressed {
+    _soundButton.selected = !_soundButton.selected;
+}
+
+- (IBAction) backgroundMusicButton_pressed {
+    _bgMusicButton.selected = !_bgMusicButton.selected;
 }
 
 - (void) showGameManager {

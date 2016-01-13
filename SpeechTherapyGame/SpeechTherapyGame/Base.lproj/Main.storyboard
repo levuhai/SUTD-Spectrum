@@ -49,10 +49,18 @@
                                     <constraint firstAttribute="width" constant="135" id="jyz-xU-w1G"/>
                                 </constraints>
                                 <state key="normal" image="but-icon-sound-on"/>
+                                <state key="selected" image="but-icon-sound-off"/>
+                                <connections>
+                                    <action selector="soundButton_pressed" destination="BV1-FR-VrT" eventType="touchUpInside" id="g5e-1Z-dIK"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1gv-gH-c0r">
                                 <rect key="frame" x="143" y="29" width="135" height="139"/>
                                 <state key="normal" image="but-icon-music-on"/>
+                                <state key="selected" image="but-icon-music-off"/>
+                                <connections>
+                                    <action selector="backgroundMusicButton_pressed" destination="BV1-FR-VrT" eventType="touchUpInside" id="2AO-FX-9j9"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -71,6 +79,8 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="_bgMusicButton" destination="1gv-gH-c0r" id="hDi-bg-ciN"/>
+                        <outlet property="_soundButton" destination="vgN-yO-ez9" id="Stg-WB-ViU"/>
                         <segue destination="Y7p-Rm-ssW" kind="modal" identifier="gotoScheduleScene" modalTransitionStyle="crossDissolve" id="U2A-iN-hhE"/>
                     </connections>
                 </viewController>
@@ -236,7 +246,6 @@
         <!--Parent Master-->
         <scene sceneID="fFj-zL-axN">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uRb-GR-r8E" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ParentMasterController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PbH-JN-4uP" userLabel="Parent Master" customClass="ParentMasterController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FtN-b2-hs2"/>
@@ -339,6 +348,7 @@
                         <outlet property="detailView" destination="C1X-kh-YkB" id="7Vs-y1-Plt"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uRb-GR-r8E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="554" y="-2530"/>
         </scene>
@@ -800,6 +810,10 @@
         <scene sceneID="roh-1f-ntU">
             <objects>
                 <viewController id="gft-v7-iDZ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0Ns-h6-nUX"/>
+                        <viewControllerLayoutGuide type="bottom" id="CS9-IK-q2w"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="MEy-EG-lg7">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -817,7 +831,9 @@
         <image name="btnSelected.png" width="59" height="53"/>
         <image name="btnSettings.png" width="143" height="143"/>
         <image name="btnSound.png" width="135" height="136"/>
+        <image name="but-icon-music-off" width="170" height="175"/>
         <image name="but-icon-music-on" width="135" height="139"/>
+        <image name="but-icon-sound-off" width="135" height="135"/>
         <image name="but-icon-sound-on" width="135" height="139"/>
         <image name="in-game-home-btn" width="72" height="73"/>
         <image name="lbDashboard.png" width="114" height="21"/>
