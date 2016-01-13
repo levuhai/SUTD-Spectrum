@@ -236,6 +236,7 @@
         <!--Parent Master-->
         <scene sceneID="fFj-zL-axN">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uRb-GR-r8E" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ParentMasterController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PbH-JN-4uP" userLabel="Parent Master" customClass="ParentMasterController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FtN-b2-hs2"/>
@@ -247,7 +248,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C1X-kh-YkB" userLabel="Main">
                                 <rect key="frame" x="150" y="0.0" width="618" height="1024"/>
-                                <color key="backgroundColor" red="0.63529411764705879" green="0.8784313725490196" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.46666666666666667" green="0.84313725490196079" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UOk-qU-FXi" userLabel="Left Menu">
                                 <rect key="frame" x="0.0" y="0.0" width="150" height="1024"/>
@@ -275,7 +276,7 @@
                                     </button>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sfu-Jk-5ya" userLabel="Dashboard">
                                         <rect key="frame" x="0.0" y="8" width="150" height="281"/>
-                                        <color key="backgroundColor" red="0.52156862749999999" green="0.78039215689999997" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="btnDashboard.png">
                                             <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -294,7 +295,7 @@
                                         <rect key="frame" x="32" y="782" width="86" height="26"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.52156862745098043" green="0.7803921568627451" blue="0.86274509803921573" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.33725490196078434" green="0.70980392156862748" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="foK-In-V1L" secondAttribute="trailing" id="62T-rA-aZy"/>
                                     <constraint firstItem="Pts-aW-iyA" firstAttribute="top" secondItem="foK-In-V1L" secondAttribute="bottom" constant="8" id="6ve-NE-djp"/>
@@ -321,7 +322,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.46666666670000001" green="0.84313725490000002" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="UOk-qU-FXi" firstAttribute="leading" secondItem="cJ7-fT-39v" secondAttribute="leading" id="LAD-CA-Iyr"/>
@@ -338,9 +339,8 @@
                         <outlet property="detailView" destination="C1X-kh-YkB" id="7Vs-y1-Plt"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uRb-GR-r8E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="898" y="-1374"/>
+            <point key="canvasLocation" x="554" y="-2530"/>
         </scene>
         <!--Fishing Game View Controller-->
         <scene sceneID="53X-hx-Be8">
@@ -795,6 +795,20 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ChP-F3-6sa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="898.56000000000006" y="1916.5866666666668"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="roh-1f-ntU">
+            <objects>
+                <viewController id="gft-v7-iDZ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MEy-EG-lg7">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QUo-XH-CqX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1806" y="-2530"/>
         </scene>
     </scenes>
     <resources>
