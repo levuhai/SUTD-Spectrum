@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "DataManager.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +17,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [DataManager shared];
     // Override point for customization after application launch.
     //[MagicalRecord cleanUp];
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"DataModel"];

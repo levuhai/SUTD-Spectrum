@@ -8,29 +8,30 @@
 
 #import "ParentStatsController.h"
 #import "ActionSheetPicker.h"
-#import "Games.h"
-#import "Sounds.h"
-#import "GameStatistics.h"
 #import "PNChart.h"
 #import "UIColor+Flat.h"
+#import "DataManager.h"
+#import "Score.h"
+#import <Charts/Charts.h>
 
+#define CORRECT_VALUE 0.5f;
 
-@interface ParentStatsController ()
+@interface ParentStatsController () <ChartViewDelegate>
 {
     
-    NSArray* _gameStatData;
+    //NSArray* _gameStatData;
+    NSMutableArray* _scoreData;
     NSMutableArray* _lineBottomLabels;
     NSMutableArray* _barBottomLabels;
     
     PNLineChart * _lineChart;
     PNBarChart  * _barChart;
     
-    IBOutlet UIButton* _playedTimeButton;
-    IBOutlet UIButton* _pointButton;
-    
     IBOutlet UILabel* _chartNoDataLabel;
     IBOutlet UILabel* _barNoDataLabel;
 }
+
+@property (nonatomic, strong) IBOutlet CombinedChartView *chartView;
 
 @end
 
@@ -40,111 +41,107 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
     
-    _gameStatData = [GameStatistics MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"dateAdded >= %@ AND dateAdded <= %@", [NSDate beginningOfToday],[NSDate endOfToday]]];
-    [self enableButton:_playedTimeButton];
-    [self disableButton:_pointButton];
+    // Setup chart
+    _chartView.delegate = self;
+    _chartView.descriptionText = @"";
+    _chartView.noDataTextDescription = @"NO DATA RECORDED";
+    _chartView.drawGridBackgroundEnabled = NO;
+    _chartView.drawBarShadowEnabled = NO;
+    _chartView.drawOrder = @[
+                             @(CombinedChartDrawOrderBar),
+                             @(CombinedChartDrawOrderLine)
+                             ];
+    _chartView.rightAxis.enabled = NO;
     
+    _chartView.leftAxis.drawGridLinesEnabled = NO;
+    _chartView.xAxis.labelPosition = XAxisLabelPositionBottom;
     
-    if (_gameStatData.count > 0) {
-        // First line data
-        [self loadDataForLineChart:YES];
-        // Bar data
-        [self loadDataForWordsBarChart:_gameStatData];
-        // setup chart
-        [self drawLineChart];
-        [self drawBarChart];
-        _chartNoDataLabel.hidden = YES;
-        _barNoDataLabel.hidden = YES;
-    } else{
-        _chartNoDataLabel.hidden = NO;
-        _barNoDataLabel.hidden = NO;
-    }
+    // Data
+    [self fetchDataByDateRange:0];
     
     _lineGraphContainer.layer.cornerRadius = 10;
     _barGraphContainer.layer.cornerRadius = 10;
 }
 
-- (void)drawLineChart {
-    if (_lineBottomLabels.count > 0) {
-        PNLineChartData *data01 = [PNLineChartData new];
-        data01.color = PNLightBlue;
-        data01.itemCount = _lineBottomLabels.count;
-        data01.inflexionPointStyle = PNLineChartPointStyleCircle;
-        data01.getData = ^(NSUInteger index) {
-            CGFloat yValue = [_lineGraphData[index] floatValue];
-            return [PNLineChartDataItem dataItemWithY:yValue];
-        };
-        
-        if (!_lineChart) {
-            _lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 100 - 30, _lineGraphContainer.width, _lineGraphContainer.height - 100)];
-            _lineChart.xLabelFont = [UIFont fontWithName:@"Helvetica" size:15];
-            [_lineChart setXLabels:_lineBottomLabels];
-            _lineChart.chartData = @[data01];
-            [_lineChart strokeChart];
-            [_lineGraphContainer addSubview:_lineChart];
-        } else {
-            [_lineChart setXLabels:_lineBottomLabels];
-            [_lineChart updateChartData:@[data01]];
-        }
-    }
-}
 
-- (void)drawBarChart {
-    if (_barBottomLabels.count > 0) {
-        if (!_barChart) {
-            _barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, 90 - 30, _barGraphContainer.width - 100, _barGraphContainer.height - 90)];
-            _barChart.yChartLabelWidth = 20;
-            _barChart.barBackgroundColor = PNWhite;
-            _barChart.labelTextColor = PNBlack;
-            _barChart.isShowNumbers = NO;
-            _barChart.xLabels = _barBottomLabels;
-            _barChart.yValues = _barGraphData;
-            
-            [_barChart strokeChart];
-            [_barGraphContainer addSubview:_barChart];
-        } else {
-            _barChart.xLabels = _barBottomLabels;
-            [_barChart updateChartData:_barGraphData];
-        }
-    }
-}
-
-- (void) loadDataForLineChart:(BOOL) isCalculatingTotalPlayed {
-    if (_gameStatData.count == 0) {
+- (void)loadDataForLineChart:(NSMutableArray*)rawData {
+    if (rawData.count == 0) {
         return;
     }
-    _chartNoDataLabel.hidden = YES;
-    _barNoDataLabel.hidden = YES;
-    
-    _lineBottomLabels = nil;
-    _lineGraphData = nil;
-    
-    _lineBottomLabels = [NSMutableArray array];
-    _lineGraphData = [NSMutableArray array];
     
     // Get bottom labels
+    NSMutableArray* dates = [NSMutableArray new];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEE dd MMM"];
-    for (GameStatistics* gs in _gameStatData) {
-        NSString *dateString = [dateFormatter stringFromDate:gs.dateAdded];
-        if (![_lineBottomLabels containsObject:dateString]) {
-            [_lineBottomLabels addObject:dateString];
+    [dateFormatter setDateFormat:@"dd MMM, yyyy"];
+    for (Score* score in rawData) {
+        NSString *dateString = [dateFormatter stringFromDate:score.date];
+        if (![dates containsObject:dateString]) {
+            [dates addObject:dateString];
         }
     }
     
-    for (NSString* dateString in _lineBottomLabels) {
+    // Line Data
+    LineChartData *lData = [[LineChartData alloc] init];
+    NSMutableArray *lineEntries = [[NSMutableArray alloc] init];
+    
+    BarChartData *bData = [[BarChartData alloc] init];
+    NSMutableArray *barEntries = [[NSMutableArray alloc] init];
+    
+    int index = 0;
+    for (NSString* dateString in dates) {
+        
         int totalPlayedCount = 0;
-        for (GameStatistics* gs in _gameStatData) {
-            NSString *gsDate = [dateFormatter stringFromDate:gs.dateAdded];
+        int totalCorrectCount = 0;
+        for (Score* gs in rawData) {
+            NSString *gsDate = [dateFormatter stringFromDate:gs.date];
             if ([gsDate isEqualToString:dateString]) {
-                totalPlayedCount += isCalculatingTotalPlayed ? gs.totalPlayedCount.integerValue : gs.correctCount.integerValue;
+                totalPlayedCount += 1;
+                totalCorrectCount += gs.score>=CORRECT_VALUE;
             }
         }
-        [_lineGraphData addObject:@(totalPlayedCount)];
+        [lineEntries addObject:[[ChartDataEntry alloc] initWithValue:totalCorrectCount
+                                                          xIndex:index]];
+        [barEntries addObject:[[BarChartDataEntry alloc] initWithValue:totalPlayedCount
+                                                                xIndex:index]];
+        index++;
     }
+    
+    // Line Dataset
+    LineChartDataSet *set = [[LineChartDataSet alloc] initWithYVals:lineEntries
+                                                              label:@"Line DataSet"];
+    [set setColor:[UIColor colorWithRed:240/255.f green:238/255.f blue:70/255.f alpha:1.f]];
+    set.lineWidth = 4;
+    [set setCircleColor:[UIColor colorWithRed:240/255.f green:238/255.f blue:70/255.f alpha:1.f]];
+    set.fillColor = [UIColor colorWithRed:240/255.f green:238/255.f blue:70/255.f alpha:1.f];
+    set.drawCubicEnabled = NO;
+    set.drawCircleHoleEnabled = YES;
+    set.drawCirclesEnabled = YES;
+    set.drawValuesEnabled = NO;
+    set.axisDependency = AxisDependencyLeft;
+    
+    [lData addDataSet:set];
+    
+    // Bar Dataset
+    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:barEntries
+                                                             label:@"Bar DataSet"];
+    [set1 setColor:[UIColor colorWithRed:60/255.f green:220/255.f blue:78/255.f alpha:1.f]];
+    set1.valueTextColor = [UIColor colorWithRed:60/255.f green:220/255.f blue:78/255.f alpha:1.f];
+    set1.valueFont = [UIFont systemFontOfSize:10.f];
+    
+    set1.axisDependency = AxisDependencyLeft;
+    set1.drawValuesEnabled = NO;
+    
+    [bData addDataSet:set1];
+    
+    // Line chart
+    CombinedChartData *combinedData = [[CombinedChartData alloc] initWithXVals:dates];
+    //combinedData.lineData = lData;
+    combinedData.barData = bData;
+
+    _chartView.data = combinedData;
 }
 
-- (void) loadDataForWordsBarChart:(NSArray*) gameStatData {
+- (void)loadDataForWordsBarChart:(NSArray*)gameStatData {
     
     if (gameStatData.count == 0) {
         return;
@@ -157,63 +154,32 @@
     _barBottomLabels = [NSMutableArray array];
     _barGraphData = [NSMutableArray array];
     
-    for (GameStatistics* gs in gameStatData) {
+    for (Score* gs in gameStatData) {
         
-        if (![_barBottomLabels containsObject:gs.word]) {
-            [_barBottomLabels addObject:gs.word];
+        if (![_barBottomLabels containsObject:gs.sound]) {
+            [_barBottomLabels addObject:gs.sound];
         }
     }
     
     for (NSString* letter in _barBottomLabels) {
-        for (GameStatistics* gs in gameStatData) {
-            if ([gs.word isEqualToString:letter]) {
-                [_barGraphData addObject:@((gs.correctCount.integerValue / (float)gs.totalPlayedCount.integerValue) * 100)];
+        float totalScore = 0.0f;
+        float totalPlay = 0.0f;
+        for (Score* gs in gameStatData) {
+            if ([gs.sound isEqualToString:letter]) {
+                if (gs.score >= 0.5) {
+                    totalScore += 1;
+                }
+                totalPlay += 1;
+                
             }
         }
+        [_barGraphData addObject:@(totalScore / totalPlay * 100)];
     }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-}
-
--(IBAction) playedTimeButton_action {
-    [self enableButton:_playedTimeButton];
-    [self disableButton:_pointButton];
-    // Reload data
-    [self loadDataForLineChart:YES];
-    // Update line chart
-    [self drawLineChart];
-}
-
--(IBAction) pointButton_action {
-    [self enableButton:_pointButton];
-    [self disableButton:_playedTimeButton];
-    // Reload data
-    [self loadDataForLineChart:NO];
-    // Update line chart
-    [self drawLineChart];
-
-}
-
-- (void) enableButton:(UIButton*) button {
-    button.backgroundColor = RGB(47,139,193);
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTintColor:[UIColor clearColor]];
-    button.selected = YES;
-}
-
-- (void) disableButton:(UIButton*) button {
-    button.backgroundColor = [UIColor whiteColor];
-    [button setTitleColor:RGB(47,139,193) forState:UIControlStateNormal];
-    [button setTintColor:[UIColor clearColor]];
-    button.selected = NO;
 }
 
 
@@ -236,7 +202,7 @@
                                           origin:sender];
 }
 
-- (void) fetchDataByDateRange:(NSInteger) index {
+- (void)fetchDataByDateRange:(NSInteger)index {
     
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:[[NSDate alloc] init]];
@@ -249,7 +215,7 @@
     [components setHour:-24];
     [components setMinute:0];
     [components setSecond:0];
-    NSDate *yesterday = [cal dateByAddingComponents:components toDate: today options:0];
+    NSDate *yesterday = [cal dateByAddingComponents:components toDate:today options:0];
     
     components = [cal components:NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[[NSDate alloc] init]];
     
@@ -272,26 +238,30 @@
     NSLog(@"thisMonth=%@",thisMonth);
     NSLog(@"lastMonth=%@",lastMonth);
     
-    
-    NSPredicate *predicate = nil;
+    NSDate *f, *t;
     switch (index) {
         case 0: // Today
-            predicate = [NSPredicate predicateWithFormat:@"dateAdded >= %@ AND dateAdded <= %@", [NSDate beginningOfToday],[NSDate endOfToday]];
+            f = [NSDate beginningOfToday];
+            t = [NSDate endOfToday];
             break;
         case 1: // Yesterday
-            predicate = [NSPredicate predicateWithFormat:@"dateAdded >= %@ AND dateAdded <= %@", yesterday,[NSDate beginningOfToday]];
+            f = yesterday;
+            t = [NSDate beginningOfToday];
             break;
         case 2: // Last 7 days
-            predicate = [NSPredicate predicateWithFormat:@"(dateAdded >= %@) AND (dateAdded <= %@)", thisWeek, [NSDate beginningOfToday]];
+            f = thisWeek;
+            t = [NSDate beginningOfToday];
             break;
         case 3: // Last 2 weeks
-            predicate = [NSPredicate predicateWithFormat:@"(dateAdded >= %@) AND (dateAdded <= %@)", lastWeek, [NSDate beginningOfToday]];
+            f = lastWeek;
+            t = [NSDate beginningOfToday];
             break;
         case 4: // This month
-            predicate = [NSPredicate predicateWithFormat:@"dateAdded >= %@",thisMonth];
+            f = thisMonth;
             break;
         case 5: // Last month
-            predicate = [NSPredicate predicateWithFormat:@"(dateAdded >= %@) AND (dateAdded <= %@)", lastMonth, thisMonth];
+            f = lastMonth;
+            t = thisMonth;
             break;
         case 6: // All time
             break;
@@ -299,50 +269,24 @@
             break;
     }
     
-    if (predicate) {
-        _gameStatData = [GameStatistics MR_findAllWithPredicate:predicate];
-    } else {
-        _gameStatData = [GameStatistics MR_findAll];
-    }
-    
-    for (GameStatistics* gs in _gameStatData) {
-        NSLog(@"- %@",gs);
-    }
-    
-    //_gameStatData = [GameStatistics MR_findAll];
+    _scoreData = [[DataManager shared] getScoresFrom:f to:t];
     
     // Reload data
-    [self loadDataForLineChart:_playedTimeButton.selected];
-    [self loadDataForWordsBarChart:_gameStatData];
+    [self loadDataForLineChart:_scoreData];
+    [self loadDataForWordsBarChart:_scoreData];
     
-    // setup chart
-    if (_gameStatData.count > 0) {
-        _lineChart.hidden = NO;
-        _barChart.hidden = NO;
-        [self drawLineChart];
-        [self drawBarChart];
-    } else {
-        _lineChart.hidden = YES;
-        _barChart.hidden = YES;
-        _chartNoDataLabel.hidden = NO;
-        _barNoDataLabel.hidden = NO;
-    }
 }
 
-- (NSDate*) getYesterday{
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:[[NSDate alloc] init]];
-    
-    [components setHour:-[components hour]];
-    [components setMinute:-[components minute]];
-    [components setSecond:-[components second]];
-    NSDate *today = [cal dateByAddingComponents:components toDate:[[NSDate alloc] init] options:0]; //This variable should now be pointing at a date object that is the start of today (midnight);
-    
-    [components setHour:-24];
-    [components setMinute:0];
-    [components setSecond:0];
-    NSDate *yesterday = [cal dateByAddingComponents:components toDate: today options:0];
-    return yesterday;
+#pragma mark - ChartViewDelegate
+
+- (void)chartValueSelected:(ChartViewBase * __nonnull)chartView entry:(ChartDataEntry * __nonnull)entry dataSetIndex:(NSInteger)dataSetIndex highlight:(ChartHighlight * __nonnull)highlight
+{
+    NSLog(@"chartValueSelected");
+}
+
+- (void)chartValueNothingSelected:(ChartViewBase * __nonnull)chartView
+{
+    NSLog(@"chartValueNothingSelected");
 }
 
 @end
