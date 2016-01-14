@@ -3776,11 +3776,15 @@
 		A752FBEA1C3A2A2A00B8ED60 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBE91C3A2A2A00B8ED60 /* Word.m */; };
 		A752FBED1C3A2BF900B8ED60 /* PhonemeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBEC1C3A2BF900B8ED60 /* PhonemeCell.m */; };
 		A752FBF01C3A2D4100B8ED60 /* NSDictionary+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBEF1C3A2D4100B8ED60 /* NSDictionary+ES.m */; };
-		A752FBF21C3A2E8C00B8ED60 /* result.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A752FBF11C3A2E8C00B8ED60 /* result.sqlite */; };
+		A752FBF21C3A2E8C00B8ED60 /* sound.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A752FBF11C3A2E8C00B8ED60 /* sound.sqlite */; };
 		A752FBF51C3AA79400B8ED60 /* WordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBF41C3AA79400B8ED60 /* WordCell.m */; };
 		A752FBF71C3B73AD00B8ED60 /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */; };
 		A752FBFA1C3B747300B8ED60 /* UIFont+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBF91C3B747300B8ED60 /* UIFont+ES.m */; };
+		A75A6CAB1C455745005CCE5E /* score.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A75A6CAA1C455745005CCE5E /* score.sqlite */; };
+		A75A6CAE1C4560BE005CCE5E /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = A75A6CAD1C4560BE005CCE5E /* Score.m */; };
 		A76374B51C3FC16400A9616C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A76374B41C3FC16400A9616C /* Images.xcassets */; };
+		A7ABA9631C46949400938492 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; };
+		A7ABA9651C46949C00938492 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; };
 		D78865B51C1043B800C3944C /* LPCAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865B41C1043B800C3944C /* LPCAudioController.m */; };
 		D78865B81C1043E200C3944C /* LPCView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D78865B71C1043E200C3944C /* LPCView.mm */; };
@@ -3788,7 +3792,7 @@
 		D78865C01C10454700C3944C /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865BD1C10454700C3944C /* UIColor+Expanded.m */; };
 		D78865C11C10454700C3944C /* UIColor+Flat.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865BF1C10454700C3944C /* UIColor+Flat.m */; };
 		D78865C41C1047D200C3944C /* NSUserDefaults+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865C31C1047D200C3944C /* NSUserDefaults+Convenience.m */; };
-		DB79796202A56F77A186A2EC /* libPods-SpeechTherapyGame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C4C953EE4CDC88969B0569 /* libPods-SpeechTherapyGame.a */; };
+		E7781B3647984EE3B72DEAC3 /* libPods-SpeechTherapyGame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3B006EFB154C6DB3574B82 /* libPods-SpeechTherapyGame.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3799,7 +3803,49 @@
 			remoteGlobalIDString = 2DF6B73B1B94A14800B7F92C;
 			remoteInfo = SpeechTherapyGame;
 		};
+		A7ABA95D1C46934A00938492 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7ABA9571C46934900938492 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5BA8EC401A9D14DC00CE82E1;
+			remoteInfo = "Charts-iOS";
+		};
+		A7ABA95F1C46934A00938492 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7ABA9571C46934900938492 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A52C5C371BAC5CA400594CDD;
+			remoteInfo = "Charts-TV";
+		};
+		A7ABA9611C46934A00938492 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7ABA9571C46934900938492 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06AEE7A21BDC3F8B009875AE;
+			remoteInfo = ChartsTests;
+		};
+		A7ABA9661C46949C00938492 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7ABA9571C46934900938492 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5BA8EC3F1A9D14DC00CE82E1;
+			remoteInfo = "Charts-iOS";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A7ABA9681C46949C00938492 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A7ABA9651C46949C00938492 /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2D1437491C3C559F00667CC7 /* ∫_action_1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "∫_action_1.wav"; sourceTree = "<group>"; };
@@ -7607,7 +7653,7 @@
 		2DF6B7601B94A14800B7F92C /* SpeechTherapyGameTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpeechTherapyGameTests.m; sourceTree = "<group>"; };
 		2DF6B76A1B94B53E00B7F92C /* SpeechTherapyGame-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SpeechTherapyGame-Prefix.pch"; sourceTree = "<group>"; };
 		482749E27D29E52B34F59317 /* Pods-SpeechTherapyGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.debug.xcconfig"; sourceTree = "<group>"; };
-		A3C4C953EE4CDC88969B0569 /* libPods-SpeechTherapyGame.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpeechTherapyGame.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C3B006EFB154C6DB3574B82 /* libPods-SpeechTherapyGame.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpeechTherapyGame.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A752FBE21C3A2A1B00B8ED60 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		A752FBE31C3A2A1B00B8ED60 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		A752FBE41C3A2A1B00B8ED60 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
@@ -7618,13 +7664,17 @@
 		A752FBEC1C3A2BF900B8ED60 /* PhonemeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhonemeCell.m; sourceTree = "<group>"; };
 		A752FBEE1C3A2D4100B8ED60 /* NSDictionary+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ES.h"; sourceTree = "<group>"; };
 		A752FBEF1C3A2D4100B8ED60 /* NSDictionary+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ES.m"; sourceTree = "<group>"; };
-		A752FBF11C3A2E8C00B8ED60 /* result.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = result.sqlite; sourceTree = "<group>"; };
+		A752FBF11C3A2E8C00B8ED60 /* sound.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.sqlite; sourceTree = "<group>"; };
 		A752FBF31C3AA79400B8ED60 /* WordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCell.h; sourceTree = "<group>"; };
 		A752FBF41C3AA79400B8ED60 /* WordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCell.m; sourceTree = "<group>"; };
 		A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
 		A752FBF81C3B747300B8ED60 /* UIFont+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+ES.h"; sourceTree = "<group>"; };
 		A752FBF91C3B747300B8ED60 /* UIFont+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ES.m"; sourceTree = "<group>"; };
+		A75A6CAA1C455745005CCE5E /* score.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = score.sqlite; sourceTree = "<group>"; };
+		A75A6CAC1C4560BE005CCE5E /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
+		A75A6CAD1C4560BE005CCE5E /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
 		A76374B41C3FC16400A9616C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A7ABA9571C46934900938492 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.release.xcconfig"; sourceTree = "<group>"; };
 		D716291D1BE76FFE00C56C77 /* ParentMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentMasterController.h; sourceTree = "<group>"; };
 		D716291E1BE76FFE00C56C77 /* ParentMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentMasterController.m; sourceTree = "<group>"; };
@@ -7648,8 +7698,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7ABA9631C46949400938492 /* Charts.framework in Frameworks */,
 				2D8931F41BA986AF006D2840 /* CoreData.framework in Frameworks */,
-				DB79796202A56F77A186A2EC /* libPods-SpeechTherapyGame.a in Frameworks */,
+				E7781B3647984EE3B72DEAC3 /* libPods-SpeechTherapyGame.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11498,6 +11549,8 @@
 		2D6064771BA9A35500410B0E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A75A6CAC1C4560BE005CCE5E /* Score.h */,
+				A75A6CAD1C4560BE005CCE5E /* Score.m */,
 				A752FBE81C3A2A2A00B8ED60 /* Word.h */,
 				A752FBE91C3A2A2A00B8ED60 /* Word.m */,
 				A752FBE21C3A2A1B00B8ED60 /* BaseModel.h */,
@@ -11622,6 +11675,7 @@
 		2DF6B7331B94A14800B7F92C = {
 			isa = PBXGroup;
 			children = (
+				A7ABA9571C46934900938492 /* Charts.xcodeproj */,
 				2DF6B73E1B94A14800B7F92C /* SpeechTherapyGame */,
 				2DF6B75D1B94A14800B7F92C /* SpeechTherapyGameTests */,
 				2DF6B73D1B94A14800B7F92C /* Products */,
@@ -11698,16 +11752,27 @@
 			isa = PBXGroup;
 			children = (
 				2D1437471C3C555300667CC7 /* sounds */,
-				A752FBF11C3A2E8C00B8ED60 /* result.sqlite */,
+				A752FBF11C3A2E8C00B8ED60 /* sound.sqlite */,
+				A75A6CAA1C455745005CCE5E /* score.sqlite */,
 			);
 			name = Database;
+			sourceTree = "<group>";
+		};
+		A7ABA9581C46934900938492 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A7ABA95E1C46934A00938492 /* Charts.framework */,
+				A7ABA9601C46934A00938492 /* Charts.framework */,
+				A7ABA9621C46934A00938492 /* ChartsTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		AFD57064E87D38D48DF68026 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				2D8931F31BA986AF006D2840 /* CoreData.framework */,
-				A3C4C953EE4CDC88969B0569 /* libPods-SpeechTherapyGame.a */,
+				7C3B006EFB154C6DB3574B82 /* libPods-SpeechTherapyGame.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -11753,10 +11818,12 @@
 				2DF6B73A1B94A14800B7F92C /* Resources */,
 				EEFD8668365D98B4E9052252 /* Copy Pods Resources */,
 				03CA92E1FC495CA0D83319DC /* Embed Pods Frameworks */,
+				A7ABA9681C46949C00938492 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A7ABA9671C46949C00938492 /* PBXTargetDependency */,
 			);
 			name = SpeechTherapyGame;
 			productName = SpeechTherapyGame;
@@ -11811,6 +11878,12 @@
 			mainGroup = 2DF6B7331B94A14800B7F92C;
 			productRefGroup = 2DF6B73D1B94A14800B7F92C /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A7ABA9581C46934900938492 /* Products */;
+					ProjectRef = A7ABA9571C46934900938492 /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				2DF6B73B1B94A14800B7F92C /* SpeechTherapyGame */,
@@ -11818,6 +11891,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		A7ABA95E1C46934A00938492 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = A7ABA95D1C46934A00938492 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A7ABA9601C46934A00938492 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = A7ABA95F1C46934A00938492 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A7ABA9621C46934A00938492 /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = A7ABA9611C46934A00938492 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		2DF6B73A1B94A14800B7F92C /* Resources */ = {
@@ -14215,6 +14312,7 @@
 				2D144E6B1C3C562700667CC7 /* d_daʊ_e1.wav in Resources */,
 				2D1450D31C3C562700667CC7 /* ð_ɜðɜ_b1_full.wav in Resources */,
 				2D143B5D1C3C55A300667CC7 /* ∫_tissue_3full.wav in Resources */,
+				A75A6CAB1C455745005CCE5E /* score.sqlite in Resources */,
 				2D143B191C3C55A300667CC7 /* ∫_shoe_1full.wav in Resources */,
 				2D1450431C3C562700667CC7 /* d_əd_d3.wav in Resources */,
 				2D1451221C3C562700667CC7 /* d_ɪd_c1.wav in Resources */,
@@ -14578,7 +14676,7 @@
 				2D1452941C3C562700667CC7 /* d_ʌd_e1_full.wav in Resources */,
 				2D1449421C3C562700667CC7 /* b_aɪəb_e1.wav in Resources */,
 				2D144F911C3C562700667CC7 /* d_dɔ_d1.wav in Resources */,
-				A752FBF21C3A2E8C00B8ED60 /* result.sqlite in Resources */,
+				A752FBF21C3A2E8C00B8ED60 /* sound.sqlite in Resources */,
 				2D1449071C3C562700667CC7 /* b_æb_crab_e1.wav in Resources */,
 				2D1453A61C3C562700667CC7 /* dʒ_eɪdʒə_pages_a1.wav in Resources */,
 				2D144C4A1C3C562700667CC7 /* b_ub_c1_full.wav in Resources */,
@@ -15645,6 +15743,7 @@
 				2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */,
 				2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */,
 				2DC9041A1BB1D0710082DEAC /* ParentSoundController.m in Sources */,
+				A75A6CAE1C4560BE005CCE5E /* Score.m in Sources */,
 				A752FBED1C3A2BF900B8ED60 /* PhonemeCell.m in Sources */,
 				2D61B2E41C38096E006FC272 /* FishBar.m in Sources */,
 				2DE88ACB1BB8517A002438C6 /* Games.m in Sources */,
@@ -15686,6 +15785,11 @@
 			isa = PBXTargetDependency;
 			target = 2DF6B73B1B94A14800B7F92C /* SpeechTherapyGame */;
 			targetProxy = 2DF6B75B1B94A14800B7F92C /* PBXContainerItemProxy */;
+		};
+		A7ABA9671C46949C00938492 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Charts-iOS";
+			targetProxy = A7ABA9661C46949C00938492 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -15799,6 +15903,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpeechTherapyGame/SpeechTherapyGame-Prefix.pch";
@@ -15819,6 +15924,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpeechTherapyGame/SpeechTherapyGame-Prefix.pch";

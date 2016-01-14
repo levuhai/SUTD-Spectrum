@@ -13,11 +13,16 @@
 // Singleton methods
 + (id) shared;
 
-// Words
+// Sounds DB
 - (NSMutableArray*)getWords;
 - (NSMutableArray*)getRandomWords;
 - (NSMutableArray*)getWordsFromPhoneme:(NSString*)p;
 - (NSMutableArray *)getUniqueWordsFromPhoneme:(NSString *)p;
 - (NSMutableArray*)getUniquePhoneme;
+
+// Stats DB
+- (void)insertRandomScore;
+- (NSMutableArray*)getScores;
+- (NSMutableArray*)getScoresFrom:(NSDate*)from to:(NSDate*)to;
 
 @end

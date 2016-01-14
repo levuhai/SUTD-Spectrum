@@ -13,6 +13,8 @@
 + (NSDictionary *)dictionaryFromJSON:(NSString*)fileLocation;
 - (NSString *)stringForKey:(NSString*)key;
 - (int)intForKey:(NSString*)key;
+- (float)floatForKey:(NSString*)key;
+- (NSDate*)dateForKey:(NSString*)key;
 - (id)objectForCaseInsensitiveKey:(NSString *)key;
 - (NSArray *)sortedKeys;
 - (NSArray *)allValuesSortedByKey;

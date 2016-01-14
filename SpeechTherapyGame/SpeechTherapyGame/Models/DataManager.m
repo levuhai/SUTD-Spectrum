@@ -9,9 +9,11 @@
 #import "DataManager.h"
 #import <FMDB/FMDB.h>
 #import "Word.h"
+#import "Score.h"
 
 @implementation DataManager {
-    NSString* _dbPath;
+    NSString* _soundsDBPath;
+    NSString* _statsDBPath;
 }
 
 static DataManager *sharedInstance = nil;
@@ -43,21 +45,49 @@ static DataManager *sharedInstance = nil;
 {
     self = [super init];
     if (self) {
-        _dbPath = [[NSBundle mainBundle] pathForResource:@"result" ofType:@"sqlite"];
+        _soundsDBPath = [self copyToDocuments:@"sound.sqlite"];
+        NSLog(@"Sound DB Path: %@",_soundsDBPath);
+        _statsDBPath = [self copyToDocuments:@"score.sqlite"];
+        NSLog(@"Stats DB Path: %@",_statsDBPath);
+
+        //[self insertRandomScore];
     }
     return self;
 }
 
+- (NSString*)copyToDocuments:(NSString*)dbName {
+    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filePathInDocument = [documentsDirectory stringByAppendingPathComponent:dbName];
+    
+    NSError *error;
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:filePathInDocument]) {
+        NSString* sourcePath = [[NSBundle mainBundle] pathForResource:dbName
+                                                               ofType:nil];
+        [[NSFileManager defaultManager] copyItemAtPath:sourcePath
+                                                toPath:filePathInDocument
+                                                 error:&error];
+        
+        NSLog(@"Error description-%@ \n", [error localizedDescription]);
+        NSLog(@"Error reason-%@", [error localizedFailureReason]);
+    }
+    
+    return filePathInDocument;
+}
+
 #pragma mark - Private
-- (FMDatabaseQueue*)_dbQueue {
-    return [FMDatabaseQueue databaseQueueWithPath:_dbPath];
+- (FMDatabaseQueue*)_soundDBQueue {
+    return [FMDatabaseQueue databaseQueueWithPath:_soundsDBPath];
+}
+- (FMDatabaseQueue*)_scoreDBQueue {
+    return [FMDatabaseQueue databaseQueueWithPath:_statsDBPath];
 }
 
 #pragma mark - Word
 
 - (NSMutableArray*)getWords {
     __block NSMutableArray* lvs = [NSMutableArray new];
-    FMDatabaseQueue* db = [self _dbQueue];
+    FMDatabaseQueue* db = [self _soundDBQueue];
     
     [db inDatabase:^(FMDatabase *db) {
         NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db]"];
@@ -80,7 +110,7 @@ static DataManager *sharedInstance = nil;
 
 - (NSMutableArray *)getUniquePhoneme {
     __block NSMutableArray* unique = [NSMutableArray new];
-    FMDatabaseQueue* db = [self _dbQueue];
+    FMDatabaseQueue* db = [self _soundDBQueue];
     
     [db inDatabase:^(FMDatabase *db) {
         NSString * sql = [NSString stringWithFormat:@"SELECT DISTINCT p_text FROM [db]"];
@@ -100,7 +130,7 @@ static DataManager *sharedInstance = nil;
 - (NSMutableArray *)getUniqueWordsFromPhoneme:(NSString *)p {
     // Select all sounds from randomized word
     __block NSMutableArray* result = [NSMutableArray new];
-    FMDatabaseQueue* db = [self _dbQueue];
+    FMDatabaseQueue* db = [self _soundDBQueue];
     [db inDatabase:^(FMDatabase *db) {
         NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [p_text] = '%@' GROUP BY [w_text] ORDER BY [w_phonetic]",p];
         FMResultSet *results = [db executeQuery:sql];
@@ -124,7 +154,7 @@ static DataManager *sharedInstance = nil;
 - (NSMutableArray *)getWordsFromPhoneme:(NSString *)p {
     // Select all sounds from randomized word
     __block NSMutableArray* result = [NSMutableArray new];
-    FMDatabaseQueue* db = [self _dbQueue];
+    FMDatabaseQueue* db = [self _soundDBQueue];
     [db inDatabase:^(FMDatabase *db) {
         NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [p_text] = '%@'",p];
         FMResultSet *results = [db executeQuery:sql];
@@ -148,7 +178,7 @@ static DataManager *sharedInstance = nil;
 - (NSMutableArray*)getRandomWords {
     // Select unique words from DB
     __block NSMutableArray* uniqueWords = [NSMutableArray new];
-    FMDatabaseQueue* db = [self _dbQueue];
+    FMDatabaseQueue* db = [self _soundDBQueue];
     
     [db inDatabase:^(FMDatabase *db) {
         NSString * sql = [NSString stringWithFormat:@"SELECT DISTINCT w_text FROM [db]"];
@@ -168,7 +198,7 @@ static DataManager *sharedInstance = nil;
     
     // Select all sounds from randomized word
     __block NSMutableArray* result = [NSMutableArray new];
-    db = [self _dbQueue];
+    db = [self _soundDBQueue];
     [db inDatabase:^(FMDatabase *db) {
         NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [w_text] = '%@'",uniqueWords[rndValue]];
         FMResultSet *results = [db executeQuery:sql];
@@ -176,6 +206,49 @@ static DataManager *sharedInstance = nil;
             @autoreleasepool {
                 NSDictionary* dict = results.resultDictionary;
                 Word* w = [[Word alloc] initWithDictionary:dict];
+                if (w != nil) {
+                    [result addObject:w];
+                }
+                
+            }
+        }
+        [results close];
+    }];
+    [db close];
+    
+    return result;
+}
+
+#pragma mark - Score
+
+- (void)insertRandomScore {
+    for (int i = 0; i < 100; i++) {
+        FMDatabaseQueue* db = [self _scoreDBQueue];
+        [db inDatabase:^(FMDatabase *db) {
+            Score *randomScore = [[Score alloc] initRandomScore];
+            NSString* query = [NSString stringWithFormat:@"INSERT INTO [score] ([phoneme],[sound],[date], [score]) VALUES ('%@','%@',%f,%.2f)",randomScore.phoneme, randomScore.sound, [randomScore.date timeIntervalSince1970], randomScore.score];
+            [db executeUpdate:query];
+        }];
+        [db close];
+    }
+}
+
+- (NSMutableArray *)getScoresFrom:(NSDate *)from to:(NSDate*)to {
+    // Select all sounds from randomized word
+    __block NSMutableArray* result = [NSMutableArray new];
+    FMDatabaseQueue* db = [self _scoreDBQueue];
+    [db inDatabase:^(FMDatabase *db) {
+        float t = [to timeIntervalSince1970];
+        float f = [from timeIntervalSince1970];
+        if (to == nil) {
+            t = FLT_MAX;
+        }
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [score] WHERE [date] >= %f AND [date] <= %f ORDER BY [date]",f,t];
+        FMResultSet *results = [db executeQuery:sql];
+        while([results next]) {
+            @autoreleasepool {
+                NSDictionary* dict = results.resultDictionary;
+                Score* w = [[Score alloc] initWithDictionary:dict];
                 if (w != nil) {
                     [result addObject:w];
                 }

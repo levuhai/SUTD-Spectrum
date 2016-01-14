@@ -41,6 +41,21 @@
     return [self[key] intValue];
 }
 
+- (float)floatForKey:(NSString*)key {
+    if ([self[key] isKindOfClass:[NSNull class]]) {
+        return 0;
+    }
+    return [self[key] floatValue];
+}
+
+- (NSDate*)dateForKey:(NSString*)key {
+    if ([self[key] isKindOfClass:[NSNull class]]) {
+        return 0;
+    }
+    float t = [self[key] floatValue];
+    return [NSDate dateWithTimeIntervalSince1970:t];
+}
+
 - (id)objectForCaseInsensitiveKey:(NSString *)key {
     NSArray *allKeys = [self allKeys];
     for (NSString *str in allKeys) {
