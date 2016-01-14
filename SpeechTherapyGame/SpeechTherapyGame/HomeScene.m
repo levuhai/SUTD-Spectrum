@@ -29,28 +29,28 @@
 }
 
 -(void)setupHomeScene {
-    SKSpriteNode* bg = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"homeBackground"] size:self.frame.size];
+    SKSpriteNode* bg = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"bgHome"] size:self.frame.size];
     bg.position = CGPointMake(CGRectGetMidX(self.frame),
                               CGRectGetMidY(self.frame));
     bg.zPosition = -1;
     [self addChild:bg];
     
-    SKSpriteNode* owl = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"owl-body"] size:CGSizeMake(117, 152)];
-    owl.position = CGPointMake(CGRectGetMidX(self.frame) - 25,
-                               CGRectGetMidY(self.frame) - 240);
+    SKSpriteNode* owl = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"charOwlBody"] size:CGSizeMake(155, 202)];
+    owl.position = CGPointMake(CGRectGetMidX(self.frame) - 28,
+                               CGRectGetMidY(self.frame) - 217);
     owl.zPosition = 10;
     [self addChild:owl];
     
     
     
-    SKSpriteNode* owlLeftWing = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"left-wing"] size:CGSizeMake(60, 49)];
+    SKSpriteNode* owlLeftWing = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"charOwlWing"] size:CGSizeMake(78, 64)];
     
     owlLeftWing.anchorPoint = CGPointMake(1, 0.5);
     SKSpriteNode* wingContainer = [SKSpriteNode node];
     wingContainer.zPosition = 9;
     wingContainer.color = [UIColor clearColor];
     wingContainer.size = CGSizeMake(owlLeftWing.size.width*2, owlLeftWing.size.height);
-    wingContainer.position = CGPointMake(owl.position.x + 40, owl.position.y+5);
+    wingContainer.position = CGPointMake(owl.position.x + 50, owl.position.y+5);
     
     owlLeftWing.position = CGPointMake(wingContainer.size.width/2, 0);
     [wingContainer addChild:owlLeftWing];
@@ -79,7 +79,7 @@
     _cloud1.zPosition = _cloud2.zPosition = _cloud3.zPosition = 5;
     
     // Text
-    SKSpriteNode* speechtherapytext = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"speechtherapy-text"]];
+    SKSpriteNode* speechtherapytext = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"bgHomeText"]];
     speechtherapytext.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 35);
     speechtherapytext.zPosition = 9;
     [self addChild:speechtherapytext];

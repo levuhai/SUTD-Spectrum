@@ -11,6 +11,7 @@
 @interface UIFont (ES)
 
 + (UIFont *)ioniconsOfSize:(CGFloat)size;
++ (UIFont *)debussyOfSize:(CGFloat)size;
 + (UIFont *)rodinOfSize:(CGFloat)size;
 + (void)printAllFontName;
 

@@ -26,11 +26,10 @@
     
     PNLineChart * _lineChart;
     PNBarChart  * _barChart;
-    
-    IBOutlet UILabel* _barNoDataLabel;
 }
 
 @property (nonatomic, strong) IBOutlet CombinedChartView *chartView;
+@property (nonatomic, strong) IBOutlet BarChartView *barChartView;
 
 @end
 
@@ -40,10 +39,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
     
-    // Setup chart
+    // Setup combined chart
     _chartView.delegate = self;
     _chartView.descriptionText = @"";
-    _chartView.noDataTextDescription = @"NO DATA RECORDED";
     _chartView.drawGridBackgroundEnabled = NO;
     _chartView.drawBarShadowEnabled = NO;
     _chartView.drawHighlightArrowEnabled = YES;
@@ -55,8 +53,25 @@
     
     _chartView.leftAxis.drawGridLinesEnabled = NO;
     _chartView.xAxis.labelPosition = XAxisLabelPositionBottom;
-    _chartView.xAxis.drawAxisLineEnabled = NO;
+    _chartView.xAxis.drawAxisLineEnabled = YES;
     _chartView.xAxis.drawGridLinesEnabled = NO;
+    
+    // Setup bar chart
+    _barChartView.delegate = self;
+    _barChartView.descriptionText = @"";
+    _barChartView.drawGridBackgroundEnabled = NO;
+    _barChartView.drawBarShadowEnabled = NO;
+    _barChartView.drawHighlightArrowEnabled = YES;
+    
+    _barChartView.leftAxis.axisMaximum = 100;
+    _barChartView.leftAxis.customAxisMax = 100.0f;
+    _barChartView.leftAxis.drawGridLinesEnabled = NO;
+    
+    _barChartView.rightAxis.enabled = NO;
+    
+    _barChartView.xAxis.labelPosition = XAxisLabelPositionBottom;
+    _barChartView.xAxis.drawAxisLineEnabled = YES;
+    _barChartView.xAxis.drawGridLinesEnabled = NO;
     
     // Data
     [self fetchDataByDateRange:0];
@@ -68,6 +83,9 @@
 
 - (void)loadDataForLineChart:(NSMutableArray*)rawData {
     if (rawData.count == 0) {
+        [_chartView clearValues];
+        [_chartView clear];
+        [_chartView setNeedsDisplay];
         return;
     }
     
@@ -144,25 +162,27 @@
 }
 
 - (void)loadDataForWordsBarChart:(NSArray*)gameStatData {
-    
     if (gameStatData.count == 0) {
+        [_barChartView clearValues];
+        [_barChartView clear];
+        [_barChartView setNeedsDisplay];
         return;
     }
-    _barNoDataLabel.hidden = YES;
     
-    _barBottomLabels = nil;
-    _barGraphData = nil;
-    _barBottomLabels = [NSMutableArray array];
-    _barGraphData = [NSMutableArray array];
+    // X values
+    NSMutableArray *xVals = [[NSMutableArray alloc] init];
     
     for (Score* gs in gameStatData) {
-        
-        if (![_barBottomLabels containsObject:gs.sound]) {
-            [_barBottomLabels addObject:gs.sound];
+        if (![xVals containsObject:gs.sound]) {
+            [xVals addObject:gs.sound];
         }
     }
     
-    for (NSString* letter in _barBottomLabels) {
+    // Y Values
+    NSMutableArray *yVals = [[NSMutableArray alloc] init];
+    
+    int index = 0;
+    for (NSString* letter in xVals) {
         float totalScore = 0.0f;
         float totalPlay = 0.0f;
         for (Score* gs in gameStatData) {
@@ -174,8 +194,22 @@
                 
             }
         }
-        [_barGraphData addObject:@(totalScore / totalPlay * 100)];
+        [yVals addObject:[[BarChartDataEntry alloc] initWithValue:totalScore/totalPlay*100.0f
+                                                           xIndex:index]];
+        index++;
     }
+    
+    // Dataset
+    BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"Sounds"];
+    set1.barSpace = 0.35;
+    
+    NSMutableArray *dataSets = [[NSMutableArray alloc] init];
+    [dataSets addObject:set1];
+    
+    BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];
+    [data setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10.f]];
+    
+    _barChartView.data = data;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -186,7 +220,15 @@
 
 #pragma mark - Action methods
 - (IBAction) timeRange_pressed:(id)sender {
-    __block NSArray *rangeData = [NSArray arrayWithObjects:@"Today",@"Yesterday",@"Last 7 days", @"Last 2 weeks",@"This month", @"Last month", @"All time", nil];
+    __block NSArray *rangeData = [NSArray arrayWithObjects:
+                                  @"Today",
+                                  @"Yesterday",
+                                  @"Last 7 days",
+                                  @"Last 2 weeks",
+                                  @"This month",
+                                  @"Last month",
+                                  @"All time",
+                                  nil];
     
     [ActionSheetStringPicker showPickerWithTitle:@"Date ranges"
                                             rows:rangeData
@@ -206,7 +248,7 @@
 - (void)fetchDataByDateRange:(NSInteger)index {
     
     NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:[[NSDate alloc] init]];
+    NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:[NSDate date]];
     
     [components setHour:-[components hour]];
     [components setMinute:-[components minute]];

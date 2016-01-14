@@ -3785,6 +3785,7 @@
 		A76374B51C3FC16400A9616C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A76374B41C3FC16400A9616C /* Images.xcassets */; };
 		A7ABA9631C46949400938492 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; };
 		A7ABA9651C46949C00938492 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7EF5AD21C4777FA00032574 /* debussy.ttf */; };
 		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; };
 		D78865B51C1043B800C3944C /* LPCAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865B41C1043B800C3944C /* LPCAudioController.m */; };
 		D78865B81C1043E200C3944C /* LPCView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D78865B71C1043E200C3944C /* LPCView.mm */; };
@@ -7675,6 +7676,7 @@
 		A75A6CAD1C4560BE005CCE5E /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
 		A76374B41C3FC16400A9616C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A7ABA9571C46934900938492 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
+		A7EF5AD21C4777FA00032574 /* debussy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = debussy.ttf; sourceTree = "<group>"; };
 		B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.release.xcconfig"; sourceTree = "<group>"; };
 		D716291D1BE76FFE00C56C77 /* ParentMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentMasterController.h; sourceTree = "<group>"; };
 		D716291E1BE76FFE00C56C77 /* ParentMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentMasterController.m; sourceTree = "<group>"; };
@@ -11719,6 +11721,7 @@
 				2D45C6FD1C03708E009FCFB8 /* SharkRight.sks */,
 				2D45C6FE1C03708E009FCFB8 /* SharkLeft.sks */,
 				2D45C6FF1C03708E009FCFB8 /* WhaleLeft.sks */,
+				A7EF5AD21C4777FA00032574 /* debussy.ttf */,
 				2D45C7001C03708E009FCFB8 /* WhaleRight.sks */,
 				2D45C7011C03708E009FCFB8 /* FishLeft.sks */,
 				2D45C7021C03708E009FCFB8 /* FishRight.sks */,
@@ -15046,6 +15049,7 @@
 				2D144CA81C3C562700667CC7 /* b_ʌb_cub_e1_full.wav in Resources */,
 				2D14528B1C3C562700667CC7 /* ð_ʌð_b1.wav in Resources */,
 				2D1451EA1C3C562700667CC7 /* d_ud_a1_full.wav in Resources */,
+				A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */,
 				2D1453221C3C562700667CC7 /* dʒ_dʒɒ_b1.wav in Resources */,
 				2D144C851C3C562700667CC7 /* b_ʊbʊ_e1_full.wav in Resources */,
 				2D144DDC1C3C562700667CC7 /* ð_ɒðə_bothersome_b2_full.wav in Resources */,

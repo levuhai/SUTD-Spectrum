@@ -15,6 +15,9 @@
 + (UIFont *)rodinOfSize:(CGFloat)size {
     return [UIFont fontWithName:@"TT_RodinCattleya-B" size:size];
 }
++ (UIFont *)debussyOfSize:(CGFloat)size {
+    return [UIFont fontWithName:@"Debussy" size:size];
+}
 
 + (void)printAllFontName {
     for (NSString* family in [UIFont familyNames])

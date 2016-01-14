@@ -2,13 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "star-icon.png"
+      "filename" : "star-icon.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "star-icon@2x.png"
+      "filename" : "star-icon@2x.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
