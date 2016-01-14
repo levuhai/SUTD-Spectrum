@@ -29,6 +29,7 @@
 }
 
 @property (nonatomic, strong) IBOutlet CombinedChartView *chartView;
+@property (nonatomic, weak) IBOutlet UIImageView *imgDateRange;
 @property (nonatomic, strong) IBOutlet BarChartView *barChartView;
 
 @end
@@ -76,8 +77,8 @@
     // Data
     [self fetchDataByDateRange:0];
     
-    _lineGraphContainer.layer.cornerRadius = 10;
-    _barGraphContainer.layer.cornerRadius = 10;
+    _lineGraphContainer.layer.cornerRadius = 40;
+    _barGraphContainer.layer.cornerRadius = 40;
 }
 
 
@@ -224,7 +225,7 @@
                                   @"Today",
                                   @"Yesterday",
                                   @"Last 7 days",
-                                  @"Last 2 weeks",
+                                  @"Last 30 days",
                                   @"This month",
                                   @"Last month",
                                   @"All time",
@@ -234,7 +235,9 @@
                                             rows:rangeData
                                 initialSelection:0
                                        doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-                                           [(UIButton*)sender setTitle:selectedValue forState:UIControlStateNormal];
+                                           NSString* v = [selectedValue stringByReplacingOccurrencesOfString:@" " withString:@""];
+                                           NSString* name = [NSString stringWithFormat:@"lb%@",v];
+                                           self.imgDateRange.image = [UIImage imageNamed:name];
                                            
                                            [self fetchDataByDateRange:selectedIndex];
                                            
