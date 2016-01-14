@@ -35,15 +35,15 @@
     bg.zPosition = -1;
     [self addChild:bg];
     
-    SKSpriteNode* owl = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"owl-body"] size:CGSizeMake(117, 152)];
-    owl.position = CGPointMake(CGRectGetMidX(self.frame) - 25,
-                               CGRectGetMidY(self.frame) - 240);
+    SKSpriteNode* owl = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"owl-body"]];
+    owl.position = CGPointMake(CGRectGetMidX(self.frame) - 29,
+                               CGRectGetMidY(self.frame) - 215);
     owl.zPosition = 10;
     [self addChild:owl];
     
     
     
-    SKSpriteNode* owlLeftWing = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"left-wing"] size:CGSizeMake(60, 49)];
+    SKSpriteNode* owlLeftWing = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"left-wing"]];
     
     owlLeftWing.anchorPoint = CGPointMake(1, 0.5);
     SKSpriteNode* wingContainer = [SKSpriteNode node];

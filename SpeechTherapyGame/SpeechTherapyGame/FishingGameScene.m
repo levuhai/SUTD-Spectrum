@@ -494,14 +494,19 @@ NSUInteger WHALETYPE = 2;
 }
 
 - (void) endGame {
-    _endGameContainer = [[SKSpriteNode alloc] initWithTexture:nil color:[UIColor colorWithWhite:1.0 alpha:0.8] size:self.frame.size];
+    self.paused = YES;
+    self.lpcView.hidden = YES;
+    
+    _endGameContainer = [[SKSpriteNode alloc] initWithTexture:nil color:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3] size:self.frame.size];
     _endGameContainer.position = CGPointMake(self.size.width/2, self.size.height/2);
     _endGameContainer.zPosition = 9999;
     
-    SKSpriteNode* board = [[SKSpriteNode alloc] initWithImageNamed:@"black-board"];
+    SKSpriteNode* board = [[SKSpriteNode alloc] initWithImageNamed:@"end-game-board"];
     board.zPosition = 1;
     [_endGameContainer addChild:board];
+    
     // Result
+    /*
     SKLabelNode* text = [SKLabelNode node];
     text.position = CGPointMake(0, 170);
     text.text = @"Correct: 5";
@@ -519,18 +524,14 @@ NSUInteger WHALETYPE = 2;
     text2.fontSize = 50;
     text2.zPosition = 10;
     [board addChild:text2];
+     */
     
-    StarsNode* stars = [[StarsNode alloc] initWithColor:[UIColor clearColor] size:CGSizeMake(300, 100)];
-    stars.zPosition = 3;
-    [stars setStar:0 active:YES];
-    [stars setStar:2 active:YES];
-    [board addChild:stars];
-    
-    // Owl
-    SKSpriteNode* owl = [[SKSpriteNode alloc] initWithImageNamed:@"big-owl"];
-    owl.position = CGPointMake(board.position.x + board.size.width/2, owl.position.y);
-    owl.zPosition = 2;
-    [_endGameContainer addChild:owl];
+    for (int i = 1; i <= 2; i++) {
+        SKSpriteNode* star = [[SKSpriteNode alloc] initWithImageNamed:@"big-star"];
+        star.position = CGPointMake(board.size.width*(i/3.15f) - 325, board.size.height*0.18);
+        star.zPosition = 2;
+        [_endGameContainer addChild:star];
+    }
     
     [self addChild:_endGameContainer];
 }
