@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "fish-pot.png",
+      "filename" : "big-star.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "fish-pot@2x.png",
+      "filename" : "big-star@2x.png",
       "scale" : "2x"
     },
     {
