@@ -8,11 +8,13 @@
 
 #import "FishingGameViewController.h"
 #import "FishingGameScene.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface FishingGameViewController ()
 {
-
+    FishingGameScene *_gameScene;
 }
+@property (strong, nonatomic) AVAudioPlayer *audioPlayer;
 @end
 
 @implementation FishingGameViewController
@@ -29,13 +31,27 @@
     skView.ignoresSiblingOrder = YES;
     
     // Create and configure the scene.
-    FishingGameScene *scene = [[FishingGameScene alloc] initWithSize:self.view.bounds.size];
-//    FishingGameScene *scene = [FishingGameScene unarchiveFromFile:@"FishingScene"];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    scene.fishingGameVC = self;
+    _gameScene = [[FishingGameScene alloc] initWithSize:self.view.bounds.size];
+    _gameScene.scaleMode = SKSceneScaleModeAspectFill;
+    _gameScene.fishingGameVC = self;
     // Present the scene.
-    [skView presentScene:scene];
+    [skView presentScene:_gameScene];
+    
+    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sand_castles.m4a", [[NSBundle mainBundle] resourcePath]]];
+    
+    NSError *error;
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    self.audioPlayer.numberOfLoops = -1;
+    [self.audioPlayer play];
+}
 
+- (void)dealloc {
+    SKView * skView = (SKView *)self.view;
+    [skView presentScene:nil];
+    [_gameScene removeFromParent];
+    _gameScene = nil;
+    [self.audioPlayer stop];
+    self.audioPlayer = nil;
 }
 
 - (void)didReceiveMemoryWarning {
