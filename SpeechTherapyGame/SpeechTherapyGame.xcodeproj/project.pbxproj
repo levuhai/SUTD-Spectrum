@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D0D27D81C47F90000FB5045 /* coint.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2D0D27D61C47F90000FB5045 /* coint.m4a */; };
+		2D0D27D91C47F90000FB5045 /* sand_castles.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2D0D27D71C47F90000FB5045 /* sand_castles.m4a */; };
+		2D0D27DD1C47FC5900FB5045 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D0D27DC1C47FC5900FB5045 /* AVFoundation.framework */; };
 		2D143A621C3C55A300667CC7 /* ∫_action_1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2D1437491C3C559F00667CC7 /* ∫_action_1.wav */; };
 		2D143A631C3C55A300667CC7 /* ∫_action_1full.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2D14374A1C3C559F00667CC7 /* ∫_action_1full.wav */; };
 		2D143A641C3C55A300667CC7 /* ∫_action_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2D14374B1C3C559F00667CC7 /* ∫_action_2.wav */; };
@@ -3849,6 +3852,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2D0D27D61C47F90000FB5045 /* coint.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = coint.m4a; sourceTree = "<group>"; };
+		2D0D27D71C47F90000FB5045 /* sand_castles.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = sand_castles.m4a; sourceTree = "<group>"; };
+		2D0D27DC1C47FC5900FB5045 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2D1437491C3C559F00667CC7 /* ∫_action_1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "∫_action_1.wav"; sourceTree = "<group>"; };
 		2D14374A1C3C559F00667CC7 /* ∫_action_1full.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "∫_action_1full.wav"; sourceTree = "<group>"; };
 		2D14374B1C3C559F00667CC7 /* ∫_action_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "∫_action_2.wav"; sourceTree = "<group>"; };
@@ -7700,6 +7706,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D0D27DD1C47FC5900FB5045 /* AVFoundation.framework in Frameworks */,
 				A7ABA9631C46949400938492 /* Charts.framework in Frameworks */,
 				2D8931F41BA986AF006D2840 /* CoreData.framework in Frameworks */,
 				E7781B3647984EE3B72DEAC3 /* libPods-SpeechTherapyGame.a in Frameworks */,
@@ -11712,6 +11719,8 @@
 		2DF6B73F1B94A14800B7F92C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2D0D27D61C47F90000FB5045 /* coint.m4a */,
+				2D0D27D71C47F90000FB5045 /* sand_castles.m4a */,
 				A76374B41C3FC16400A9616C /* Images.xcassets */,
 				A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */,
 				2D45C70A1C03760C009FCFB8 /* small_fish.atlas */,
@@ -11774,6 +11783,7 @@
 		AFD57064E87D38D48DF68026 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2D0D27DC1C47FC5900FB5045 /* AVFoundation.framework */,
 				2D8931F31BA986AF006D2840 /* CoreData.framework */,
 				7C3B006EFB154C6DB3574B82 /* libPods-SpeechTherapyGame.a */,
 			);
@@ -12092,6 +12102,7 @@
 				2D1451D91C3C562700667CC7 /* ð_ɔɪð_c1.wav in Resources */,
 				2D144F081C3C562700667CC7 /* d_dɜ_a1_full.wav in Resources */,
 				2D144E4A1C3C562700667CC7 /* d_daɪə_d1_full.wav in Resources */,
+				2D0D27D81C47F90000FB5045 /* coint.m4a in Resources */,
 				2D144E731C3C562700667CC7 /* ð_ðaʊə_c1.wav in Resources */,
 				2D143AAC1C3C55A300667CC7 /* ∫_leash_3.wav in Resources */,
 				2D1449661C3C562700667CC7 /* b_aʊəb_c1.wav in Resources */,
@@ -12629,6 +12640,7 @@
 				2D144B081C3C562700667CC7 /* b_dbaɪ_goodbye_d1_full.wav in Resources */,
 				2D14501D1C3C562700667CC7 /* ð_eɪðeɪ_c1.wav in Resources */,
 				2D143BD01C3C55A400667CC7 /* ∫5b_2.wav in Resources */,
+				2D0D27D91C47F90000FB5045 /* sand_castles.m4a in Resources */,
 				2D1449091C3C562700667CC7 /* b_æb_d1.wav in Resources */,
 				2D144F341C3C562700667CC7 /* d_dɪ_b1_full.wav in Resources */,
 				2D1450B81C3C562700667CC7 /* d_ɛədɛə_c1.wav in Resources */,

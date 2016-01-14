@@ -61,6 +61,7 @@ NSUInteger WHALETYPE = 2;
     
     NSArray* _allActiveWords;
     ActiveWord* _currentActiveWord;
+    
 }
 
 @property (nonatomic, strong) NSMutableArray *fishTypeArray;
@@ -75,9 +76,11 @@ NSUInteger WHALETYPE = 2;
 @implementation FishingGameScene
 
 - (void)didMoveToView:(SKView *)view {
+    
     self.backgroundColor = RGB(66, 191, 254);
     self.physicsWorld.gravity = CGVectorMake(0, 0);
     self.physicsWorld.contactDelegate = self;
+    
     SKPhysicsBody *boundPhysicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0, 0, self.frame.size.width, FishBeingCaughtDestination)];
     boundPhysicsBody.categoryBitMask = BOUND;
     boundPhysicsBody.collisionBitMask = HOOK;
@@ -86,7 +89,6 @@ NSUInteger WHALETYPE = 2;
     _allActiveWords = [ActiveWord MR_findAll];
     
     [self setupGameScene];
-    [self _setup];
     
     // LPC Graph
     float rectW = self.view.width/2;
@@ -99,10 +101,6 @@ NSUInteger WHALETYPE = 2;
     
     [view addSubview:self.lpcView];
     [self _startDrawing];
-}
-
-- (void)_setup {
-    
 }
 
 - (void) setupGameScene {
@@ -547,7 +545,7 @@ NSUInteger WHALETYPE = 2;
     } else {
         [self incorrectAttempt];
     }
-    [self endGame];
+    //[self endGame];
 }
 
 - (void) correctAttempt {
@@ -802,7 +800,7 @@ NSUInteger WHALETYPE = 2;
             [_speakBubble runAction:[SKAction fadeOutWithDuration:0.3]];
         }
         _currentActiveWord = nil;
-        
+        [self runAction:[SKAction playSoundFileNamed:@"coint.m4a" waitForCompletion:NO]];
         // show fish thrown away animation
         SKAction *fishThrownAwayTraslateAction = [SKAction moveByX:150 y:150 duration:0.5];
         SKAction *fishThrownAwayRotateAction = [SKAction rotateByAngle:-M_PI duration:0.5];
