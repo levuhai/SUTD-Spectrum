@@ -8,10 +8,12 @@
 
 #import "ParentStatsController.h"
 #import "ActionSheetPicker.h"
-#import "PNChart.h"
 #import "UIColor+Chameleon.h"
 #import "DataManager.h"
 #import "Score.h"
+#import "UIFont+ES.h"
+#import "UIColor+Expanded.h"
+#import "Chameleon.h"
 #import <Charts/Charts.h>
 
 #define CORRECT_VALUE 0.5f;
@@ -23,9 +25,6 @@
     NSMutableArray* _scoreData;
     NSMutableArray* _lineBottomLabels;
     NSMutableArray* _barBottomLabels;
-    
-    PNLineChart * _lineChart;
-    PNBarChart  * _barChart;
 }
 
 @property (nonatomic, strong) IBOutlet CombinedChartView *chartView;
@@ -42,43 +41,78 @@
     
     // Setup combined chart
     _chartView.delegate = self;
+    _chartView.pinchZoomEnabled = YES;
+    _chartView.doubleTapToZoomEnabled = NO;
     _chartView.descriptionText = @"";
+    _chartView.legend.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13];
+    _chartView.infoFont = [UIFont fontWithName:@"ArialRoundedMTBold" size:25];
+    _chartView.infoTextColor = [UIColor colorWithHexString:@"FCB726"];
     _chartView.drawGridBackgroundEnabled = NO;
     _chartView.drawBarShadowEnabled = NO;
-    _chartView.drawHighlightArrowEnabled = YES;
+    _chartView.drawHighlightArrowEnabled = NO;
     _chartView.drawOrder = @[
                              @(CombinedChartDrawOrderBar),
                              @(CombinedChartDrawOrderLine)
                              ];
     _chartView.rightAxis.enabled = NO;
     
-    _chartView.leftAxis.drawGridLinesEnabled = NO;
+    _chartView.leftAxis.drawAxisLineEnabled = NO;
+    _chartView.leftAxis.drawGridLinesEnabled = YES;
+    _chartView.leftAxis.gridLineWidth = .5;
+    //_chartView.leftAxis.gridColor = [UIColor colorWithHexString:@"E0E0E0"];
+    _chartView.leftAxis.labelFont = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13];
+    _chartView.leftAxis.labelTextColor = [UIColor flatGrayColorDark];
+    _chartView.leftAxis.valueFormatter = [[NSNumberFormatter alloc] init];
+    _chartView.leftAxis.valueFormatter.maximumFractionDigits = 0;
+    _chartView.leftAxis.valueFormatter.allowsFloats = NO;
+
+
     _chartView.xAxis.labelPosition = XAxisLabelPositionBottom;
     _chartView.xAxis.drawAxisLineEnabled = YES;
     _chartView.xAxis.drawGridLinesEnabled = NO;
+    _chartView.xAxis.labelFont = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13];
+    
     
     // Setup bar chart
     _barChartView.delegate = self;
+    _barChartView.pinchZoomEnabled = YES;
+    _barChartView.doubleTapToZoomEnabled = NO;
     _barChartView.descriptionText = @"";
     _barChartView.drawGridBackgroundEnabled = NO;
+    _barChartView.legend.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13];
+    [UIFont printAllFontName];
+    _barChartView.infoFont = [UIFont fontWithName:@"HelveticaNeue-Medium" size:25];
+    _barChartView.infoTextColor = [UIColor colorWithHexString:@"FCB726"];
     _barChartView.drawBarShadowEnabled = NO;
-    _barChartView.drawHighlightArrowEnabled = YES;
+    _barChartView.drawHighlightArrowEnabled = NO;
+    _barChartView.drawMarkers = NO;
     
-    _barChartView.leftAxis.axisMaximum = 100;
+    //_barChartView.leftAxis.axisMaximum = 100;
     _barChartView.leftAxis.customAxisMax = 100.0f;
-    _barChartView.leftAxis.drawGridLinesEnabled = NO;
+    _barChartView.leftAxis.drawAxisLineEnabled = NO;
+    _barChartView.leftAxis.drawGridLinesEnabled = YES;
+    _barChartView.leftAxis.gridLineWidth = .5;
+    
+    //_barChartView.leftAxis.gridColor = [UIColor colorWithHexString:@"E0E0E0"];
+    _barChartView.leftAxis.labelFont = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13];
+    _barChartView.leftAxis.labelTextColor = [UIColor flatGrayColorDark];
+    _barChartView.leftAxis.valueFormatter = [[NSNumberFormatter alloc] init];
+    _barChartView.leftAxis.valueFormatter.maximumFractionDigits = 0;
+    _barChartView.leftAxis.valueFormatter.positiveSuffix = @"%";
+    _barChartView.leftAxis.valueFormatter.allowsFloats = NO;
     
     _barChartView.rightAxis.enabled = NO;
     
     _barChartView.xAxis.labelPosition = XAxisLabelPositionBottom;
     _barChartView.xAxis.drawAxisLineEnabled = YES;
     _barChartView.xAxis.drawGridLinesEnabled = NO;
+    _barChartView.xAxis.labelFont = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13];
     
     // Data
     [self fetchDataByDateRange:0];
     
-    _lineGraphContainer.layer.cornerRadius = 40;
-    _barGraphContainer.layer.cornerRadius = 40;
+    _lineGraphContainer.layer.cornerRadius = 30;
+    _barGraphContainer.layer.cornerRadius = 30;
 }
 
 
@@ -132,6 +166,7 @@
                                                               label:@"Correct Attempts"];
     [set setColor:[UIColor flatSkyBlueColor]];
     set.lineWidth = 4;
+    set.circleRadius = 6;
     [set setCircleColor:[UIColor flatSkyBlueColor]];
     set.fillColor = [UIColor colorWithRed:240/255.f green:238/255.f blue:70/255.f alpha:1.f];
     set.drawCubicEnabled = NO;
@@ -203,6 +238,8 @@
     // Dataset
     BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:yVals label:@"Sounds"];
     set1.barSpace = 0.35;
+    [set1 setColor:FlatMint];
+    set1.drawValuesEnabled = NO;
     
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
     [dataSets addObject:set1];
@@ -251,70 +288,43 @@
 - (void)fetchDataByDateRange:(NSInteger)index {
     
     NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:[NSDate date]];
-    
-    [components setHour:-[components hour]];
-    [components setMinute:-[components minute]];
-    [components setSecond:-[components second]];
-    NSDate *today = [cal dateByAddingComponents:components toDate:[[NSDate alloc] init] options:0]; //This variable should now be pointing at a date object that is the start of today (midnight);
-    
-    [components setHour:-24];
-    [components setMinute:0];
-    [components setSecond:0];
-    NSDate *yesterday = [cal dateByAddingComponents:components toDate:today options:0];
-    
-    components = [cal components:NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[[NSDate alloc] init]];
-    
-    [components setDay:([components day] - ([components weekday] - 1))];
-    NSDate *thisWeek  = [cal dateFromComponents:components];
-    
-    [components setDay:([components day] - 7)];
-    NSDate *lastWeek  = [cal dateFromComponents:components];
-    
-    [components setDay:([components day] - ([components day] -1))];
-    NSDate *thisMonth = [cal dateFromComponents:components];
-    
-    [components setMonth:([components month] - 1)];
-    NSDate *lastMonth = [cal dateFromComponents:components];
-    
-    NSLog(@"today=%@",today);
-    NSLog(@"yesterday=%@",yesterday);
-    NSLog(@"thisWeek=%@",thisWeek);
-    NSLog(@"lastWeek=%@",lastWeek);
-    NSLog(@"thisMonth=%@",thisMonth);
-    NSLog(@"lastMonth=%@",lastMonth);
+    NSDateComponents *components = [cal components:NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[[NSDate alloc] init]];
     
     NSDate *f, *t;
-    switch (index) {
-        case 0: // Today
-            f = [NSDate beginningOfToday];
-            t = [NSDate endOfToday];
-            break;
-        case 1: // Yesterday
-            f = yesterday;
-            t = [NSDate beginningOfToday];
-            break;
-        case 2: // Last 7 days
-            f = thisWeek;
-            t = [NSDate beginningOfToday];
-            break;
-        case 3: // Last 2 weeks
-            f = lastWeek;
-            t = [NSDate beginningOfToday];
-            break;
-        case 4: // This month
-            f = thisMonth;
-            break;
-        case 5: // Last month
-            f = lastMonth;
-            t = thisMonth;
-            break;
-        case 6: // All time
-            break;
-        default:
-            break;
+    if (index == 0) {
+        f = [NSDate beginningOfToday];
+        t = [NSDate endOfToday];
+    } else if (index == 1) {
+        NSDate *yesterday = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:[NSDate beginningOfToday] options:0];
+        f = yesterday;
+        t = [NSDate beginningOfToday];
+    } else if (index == 2) {
+        [components setDay:([components day] - ([components weekday] - 1))];
+        NSDate *thisWeek  = [cal dateFromComponents:components];
+        f = thisWeek;
+        t = [NSDate beginningOfToday];
+    } else if (index == 3) { // Last 30 days
+        [components setDay:([components day] - 30)];
+        NSDate *last30Days  = [cal dateFromComponents:components];
+        f = last30Days;
+        t = [NSDate beginningOfToday];
+    } else if (index == 4) {
+        
+        [components setDay:([components day] - ([components day] -1))];
+        NSDate *thisMonth = [cal dateFromComponents:components];
+        f = thisMonth;
+        t = [NSDate endOfToday];
+    } else if (index == 5) {
+        components = [cal components:NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[[NSDate alloc] init]];
+        [components setDay:([components day] - ([components day] -1))];
+        NSDate *thisMonth = [cal dateFromComponents:components];
+        [components setMonth:([components month] - 1)];
+        NSDate *lastMonth = [cal dateFromComponents:components];
+        
+        f = lastMonth;
+        t = thisMonth;
     }
-    
+
     _scoreData = [[DataManager shared] getScoresFrom:f to:t];
     
     // Reload data
