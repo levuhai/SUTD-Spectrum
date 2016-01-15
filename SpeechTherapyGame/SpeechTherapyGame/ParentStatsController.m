@@ -164,10 +164,10 @@
     // Line Dataset
     LineChartDataSet *set = [[LineChartDataSet alloc] initWithYVals:lineEntries
                                                               label:@"Correct Attempts"];
-    [set setColor:[UIColor flatSkyBlueColor]];
+    [set setColor:[UIColor flatRedColor]];
     set.lineWidth = 4;
     set.circleRadius = 6;
-    [set setCircleColor:[UIColor flatSkyBlueColor]];
+    [set setCircleColor:[UIColor flatRedColor]];
     set.fillColor = [UIColor colorWithRed:240/255.f green:238/255.f blue:70/255.f alpha:1.f];
     set.drawCubicEnabled = NO;
     set.drawCircleHoleEnabled = YES;
@@ -181,7 +181,7 @@
     // Bar Dataset
     BarChartDataSet *set1 = [[BarChartDataSet alloc] initWithYVals:barEntries
                                                              label:@"Attempts"];
-    [set1 setColor:[UIColor flatRedColor]];
+    [set1 setColor:[UIColor flatSkyBlueColor]];
     set1.valueTextColor = [UIColor colorWithRed:60/255.f green:220/255.f blue:78/255.f alpha:1.f];
     set1.valueFont = [UIFont systemFontOfSize:10.f];
     set1.axisDependency = AxisDependencyLeft;
