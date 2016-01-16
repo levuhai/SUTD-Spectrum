@@ -17,9 +17,8 @@
 
 @interface ParentSoundController () <UITableViewDataSource, UITableViewDelegate>
 {
-    NSMutableArray* _collectionViewData;
     NSMutableArray* _wordData;
-    NSArray* _allActiveWords;
+    NSMutableArray* _phonemeData;
     
     IBOutlet UITableView* mainTable;
     IBOutlet UITableView* subTable;
@@ -42,30 +41,16 @@
 
     // Do any additional setup after loading the view.
     
-    _collectionViewData = [[DataManager shared] getUniquePhoneme];
-    _wordData = [NSMutableArray new];
+    _wordData = [[DataManager shared] getWordLevel];
     
-    self.view.backgroundColor = RGB(47,139,193);
-    
-    _allActiveWords = [ActiveWord MR_findAll];
+    self.view.backgroundColor = [UIColor clearColor];
     
     // Amazing audio
-    self.audioController = [[AEAudioController alloc] initWithAudioDescription:AEAudioStreamBasicDescriptionNonInterleavedFloatStereo inputEnabled:YES];
-    _audioController.preferredBufferDuration = 0.005;
-    _audioController.useMeasurementMode = YES;
-    [_audioController start:NULL];
+//    self.audioController = [[AEAudioController alloc] initWithAudioDescription:AEAudioStreamBasicDescriptionNonInterleavedFloatStereo inputEnabled:YES];
+//    _audioController.preferredBufferDuration = 0.005;
+//    _audioController.useMeasurementMode = YES;
+//    [_audioController start:NULL];
 
-}
-
-- (void) refreshData {
-    _allActiveWords = [ActiveWord MR_findAll];
-    [subTable reloadData];
-}
-
-- (IBAction) activateAll_buttonClicked{
-    
-    [self activateAllWordsIn:_wordData];
-    [self refreshData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,39 +63,24 @@
 //static NSString* cellIdentifier = @"Cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == mainTable) {
-        PhonemeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"
-                                                            forIndexPath:indexPath];
-        cell.lbText.backgroundColor = [UIColor colorWithRandomFlatColorOfShadeStyle:UIShadeStyleLight];
-        cell.lbText.layer.cornerRadius = 15;
-        cell.lbText.text = _collectionViewData[indexPath.row];
-        UIView *myBackView = [[UIView alloc] initWithFrame:cell.frame];
-        myBackView.backgroundColor = cell.lbText.backgroundColor;
-        cell.selectedBackgroundView = myBackView;
-        return cell;
-    } else {
-        WordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubCell"
-                                                            forIndexPath:indexPath];
-        Word* word = _wordData[indexPath.row];
-        cell.lbText.text = word.wPhonetic;
-        cell.lbSubtext.hidden = YES;
-        cell.audioController = self.audioController;
-        cell.player = self.player;
-        cell.word = word;
-        
-        if (![word.wPhonetic isEqualToString:word.wText]) {
-            cell.lbSubtext.text = word.wText;
-            cell.lbSubtext.hidden = NO;
-        }
-        if ([self isWordActive:word]) {
-            [cell.btnActive setTitleColor:[UIColor flatGreenColor] forState:UIControlStateNormal];
-        } else {
-            [cell.btnActive setTitleColor:[UIColor flatGrayColor] forState:UIControlStateNormal];
-        }
-        
-        return cell;
-    }
+    WordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"
+                                                     forIndexPath:indexPath];
     
+    Word* w = _wordData[indexPath.row];
+    
+    // Text
+    cell.lbText.text = w.wText;
+    
+    // Subtext
+    cell.lbSubtext.text = w.pText;
+    cell.lbSubtext.backgroundColor = [UIColor colorWithRandomFlatColorOfShadeStyle:UIShadeStyleLight];
+    cell.lbSubtext.layer.cornerRadius = 15;
+    
+    // Selected Background
+    UIView *myBackView = [[UIView alloc] initWithFrame:cell.frame];
+    myBackView.backgroundColor = cell.lbText.backgroundColor;
+    cell.selectedBackgroundView = myBackView;
+    return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -118,87 +88,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == mainTable) {
-        return _collectionViewData.count;
-    } else {
-        return _wordData.count;
-    }
+    return _wordData.count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == mainTable) {
-        NSString* selectedPhoneme = _collectionViewData[indexPath.row];
-        lbCurrentPhoneme.text = [NSString stringWithFormat:@"Practice Sounds & Words\n%@",selectedPhoneme];
-        
-        _wordData = [[DataManager shared] getUniqueWordsFromPhoneme:selectedPhoneme];
-        [subTable reloadData];
-    } else {
-        WordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubCell"
-                                                            forIndexPath:indexPath];
-        Word* word = _wordData[indexPath.row];
-        
-        if ([self isWordActive:word]) {
-            [self deactivateAWord:word];
-            [cell.btnActive setTitleColor:[UIColor flatGrayColor] forState:UIControlStateNormal] ;
-        } else {
-            [self activateAWord:word];
-            [cell.btnActive setTitleColor:[UIColor flatGreenColor] forState:UIControlStateNormal] ;
-        }
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }
-}
-
-#pragma mark - Data
-//TODO: Delete an Active word from db
-- (void) deactivateAWord:(Word*) word {
-    ActiveWord* activeWord = [ActiveWord MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"(word == %@) AND (phoneme == %@)",word.wText, word.pText]];
-    [activeWord MR_deleteEntity];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSaveMagicalRecordContext object:nil];
-    [self refreshData];
-}
-
-//TODO: add an Active word into db
-- (void) activateAWord:(Word*) word {
-    ActiveWord* activeWord = [ActiveWord MR_createEntityInContext:[NSManagedObjectContext MR_defaultContext]];
-    activeWord.word = word.wText;
-    activeWord.phoneme = word.pText;
-    activeWord.fileName = word.wFile;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSaveMagicalRecordContext object:nil];
-    [self refreshData];
-}
-
-//TODO: add all active words in list words into db
-- (void) activateAllWordsIn:(NSArray*) words {
-    for (Word* word in words) {
-        NSArray* activeWordArr = [ActiveWord MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"(word == %@) AND (phoneme == %@)",word.wText, word.pText]];
-        if (activeWordArr.count == 0) {
-            ActiveWord* activeWord = [ActiveWord MR_createEntityInContext:[NSManagedObjectContext MR_defaultContext]];
-            activeWord.word = word.wText;
-            activeWord.phoneme = word.pText;
-            activeWord.fileName = word.wFile;
-        }
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSaveMagicalRecordContext object:nil];
-}
-
-//TODO: Delete all active words in list words from db
-- (void) deactivateAllWordsIn:(NSArray*) words {
-    for (Word* word in words) {
-        ActiveWord* activeWord = [ActiveWord MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"(word == %@) AND (phoneme == %@)",word.wText, word.pText]];
-        [activeWord MR_deleteEntity];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSaveMagicalRecordContext object:nil];
-}
-
-- (BOOL) isWordActive:(Word*) word {
-    for (ActiveWord* activeWord in _allActiveWords) {
-        if ([word.wText isEqualToString:activeWord.word] &&
-            [word.pText isEqualToString:activeWord.phoneme]) {
-            return YES;
-        }
-    }
-    
-    return NO;
+    Word* w = _wordData[indexPath.row];
 }
 
 @end

@@ -90,7 +90,53 @@ static DataManager *sharedInstance = nil;
     FMDatabaseQueue* db = [self _soundDBQueue];
     
     [db inDatabase:^(FMDatabase *db) {
-        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db]"];
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] GROUP BY [w_text]"];
+        FMResultSet *results = [db executeQuery:sql];
+        while([results next]) {
+            @autoreleasepool {
+                NSDictionary* dict = results.resultDictionary;
+                Word* lv = [[Word alloc] initWithDictionary:dict];
+                if (lv != nil) {
+                    [lvs addObject:lv];
+                }
+                
+            }
+        }
+        [results close];
+    }];
+    [db close];
+    return lvs;
+}
+
+- (NSMutableArray *)getWordLevel {
+    __block NSMutableArray* lvs = [NSMutableArray new];
+    FMDatabaseQueue* db = [self _soundDBQueue];
+    
+    [db inDatabase:^(FMDatabase *db) {
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [w_phonetic] != [w_text] GROUP BY [w_text]"];
+        FMResultSet *results = [db executeQuery:sql];
+        while([results next]) {
+            @autoreleasepool {
+                NSDictionary* dict = results.resultDictionary;
+                Word* lv = [[Word alloc] initWithDictionary:dict];
+                if (lv != nil) {
+                    [lvs addObject:lv];
+                }
+                
+            }
+        }
+        [results close];
+    }];
+    [db close];
+    return lvs;
+}
+
+- (NSMutableArray *)getPhonemeLevel {
+    __block NSMutableArray* lvs = [NSMutableArray new];
+    FMDatabaseQueue* db = [self _soundDBQueue];
+    
+    [db inDatabase:^(FMDatabase *db) {
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [w_phonetic] = [w_text] GROUP BY [w_text]"];
         FMResultSet *results = [db executeQuery:sql];
         while([results next]) {
             @autoreleasepool {

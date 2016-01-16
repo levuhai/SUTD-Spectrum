@@ -39,6 +39,14 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
     
+    self.lineGraphContainer.layer.cornerRadius = 30;
+    self.lineGraphContainer.layer.borderWidth = 5;
+    self.lineGraphContainer.layer.borderColor = [[UIColor flatSkyBlueColorDark] CGColor];
+    
+    self.barGraphContainer.layer.cornerRadius = 30;
+    self.barGraphContainer.layer.borderWidth = 5;
+    self.barGraphContainer.layer.borderColor = [[UIColor flatSkyBlueColorDark] CGColor];
+    
     // Setup combined chart
     _chartView.delegate = self;
     _chartView.pinchZoomEnabled = YES;
@@ -110,9 +118,6 @@
     
     // Data
     [self fetchDataByDateRange:0];
-    
-    _lineGraphContainer.layer.cornerRadius = 30;
-    _barGraphContainer.layer.cornerRadius = 30;
 }
 
 
@@ -295,11 +300,12 @@
         f = [NSDate beginningOfToday];
         t = [NSDate endOfToday];
     } else if (index == 1) {
+        [components setDay:(- 1)];
         NSDate *yesterday = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:[NSDate beginningOfToday] options:0];
         f = yesterday;
         t = [NSDate beginningOfToday];
-    } else if (index == 2) {
-        [components setDay:([components day] - ([components weekday] - 1))];
+    } else if (index == 2) { // Lasy 7 days
+        [components setDay:([components day] - 7)];
         NSDate *thisWeek  = [cal dateFromComponents:components];
         f = thisWeek;
         t = [NSDate beginningOfToday];

@@ -19,6 +19,8 @@
 - (NSMutableArray*)getWordsFromPhoneme:(NSString*)p;
 - (NSMutableArray *)getUniqueWordsFromPhoneme:(NSString *)p;
 - (NSMutableArray*)getUniquePhoneme;
+- (NSMutableArray*)getWordLevel;
+- (NSMutableArray*)getPhonemeLevel;
 
 // Stats DB
 - (void)insertRandomScore;
