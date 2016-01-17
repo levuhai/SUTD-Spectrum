@@ -3765,7 +3765,7 @@
 		2DE88ACA1BB8517A002438C6 /* Games+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC11BB8517A002438C6 /* Games+CoreDataProperties.m */; };
 		2DE88ACB1BB8517A002438C6 /* Games.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC31BB8517A002438C6 /* Games.m */; };
 		2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */; };
-		2DF67F821BD4A1A900EB7390 /* FishingGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F811BD4A1A900EB7390 /* FishingGameScene.m */; };
+		2DF67F821BD4A1A900EB7390 /* FishingGameScene1.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F811BD4A1A900EB7390 /* FishingGameScene1.m */; };
 		2DF6B7421B94A14800B7F92C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7411B94A14800B7F92C /* main.m */; };
 		2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7441B94A14800B7F92C /* AppDelegate.m */; };
 		2DF6B7481B94A14800B7F92C /* HomeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7471B94A14800B7F92C /* HomeScene.m */; };
@@ -3786,6 +3786,8 @@
 		A75A6CAB1C455745005CCE5E /* score.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A75A6CAA1C455745005CCE5E /* score.sqlite */; };
 		A75A6CAE1C4560BE005CCE5E /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = A75A6CAD1C4560BE005CCE5E /* Score.m */; };
 		A76374B51C3FC16400A9616C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A76374B41C3FC16400A9616C /* Images.xcassets */; };
+		A78A2DD21C4BB63D00D8AE75 /* FishingGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */; };
+		A78A2DD51C4BB9BF00D8AE75 /* FishingGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */; };
 		A7ABA9631C46949400938492 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; };
 		A7ABA9651C46949C00938492 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7EF5AD21C4777FA00032574 /* debussy.ttf */; };
@@ -7641,8 +7643,8 @@
 		2DE88AC31BB8517A002438C6 /* Games.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Games.m; sourceTree = "<group>"; };
 		2DF67F7D1BD4A18800EB7390 /* FishingGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingGameViewController.h; sourceTree = "<group>"; };
 		2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameViewController.m; sourceTree = "<group>"; };
-		2DF67F801BD4A1A900EB7390 /* FishingGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingGameScene.h; sourceTree = "<group>"; };
-		2DF67F811BD4A1A900EB7390 /* FishingGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameScene.m; sourceTree = "<group>"; };
+		2DF67F801BD4A1A900EB7390 /* FishingGameScene1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingGameScene1.h; sourceTree = "<group>"; };
+		2DF67F811BD4A1A900EB7390 /* FishingGameScene1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameScene1.m; sourceTree = "<group>"; };
 		2DF6B73C1B94A14800B7F92C /* SpeechTherapyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechTherapyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DF6B7401B94A14800B7F92C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DF6B7411B94A14800B7F92C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -7681,6 +7683,9 @@
 		A75A6CAC1C4560BE005CCE5E /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
 		A75A6CAD1C4560BE005CCE5E /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
 		A76374B41C3FC16400A9616C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FishingGameScene.sks; sourceTree = "<group>"; };
+		A78A2DD31C4BB9BF00D8AE75 /* FishingGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingGameScene.h; sourceTree = "<group>"; };
+		A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameScene.m; sourceTree = "<group>"; };
 		A7ABA9571C46934900938492 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		A7EF5AD21C4777FA00032574 /* debussy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = debussy.ttf; sourceTree = "<group>"; };
 		B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.release.xcconfig"; sourceTree = "<group>"; };
@@ -11675,8 +11680,11 @@
 				D78865B71C1043E200C3944C /* LPCView.mm */,
 				2DF67F7D1BD4A18800EB7390 /* FishingGameViewController.h */,
 				2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */,
-				2DF67F801BD4A1A900EB7390 /* FishingGameScene.h */,
-				2DF67F811BD4A1A900EB7390 /* FishingGameScene.m */,
+				2DF67F801BD4A1A900EB7390 /* FishingGameScene1.h */,
+				2DF67F811BD4A1A900EB7390 /* FishingGameScene1.m */,
+				A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */,
+				A78A2DD31C4BB9BF00D8AE75 /* FishingGameScene.h */,
+				A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */,
 			);
 			name = FishingGame;
 			sourceTree = "<group>";
@@ -11719,26 +11727,26 @@
 		2DF6B73F1B94A14800B7F92C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2D45C70B1C03760C009FCFB8 /* shark.atlas */,
+				2D45C70A1C03760C009FCFB8 /* small_fish.atlas */,
+				2D45C70C1C03760C009FCFB8 /* whale.atlas */,
+				2DF6B7411B94A14800B7F92C /* main.m */,
 				2D0D27D61C47F90000FB5045 /* coint.m4a */,
 				2D0D27D71C47F90000FB5045 /* sand_castles.m4a */,
-				A76374B41C3FC16400A9616C /* Images.xcassets */,
-				A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */,
-				2D45C70A1C03760C009FCFB8 /* small_fish.atlas */,
-				2D45C70B1C03760C009FCFB8 /* shark.atlas */,
-				2D45C70C1C03760C009FCFB8 /* whale.atlas */,
+				2DF6B76A1B94B53E00B7F92C /* SpeechTherapyGame-Prefix.pch */,
+				2DF6B7401B94A14800B7F92C /* Info.plist */,
 				2D45C6FC1C03708E009FCFB8 /* Bubbles.sks */,
-				2D45C6FD1C03708E009FCFB8 /* SharkRight.sks */,
-				2D45C6FE1C03708E009FCFB8 /* SharkLeft.sks */,
-				2D45C6FF1C03708E009FCFB8 /* WhaleLeft.sks */,
-				A7EF5AD21C4777FA00032574 /* debussy.ttf */,
-				2D45C7001C03708E009FCFB8 /* WhaleRight.sks */,
 				2D45C7011C03708E009FCFB8 /* FishLeft.sks */,
 				2D45C7021C03708E009FCFB8 /* FishRight.sks */,
-				2DF6B7411B94A14800B7F92C /* main.m */,
-				2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */,
-				2DF6B7401B94A14800B7F92C /* Info.plist */,
-				2DF6B76A1B94B53E00B7F92C /* SpeechTherapyGame-Prefix.pch */,
+				2D45C6FE1C03708E009FCFB8 /* SharkLeft.sks */,
+				2D45C6FD1C03708E009FCFB8 /* SharkRight.sks */,
+				2D45C6FF1C03708E009FCFB8 /* WhaleLeft.sks */,
+				2D45C7001C03708E009FCFB8 /* WhaleRight.sks */,
+				A7EF5AD21C4777FA00032574 /* debussy.ttf */,
+				A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */,
+				A76374B41C3FC16400A9616C /* Images.xcassets */,
 				2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */,
+				2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -14470,6 +14478,7 @@
 				2D14499E1C3C562700667CC7 /* b_ɒb_job_e1.wav in Resources */,
 				2D1454451C3C562700667CC7 /* dʒ_ʌdʒ_fudge_b1_full.wav in Resources */,
 				2D143CC01C3C55A400667CC7 /* ∫15b_2.wav in Resources */,
+				A78A2DD21C4BB63D00D8AE75 /* FishingGameScene.sks in Resources */,
 				2D1452501C3C562700667CC7 /* d_ʊd_wood_b1_full.wav in Resources */,
 				2D1452871C3C562700667CC7 /* d_ʌd_a1.wav in Resources */,
 				2D14531C1C3C562700667CC7 /* dʒ_dʒaʊ_b1.wav in Resources */,
@@ -15735,6 +15744,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D78865B81C1043E200C3944C /* LPCView.mm in Sources */,
+				A78A2DD51C4BB9BF00D8AE75 /* FishingGameScene.m in Sources */,
 				2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */,
 				2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */,
 				2D650A7C1C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.m in Sources */,
@@ -15745,7 +15755,7 @@
 				2DE88ACA1BB8517A002438C6 /* Games+CoreDataProperties.m in Sources */,
 				2DC904171BB1D0580082DEAC /* ParentStatsController.m in Sources */,
 				2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */,
-				2DF67F821BD4A1A900EB7390 /* FishingGameScene.m in Sources */,
+				2DF67F821BD4A1A900EB7390 /* FishingGameScene1.m in Sources */,
 				2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */,
 				2DC195E91BF6338B008669A0 /* GameStatistics+CoreDataProperties.m in Sources */,
 				A752FBFA1C3B747300B8ED60 /* UIFont+ES.m in Sources */,
