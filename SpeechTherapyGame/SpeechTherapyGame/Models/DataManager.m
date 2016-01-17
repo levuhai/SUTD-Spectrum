@@ -113,7 +113,7 @@ static DataManager *sharedInstance = nil;
     FMDatabaseQueue* db = [self _soundDBQueue];
     
     [db inDatabase:^(FMDatabase *db) {
-        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [w_phonetic] != [w_text] GROUP BY [w_text]"];
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [w_phonetic] != [w_text] GROUP BY [w_text] ORDER BY [p_text]"];
         FMResultSet *results = [db executeQuery:sql];
         while([results next]) {
             @autoreleasepool {

@@ -10,4 +10,7 @@
 
 @interface ParentSoundController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIView* leftContainer;
+@property (weak, nonatomic) IBOutlet UIView* rightContainer;
+
 @end
