@@ -14,6 +14,7 @@
 #import "ParentSecurityController.h"
 #import "MZFormSheetController.h"
 #import "ParentMasterController.h"
+#import "SKScene+ES.h"
 
 @interface HomeSceneViewController (){
     IBOutlet UIButton* _soundButton;
@@ -37,7 +38,7 @@
     skView.ignoresSiblingOrder = YES;
     
     // Create and configure the scene.
-    HomeScene *scene = [[HomeScene alloc] initWithSize:self.view.bounds.size];
+    HomeScene *scene = [HomeScene unarchiveFromFile:@"HomeScene"];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     scene.homeSceneViewController = self;
     // Present the scene.
