@@ -24,16 +24,16 @@
     
     // Configure the view.
     SKView * skView = (SKView *)self.view;
-//    skView.showsFPS = YES;
-//    skView.showsNodeCount = YES;
-//    skView.showsPhysics = YES;
+    skView.showsFPS = YES;
+    skView.showsNodeCount = YES;
+    skView.showsPhysics = YES;
     /* Sprite Kit applies additional optimizations to improve rendering performance */
     skView.ignoresSiblingOrder = YES;
     
     // Create and configure the scene.
-    _gameScene = [[FishingGameScene alloc] initWithSize:self.view.bounds.size];
+    _gameScene = [FishingGameScene unarchiveFromFile:@"FishingGameScene"];
     _gameScene.scaleMode = SKSceneScaleModeAspectFill;
-    _gameScene.fishingGameVC = self;
+    //_gameScene.fishingGameVC = self;
     // Present the scene.
     [skView presentScene:_gameScene];
     

@@ -6,7 +6,7 @@
 //  Copyright © 2015 SUTD. All rights reserved.
 //
 
-#import "FishingGameScene.h"
+#import "FishingGameScene1.h"
 #import "FishingGameViewController.h"
 #import "TCProgressTimerNode.h"
 #import "Whale.h"
@@ -38,7 +38,7 @@ NSUInteger WHALETYPE = 2;
 #define sharkSpeed 4.0
 #define whaleSpeed 2.0
 
-@interface FishingGameScene () <SKPhysicsContactDelegate> {
+@interface FishingGameScene1 () <SKPhysicsContactDelegate> {
     SKSpriteNode* _hook;
     SKSpriteNode* _hookLine;
     SKSpriteNode* _potView;
@@ -73,7 +73,7 @@ NSUInteger WHALETYPE = 2;
 
 @end
 
-@implementation FishingGameScene
+@implementation FishingGameScene1
 
 - (void)didMoveToView:(SKView *)view {
     
@@ -290,7 +290,7 @@ NSUInteger WHALETYPE = 2;
     tb1.anchorPoint = tb2.anchorPoint = tb3.anchorPoint = tb4.anchorPoint = CGPointMake(0, 0);
     tb1.alpha = tb2.alpha = tb3.alpha = tb4.alpha = afish.alpha = 0;
     
-    __weak FishingGameScene* weakSelf = self;
+    __weak FishingGameScene1* weakSelf = self;
     
     [self shouldShowThoughtBox:YES with:tb1 :tb2 :tb3 :tb4 :afish completion:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -433,7 +433,7 @@ NSUInteger WHALETYPE = 2;
         if (!goingRight) {
             fish.xScale = -1;
         }
-        __weak FishingGameScene *slf = self;
+        __weak FishingGameScene1 *slf = self;
         [fish runAction:fishMoveAction completion:^{
             [fish removeFromParent];
             NSUInteger index = [slf.fishArray indexOfObject:fish];
@@ -805,7 +805,7 @@ NSUInteger WHALETYPE = 2;
         SKAction *fishThrownAwayTraslateAction = [SKAction moveByX:150 y:150 duration:0.5];
         SKAction *fishThrownAwayRotateAction = [SKAction rotateByAngle:-M_PI duration:0.5];
         SKAction *fishThrownAwayAction = [SKAction group:@[fishThrownAwayTraslateAction, fishThrownAwayRotateAction]];
-        __weak FishingGameScene *slf = self;
+        __weak FishingGameScene1 *slf = self;
         [_fishBeingCaught runAction:fishThrownAwayAction completion:^{
             [_fishBeingCaught removeFromParent];
             NSUInteger index = [slf.fishArray indexOfObject:_fishBeingCaught];

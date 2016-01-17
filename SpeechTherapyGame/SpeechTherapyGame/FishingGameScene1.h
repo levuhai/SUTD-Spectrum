@@ -9,7 +9,7 @@
 #import <SpriteKit/SpriteKit.h>
 @class FishingGameViewController;
 
-@interface FishingGameScene : SKScene
+@interface FishingGameScene1 : SKScene
 
 @property (nonatomic, weak) FishingGameViewController* fishingGameVC;
 - (void) shouldShowThoughtBox:(BOOL) value with:(SKSpriteNode*) tb1 :(SKSpriteNode*) tb2 :(SKSpriteNode*) tb3 :(SKSpriteNode*) tb4 :(SKSpriteNode*) afish completion:(void (^)())block;

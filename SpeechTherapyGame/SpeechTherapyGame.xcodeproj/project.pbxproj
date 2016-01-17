@@ -3788,6 +3788,7 @@
 		A76374B51C3FC16400A9616C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A76374B41C3FC16400A9616C /* Images.xcassets */; };
 		A78A2DD21C4BB63D00D8AE75 /* FishingGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */; };
 		A78A2DD51C4BB9BF00D8AE75 /* FishingGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */; };
+		A78A2DD81C4BBB2E00D8AE75 /* SKScene+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A2DD71C4BBB2E00D8AE75 /* SKScene+ES.m */; };
 		A7ABA9631C46949400938492 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; };
 		A7ABA9651C46949C00938492 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7EF5AD21C4777FA00032574 /* debussy.ttf */; };
@@ -7686,6 +7687,8 @@
 		A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FishingGameScene.sks; sourceTree = "<group>"; };
 		A78A2DD31C4BB9BF00D8AE75 /* FishingGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingGameScene.h; sourceTree = "<group>"; };
 		A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameScene.m; sourceTree = "<group>"; };
+		A78A2DD61C4BBB2E00D8AE75 /* SKScene+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKScene+ES.h"; sourceTree = "<group>"; };
+		A78A2DD71C4BBB2E00D8AE75 /* SKScene+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKScene+ES.m"; sourceTree = "<group>"; };
 		A7ABA9571C46934900938492 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		A7EF5AD21C4777FA00032574 /* debussy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = debussy.ttf; sourceTree = "<group>"; };
 		B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.release.xcconfig"; sourceTree = "<group>"; };
@@ -11646,6 +11649,8 @@
 				D78865BA1C10453800C3944C /* NSMutableArray+Queue.m */,
 				2DC195EB1BF63EA4008669A0 /* NSDate+Helper.h */,
 				2DC195EC1BF63EA4008669A0 /* NSDate+Helper.m */,
+				A78A2DD61C4BBB2E00D8AE75 /* SKScene+ES.h */,
+				A78A2DD71C4BBB2E00D8AE75 /* SKScene+ES.m */,
 				2DB4D6201BF391E100A12481 /* TCProgressTimerNode */,
 				2D1A04231BB068BF00FA14CC /* NGSplitMenuController */,
 				2D6064701BA99E5B00410B0E /* CoreDataManager */,
@@ -15789,6 +15794,7 @@
 				D78865BB1C10453800C3944C /* NSMutableArray+Queue.m in Sources */,
 				2DC195ED1BF63EA4008669A0 /* NSDate+Helper.m in Sources */,
 				D78865C11C10454700C3944C /* UIColor+Flat.m in Sources */,
+				A78A2DD81C4BBB2E00D8AE75 /* SKScene+ES.m in Sources */,
 				2DF6B7421B94A14800B7F92C /* main.m in Sources */,
 				2DC195EA1BF6338B008669A0 /* GameStatistics.m in Sources */,
 				2DE0E1341B9CB24B00BFEDA6 /* ScheduleViewController.m in Sources */,
