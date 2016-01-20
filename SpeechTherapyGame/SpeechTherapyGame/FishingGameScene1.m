@@ -105,12 +105,6 @@ NSUInteger WHALETYPE = 2;
 
 - (void) setupGameScene {
     //Static objects
-    SKSpriteNode *waves = [SKSpriteNode spriteNodeWithImageNamed:@"waves"];
-    waves.size = CGSizeMake(self.frame.size.width + 100, waves.size.height);
-    waves.zPosition = -1;
-    waves.position = CGPointMake(0, WaterViewHeigh);
-    waves.anchorPoint = CGPointZero;
-    [self addChild:waves];
     
     CGFloat cloudShiftXDelta = 100;
     SKSpriteNode *cloud = [SKSpriteNode spriteNodeWithImageNamed:@"cloud-1"];
@@ -123,26 +117,8 @@ NSUInteger WHALETYPE = 2;
     SKAction *cloudAction = [SKAction repeatActionForever:[SKAction sequence:@[cloudMoveRightAction, cloudResetAction]]];
     [cloud runAction:cloudAction];
     
-    CGFloat waveYDelta = 5;
-    CGFloat waveXDelta = 100;
-    CGFloat waveXMovementPeriod = 10;
-    SKAction *wavesMoveUpAction = [SKAction moveByX:0 y:-waveYDelta duration:waveXMovementPeriod/2];
-    SKAction *wavesMoveDownAction = [SKAction moveByX:0 y:waveYDelta duration:waveXMovementPeriod/2];
-    SKAction *wavesUpDownAction = [SKAction sequence:@[wavesMoveUpAction, wavesMoveDownAction]];
-    SKAction *wavesMoveRightAction = [SKAction moveByX:waveXDelta y:0 duration:waveXMovementPeriod];
-    SKAction *wavesMoveLeftAction = [SKAction moveByX:-waveXDelta y:0 duration:waveXMovementPeriod];
-    SKAction *wavesGroupRightAction = [SKAction group:@[wavesUpDownAction, wavesMoveRightAction]];
-    SKAction *wavesGroupLeftAction = [SKAction group:@[wavesUpDownAction, wavesMoveLeftAction]];
-    SKAction *wavesAction = [SKAction repeatActionForever:[SKAction sequence:@[wavesGroupLeftAction, wavesGroupRightAction]]];
-    [waves runAction:wavesAction];
+   
 
-    // Water
-    SKSpriteNode* waterView = [[SKSpriteNode alloc] initWithColor:RGB(58, 166, 221)
-                                                             size:CGSizeMake(self.size.width, WaterViewHeigh)];
-    waterView.anchorPoint = CGPointZero;
-    waterView.position = CGPointZero;
-    waterView.zPosition = -1;
-    [self addChild:waterView];
     
     [self addParticalsAnimations];
 
