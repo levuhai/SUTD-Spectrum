@@ -8,17 +8,18 @@
 
 #import "FishingGameScene.h"
 #import "UIColor+Chameleon.h"
+#import "Fisherman.h"
+#import "Spawner.h"
+#import "SeaTurtle.h"
 
 const uint32_t HOOK_BIT_MASK = 0x1 << 0;
 const uint32_t FISH_BIT_MASK = 0x1 << 1;
 const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 
-#define HookStartPosition 480
-
 @interface FishingGameScene() {
-    SKSpriteNode* _rod;
-    SKSpriteNode* _hook;
-    SKSpriteNode* _hookLine;
+    Fisherman* _fisherman;
+    
+    NSMutableArray* _creatureSpawners;
 }
 
 @end
@@ -29,87 +30,51 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     self.backgroundColor = [UIColor flatSkyBlueColor];
     
     [self _setupScene];
+    [self _setupSpawner];
+}
+
+#pragma mark - Timer
+
+-(void)update:(CFTimeInterval)currentTime {
+    [_creatureSpawners enumerateObjectsUsingBlock:^(id _spawner, NSUInteger idx, BOOL *stop) {
+        Spawner* spawner = (Spawner*)_spawner;
+        [spawner spawnCreaturesContinuously];
+    }];
 }
 
 #pragma mark - Touches
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self _dropHook];
+    [_fisherman dropHook];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self _raiseHook];
+    [_fisherman raiseHook];
+
 }
 
 #pragma mark - Private Method
+
 - (void) _setupScene {
     // Build scene physics
-    SKNode *edge = [SKNode new];
-    edge.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
-    [self addChild:edge];
     
-    // Rod
-    _rod = (SKSpriteNode*)[self childNodeWithName:@"rod"];
-    
-    // Hook    
-    _hook = [SKSpriteNode spriteNodeWithImageNamed:@"hook"];
-    _hook.position = CGPointMake(_rod.position.x, HookStartPosition);
-    _hook.anchorPoint = CGPointMake(0.8, 0.0);
-    [self addChild:_hook];
-    
-    SKPhysicsBody *hookPhysicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(10, 10)];
-    hookPhysicsBody.categoryBitMask = HOOK_BIT_MASK;
-    hookPhysicsBody.collisionBitMask = 0;
-    hookPhysicsBody.contactTestBitMask = FISH_BIT_MASK;
-    hookPhysicsBody.usesPreciseCollisionDetection = YES;
-    hookPhysicsBody.dynamic = NO;
-    _hook.physicsBody = hookPhysicsBody;
-    
-    // Rope Line
-    CGSize lineSize = CGSizeMake(1,(_rod.position.y) - (_hook.position.y + _hook.size.height) + 10);
-    _hookLine = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:lineSize];
-    _hookLine.anchorPoint = CGPointMake(0.5, 1.0);
-    _hookLine.position = CGPointMake(_rod.position.x, _rod.position.y);
-    [self addChild:_hookLine];
+    // Fisherman
+    _fisherman = (Fisherman*)[self childNodeWithName:@"spriteFisherman"];
+    [_fisherman setupRod];
 }
 
-- (void)_dropHook {
-    [_hook removeActionForKey:@"hook"];
-    [_hookLine removeActionForKey:@"hookline"];
-    CGFloat hookMovementDeltaY = 1;
-    SKAction *hookGoingDownOnceAction = [SKAction moveByX:0
-                                                        y:-hookMovementDeltaY
-                                                 duration:1.0/(float)120.0f];
-    SKAction *hookGoingDownAction = [SKAction repeatActionForever:hookGoingDownOnceAction];
-    [_hook runAction:hookGoingDownAction withKey:@"hook"];
+- (void)_setupSpawner {
+    //Turtle Spawner
+    Spawner* turtleCreatureSpawner = [[Spawner alloc] initWithCreatureClass:[SeaTurtle class]
+                                                                    inScene:self];
+    turtleCreatureSpawner.creatureLimit = 3;
     
-    SKAction *hookLineOnceAction = [SKAction resizeByWidth:0
-                                                    height:hookMovementDeltaY
-                                                  duration:1.0/(float)120.0f];
-    SKAction *hookLineAction = [SKAction repeatActionForever:hookLineOnceAction];
-    [_hookLine runAction:hookLineAction withKey:@"hookline"];
-}
-
-- (void)_raiseHook {
-    [_hook removeActionForKey:@"hook"];
-    [_hookLine removeActionForKey:@"hookline"];
-    if (_hook.position.y > HookStartPosition) {
-        return;
-    }
-    CGFloat hookMovementDeltaY = 1.0f;
-    SKAction *hookGoingUpOnceAction = [SKAction moveByX:0
-                                                      y:hookMovementDeltaY
-                                               duration:1/120.0f];
-    int count = ceilf((HookStartPosition - _hook.position.y)/hookMovementDeltaY);
+    _creatureSpawners = [NSMutableArray arrayWithObjects:turtleCreatureSpawner, nil];
     
-    SKAction *hookGoingUpAction = [SKAction repeatAction:hookGoingUpOnceAction count:(int)count];
-    [_hook runAction:hookGoingUpAction withKey:@"hook"];
-    SKAction *hookLineOnceAction = [SKAction resizeByWidth:0
-                                                    height:-hookMovementDeltaY
-                                                  duration:1/120.0f];
-    SKAction *hookLineAction = [SKAction repeatAction:hookLineOnceAction count:(int)count];
-    [_hookLine runAction:hookLineAction withKey:@"hookline"];
+    [_creatureSpawners enumerateObjectsUsingBlock:^(id _spawner, NSUInteger idx, BOOL *stop) {
+        Spawner* spawner = (Spawner*)_spawner;
+        spawner.isActive = YES;
+    }];
 }
-
 
 @end

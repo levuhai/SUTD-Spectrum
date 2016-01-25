@@ -1004,7 +1004,7 @@
 		D71DB928195DEA0F00B1F53F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Earthling Studio";
 				TargetAttributes = {
 					D71DB92F195DEA0F00B1F53F = {
@@ -1250,6 +1250,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1336,6 +1337,7 @@
 					"-framework",
 					"\"GLKit\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sutd.audioRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1375,6 +1377,7 @@
 					"-framework",
 					"\"GLKit\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sutd.audioRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1399,6 +1402,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "SpectrumTests/SpectrumTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sutd.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -1417,6 +1421,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Spectrum/Spectrum-Prefix.pch";
 				INFOPLIST_FILE = "SpectrumTests/SpectrumTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sutd.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
