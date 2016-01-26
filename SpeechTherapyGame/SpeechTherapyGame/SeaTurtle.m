@@ -34,7 +34,7 @@
         self.physicsBody.collisionBitMask = bitmaskCategoryNeutral;
         self.physicsBody.contactTestBitMask = bitmaskCategoryHook | bitmaskCategoryChum;
         
-        self.physicsBody.dynamic = NO;
+        self.physicsBody.dynamic = YES;
         self.physicsBody.restitution = 0.2;
         self.physicsBody.mass = 5;
          

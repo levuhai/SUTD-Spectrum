@@ -16,7 +16,7 @@ const uint32_t HOOK_BIT_MASK = 0x1 << 0;
 const uint32_t FISH_BIT_MASK = 0x1 << 1;
 const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 
-@interface FishingGameScene() {
+@interface FishingGameScene() <SKPhysicsContactDelegate> {
     Fisherman* _fisherman;
     
     NSMutableArray* _creatureSpawners;
@@ -28,6 +28,9 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 
 - (void)didMoveToView:(SKView *)view {
     self.backgroundColor = [UIColor flatSkyBlueColor];
+    
+    self.physicsWorld.gravity = CGVectorMake(0, 0);
+    self.physicsWorld.contactDelegate = self;
     
     [self _setupScene];
     [self _setupSpawner];
@@ -51,6 +54,13 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [_fisherman raiseHook];
 
+}
+
+#pragma mark - SKPhysicsContactDelegate
+
+- (void)didBeginContact:(SKPhysicsContact *)contact {
+    NSLog(@"Gotcha!");
+    // TODO: _fisherman checkFishHooked
 }
 
 #pragma mark - Private Method

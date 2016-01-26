@@ -32,7 +32,7 @@
                                                   duration:1.0/(float)120.0f];
     SKAction *hookLineAction = [SKAction repeatActionForever:hookLineOnceAction];
     [_hookLine runAction:hookLineAction withKey:@"hookline"];
-    [self _animateReelDown];
+    //[self _animateReelDown];
 }
 
 - (void)raiseHook {
@@ -56,7 +56,7 @@
     [_hookLine runAction:hookLineAction completion:^{
         [self removeAllActions];
     }];
-    [self _animateReelUp];
+    //[self _animateReelUp];
 }
 
 - (void)setupRod {
