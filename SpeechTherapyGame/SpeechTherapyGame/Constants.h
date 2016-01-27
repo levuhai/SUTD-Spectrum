@@ -9,6 +9,12 @@
 #ifndef Constants_h
 #define Constants_h
 
+#define kKeySound @"soundOn"
+#define kKeyBgm @"bgmOn"
+
+#define kNotificationShowParentsMode @"showParentsMode"
+#define kNotificationShowSchedule @"showSchedule"
+
 #define bitmaskCategoryNeutral 32
 #define bitmaskCategoryCreature 1
 #define bitmaskCategoryHook 2

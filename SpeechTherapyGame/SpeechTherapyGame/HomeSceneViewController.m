@@ -16,14 +16,18 @@
 #import "ParentMasterController.h"
 #import "SKScene+ES.h"
 
-@interface HomeSceneViewController (){
-    IBOutlet UIButton* _soundButton;
-    IBOutlet UIButton* _bgMusicButton;
-}
-
-@end
-
 @implementation HomeSceneViewController
+
+- (void)awakeFromNib {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_showParentsSecurity)
+                                                 name:kNotificationShowParentsMode
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_showSchedule)
+                                                 name:kNotificationShowSchedule
+                                               object:nil];
+}
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
@@ -44,25 +48,17 @@
     [skView presentScene:scene];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
-
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 #pragma mark - Action methods
 
-- (IBAction)showScheduleScene {
+- (void)_showSchedule {
     ScheduleViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ScheduleViewController"];
     
     MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
@@ -81,9 +77,8 @@
                       completionHandler:nil];
 }
 
--(IBAction) managerButton_pressed {
+- (void)_showParentsSecurity {
     
-    // Show menu
     ParentSecurityController * vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SecurityController"];
     
     MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
@@ -101,21 +96,9 @@
                       completionHandler:nil];
 }
 
-- (IBAction) soundButton_pressed {
-    _soundButton.selected = !_soundButton.selected;
-}
-
-- (IBAction) backgroundMusicButton_pressed {
-    _bgMusicButton.selected = !_bgMusicButton.selected;
-}
-
-- (void) showGameManager {
+- (void)showParentsMode {
     ParentMasterController* gmm = [self.storyboard instantiateViewControllerWithIdentifier:@"ParentMasterController"];
     [self presentViewController:gmm animated:YES completion:nil];
 }
 
-- (void) showFishingGame {
-    GameManagerMasterView* fishingGame = [self.storyboard instantiateViewControllerWithIdentifier:@"FishingGameViewController"];
-    [self presentViewController:fishingGame animated:YES completion:nil];
-}
 @end

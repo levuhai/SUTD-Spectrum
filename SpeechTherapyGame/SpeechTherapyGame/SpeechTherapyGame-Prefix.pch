@@ -27,6 +27,7 @@
     #import "Macro.h"
     #import "NSDate+Helper.h"
     #import "SKScene+ES.h"
+    #import "NSUserDefaults+Convenience.h"
     // Models
     #import "Games.h"
     #import "Sounds.h"

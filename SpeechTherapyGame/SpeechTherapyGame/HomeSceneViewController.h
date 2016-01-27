@@ -10,6 +10,7 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface HomeSceneViewController : UIViewController
-- (void) showGameManager;
-- (void) showFishingGame;
+
+- (void)showParentsMode;
+
 @end
