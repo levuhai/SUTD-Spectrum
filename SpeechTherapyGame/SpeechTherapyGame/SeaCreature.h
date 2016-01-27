@@ -39,5 +39,5 @@
 -(void) startSwimmingInDirection: (int)_movementDirection;
 -(void) setup;
 -(void) wrapMovement;
-
+-(void) beingCaughtAnimationByHook:(SKSpriteNode*) hook;
 @end

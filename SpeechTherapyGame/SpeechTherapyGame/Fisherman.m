@@ -17,19 +17,23 @@
     SKSpriteNode* _hookLine;
 }
 
+-(SKSpriteNode*) getHook {
+    return _hook;
+}
+
 - (void)dropHook {
     [_hook removeActionForKey:@"hook"];
     [_hookLine removeAllActions];
-    CGFloat hookMovementDeltaY = 1;
+    
     SKAction *hookGoingDownOnceAction = [SKAction moveByX:0
                                                         y:-hookMovementDeltaY
-                                                 duration:1.0/(float)120.0f];
+                                                 duration:1.0/hookDropSpeed];
     SKAction *hookGoingDownAction = [SKAction repeatActionForever:hookGoingDownOnceAction];
     [_hook runAction:hookGoingDownAction withKey:@"hook"];
     
     SKAction *hookLineOnceAction = [SKAction resizeByWidth:0
                                                     height:hookMovementDeltaY
-                                                  duration:1.0/(float)120.0f];
+                                                  duration:1.0/hookDropSpeed];
     SKAction *hookLineAction = [SKAction repeatActionForever:hookLineOnceAction];
     [_hookLine runAction:hookLineAction withKey:@"hookline"];
     //[self _animateReelDown];
@@ -41,17 +45,16 @@
     if (_hook.position.y > yHookStart) {
         return;
     }
-    CGFloat hookMovementDeltaY = 1.0f;
     SKAction *hookGoingUpOnceAction = [SKAction moveByX:0
                                                       y:hookMovementDeltaY
-                                               duration:1/120.0f];
+                                               duration:1/hookRaiseSpeed];
     int count = ceilf((yHookStart - _hook.position.y)/hookMovementDeltaY);
     
     SKAction *hookGoingUpAction = [SKAction repeatAction:hookGoingUpOnceAction count:(int)count];
     [_hook runAction:hookGoingUpAction withKey:@"hook"];
     SKAction *hookLineOnceAction = [SKAction resizeByWidth:0
                                                     height:-hookMovementDeltaY
-                                                  duration:1/120.0f];
+                                                  duration:1/hookRaiseSpeed];
     SKAction *hookLineAction = [SKAction repeatAction:hookLineOnceAction count:(int)count];
     [_hookLine runAction:hookLineAction completion:^{
         [self removeAllActions];

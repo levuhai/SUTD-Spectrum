@@ -34,6 +34,9 @@
 #define turtleHeight 102.0
 
 #define yHookStart 480
+#define hookRaiseSpeed 120.0f
+#define hookDropSpeed 120.0f
+#define hookMovementDeltaY 1.0f
 
 
 #endif /* Constants_h */

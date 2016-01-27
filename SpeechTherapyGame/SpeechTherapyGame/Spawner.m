@@ -63,7 +63,7 @@
     [_creatures addObject:creature];
     
     creature.spawner = self;
-    
+
     if (direction!=0) {
         [creature startSwimmingInDirection:direction];
     }
@@ -121,6 +121,15 @@
     [_creatures removeObject:creature];
     [creature removeFromParent];
     NSLog(@"creature removed: %lu",(unsigned long)[_creatures count]);
+}
+
+- (id) getCreatureByContactNode:(SKNode*) node {
+    for (id creature in _creatures) {
+        if ([node isEqual:creature]) {
+            return creature;
+        }
+    }
+    return nil;
 }
 
 @end

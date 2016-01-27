@@ -601,7 +601,7 @@ NSUInteger WHALETYPE = 2;
 - (void)dropHook {
     [_hook removeActionForKey:@"hook"];
     [_hookLine removeActionForKey:@"hookline"];
-    CGFloat hookMovementDeltaY = 20;
+
     SKAction *hookGoingDownOnceAction = [SKAction moveByX:0 y:-hookMovementDeltaY duration:1.0/(float)6.0f];
     SKAction *hookGoingDownAction = [SKAction repeatActionForever:hookGoingDownOnceAction];
     [_hook runAction:hookGoingDownAction withKey:@"hook"];
@@ -616,7 +616,7 @@ NSUInteger WHALETYPE = 2;
     if (_hook.position.y > WaterViewHeigh) {
         return;
     }
-    CGFloat hookMovementDeltaY = 20.0f;
+
     SKAction *hookGoingUpOnceAction = [SKAction moveByX:0 y:hookMovementDeltaY duration:1/8.0f];
     int count = ceilf((FishBeingCaughtDestination - _hook.position.y)/hookMovementDeltaY);
     
