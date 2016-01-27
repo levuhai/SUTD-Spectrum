@@ -64,7 +64,7 @@
 }
 
 - (IBAction) homeBtn_clicked {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSaveMagicalRecordContext object:nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kSaveMagicalRecordContext object:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -534,6 +534,7 @@
 		2DF67F7C1BD4A14600EB7390 /* FishingGame */ = {
 			isa = PBXGroup;
 			children = (
+				A7888B9F1C58B8D60063D097 /* Scene */,
 				A709FCC51C4FDE400093AF8C /* Nodes */,
 				2DF67F7D1BD4A18800EB7390 /* FishingGameViewController.h */,
 				2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */,
@@ -658,6 +659,13 @@
 				A75A6CAA1C455745005CCE5E /* score.sqlite */,
 			);
 			name = Database;
+			sourceTree = "<group>";
+		};
+		A7888B9F1C58B8D60063D097 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Scene;
 			sourceTree = "<group>";
 		};
 		A7ABA9581C46934900938492 /* Products */ = {

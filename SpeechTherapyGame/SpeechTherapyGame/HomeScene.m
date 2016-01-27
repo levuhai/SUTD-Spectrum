@@ -8,6 +8,7 @@
 
 #import "HomeScene.h"
 #import "HomeSceneViewController.h"
+#import "FishingGameScene.h"
 
 @interface HomeScene ()
 {
@@ -27,7 +28,9 @@
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [_homeSceneViewController showFishingGame];
+    SKScene *scene = [FishingGameScene unarchiveFromFile:@"FishingGameScene"];
+    //scene.scaleMode = SKSceneScaleModeAspectFill;
+    [self.view presentScene:scene];
 }
 
 @end

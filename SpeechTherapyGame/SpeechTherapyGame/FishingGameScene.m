@@ -29,9 +29,6 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 - (void)didMoveToView:(SKView *)view {
     self.backgroundColor = [UIColor flatSkyBlueColor];
     
-    self.physicsWorld.gravity = CGVectorMake(0, 0);
-    self.physicsWorld.contactDelegate = self;
-    
     [self _setupScene];
     [self _setupSpawner];
 }
@@ -61,12 +58,15 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 - (void)didBeginContact:(SKPhysicsContact *)contact {
     NSLog(@"Gotcha!");
     // TODO: _fisherman checkFishHooked
+    self.view.paused = YES;
 }
 
 #pragma mark - Private Method
 
 - (void) _setupScene {
     // Build scene physics
+    self.physicsWorld.gravity = CGVectorMake(0, 0);
+    self.physicsWorld.contactDelegate = self;
     
     // Fisherman
     _fisherman = (Fisherman*)[self childNodeWithName:@"spriteFisherman"];

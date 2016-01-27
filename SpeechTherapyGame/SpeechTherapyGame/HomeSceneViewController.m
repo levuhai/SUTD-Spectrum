@@ -25,29 +25,28 @@
 
 @implementation HomeSceneViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     skView.showsFPS = YES;
     skView.showsNodeCount = YES;
-//    skView.showsPhysics = YES;
+    //    skView.showsPhysics = YES;
     /* Sprite Kit applies additional optimizations to improve rendering performance */
     skView.ignoresSiblingOrder = YES;
     
     // Create and configure the scene.
     HomeScene *scene = [HomeScene unarchiveFromFile:@"HomeScene"];
     scene.scaleMode = SKSceneScaleModeAspectFill;
-    scene.homeSceneViewController = self;
+    scene.parentController = self;
     // Present the scene.
     [skView presentScene:scene];
-    
-    UIButton* gameButton = (UIButton*)[self.view viewWithTag:1];
-    gameButton.layer.cornerRadius = 30;
-    gameButton.layer.borderWidth = 8;
-    gameButton.layer.borderColor = [UIColor whiteColor].CGColor;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
 }
 
 - (void)didReceiveMemoryWarning
