@@ -75,6 +75,7 @@
 		A75A6CAB1C455745005CCE5E /* score.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A75A6CAA1C455745005CCE5E /* score.sqlite */; };
 		A75A6CAE1C4560BE005CCE5E /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = A75A6CAD1C4560BE005CCE5E /* Score.m */; };
 		A76374B51C3FC16400A9616C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A76374B41C3FC16400A9616C /* Images.xcassets */; };
+		A7888BA41C590D0E0063D097 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = A7888BA31C590D0E0063D097 /* click.wav */; };
 		A78A2DD21C4BB63D00D8AE75 /* FishingGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */; };
 		A78A2DD51C4BB9BF00D8AE75 /* FishingGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */; };
 		A78A2DD81C4BBB2E00D8AE75 /* SKScene+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A2DD71C4BBB2E00D8AE75 /* SKScene+ES.m */; };
@@ -267,6 +268,7 @@
 		A75A6CAC1C4560BE005CCE5E /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
 		A75A6CAD1C4560BE005CCE5E /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
 		A76374B41C3FC16400A9616C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A7888BA31C590D0E0063D097 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FishingGameScene.sks; sourceTree = "<group>"; };
 		A78A2DD31C4BB9BF00D8AE75 /* FishingGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingGameScene.h; sourceTree = "<group>"; };
 		A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameScene.m; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 		2DF6B73F1B94A14800B7F92C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7888BA21C590CFD0063D097 /* Sounds */,
 				A709FCD21C5136D80093AF8C /* fish.atlas */,
 				A709FCD31C5136D80093AF8C /* seaturtle.atlas */,
 				A709FCC61C4FEA810093AF8C /* fisherman.atlas */,
@@ -666,6 +669,14 @@
 			children = (
 			);
 			name = Scene;
+			sourceTree = "<group>";
+		};
+		A7888BA21C590CFD0063D097 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				A7888BA31C590D0E0063D097 /* click.wav */,
+			);
+			name = Sounds;
 			sourceTree = "<group>";
 		};
 		A7ABA9581C46934900938492 /* Products */ = {
@@ -837,6 +848,7 @@
 				A752FBF71C3B73AD00B8ED60 /* ionicons.ttf in Resources */,
 				2D0D27D91C47F90000FB5045 /* sand_castles.m4a in Resources */,
 				2D45C7091C03708E009FCFB8 /* FishRight.sks in Resources */,
+				A7888BA41C590D0E0063D097 /* click.wav in Resources */,
 				A76374B51C3FC16400A9616C /* Images.xcassets in Resources */,
 				A709FCD51C5136D80093AF8C /* seaturtle.atlas in Resources */,
 				2D45C7041C03708E009FCFB8 /* SharkRight.sks in Resources */,
