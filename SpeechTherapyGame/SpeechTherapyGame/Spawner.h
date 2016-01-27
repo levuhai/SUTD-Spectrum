@@ -30,5 +30,5 @@
                     inScene:(SKScene*)scene;
 -(void) spawnCreaturesContinuously;
 -(void) removeCreature:(SeaCreature*)creature;
-
+-(id)   getCreatureByContactNode:(SKNode*) node;
 @end

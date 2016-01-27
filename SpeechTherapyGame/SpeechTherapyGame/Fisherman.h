@@ -10,6 +10,7 @@
 
 @interface Fisherman : SKSpriteNode
 
+- (SKSpriteNode*) getHook;
 - (void)setupRod;
 - (void)raiseHook;
 - (void)dropHook;

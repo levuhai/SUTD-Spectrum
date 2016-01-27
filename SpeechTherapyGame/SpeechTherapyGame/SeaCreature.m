@@ -132,4 +132,24 @@
     
 }
 
+- (void) beingCaughtAnimationByHook:(SKSpriteNode*) hook {
+    
+    [self removeAllActions];
+    
+    CGFloat rotateAngle = 0.5 * M_PI;
+    if (bodyNode.xScale == -1) {
+        rotateAngle = -0.5 * M_PI;
+    }
+    // raise the hook
+    SKAction *fishToHookTranslationAction = [SKAction moveTo:CGPointMake(hook.position.x, hook.position.y - bodyNode.size.width/2) duration:0];
+    SKAction *fishToHookRotationAction = [SKAction rotateByAngle:rotateAngle duration:1/8.0f];
+    SKAction *fishToHookAction = [SKAction group:@[fishToHookTranslationAction, fishToHookRotationAction]];
+    
+    SKAction *followHookOnceAction = [SKAction moveByX:0 y:hookMovementDeltaY duration:1/hookRaiseSpeed];
+    int count = ceilf((yHookStart-self.position.y)/hookMovementDeltaY);
+    SKAction *followHookAction = [SKAction repeatAction:followHookOnceAction count:count];
+    SKAction *fishActions = [SKAction group:@[fishToHookAction, followHookAction]];
+    [self runAction:fishActions];
+}
+
 @end

@@ -17,8 +17,8 @@ const uint32_t FISH_BIT_MASK = 0x1 << 1;
 const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 
 @interface FishingGameScene() <SKPhysicsContactDelegate> {
+    BOOL _aCreatureIsHooked;
     Fisherman* _fisherman;
-    
     NSMutableArray* _creatureSpawners;
 }
 
@@ -48,19 +48,34 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 #pragma mark - Touches
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [_fisherman dropHook];
+    if (!_aCreatureIsHooked)
+        [_fisherman dropHook];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [_fisherman raiseHook];
-
 }
 
 #pragma mark - SKPhysicsContactDelegate
 
 - (void)didBeginContact:(SKPhysicsContact *)contact {
-    NSLog(@"Gotcha!");
     // TODO: _fisherman checkFishHooked
+    
+    if (!_aCreatureIsHooked) {
+        if (contact.bodyA.categoryBitMask == bitmaskCategoryHook &&
+            contact.bodyB.categoryBitMask == bitmaskCategoryCreature) {
+            NSLog(@"Gotcha!");
+            
+            for (Spawner* spawner in _creatureSpawners) {
+                SeaCreature* caughtCreature = [spawner getCreatureByContactNode:contact.bodyB.node];
+                if (caughtCreature) {
+                    _aCreatureIsHooked = YES;
+                    [caughtCreature beingCaughtAnimationByHook:[_fisherman getHook]];
+                    break;
+                }
+            }
+        }
+    }
 }
 
 #pragma mark - Private Method
