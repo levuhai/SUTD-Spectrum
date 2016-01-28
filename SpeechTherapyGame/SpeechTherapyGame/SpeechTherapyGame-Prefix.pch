@@ -19,15 +19,18 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+    #import <MagicalRecord/MagicalRecord.h>
+
     #import "CoreDataManager.h"
     #import "FrameAccessor.h"
-    #import "SKScene+Unarchive.h"
-    #import <MagicalRecord/MagicalRecord.h>
     #import "NGSplitMenu.h"
     #import "Macro.h"
-    #import "NSDate+Helper.h"
-    #import "SKScene+ES.h"
     #import "NSUserDefaults+Convenience.h"
+
+    #import "SKScene+Unarchive.h"
+    #import "NSDate+Helper.h"
+    #import "UIColor+Chameleon.h"
+    #import "SKScene+ES.h"
     // Models
     #import "Games.h"
     #import "Sounds.h"

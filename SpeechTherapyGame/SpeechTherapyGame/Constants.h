@@ -23,7 +23,7 @@
 #define bitmaskCategorySeaTurtle 5
 
 #define kTileWidth 20.0
-
+#define zCard 1000
 #define zOcean 2
 #define zOceanBackground zOcean-0.5
 #define zOceanForeground zOcean+0.5

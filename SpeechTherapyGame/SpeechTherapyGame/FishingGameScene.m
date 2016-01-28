@@ -7,10 +7,10 @@
 //
 
 #import "FishingGameScene.h"
-#import "UIColor+Chameleon.h"
 #import "Fisherman.h"
 #import "Spawner.h"
 #import "SeaTurtle.h"
+#import "SpeechCard.h"
 
 const uint32_t HOOK_BIT_MASK = 0x1 << 0;
 const uint32_t FISH_BIT_MASK = 0x1 << 1;
@@ -19,6 +19,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 @interface FishingGameScene() <SKPhysicsContactDelegate> {
     BOOL _aCreatureIsHooked;
     Fisherman* _fisherman;
+    SpeechCard* _card;
     NSMutableArray* _creatureSpawners;
 }
 
@@ -66,6 +67,9 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
             contact.bodyB.categoryBitMask == bitmaskCategoryCreature) {
             NSLog(@"Gotcha!");
             
+            SKAction *moveTo = [SKAction moveByX:80+_card.size.width y:0 duration:0.5];
+            [_card runAction:moveTo];
+            
             for (Spawner* spawner in _creatureSpawners) {
                 SeaCreature* caughtCreature = [spawner getCreatureByContactNode:contact.bodyB.node];
                 if (caughtCreature) {
@@ -81,7 +85,13 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 #pragma mark - Private Method
 
 - (void) _setupScene {
-    // Build scene physics
+    // Speech Card
+    _card = [[SpeechCard alloc] initWithColor:[UIColor clearColor] size:CGSizeMake(490, 650)];
+    _card.anchorPoint = CGPointMake(1, 0);
+    _card.position = CGPointMake(0, 35);
+    _card.zPosition = zCard;
+    
+    [self addChild:_card];
     
     // Fisherman
     _fisherman = (Fisherman*)[self childNodeWithName:@"spriteFisherman"];
