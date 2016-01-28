@@ -7,6 +7,7 @@
 //
 
 #import "FishingGameScene.h"
+#import "LPCNode.h"
 #import "HomeScene.h"
 #import "Fisherman.h"
 #import "Spawner.h"
@@ -22,6 +23,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     Fisherman* _fisherman;
     SpeechCard* _card;
     NSMutableArray* _creatureSpawners;
+    LPCNode* _lpcNode;
 }
 
 @end
@@ -45,6 +47,9 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
         Spawner* spawner = (Spawner*)_spawner;
         [spawner spawnCreaturesContinuously];
     }];
+    
+    if (_lpcNode)
+        [_lpcNode draw];
 }
 
 #pragma mark - Touches
@@ -103,6 +108,14 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 #pragma mark - Private Method
 
 - (void) _setupScene {
+    SKSpriteNode* lpcBg = (SKSpriteNode*)[self childNodeWithName:@"nodeLpcBg"];
+    // LPC Graph
+    _lpcNode = [LPCNode node];
+    _lpcNode.position = CGPointMake(lpcBg.position.x+5, lpcBg.position.y+15);
+    _lpcNode.zPosition = lpcBg.zPosition+1;
+    [_lpcNode setupWithSize:CGSizeMake(lpcBg.size.width-10, lpcBg.size.height-30)];
+    [self addChild:_lpcNode];
+    
     // Fisherman
     _fisherman = (Fisherman*)[self childNodeWithName:@"spriteFisherman"];
     [_fisherman setupRod];

@@ -26,8 +26,8 @@
 - (void)enlarge {
     if (_enlarged) {
         [self removeAllActions];
-        SKAction* slide = [SKAction moveTo:self.startPosition duration:0.3];
-        SKAction* scaleDown = [SKAction scaleTo:0.0 duration:0.3];
+        SKAction* slide = [SKAction moveTo:self.startPosition duration:0.4];
+        SKAction* scaleDown = [SKAction scaleTo:0.0 duration:0.4];
         [self runAction:[SKAction group:@[slide, scaleDown]] completion:^{
             _enlarged = NO;
             [self setHidden:YES];
@@ -37,8 +37,8 @@
         _enlarged = YES;
         [self setHidden:NO];
         
-        SKAction* slide = [SKAction moveTo:self.endPosition duration:0.3];
-        SKAction* scaleUp = [SKAction scaleTo:1.0 duration:0.3];
+        SKAction* slide = [SKAction moveTo:self.endPosition duration:0.4];
+        SKAction* scaleUp = [SKAction scaleTo:1.0 duration:0.4];
         [self runAction:[SKAction group:@[slide, scaleUp]]];
     }
 }

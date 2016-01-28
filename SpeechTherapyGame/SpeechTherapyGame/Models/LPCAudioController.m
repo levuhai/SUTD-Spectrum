@@ -117,6 +117,38 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     return nil; // on subsequent allocation attempts return nil
 }
 
+- (id)initWithSize:(CGSize)size
+{
+    self = [super init];
+    if (self) {
+        // Handle interuption
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(interruption:)
+                                                     name:AVAudioSessionInterruptionNotification
+                                                   object:nil];
+        
+        drawing = NO;
+        startedCallback = NO;
+        interrupted = NO;
+        
+        // Init defaut setup data
+        [self _setUpData];
+        self->energyThreshold = 300000000;
+        
+        // Get screen width
+        self.width = size.width;
+        self.height = size.height;
+        
+        // Init empty plot data
+        plotData = (double *)(malloc((self.width) * sizeof(double)));
+        for (int i = 0; i<self.width; i++) {
+            plotData[i] = 0;
+        }
+        [self activateAudioSession];
+    }
+    return self;
+}
+
 - (id)init
 {
     self = [super init];

@@ -61,6 +61,7 @@
 
 //-(short int*)buffer;
 + (LPCAudioController *) sharedInstance;
+- (id)initWithSize:(CGSize)size;
 -(void)calculateFormants;
 
 - (void)stop;

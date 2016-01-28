@@ -52,7 +52,8 @@
     self = [super initWithCoder:coder];
     if (self) {
         // Setup LPC
-        lpcController = [LPCAudioController sharedInstance];
+        [[LPCAudioController sharedInstance] start];
+        
         [self setBackgroundColor:[UIColor clearColor]];
     }
     return self;
