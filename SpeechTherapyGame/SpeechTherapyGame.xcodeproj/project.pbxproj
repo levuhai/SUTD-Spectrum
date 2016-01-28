@@ -76,6 +76,7 @@
 		A76374B51C3FC16400A9616C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A76374B41C3FC16400A9616C /* Images.xcassets */; };
 		A7888BA41C590D0E0063D097 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = A7888BA31C590D0E0063D097 /* click.wav */; };
 		A7888BA71C5923590063D097 /* SpeechCard.m in Sources */ = {isa = PBXBuildFile; fileRef = A7888BA61C5923590063D097 /* SpeechCard.m */; };
+		A7888BAA1C59C33C0063D097 /* NodeUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = A7888BA91C59C33C0063D097 /* NodeUtility.m */; };
 		A78A2DD21C4BB63D00D8AE75 /* FishingGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */; };
 		A78A2DD51C4BB9BF00D8AE75 /* FishingGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */; };
 		A78A2DD81C4BBB2E00D8AE75 /* SKScene+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A2DD71C4BBB2E00D8AE75 /* SKScene+ES.m */; };
@@ -269,6 +270,8 @@
 		A7888BA31C590D0E0063D097 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		A7888BA51C5923590063D097 /* SpeechCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechCard.h; sourceTree = "<group>"; };
 		A7888BA61C5923590063D097 /* SpeechCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechCard.m; sourceTree = "<group>"; };
+		A7888BA81C59C33C0063D097 /* NodeUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeUtility.h; sourceTree = "<group>"; };
+		A7888BA91C59C33C0063D097 /* NodeUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeUtility.m; sourceTree = "<group>"; };
 		A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FishingGameScene.sks; sourceTree = "<group>"; };
 		A78A2DD31C4BB9BF00D8AE75 /* FishingGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingGameScene.h; sourceTree = "<group>"; };
 		A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameScene.m; sourceTree = "<group>"; };
@@ -516,6 +519,8 @@
 				A78A2DD71C4BBB2E00D8AE75 /* SKScene+ES.m */,
 				D78865B61C1043E200C3944C /* LPCView.h */,
 				D78865B71C1043E200C3944C /* LPCView.mm */,
+				A7888BA81C59C33C0063D097 /* NodeUtility.h */,
+				A7888BA91C59C33C0063D097 /* NodeUtility.m */,
 				2DB4D6201BF391E100A12481 /* TCProgressTimerNode */,
 				2D1A04231BB068BF00FA14CC /* NGSplitMenuController */,
 				2D6064701BA99E5B00410B0E /* CoreDataManager */,
@@ -916,6 +921,7 @@
 			files = (
 				D78865B81C1043E200C3944C /* LPCView.mm in Sources */,
 				A78A2DD51C4BB9BF00D8AE75 /* FishingGameScene.m in Sources */,
+				A7888BAA1C59C33C0063D097 /* NodeUtility.m in Sources */,
 				2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */,
 				2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */,
 				2D650A7C1C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.m in Sources */,

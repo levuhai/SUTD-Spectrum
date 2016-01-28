@@ -62,6 +62,11 @@
     //[self _animateReelUp];
 }
 
+- (CGPoint)hookStartPosition {
+    CGPoint rodPos = [self convertPoint:_rod.position toNode:self.scene];
+    return CGPointMake(rodPos.x, yHookStart);
+}
+
 - (void)setupRod {
     _rod = (SKSpriteNode*)[self childNodeWithName:@"rod"];
     

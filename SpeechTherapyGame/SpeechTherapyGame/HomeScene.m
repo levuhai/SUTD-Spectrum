@@ -52,17 +52,7 @@
     CGPoint location = [touch locationInNode:self];
     SKNode *touchNode = [self nodeAtPoint:location];
     
-    SKAction *pushDown = [SKAction scaleTo:0.85 duration:0.15];
-    SKAction *click = [SKAction playSoundFileNamed:@"click.wav" waitForCompletion:YES];
-    SKAction *pushUp = [SKAction scaleTo:1.0 duration:0.1];
-    
-    SKAction *clickAndUp;
-    if (_isSoundOn) {
-        clickAndUp = [SKAction group:@[click, pushUp]];
-    } else {
-        clickAndUp = [SKAction group:@[pushUp]];
-    }
-    SKAction *push = [SKAction sequence:@[pushDown, clickAndUp]];
+    SKAction *push = [NodeUtility buttonPushAction];
     
     if ([touchNode.name isEqualToString:@"btnSound"]) {
         [touchNode runAction:push completion:^{

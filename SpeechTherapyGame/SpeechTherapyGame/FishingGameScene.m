@@ -7,6 +7,7 @@
 //
 
 #import "FishingGameScene.h"
+#import "HomeScene.h"
 #import "Fisherman.h"
 #import "Spawner.h"
 #import "SeaTurtle.h"
@@ -49,8 +50,26 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 #pragma mark - Touches
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    SKNode *touchNode = [self nodeAtPoint:location];
+    
+    SKAction *push = [NodeUtility buttonPushAction];
+    
+    // Button Home clicked
+    if ([touchNode.name isEqualToString:@"btnHome"]) {
+        [touchNode runAction:push completion:^{
+            // Present home scene
+            HomeScene *scene = [HomeScene unarchiveFromFile:@"HomeScene"];
+            scene.scaleMode = SKSceneScaleModeAspectFill;
+            [self.view presentScene:scene];
+        }];
+    }
+    
     if (!_aCreatureIsHooked)
         [_fisherman dropHook];
+    else
+        [_card enlarge];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -67,8 +86,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
             contact.bodyB.categoryBitMask == bitmaskCategoryCreature) {
             NSLog(@"Gotcha!");
             
-            SKAction *moveTo = [SKAction moveByX:80+_card.size.width y:0 duration:0.5];
-            [_card runAction:moveTo];
+            [_card enlarge];
             
             for (Spawner* spawner in _creatureSpawners) {
                 SeaCreature* caughtCreature = [spawner getCreatureByContactNode:contact.bodyB.node];
@@ -85,17 +103,19 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 #pragma mark - Private Method
 
 - (void) _setupScene {
-    // Speech Card
-    _card = [[SpeechCard alloc] initWithColor:[UIColor clearColor] size:CGSizeMake(490, 650)];
-    _card.anchorPoint = CGPointMake(1, 0);
-    _card.position = CGPointMake(0, 35);
-    _card.zPosition = zCard;
-    
-    [self addChild:_card];
-    
     // Fisherman
     _fisherman = (Fisherman*)[self childNodeWithName:@"spriteFisherman"];
     [_fisherman setupRod];
+    
+    // Speech Card
+    _card = [[SpeechCard alloc] initWithColor:[UIColor clearColor] size:CGSizeMake(429, 600)];
+    _card.startPosition = [_fisherman hookStartPosition];
+    _card.endPosition = CGPointMake(429+80, 35);
+    _card.anchorPoint = CGPointMake(1, 0);
+    _card.position = [_fisherman hookStartPosition];
+    _card.zPosition = zCard;
+    
+    [self addChild:_card];
 }
 
 - (void)_setupSpawner {

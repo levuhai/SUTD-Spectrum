@@ -8,6 +8,13 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface SpeechCard : SKSpriteNode
+@interface SpeechCard : SKSpriteNode {
+    BOOL _enlarged;
+}
+
+@property (nonatomic, assign) CGPoint startPosition;
+@property (nonatomic, assign) CGPoint endPosition;
+
+- (void)enlarge;
 
 @end

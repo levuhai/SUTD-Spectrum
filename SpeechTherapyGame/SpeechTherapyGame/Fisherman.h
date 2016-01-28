@@ -12,6 +12,7 @@
 
 - (SKSpriteNode*) getHook;
 - (void)setupRod;
+- (CGPoint)hookStartPosition;
 - (void)raiseHook;
 - (void)dropHook;
 

@@ -10,6 +10,6 @@
 @class HomeSceneViewController;
 @interface HomeScene : SKScene
 
-@property (strong, nonatomic) HomeSceneViewController* parentController;
+@property (weak, nonatomic) HomeSceneViewController* parentController;
 
 @end

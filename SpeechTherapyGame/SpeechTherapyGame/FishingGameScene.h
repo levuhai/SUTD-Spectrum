@@ -7,7 +7,10 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+@class HomeSceneViewController;
 
 @interface FishingGameScene : SKScene
+
+@property (weak, nonatomic) HomeSceneViewController* parentController;
 
 @end
