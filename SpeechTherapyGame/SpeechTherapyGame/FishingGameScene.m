@@ -13,6 +13,8 @@
 #import "Spawner.h"
 #import "SeaTurtle.h"
 #import "SpeechCard.h"
+#import "Word.h"
+#import "DataManager.h"
 
 const uint32_t HOOK_BIT_MASK = 0x1 << 0;
 const uint32_t FISH_BIT_MASK = 0x1 << 1;
@@ -24,6 +26,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     SpeechCard* _card;
     NSMutableArray* _creatureSpawners;
     LPCNode* _lpcNode;
+    NSMutableArray* _randomWords;
 }
 
 @end
@@ -35,7 +38,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     
     self.physicsWorld.gravity = CGVectorMake(0, 0);
     self.physicsWorld.contactDelegate = self;
-    
+    _randomWords = [[DataManager shared] getRandomWords];
     [self _setupScene];
     [self _setupSpawner];
 }
@@ -59,7 +62,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     CGPoint location = [touch locationInNode:self];
     SKNode *touchNode = [self nodeAtPoint:location];
     
-    SKAction *push = [NodeUtility buttonPushAction];
+    SKAction *push = [NodeUtility buttonPushActionWithSound];
     
     // Button Home clicked
     if ([touchNode.name isEqualToString:@"btnHome"]) {
@@ -91,7 +94,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
             contact.bodyB.categoryBitMask == bitmaskCategoryCreature) {
             NSLog(@"Gotcha!");
             
-            [_card enlarge];
+            [_card enlargeWithWord:_randomWords[0]];
             
             for (Spawner* spawner in _creatureSpawners) {
                 SeaCreature* caughtCreature = [spawner getCreatureByContactNode:contact.bodyB.node];
@@ -111,6 +114,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     SKSpriteNode* lpcBg = (SKSpriteNode*)[self childNodeWithName:@"nodeLpcBg"];
     // LPC Graph
     _lpcNode = [LPCNode node];
+    _lpcNode.lineWidth = 2;
     _lpcNode.position = CGPointMake(lpcBg.position.x+5, lpcBg.position.y+15);
     _lpcNode.zPosition = lpcBg.zPosition+1;
     [_lpcNode setupWithSize:CGSizeMake(lpcBg.size.width-10, lpcBg.size.height-30)];
@@ -123,8 +127,8 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     // Speech Card
     _card = [[SpeechCard alloc] initWithColor:[UIColor clearColor] size:CGSizeMake(429, 600)];
     _card.startPosition = [_fisherman hookStartPosition];
-    _card.endPosition = CGPointMake(429+80, 35);
-    _card.anchorPoint = CGPointMake(1, 0);
+    _card.endPosition = CGPointMake(80, 50);
+    _card.anchorPoint = CGPointMake(0, 0);
     _card.position = [_fisherman hookStartPosition];
     _card.zPosition = zCard;
     

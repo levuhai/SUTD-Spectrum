@@ -60,7 +60,7 @@
 @property (nonatomic, readonly) double fourthFFreq;
 
 //-(short int*)buffer;
-+ (LPCAudioController *) sharedInstance;
+//+ (LPCAudioController *) sharedInstance;
 - (id)initWithSize:(CGSize)size;
 -(void)calculateFormants;
 

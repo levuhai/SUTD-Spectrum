@@ -11,5 +11,6 @@
 @interface NodeUtility : SKNode
 
 + (SKAction*)buttonPushAction;
++ (SKAction*)buttonPushActionWithSound;
 
 @end

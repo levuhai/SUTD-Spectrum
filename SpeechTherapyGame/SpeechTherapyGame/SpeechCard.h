@@ -7,6 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+@class Word;
 
 @interface SpeechCard : SKSpriteNode {
     BOOL _enlarged;
@@ -16,5 +17,6 @@
 @property (nonatomic, assign) CGPoint endPosition;
 
 - (void)enlarge;
+- (void)enlargeWithWord:(Word*)word;
 
 @end

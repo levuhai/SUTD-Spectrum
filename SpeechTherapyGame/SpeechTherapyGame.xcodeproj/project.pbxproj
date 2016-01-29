@@ -46,7 +46,6 @@
 		2DE88ACA1BB8517A002438C6 /* Games+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC11BB8517A002438C6 /* Games+CoreDataProperties.m */; };
 		2DE88ACB1BB8517A002438C6 /* Games.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC31BB8517A002438C6 /* Games.m */; };
 		2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */; };
-		2DF67F821BD4A1A900EB7390 /* FishingGameScene1.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F811BD4A1A900EB7390 /* FishingGameScene1.m */; };
 		2DF6B7421B94A14800B7F92C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7411B94A14800B7F92C /* main.m */; };
 		2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7441B94A14800B7F92C /* AppDelegate.m */; };
 		2DF6B7481B94A14800B7F92C /* HomeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7471B94A14800B7F92C /* HomeScene.m */; };
@@ -86,7 +85,6 @@
 		A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7EF5AD21C4777FA00032574 /* debussy.ttf */; };
 		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; };
 		D78865B51C1043B800C3944C /* LPCAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865B41C1043B800C3944C /* LPCAudioController.m */; };
-		D78865B81C1043E200C3944C /* LPCView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D78865B71C1043E200C3944C /* LPCView.mm */; };
 		D78865BB1C10453800C3944C /* NSMutableArray+Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865BA1C10453800C3944C /* NSMutableArray+Queue.m */; };
 		D78865C01C10454700C3944C /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865BD1C10454700C3944C /* UIColor+Expanded.m */; };
 		D78865C11C10454700C3944C /* UIColor+Flat.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865BF1C10454700C3944C /* UIColor+Flat.m */; };
@@ -216,8 +214,6 @@
 		2DE88AC31BB8517A002438C6 /* Games.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Games.m; sourceTree = "<group>"; };
 		2DF67F7D1BD4A18800EB7390 /* FishingGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingGameViewController.h; sourceTree = "<group>"; };
 		2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameViewController.m; sourceTree = "<group>"; };
-		2DF67F801BD4A1A900EB7390 /* FishingGameScene1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingGameScene1.h; sourceTree = "<group>"; };
-		2DF67F811BD4A1A900EB7390 /* FishingGameScene1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameScene1.m; sourceTree = "<group>"; };
 		2DF6B73C1B94A14800B7F92C /* SpeechTherapyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechTherapyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DF6B7401B94A14800B7F92C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DF6B7411B94A14800B7F92C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -287,8 +283,6 @@
 		D716291E1BE76FFE00C56C77 /* ParentMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentMasterController.m; sourceTree = "<group>"; };
 		D78865B31C1043B800C3944C /* LPCAudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPCAudioController.h; sourceTree = "<group>"; };
 		D78865B41C1043B800C3944C /* LPCAudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPCAudioController.m; sourceTree = "<group>"; };
-		D78865B61C1043E200C3944C /* LPCView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPCView.h; sourceTree = "<group>"; };
-		D78865B71C1043E200C3944C /* LPCView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LPCView.mm; sourceTree = "<group>"; };
 		D78865B91C10453800C3944C /* NSMutableArray+Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Queue.h"; sourceTree = "<group>"; };
 		D78865BA1C10453800C3944C /* NSMutableArray+Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Queue.m"; sourceTree = "<group>"; };
 		D78865BC1C10454700C3944C /* UIColor+Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Expanded.h"; sourceTree = "<group>"; };
@@ -487,8 +481,6 @@
 				A7888BA61C5923590063D097 /* SpeechCard.m */,
 				A7888BAB1C59D57F0063D097 /* LPCNode.h */,
 				A7888BAC1C59D57F0063D097 /* LPCNode.mm */,
-				D78865B61C1043E200C3944C /* LPCView.h */,
-				D78865B71C1043E200C3944C /* LPCView.mm */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -649,8 +641,6 @@
 			children = (
 				2DF67F7D1BD4A18800EB7390 /* FishingGameViewController.h */,
 				2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */,
-				2DF67F801BD4A1A900EB7390 /* FishingGameScene1.h */,
-				2DF67F811BD4A1A900EB7390 /* FishingGameScene1.m */,
 			);
 			name = Removed;
 			sourceTree = "<group>";
@@ -924,7 +914,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D78865B81C1043E200C3944C /* LPCView.mm in Sources */,
 				A78A2DD51C4BB9BF00D8AE75 /* FishingGameScene.m in Sources */,
 				A7888BAA1C59C33C0063D097 /* NodeUtility.m in Sources */,
 				2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */,
@@ -937,7 +926,6 @@
 				2DC904171BB1D0580082DEAC /* ParentStatsController.m in Sources */,
 				2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */,
 				A7888BAD1C59D57F0063D097 /* LPCNode.mm in Sources */,
-				2DF67F821BD4A1A900EB7390 /* FishingGameScene1.m in Sources */,
 				2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */,
 				2DC195E91BF6338B008669A0 /* GameStatistics+CoreDataProperties.m in Sources */,
 				A752FBFA1C3B747300B8ED60 /* UIFont+ES.m in Sources */,

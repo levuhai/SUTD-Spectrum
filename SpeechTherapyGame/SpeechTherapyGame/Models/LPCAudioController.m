@@ -76,7 +76,7 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     
     // If energy is above the threshold, copy 1024 samples to the long buffer.
     
-    if (bufferEnergy > manager->energyThreshold/8)
+    if (bufferEnergy > manager->energyThreshold/10)
     {
         //NSLog(@"Add data to buffer");
         short signed int *source= (short signed int *)bufferList->mBuffers[0].mData;
@@ -96,26 +96,26 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
 
 #pragma mark - Singleton
 
-+ (LPCAudioController*) sharedInstance
-{
-    @synchronized(self)
-    {
-        if (sharedInstance == nil) {
-            sharedInstance = [[LPCAudioController alloc] init];
-        }
-    }
-    return sharedInstance;
-}
-
-+ (id)allocWithZone:(NSZone *)zone {
-    @synchronized(self) {
-        if (sharedInstance == nil) {
-            sharedInstance = [super allocWithZone:zone];
-            return sharedInstance;  // assignment and return on first allocation
-        }
-    }
-    return nil; // on subsequent allocation attempts return nil
-}
+//+ (LPCAudioController*) sharedInstance
+//{
+//    @synchronized(self)
+//    {
+//        if (sharedInstance == nil) {
+//            sharedInstance = [[LPCAudioController alloc] init];
+//        }
+//    }
+//    return sharedInstance;
+//}
+//
+//+ (id)allocWithZone:(NSZone *)zone {
+//    @synchronized(self) {
+//        if (sharedInstance == nil) {
+//            sharedInstance = [super allocWithZone:zone];
+//            return sharedInstance;  // assignment and return on first allocation
+//        }
+//    }
+//    return nil; // on subsequent allocation attempts return nil
+//}
 
 - (id)initWithSize:(CGSize)size
 {

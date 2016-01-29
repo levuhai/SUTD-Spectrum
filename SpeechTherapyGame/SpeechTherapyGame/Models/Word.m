@@ -33,4 +33,13 @@
     return self;
 }
 
+- (NSString *)fullFilePath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSString *file = [NSString stringWithFormat:@"sounds/%@",self.wFile];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:file];
+    return [filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
 @end

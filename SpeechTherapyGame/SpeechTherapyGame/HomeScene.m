@@ -52,7 +52,7 @@
     CGPoint location = [touch locationInNode:self];
     SKNode *touchNode = [self nodeAtPoint:location];
     
-    SKAction *push = [NodeUtility buttonPushAction];
+    SKAction *push = [NodeUtility buttonPushActionWithSound];
     
     if ([touchNode.name isEqualToString:@"btnSound"]) {
         [touchNode runAction:push completion:^{

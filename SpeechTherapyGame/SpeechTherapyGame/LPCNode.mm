@@ -22,22 +22,10 @@
     int dataBufferLength;
 }
 
-//- (id)initWithColor:(UIColor *)color size:(CGSize)size {
-//    self = [super initWithColor:color size:size];
-//    if (self) {
-//        //[self _init];
-//    }
-//    return self;
-//}
-//
-//- (id)initWithCoder:(NSCoder *)coder
-//{
-//    self = [super initWithCoder:coder];
-//    if (self) {
-//        //[self _init];
-//    }
-//    return self;
-//}
+- (void)dealloc {
+    [_lpcController stop];
+    _lpcController = nil;
+}
 
 - (void)setupWithSize:(CGSize)size {
     _size = size;

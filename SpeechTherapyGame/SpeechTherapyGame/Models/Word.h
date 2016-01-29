@@ -23,4 +23,6 @@
 @property(readonly, nonatomic) int pLength;
 @property(readonly, nonatomic) NSString* speaker;
 
+- (NSString*)fullFilePath;
+
 @end

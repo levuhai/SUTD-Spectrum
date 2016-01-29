@@ -100,7 +100,6 @@ NSUInteger WHALETYPE = 2;
     self.lpcView.clipsToBounds = YES;
     
     [view addSubview:self.lpcView];
-    [self _startDrawing];
 }
 
 - (void) setupGameScene {
@@ -875,31 +874,5 @@ NSUInteger WHALETYPE = 2;
 
 #pragma mark - LPC
 
-- (void)_startDrawing {
-    // Start LPC Instance
-    [[LPCAudioController sharedInstance] start];
-    
-    if (!_drawTimer) {
-        _drawTimer = [NSTimer scheduledTimerWithTimeInterval: 1/50
-                                                      target: self
-                                                    selector: @selector(_drawGraph)
-                                                    userInfo: nil
-                                                     repeats: YES];
-    }
-}
-
-- (void)_stopDrawing {
-    // Stop LPC Instance
-    [[LPCAudioController sharedInstance] stop];
-    
-    // Invalidate Timer
-    [_drawTimer invalidate];
-    _drawTimer = nil;
-}
-
-- (void)_drawGraph {
-    // LPC
-    [self.lpcView refresh];
-}
 
 @end
