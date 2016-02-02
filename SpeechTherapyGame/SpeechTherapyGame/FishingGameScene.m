@@ -94,7 +94,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
             contact.bodyB.categoryBitMask == bitmaskCategoryCreature) {
             NSLog(@"Gotcha!");
             
-            [_card enlargeWithWord:_randomWords[0]];
+            [_card enlargeWithWord:_randomWords];
             
             for (Spawner* spawner in _creatureSpawners) {
                 SeaCreature* caughtCreature = [spawner getCreatureByContactNode:contact.bodyB.node];

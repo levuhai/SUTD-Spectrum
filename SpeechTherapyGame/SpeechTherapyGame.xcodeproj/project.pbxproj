@@ -73,6 +73,28 @@
 		A75A6CAB1C455745005CCE5E /* score.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A75A6CAA1C455745005CCE5E /* score.sqlite */; };
 		A75A6CAE1C4560BE005CCE5E /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = A75A6CAD1C4560BE005CCE5E /* Score.m */; };
 		A76374B51C3FC16400A9616C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A76374B41C3FC16400A9616C /* Images.xcassets */; };
+		A77563001C5F9858006E66BF /* AudioFileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77562E41C5F9858006E66BF /* AudioFileReader.cpp */; };
+		A77563051C5F9858006E66BF /* MelFilterBank.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77562ED1C5F9858006E66BF /* MelFilterBank.cpp */; };
+		A77563061C5F9858006E66BF /* MFCCProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77562EF1C5F9858006E66BF /* MFCCProcessor.cpp */; };
+		A77563081C5F9858006E66BF /* MFCCUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77562F31C5F9858006E66BF /* MFCCUtils.cpp */; };
+		A77563091C5F9858006E66BF /* TriangleFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77562F51C5F9858006E66BF /* TriangleFilter.cpp */; };
+		A775630B1C5F9858006E66BF /* WordMatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77562FA1C5F9858006E66BF /* WordMatch.cpp */; };
+		A775630C1C5F9858006E66BF /* WordMatchSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77562FC1C5F9858006E66BF /* WordMatchSession.cpp */; };
+		A77563211C5F9943006E66BF /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77563201C5F9943006E66BF /* CoreAudio.framework */; };
+		A77563231C5F9948006E66BF /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77563221C5F9948006E66BF /* Accelerate.framework */; };
+		A77563251C5F9959006E66BF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77563241C5F9959006E66BF /* AudioToolbox.framework */; };
+		A77563301C5F9CF0006E66BF /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A77563271C5F9CF0006E66BF /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a */; };
+		A77563311C5F9CF0006E66BF /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A77563281C5F9CF0006E66BF /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a */; };
+		A77563331C5F9CF0006E66BF /* libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A775632A1C5F9CF0006E66BF /* libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a */; };
+		A77563341C5F9CF0006E66BF /* libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A775632B1C5F9CF0006E66BF /* libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a */; };
+		A77563361C5F9CF0006E66BF /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A775632D1C5F9CF0006E66BF /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a */; };
+		A77563371C5F9CF0006E66BF /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A775632E1C5F9CF0006E66BF /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a */; };
+		A77563461C5F9D57006E66BF /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A775633A1C5F9D57006E66BF /* CADebugMacros.cpp */; };
+		A77563471C5F9D57006E66BF /* CADebugPrintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A775633C1C5F9D57006E66BF /* CADebugPrintf.cpp */; };
+		A77563481C5F9D57006E66BF /* CAHostTimeBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A775633E1C5F9D57006E66BF /* CAHostTimeBase.cpp */; };
+		A77563491C5F9D57006E66BF /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77563421C5F9D57006E66BF /* CAStreamBasicDescription.cpp */; };
+		A775634A1C5F9D57006E66BF /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77563441C5F9D57006E66BF /* CAXException.cpp */; };
+		A775634D1C5FA803006E66BF /* MFCCAudioController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A775634C1C5FA803006E66BF /* MFCCAudioController.mm */; };
 		A7888BA41C590D0E0063D097 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = A7888BA31C590D0E0063D097 /* click.wav */; };
 		A7888BA71C5923590063D097 /* SpeechCard.m in Sources */ = {isa = PBXBuildFile; fileRef = A7888BA61C5923590063D097 /* SpeechCard.m */; };
 		A7888BAA1C59C33C0063D097 /* NodeUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = A7888BA91C59C33C0063D097 /* NodeUtility.m */; };
@@ -264,6 +286,47 @@
 		A75A6CAC1C4560BE005CCE5E /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
 		A75A6CAD1C4560BE005CCE5E /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
 		A76374B41C3FC16400A9616C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A77562E41C5F9858006E66BF /* AudioFileReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFileReader.cpp; sourceTree = "<group>"; };
+		A77562E51C5F9858006E66BF /* AudioFileReader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AudioFileReader.hpp; sourceTree = "<group>"; };
+		A77562EB1C5F9858006E66BF /* dtw.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dtw.hpp; sourceTree = "<group>"; };
+		A77562ED1C5F9858006E66BF /* MelFilterBank.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MelFilterBank.cpp; sourceTree = "<group>"; };
+		A77562EE1C5F9858006E66BF /* MelFilterBank.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MelFilterBank.hpp; sourceTree = "<group>"; };
+		A77562EF1C5F9858006E66BF /* MFCCProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MFCCProcessor.cpp; sourceTree = "<group>"; };
+		A77562F01C5F9858006E66BF /* MFCCProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MFCCProcessor.hpp; sourceTree = "<group>"; };
+		A77562F21C5F9858006E66BF /* MFCCProcessor_Test_Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFCCProcessor_Test_Data.h; sourceTree = "<group>"; };
+		A77562F31C5F9858006E66BF /* MFCCUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MFCCUtils.cpp; sourceTree = "<group>"; };
+		A77562F41C5F9858006E66BF /* MFCCUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFCCUtils.h; sourceTree = "<group>"; };
+		A77562F51C5F9858006E66BF /* TriangleFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriangleFilter.cpp; sourceTree = "<group>"; };
+		A77562F81C5F9858006E66BF /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		A77562FA1C5F9858006E66BF /* WordMatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WordMatch.cpp; sourceTree = "<group>"; };
+		A77562FB1C5F9858006E66BF /* WordMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordMatch.h; sourceTree = "<group>"; };
+		A77562FC1C5F9858006E66BF /* WordMatchSession.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WordMatchSession.cpp; sourceTree = "<group>"; };
+		A77562FD1C5F9858006E66BF /* WordMatchSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordMatchSession.h; sourceTree = "<group>"; };
+		A775630D1C5F98D9006E66BF /* TriangleFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TriangleFilter.hpp; sourceTree = "<group>"; };
+		A77563201C5F9943006E66BF /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		A77563221C5F9948006E66BF /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		A77563241C5F9959006E66BF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		A77563271C5F9CF0006E66BF /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a"; path = "boost_ext/lib/libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a"; sourceTree = "<group>"; };
+		A77563281C5F9CF0006E66BF /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; path = "boost_ext/lib/libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; sourceTree = "<group>"; };
+		A775632A1C5F9CF0006E66BF /* libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a"; path = "boost_ext/lib/libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a"; sourceTree = "<group>"; };
+		A775632B1C5F9CF0006E66BF /* libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; path = "boost_ext/lib/libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; sourceTree = "<group>"; };
+		A775632D1C5F9CF0006E66BF /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a"; path = "boost_ext/lib/libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a"; sourceTree = "<group>"; };
+		A775632E1C5F9CF0006E66BF /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; path = "boost_ext/lib/libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a"; sourceTree = "<group>"; };
+		A77563391C5F9D57006E66BF /* CABitOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CABitOperations.h; sourceTree = "<group>"; };
+		A775633A1C5F9D57006E66BF /* CADebugMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugMacros.cpp; sourceTree = "<group>"; };
+		A775633B1C5F9D57006E66BF /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
+		A775633C1C5F9D57006E66BF /* CADebugPrintf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugPrintf.cpp; sourceTree = "<group>"; };
+		A775633D1C5F9D57006E66BF /* CADebugPrintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugPrintf.h; sourceTree = "<group>"; };
+		A775633E1C5F9D57006E66BF /* CAHostTimeBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAHostTimeBase.cpp; sourceTree = "<group>"; };
+		A775633F1C5F9D57006E66BF /* CAHostTimeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAHostTimeBase.h; sourceTree = "<group>"; };
+		A77563401C5F9D57006E66BF /* CALogMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALogMacros.h; sourceTree = "<group>"; };
+		A77563411C5F9D57006E66BF /* CAMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAMath.h; sourceTree = "<group>"; };
+		A77563421C5F9D57006E66BF /* CAStreamBasicDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAStreamBasicDescription.cpp; sourceTree = "<group>"; };
+		A77563431C5F9D57006E66BF /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
+		A77563441C5F9D57006E66BF /* CAXException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAXException.cpp; sourceTree = "<group>"; };
+		A77563451C5F9D57006E66BF /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
+		A775634B1C5FA803006E66BF /* MFCCAudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFCCAudioController.h; sourceTree = "<group>"; };
+		A775634C1C5FA803006E66BF /* MFCCAudioController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MFCCAudioController.mm; sourceTree = "<group>"; };
 		A7888BA31C590D0E0063D097 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		A7888BA51C5923590063D097 /* SpeechCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechCard.h; sourceTree = "<group>"; };
 		A7888BA61C5923590063D097 /* SpeechCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechCard.m; sourceTree = "<group>"; };
@@ -299,10 +362,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A77563251C5F9959006E66BF /* AudioToolbox.framework in Frameworks */,
+				A77563331C5F9CF0006E66BF /* libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a in Frameworks */,
+				A77563231C5F9948006E66BF /* Accelerate.framework in Frameworks */,
+				A77563211C5F9943006E66BF /* CoreAudio.framework in Frameworks */,
 				2D0D27DD1C47FC5900FB5045 /* AVFoundation.framework in Frameworks */,
+				A77563361C5F9CF0006E66BF /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a in Frameworks */,
 				A7ABA9631C46949400938492 /* Charts.framework in Frameworks */,
 				2D8931F41BA986AF006D2840 /* CoreData.framework in Frameworks */,
+				A77563341C5F9CF0006E66BF /* libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a in Frameworks */,
+				A77563301C5F9CF0006E66BF /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a in Frameworks */,
+				A77563311C5F9CF0006E66BF /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a in Frameworks */,
 				E7781B3647984EE3B72DEAC3 /* libPods-SpeechTherapyGame.a in Frameworks */,
+				A77563371C5F9CF0006E66BF /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +519,8 @@
 				2D650A791C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.m */,
 				2D650A7A1C3AD6D000CC4441 /* ActiveWord.h */,
 				2D650A7B1C3AD6D000CC4441 /* ActiveWord.m */,
+				A775634B1C5FA803006E66BF /* MFCCAudioController.h */,
+				A775634C1C5FA803006E66BF /* MFCCAudioController.mm */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -580,6 +654,7 @@
 		2DF6B73E1B94A14800B7F92C /* SpeechTherapyGame */ = {
 			isa = PBXGroup;
 			children = (
+				A77562DF1C5F9834006E66BF /* Reference */,
 				A752FBDF1C3A29EE00B8ED60 /* Database */,
 				2D2875451B9782DB0068818D /* Common */,
 				2D6064771BA9A35500410B0E /* Models */,
@@ -654,6 +729,59 @@
 			name = Database;
 			sourceTree = "<group>";
 		};
+		A77562DF1C5F9834006E66BF /* Reference */ = {
+			isa = PBXGroup;
+			children = (
+				A77563381C5F9D57006E66BF /* CAPublicUtility */,
+				A77562E21C5F9858006E66BF /* WordMatch */,
+			);
+			name = Reference;
+			sourceTree = "<group>";
+		};
+		A77562E21C5F9858006E66BF /* WordMatch */ = {
+			isa = PBXGroup;
+			children = (
+				A77562E41C5F9858006E66BF /* AudioFileReader.cpp */,
+				A77562E51C5F9858006E66BF /* AudioFileReader.hpp */,
+				A77562EB1C5F9858006E66BF /* dtw.hpp */,
+				A77562ED1C5F9858006E66BF /* MelFilterBank.cpp */,
+				A77562EE1C5F9858006E66BF /* MelFilterBank.hpp */,
+				A77562F21C5F9858006E66BF /* MFCCProcessor_Test_Data.h */,
+				A77562EF1C5F9858006E66BF /* MFCCProcessor.cpp */,
+				A77562F01C5F9858006E66BF /* MFCCProcessor.hpp */,
+				A77562F31C5F9858006E66BF /* MFCCUtils.cpp */,
+				A77562F41C5F9858006E66BF /* MFCCUtils.h */,
+				A77562F51C5F9858006E66BF /* TriangleFilter.cpp */,
+				A775630D1C5F98D9006E66BF /* TriangleFilter.hpp */,
+				A77562F81C5F9858006E66BF /* Types.h */,
+				A77562FA1C5F9858006E66BF /* WordMatch.cpp */,
+				A77562FB1C5F9858006E66BF /* WordMatch.h */,
+				A77562FC1C5F9858006E66BF /* WordMatchSession.cpp */,
+				A77562FD1C5F9858006E66BF /* WordMatchSession.h */,
+			);
+			path = WordMatch;
+			sourceTree = "<group>";
+		};
+		A77563381C5F9D57006E66BF /* CAPublicUtility */ = {
+			isa = PBXGroup;
+			children = (
+				A77563391C5F9D57006E66BF /* CABitOperations.h */,
+				A775633A1C5F9D57006E66BF /* CADebugMacros.cpp */,
+				A775633B1C5F9D57006E66BF /* CADebugMacros.h */,
+				A775633C1C5F9D57006E66BF /* CADebugPrintf.cpp */,
+				A775633D1C5F9D57006E66BF /* CADebugPrintf.h */,
+				A775633E1C5F9D57006E66BF /* CAHostTimeBase.cpp */,
+				A775633F1C5F9D57006E66BF /* CAHostTimeBase.h */,
+				A77563401C5F9D57006E66BF /* CALogMacros.h */,
+				A77563411C5F9D57006E66BF /* CAMath.h */,
+				A77563421C5F9D57006E66BF /* CAStreamBasicDescription.cpp */,
+				A77563431C5F9D57006E66BF /* CAStreamBasicDescription.h */,
+				A77563441C5F9D57006E66BF /* CAXException.cpp */,
+				A77563451C5F9D57006E66BF /* CAXException.h */,
+			);
+			path = CAPublicUtility;
+			sourceTree = SOURCE_ROOT;
+		};
 		A7888BA21C590CFD0063D097 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -676,6 +804,15 @@
 		AFD57064E87D38D48DF68026 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A77563271C5F9CF0006E66BF /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a */,
+				A77563281C5F9CF0006E66BF /* libboost_prg_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a */,
+				A775632A1C5F9CF0006E66BF /* libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_ARM.a */,
+				A775632B1C5F9CF0006E66BF /* libboost_test_exec_monitor-xgcc43-mt-1_46_iOS_43_SIM_x86.a */,
+				A775632D1C5F9CF0006E66BF /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_ARM.a */,
+				A775632E1C5F9CF0006E66BF /* libboost_unit_test_framework-xgcc43-mt-1_46_iOS_43_SIM_x86.a */,
+				A77563241C5F9959006E66BF /* AudioToolbox.framework */,
+				A77563221C5F9948006E66BF /* Accelerate.framework */,
+				A77563201C5F9943006E66BF /* CoreAudio.framework */,
 				2D0D27DC1C47FC5900FB5045 /* AVFoundation.framework */,
 				2D8931F31BA986AF006D2840 /* CoreData.framework */,
 				7C3B006EFB154C6DB3574B82 /* libPods-SpeechTherapyGame.a */,
@@ -917,6 +1054,7 @@
 				A78A2DD51C4BB9BF00D8AE75 /* FishingGameScene.m in Sources */,
 				A7888BAA1C59C33C0063D097 /* NodeUtility.m in Sources */,
 				2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */,
+				A77563061C5F9858006E66BF /* MFCCProcessor.cpp in Sources */,
 				2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */,
 				2D650A7C1C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.m in Sources */,
 				2D1A043E1BB06A0800FA14CC /* NGMenuItem.m in Sources */,
@@ -928,11 +1066,15 @@
 				A7888BAD1C59D57F0063D097 /* LPCNode.mm in Sources */,
 				2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */,
 				2DC195E91BF6338B008669A0 /* GameStatistics+CoreDataProperties.m in Sources */,
+				A775630C1C5F9858006E66BF /* WordMatchSession.cpp in Sources */,
 				A752FBFA1C3B747300B8ED60 /* UIFont+ES.m in Sources */,
 				2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */,
 				A7888BA71C5923590063D097 /* SpeechCard.m in Sources */,
 				2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */,
 				2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */,
+				A77563081C5F9858006E66BF /* MFCCUtils.cpp in Sources */,
+				A775630B1C5F9858006E66BF /* WordMatch.cpp in Sources */,
+				A77563471C5F9D57006E66BF /* CADebugPrintf.cpp in Sources */,
 				A709FCCA1C50A4CA0093AF8C /* Fisherman.m in Sources */,
 				D78865C41C1047D200C3944C /* NSUserDefaults+Convenience.m in Sources */,
 				2D75DD2A1BD57E9300112F4E /* ParentSecurityController.m in Sources */,
@@ -941,6 +1083,8 @@
 				A709FCCD1C5131E30093AF8C /* Spawner.m in Sources */,
 				2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */,
 				A709FCD01C5133B10093AF8C /* SeaCreature.m in Sources */,
+				A77563461C5F9D57006E66BF /* CADebugMacros.cpp in Sources */,
+				A77563491C5F9D57006E66BF /* CAStreamBasicDescription.cpp in Sources */,
 				2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */,
 				2DC9041A1BB1D0710082DEAC /* ParentSoundController.m in Sources */,
 				A75A6CAE1C4560BE005CCE5E /* Score.m in Sources */,
@@ -951,15 +1095,21 @@
 				A752FBF01C3A2D4100B8ED60 /* NSDictionary+ES.m in Sources */,
 				2DB4D6251BF391F200A12481 /* TCProgressTimerForegroundCropNode.m in Sources */,
 				2DE0E1311B9CAF6100BFEDA6 /* LoadingScene.m in Sources */,
+				A77563091C5F9858006E66BF /* TriangleFilter.cpp in Sources */,
+				A77563001C5F9858006E66BF /* AudioFileReader.cpp in Sources */,
 				D78865C01C10454700C3944C /* UIColor+Expanded.m in Sources */,
+				A775634D1C5FA803006E66BF /* MFCCAudioController.mm in Sources */,
 				2D1A04421BB06A2400FA14CC /* NGSplitViewManager.m in Sources */,
 				D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */,
+				A775634A1C5F9D57006E66BF /* CAXException.cpp in Sources */,
+				A77563481C5F9D57006E66BF /* CAHostTimeBase.cpp in Sources */,
 				A752FBE71C3A2A1B00B8ED60 /* DataManager.m in Sources */,
 				2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */,
 				2DB4D6261BF391F200A12481 /* TCProgressTimerNode.m in Sources */,
 				2D650A7D1C3AD6D000CC4441 /* ActiveWord.m in Sources */,
 				2DF6B7481B94A14800B7F92C /* HomeScene.m in Sources */,
 				2D7580A31C2B062A0004B125 /* StarsNode.m in Sources */,
+				A77563051C5F9858006E66BF /* MelFilterBank.cpp in Sources */,
 				A752FBF51C3AA79400B8ED60 /* WordCell.m in Sources */,
 				D78865BB1C10453800C3944C /* NSMutableArray+Queue.m in Sources */,
 				2DC195ED1BF63EA4008669A0 /* NSDate+Helper.m in Sources */,
@@ -1103,15 +1253,39 @@
 			baseConfigurationReference = 482749E27D29E52B34F59317 /* Pods-SpeechTherapyGame.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpeechTherapyGame/SpeechTherapyGame-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/ActionSheetPicker-3.0\"",
+					"\"${PODS_ROOT}/Headers/Public/ChameleonFramework\"",
+					"\"${PODS_ROOT}/Headers/Public/FMDB\"",
+					"\"${PODS_ROOT}/Headers/Public/FrameAccessor\"",
+					"\"${PODS_ROOT}/Headers/Public/MZAppearance\"",
+					"\"${PODS_ROOT}/Headers/Public/MZFormSheetController\"",
+					"\"${PODS_ROOT}/Headers/Public/MagicalRecord\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/PNChart\"",
+					"\"${PODS_ROOT}/Headers/Public/SpinKit\"",
+					"\"${PODS_ROOT}/Headers/Public/TheAmazingAudioEngine\"",
+					"\"${PODS_ROOT}/Headers/Public/UICountingLabel\"",
+					"\"$(SRCROOT)/boost_ext/include\"",
+					/Developer/Extras/CoreAudio/PublicUtility,
+				);
 				INFOPLIST_FILE = SpeechTherapyGame/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/boost_ext/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.SUTD.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1124,15 +1298,39 @@
 			baseConfigurationReference = B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpeechTherapyGame/SpeechTherapyGame-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/ActionSheetPicker-3.0\"",
+					"\"${PODS_ROOT}/Headers/Public/ChameleonFramework\"",
+					"\"${PODS_ROOT}/Headers/Public/FMDB\"",
+					"\"${PODS_ROOT}/Headers/Public/FrameAccessor\"",
+					"\"${PODS_ROOT}/Headers/Public/MZAppearance\"",
+					"\"${PODS_ROOT}/Headers/Public/MZFormSheetController\"",
+					"\"${PODS_ROOT}/Headers/Public/MagicalRecord\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/PNChart\"",
+					"\"${PODS_ROOT}/Headers/Public/SpinKit\"",
+					"\"${PODS_ROOT}/Headers/Public/TheAmazingAudioEngine\"",
+					"\"${PODS_ROOT}/Headers/Public/UICountingLabel\"",
+					"\"$(SRCROOT)/boost_ext/include\"",
+					/Developer/Extras/CoreAudio/PublicUtility,
+				);
 				INFOPLIST_FILE = SpeechTherapyGame/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/boost_ext/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.SUTD.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

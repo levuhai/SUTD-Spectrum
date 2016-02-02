@@ -17,6 +17,6 @@
 @property (nonatomic, assign) CGPoint endPosition;
 
 - (void)enlarge;
-- (void)enlargeWithWord:(Word*)word;
+- (void)enlargeWithWord:(NSMutableArray*)words;
 
 @end

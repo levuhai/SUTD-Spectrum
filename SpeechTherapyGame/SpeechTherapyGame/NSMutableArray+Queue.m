@@ -45,6 +45,6 @@ static char maxItemKey;
     if (self.count == self.maxItem) {
         [self dequeue];
     }
-    [self addObject:anItem];
+    [self enqueue:anItem];
 }
 @end

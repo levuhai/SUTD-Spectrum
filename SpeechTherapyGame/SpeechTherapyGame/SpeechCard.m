@@ -9,7 +9,10 @@
 @import AVFoundation;
 #import "SpeechCard.h"
 #import "Chameleon.h"
+#import "NSMutableArray+Queue.h"
 #import "Word.h"
+#import "MFCCAudioController.h"
+#define kBufferLength 60
 
 @interface SpeechCard() <AVAudioPlayerDelegate, AVAudioRecorderDelegate>
 
@@ -31,12 +34,18 @@
     SKSpriteNode* _spriteStar2;
     SKSpriteNode* _spriteStar3;
     NSDictionary *_recordSettings;
+    NSMutableArray* _silenceArray;
+    NSMutableArray* _words;
+    BOOL _soundDetected;
 }
 
 - (id)initWithColor:(UIColor *)color size:(CGSize)size {
     self = [super initWithColor:[UIColor clearColor] size:size];
     if (self) {
         self.userInteractionEnabled = YES;
+        
+        _silenceArray = [[NSMutableArray alloc] initWithMaxItem:kBufferLength];
+        _soundDetected = NO;
         
         // Set texture bg
         self.texture = [SKTexture textureWithImageNamed:@"imgCardBg"];
@@ -117,9 +126,19 @@
         _spriteVolume.zPosition = self.zPosition+1;
         [self addChild:_spriteVolume];
         
+        // Audio Session
+        NSError *error;
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord
+                            error:&error];
+        if (error) {
+            NSLog(@"Error description: %@", [error description]);
+        }
+        [audioSession setActive:YES error:nil];
+        
         // Record settings
         _recordSettings = [NSDictionary dictionaryWithObjectsAndKeys:
-                           [NSNumber numberWithInt:kAudioFormatAppleIMA4],AVFormatIDKey,
+                           [NSNumber numberWithInt:kAudioFormatLinearPCM],AVFormatIDKey,
                            [NSNumber numberWithInt:44100],AVSampleRateKey,
                            [NSNumber numberWithInt:1],AVNumberOfChannelsKey,
                            [NSNumber numberWithInt:32],AVLinearPCMBitDepthKey,
@@ -151,8 +170,8 @@
     }
 }
 
-- (void)enlargeWithWord:(Word*)word {
-    _word = word;
+- (void)enlargeWithWord:(NSMutableArray*)words {
+    _words = words;
     
     if (_enlarged) {
         [self removeAllActions];
@@ -163,7 +182,8 @@
             [self setHidden:YES];
         }];
     } else {
-        _lbWord.text = word.wText;
+        Word*a = (Word*)_words[0];
+        _lbWord.text = a.wText;
         [self removeAllActions];
         _enlarged = YES;
         [self setHidden:NO];
@@ -219,7 +239,8 @@
 
 - (void)_playSound {
     //
-    NSURL* url = [NSURL URLWithString:[_word fullFilePath]];
+    Word*a = (Word*)_words[0];
+    NSURL* url = [NSURL URLWithString:[a fullFilePath]];
     self.audioPlayer = nil;
     _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url  error:nil];
     _audioPlayer.numberOfLoops = 0; // negative value repeats indefinitely
@@ -231,18 +252,9 @@
 - (void)_startRecording {
     // Session
     
-    // Audio Session
-    NSError *error;
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord
-                        error:&error];
-    if (error) {
-        NSLog(@"Error description: %@", [error description]);
-    }
-    [audioSession setActive:YES error:nil];
-    
     // Mic indicator
     [_spriteMic setTexture:[SKTexture textureWithImageNamed:@"btnMicOn"]];
+    _spriteVolume.hidden = NO;
     
     // Mic meter timer
     if (!self.meterTimer) {
@@ -265,9 +277,7 @@
 }
 
 - (void)_stopRecording {
-    // Mic indicator
-    [_spriteMic setTexture:[SKTexture textureWithImageNamed:@"btnMicOff"]];
-    
+    _soundDetected = NO;
     // Mic meter timer
     [self.meterTimer invalidate];
     self.meterTimer = nil;
@@ -275,6 +285,14 @@
     // Stop session
     [self.audioRecorder stop];
     self.audioRecorder = nil;
+    
+    // Remove all buffer
+    [_silenceArray removeAllObjects];
+    
+    // Mic indicator
+    [_spriteMic setTexture:[SKTexture textureWithImageNamed:@"btnMicOff"]];
+    [_spriteVolume runAction:[SKAction scaleTo:1 duration:1/60.0f]];
+    _spriteVolume.hidden = YES;
 }
 
 - (void)_updateAudioMeter //called by timer
@@ -282,9 +300,48 @@
     // audioRecorder being your instance of AVAudioRecorder
     [self.audioRecorder updateMeters];
     float vol = [self.audioRecorder averagePowerForChannel:0];
-    float per = MAX((vol+70)/70.0, 0.0);
+    
+    // Case 1:
+    // After 2s without sound -> stop
+    // Case 2:
+    // After detecting sound, 1s without sound -> stop
+    
+    
+    
+    [_silenceArray addItem:[NSNumber numberWithFloat:vol]];
+    NSLog(@"%f %lu",vol,(unsigned long)_silenceArray.count);
+    if (vol >= -40 && !_soundDetected) {
+        _soundDetected = YES;
+        //[_silenceArray removeAllObjects];
+    }
+    if (_silenceArray.count == kBufferLength) {
+        float a = [self avg];
+        if (a <= -35) {
+            
+            if (_soundDetected) {
+                float totalScore;
+                for (Word* w in _words) {
+                    totalScore += [MFCCAudioController scoreFileA:[self _recordedSoundPath] fileB:w];
+                }
+                totalScore /= _words.count;
+                NSLog(@"score: %f",totalScore);
+            }
+            [self _stopRecording];
+        }
+    }
+    
+    
+    // Animation
+    float per = MAX((vol+160-110)/50.0, 0.0);
+    [_spriteVolume runAction:[SKAction scaleTo:1+(per/1.8) duration:1/60.0f]];
+}
 
-    [_spriteVolume runAction:[SKAction scaleTo:1+(per/2) duration:1/60.0f]];
+- (float)avg {
+    float sum;
+    for (NSNumber* num in _silenceArray) {
+        sum += [num floatValue];
+    }
+    return sum/_silenceArray.count;
 }
 
 - (NSURL*)_recordedSoundURL {
@@ -296,10 +353,24 @@
     docsDir = dirPaths[0];
     
     NSString *soundFilePath = [docsDir
-                               stringByAppendingPathComponent:@"sound.caf"];
+                               stringByAppendingPathComponent:@"sound.lpcm"];
     
     NSURL* url = [NSURL fileURLWithPath:soundFilePath];
     return url;
+}
+
+- (NSString*)_recordedSoundPath {
+    NSArray *dirPaths;
+    NSString *docsDir;
+    
+    dirPaths = NSSearchPathForDirectoriesInDomains(
+                                                   NSDocumentDirectory, NSUserDomainMask, YES);
+    docsDir = dirPaths[0];
+    
+    NSString *soundFilePath = [docsDir
+                               stringByAppendingPathComponent:@"sound.lpcm"];
+    
+    return soundFilePath;
 }
 
 @end
