@@ -40,6 +40,8 @@
          
 
         SKSpriteNode* newBody = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@fileTurtle] size:CGSizeMake(creatureWidth, creatureHeight)];
+        newBody.color = [SKColor redColor];
+        newBody.colorBlendFactor = 0.5f;
 
         sizeRatio = 1.0;
         bodyNode = newBody;

@@ -12,6 +12,7 @@
 @interface ParentMasterController () {
     UIViewController* _currentVC;
     NSArray* _viewNames;
+    UIButton* _currentButton;
 }
 
 @end
@@ -24,15 +25,21 @@
     _viewNames = @[@"GameStatsViewController", @"SoundManagerViewController"];
     
     // Init and add stats vc
-    [self displayViewController:_viewNames[0]];
+    [self showStatsViewController:nil];
 }
 
-- (IBAction)showStatsViewController:(id)sender {
+- (IBAction)showStatsViewController:(UIButton*)sender {
     [self displayViewController:_viewNames[0]];
+    _currentButton.enabled = YES;
+    _currentButton = self.btnDashboard;
+    _currentButton.enabled = NO;
 }
 
-- (IBAction)showSoundViewController:(id)sender {
+- (IBAction)showSoundViewController:(UIButton*)sender {
     [self displayViewController:_viewNames[1]];
+    _currentButton.enabled = YES;
+    _currentButton = self.btnSounds;
+    _currentButton.enabled = NO;
 }
 
 - (IBAction)back:(id)sender {

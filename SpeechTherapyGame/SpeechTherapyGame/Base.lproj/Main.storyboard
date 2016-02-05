@@ -213,42 +213,45 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="150" id="ZoP-Vy-u0i"/>
                                         </constraints>
-                                        <state key="normal" image="btnBack.png"/>
+                                        <state key="normal" image="btnBack"/>
                                         <connections>
                                             <action selector="back:" destination="PbH-JN-4uP" eventType="touchUpInside" id="fem-Ln-j1y"/>
                                         </connections>
                                     </button>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KNn-oT-bph">
                                         <rect key="frame" x="0.0" y="297" width="150" height="280.5"/>
-                                        <state key="normal" image="btnSound.png"/>
+                                        <state key="normal" image="btnSound"/>
+                                        <state key="disabled" image="btnSoundSelected"/>
                                         <connections>
                                             <action selector="showSoundViewController:" destination="PbH-JN-4uP" eventType="touchUpInside" id="SwG-H0-Rzg"/>
                                         </connections>
-                                    </button>
-                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="foK-In-V1L">
-                                        <rect key="frame" x="0.0" y="585" width="150" height="281"/>
-                                        <state key="normal" image="btnSettings.png"/>
                                     </button>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sfu-Jk-5ya" userLabel="Dashboard">
                                         <rect key="frame" x="0.0" y="8" width="150" height="281"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="btnDashboard.png">
+                                        <state key="normal" image="btnDashboard">
                                             <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="disabled" image="btnDashboardSelected"/>
                                         <connections>
                                             <action selector="showStatsViewController:" destination="PbH-JN-4uP" eventType="touchUpInside" id="fBk-6D-dlY"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbDashboard.png" translatesAutoresizingMaskIntoConstraints="NO" id="uyG-7m-rdN">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbDashboard" translatesAutoresizingMaskIntoConstraints="NO" id="uyG-7m-rdN">
                                         <rect key="frame" x="18" y="208" width="114" height="21"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbSound.png" translatesAutoresizingMaskIntoConstraints="NO" id="Qka-nO-ukP">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbSound" translatesAutoresizingMaskIntoConstraints="NO" id="Qka-nO-ukP">
                                         <rect key="frame" x="32" y="495" width="86" height="45"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbSettings.png" translatesAutoresizingMaskIntoConstraints="NO" id="wH3-QS-GQG">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbSettings" translatesAutoresizingMaskIntoConstraints="NO" id="wH3-QS-GQG">
                                         <rect key="frame" x="32" y="782" width="86" height="26"/>
                                     </imageView>
+                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="foK-In-V1L">
+                                        <rect key="frame" x="0.0" y="585" width="150" height="281"/>
+                                        <state key="normal" image="btnSettings"/>
+                                        <state key="disabled" image="btnSettingsSelected"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.33725490196078434" green="0.70980392156862748" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -291,6 +294,9 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="btnDashboard" destination="sfu-Jk-5ya" id="Ev8-Xi-SMn"/>
+                        <outlet property="btnSettings" destination="foK-In-V1L" id="d9A-Rl-X5I"/>
+                        <outlet property="btnSounds" destination="KNn-oT-bph" id="HCq-fw-9Ae"/>
                         <outlet property="detailView" destination="C1X-kh-YkB" id="7Vs-y1-Plt"/>
                     </connections>
                 </viewController>
@@ -690,22 +696,25 @@
         </scene>
     </scenes>
     <resources>
-        <image name="btnBack.png" width="66" height="64"/>
+        <image name="btnBack" width="66" height="64"/>
         <image name="btnChecked" width="50" height="44"/>
-        <image name="btnDashboard.png" width="143" height="139"/>
+        <image name="btnDashboard" width="143" height="139"/>
+        <image name="btnDashboardSelected" width="142" height="140"/>
         <image name="btnDate" width="154" height="70"/>
         <image name="btnSave" width="154" height="70"/>
-        <image name="btnSettings.png" width="143" height="143"/>
-        <image name="btnSound.png" width="135" height="136"/>
+        <image name="btnSettings" width="143" height="143"/>
+        <image name="btnSettingsSelected" width="143" height="143"/>
+        <image name="btnSound" width="135" height="136"/>
+        <image name="btnSoundSelected" width="135" height="136"/>
         <image name="btnSpeaker" width="45" height="45"/>
         <image name="btnUnchecked" width="40" height="44"/>
         <image name="in-game-home-btn" width="72" height="73"/>
         <image name="lbArrow" width="24" height="38"/>
-        <image name="lbDashboard.png" width="114" height="21"/>
+        <image name="lbDashboard" width="114" height="21"/>
         <image name="lbPhonemeLv" width="218" height="24"/>
         <image name="lbPracticing" width="300" height="55"/>
-        <image name="lbSettings.png" width="86" height="26"/>
-        <image name="lbSound.png" width="86" height="45"/>
+        <image name="lbSettings" width="86" height="26"/>
+        <image name="lbSound" width="86" height="45"/>
         <image name="lbToday" width="141" height="54"/>
         <image name="lbWordLv" width="156" height="24"/>
         <image name="sampleTable" width="772" height="656"/>

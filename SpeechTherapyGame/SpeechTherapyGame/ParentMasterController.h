@@ -12,5 +12,8 @@
 @interface ParentMasterController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UIView* detailView;
+@property (nonatomic, weak) IBOutlet UIButton* btnDashboard;
+@property (nonatomic, weak) IBOutlet UIButton* btnSounds;
+@property (nonatomic, weak) IBOutlet UIButton* btnSettings;
 
 @end

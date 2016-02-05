@@ -9,6 +9,8 @@
 #ifndef Constants_h
 #define Constants_h
 
+#define kScore 0.4
+
 #define kKeySound @"soundOn"
 #define kKeyBgm @"bgmOn"
 
