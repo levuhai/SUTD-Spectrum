@@ -22,24 +22,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _viewNames = @[@"GameStatsViewController", @"SoundManagerViewController"];
+    _viewNames = @[@"GameStatsViewController", @"SoundManagerViewController",@"parentSettings"];
     
     // Init and add stats vc
     [self showStatsViewController:nil];
 }
 
 - (IBAction)showStatsViewController:(UIButton*)sender {
-    [self displayViewController:_viewNames[0]];
-    _currentButton.enabled = YES;
-    _currentButton = self.btnDashboard;
-    _currentButton.enabled = NO;
+    [self displayViewController:0];
 }
 
 - (IBAction)showSoundViewController:(UIButton*)sender {
-    [self displayViewController:_viewNames[1]];
-    _currentButton.enabled = YES;
-    _currentButton = self.btnSounds;
-    _currentButton.enabled = NO;
+    [self displayViewController:1];
+}
+
+- (IBAction)showSettingsViewController:(UIButton*)sender {
+    [self displayViewController:2];
 }
 
 - (IBAction)back:(id)sender {
@@ -50,10 +48,9 @@
     return YES;
 }
 
-- (void)displayViewController:(NSString*)name {
-    
-
-    [UIView animateWithDuration:0.25f animations:^{
+- (void)displayViewController:(int)idx {
+    NSString* name = _viewNames[idx];
+    [UIView animateWithDuration:0.35f animations:^{
         [self.detailView setAlpha:0.0];
         self.detailView.x = self.view.width;
     } completion:^(BOOL finished) {
@@ -73,13 +70,17 @@
         }];
         [_currentVC didMoveToParentViewController:self];
         
-        //fade out
-        [UIView animateWithDuration:0.25f animations:^{
-            
-            [self.detailView setAlpha:1.0];
+        //fade in
+        [UIView animateWithDuration:0.35f animations:^{
             self.detailView.x = 150;
-            
-        } completion:nil];
+            [self.detailView setAlpha:1.0];
+        } completion:^(BOOL finished) {
+            _currentButton.enabled = YES;
+            if (idx == 0) _currentButton = self.btnDashboard;
+            else if (idx == 2) _currentButton = self.btnSettings;
+            else _currentButton = self.btnSounds;
+            _currentButton.enabled = NO;
+        }];
     }];
     
 }

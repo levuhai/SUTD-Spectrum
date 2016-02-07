@@ -102,6 +102,7 @@
 		A78A2DD21C4BB63D00D8AE75 /* FishingGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */; };
 		A78A2DD51C4BB9BF00D8AE75 /* FishingGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */; };
 		A78A2DD81C4BBB2E00D8AE75 /* SKScene+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A2DD71C4BBB2E00D8AE75 /* SKScene+ES.m */; };
+		A7A586291C65A82E007D8370 /* ParentSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A586281C65A82E007D8370 /* ParentSettingsController.m */; };
 		A7ABA9631C46949400938492 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; };
 		A7ABA9651C46949C00938492 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7EF5AD21C4777FA00032574 /* debussy.ttf */; };
@@ -339,6 +340,8 @@
 		A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameScene.m; sourceTree = "<group>"; };
 		A78A2DD61C4BBB2E00D8AE75 /* SKScene+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKScene+ES.h"; sourceTree = "<group>"; };
 		A78A2DD71C4BBB2E00D8AE75 /* SKScene+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKScene+ES.m"; sourceTree = "<group>"; };
+		A7A586271C65A82E007D8370 /* ParentSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentSettingsController.h; sourceTree = "<group>"; };
+		A7A586281C65A82E007D8370 /* ParentSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentSettingsController.m; sourceTree = "<group>"; };
 		A7ABA9571C46934900938492 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		A7EF5AD21C4777FA00032574 /* debussy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = debussy.ttf; sourceTree = "<group>"; };
 		B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.release.xcconfig"; sourceTree = "<group>"; };
@@ -823,14 +826,16 @@
 		D716291C1BE7613300C56C77 /* Parent */ = {
 			isa = PBXGroup;
 			children = (
-				2DC904151BB1D0580082DEAC /* ParentStatsController.h */,
-				2DC904161BB1D0580082DEAC /* ParentStatsController.m */,
-				2DC904181BB1D0710082DEAC /* ParentSoundController.h */,
-				2DC904191BB1D0710082DEAC /* ParentSoundController.m */,
-				2D75DD281BD57E9300112F4E /* ParentSecurityController.h */,
-				2D75DD291BD57E9300112F4E /* ParentSecurityController.m */,
 				D716291D1BE76FFE00C56C77 /* ParentMasterController.h */,
 				D716291E1BE76FFE00C56C77 /* ParentMasterController.m */,
+				2D75DD281BD57E9300112F4E /* ParentSecurityController.h */,
+				2D75DD291BD57E9300112F4E /* ParentSecurityController.m */,
+				A7A586271C65A82E007D8370 /* ParentSettingsController.h */,
+				A7A586281C65A82E007D8370 /* ParentSettingsController.m */,
+				2DC904181BB1D0710082DEAC /* ParentSoundController.h */,
+				2DC904191BB1D0710082DEAC /* ParentSoundController.m */,
+				2DC904151BB1D0580082DEAC /* ParentStatsController.h */,
+				2DC904161BB1D0580082DEAC /* ParentStatsController.m */,
 				A752FBEB1C3A2BF900B8ED60 /* PhonemeCell.h */,
 				A752FBEC1C3A2BF900B8ED60 /* PhonemeCell.m */,
 				A752FBF31C3AA79400B8ED60 /* WordCell.h */,
@@ -1058,6 +1063,7 @@
 				2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */,
 				2D650A7C1C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.m in Sources */,
 				2D1A043E1BB06A0800FA14CC /* NGMenuItem.m in Sources */,
+				A7A586291C65A82E007D8370 /* ParentSettingsController.m in Sources */,
 				D78865B51C1043B800C3944C /* LPCAudioController.m in Sources */,
 				2DE88AC91BB8517A002438C6 /* Sounds.m in Sources */,
 				2DE88ACA1BB8517A002438C6 /* Games+CoreDataProperties.m in Sources */,
