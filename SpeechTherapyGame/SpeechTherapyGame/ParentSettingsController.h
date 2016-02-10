@@ -11,5 +11,9 @@
 @interface ParentSettingsController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UISlider* sliderDifficulty;
+@property (nonatomic, weak) IBOutlet UIButton* btnSFXPlus;
+@property (nonatomic, weak) IBOutlet UIButton* btnSFXMinus;
+@property (nonatomic, weak) IBOutlet UIButton* btnBGMPlus;
+@property (nonatomic, weak) IBOutlet UIButton* btnBGMMinus;
 
 @end

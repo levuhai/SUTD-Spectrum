@@ -29,21 +29,12 @@
 
 -(void)didMoveToView:(SKView *)view {
     
-    
-    // BGM
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"bgm" ofType:@"m4a"];
-    NSURL *musicFile = [[NSURL alloc] initFileURLWithPath:path];
-    NSError *error = nil;
-    _musicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicFile  error:&error];
-    _musicPlayer.numberOfLoops = -1; // negative value repeats indefinitely
-    [_musicPlayer prepareToPlay];
-    
     // Buttons
-    _btnSound = (SKSpriteNode*)[self childNodeWithName:@"btnSound"];
-    [self _soundOn:[NSStandardUserDefaults boolForKey:kKeySound]];
-    
-    _btnBgm = (SKSpriteNode*)[self childNodeWithName:@"btnBgm"];
-    [self _bgmOn:[NSStandardUserDefaults boolForKey:kKeyBgm]];
+//    _btnSound = (SKSpriteNode*)[self childNodeWithName:@"btnSound"];
+//    [self _soundOn:[NSStandardUserDefaults boolForKey:kKeySound]];
+//    
+//    _btnBgm = (SKSpriteNode*)[self childNodeWithName:@"btnBgm"];
+//    [self _bgmOn:[NSStandardUserDefaults boolForKey:kKeyBgm]];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -54,16 +45,16 @@
     
     SKAction *push = [NodeUtility buttonPushActionWithSound];
     
-    if ([touchNode.name isEqualToString:@"btnSound"]) {
-        [touchNode runAction:push completion:^{
-            [self _soundOn:!_isSoundOn];
-        }];
-    }
-    else if ([touchNode.name isEqualToString:@"btnBgm"]) {
-        [touchNode runAction:push completion:^{
-            [self _bgmOn:!_isBgmOn];
-        }];
-    } else if ([touchNode.name isEqualToString:@"btnParentsMode"]) {
+//    if ([touchNode.name isEqualToString:@"btnSound"]) {
+//        [touchNode runAction:push completion:^{
+//            [self _soundOn:!_isSoundOn];
+//        }];
+//    }
+//    else if ([touchNode.name isEqualToString:@"btnBgm"]) {
+//        [touchNode runAction:push completion:^{
+//            [self _bgmOn:!_isBgmOn];
+//        }];
+    if ([touchNode.name isEqualToString:@"btnParentsMode"]) {
         [touchNode runAction:push completion:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationShowParentsMode
                                                                 object:self

@@ -103,6 +103,7 @@
 		A78A2DD51C4BB9BF00D8AE75 /* FishingGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */; };
 		A78A2DD81C4BBB2E00D8AE75 /* SKScene+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A2DD71C4BBB2E00D8AE75 /* SKScene+ES.m */; };
 		A7A586291C65A82E007D8370 /* ParentSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A586281C65A82E007D8370 /* ParentSettingsController.m */; };
+		A7A586301C6758FA007D8370 /* AppService.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A5862F1C6758FA007D8370 /* AppService.m */; };
 		A7ABA9631C46949400938492 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; };
 		A7ABA9651C46949C00938492 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7EF5AD21C4777FA00032574 /* debussy.ttf */; };
@@ -342,6 +343,8 @@
 		A78A2DD71C4BBB2E00D8AE75 /* SKScene+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKScene+ES.m"; sourceTree = "<group>"; };
 		A7A586271C65A82E007D8370 /* ParentSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentSettingsController.h; sourceTree = "<group>"; };
 		A7A586281C65A82E007D8370 /* ParentSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentSettingsController.m; sourceTree = "<group>"; };
+		A7A5862E1C6758FA007D8370 /* AppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppService.h; sourceTree = "<group>"; };
+		A7A5862F1C6758FA007D8370 /* AppService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppService.m; sourceTree = "<group>"; };
 		A7ABA9571C46934900938492 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		A7EF5AD21C4777FA00032574 /* debussy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = debussy.ttf; sourceTree = "<group>"; };
 		B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.release.xcconfig"; sourceTree = "<group>"; };
@@ -524,6 +527,8 @@
 				2D650A7B1C3AD6D000CC4441 /* ActiveWord.m */,
 				A775634B1C5FA803006E66BF /* MFCCAudioController.h */,
 				A775634C1C5FA803006E66BF /* MFCCAudioController.mm */,
+				A7A5862E1C6758FA007D8370 /* AppService.h */,
+				A7A5862F1C6758FA007D8370 /* AppService.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -672,23 +677,15 @@
 		2DF6B73F1B94A14800B7F92C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7A5862D1C670D58007D8370 /* sks */,
+				A7A5862C1C670D47007D8370 /* Fonts */,
 				A7888BA21C590CFD0063D097 /* Sounds */,
 				A709FCD21C5136D80093AF8C /* fish.atlas */,
 				A709FCD31C5136D80093AF8C /* seaturtle.atlas */,
 				A709FCC61C4FEA810093AF8C /* fisherman.atlas */,
 				2DF6B7411B94A14800B7F92C /* main.m */,
-				2D0D27D61C47F90000FB5045 /* coint.m4a */,
 				2DF6B76A1B94B53E00B7F92C /* SpeechTherapyGame-Prefix.pch */,
 				2DF6B7401B94A14800B7F92C /* Info.plist */,
-				2D45C6FC1C03708E009FCFB8 /* Bubbles.sks */,
-				2D45C7011C03708E009FCFB8 /* FishLeft.sks */,
-				2D45C7021C03708E009FCFB8 /* FishRight.sks */,
-				2D45C6FE1C03708E009FCFB8 /* SharkLeft.sks */,
-				2D45C6FD1C03708E009FCFB8 /* SharkRight.sks */,
-				2D45C6FF1C03708E009FCFB8 /* WhaleLeft.sks */,
-				2D45C7001C03708E009FCFB8 /* WhaleRight.sks */,
-				A7EF5AD21C4777FA00032574 /* debussy.ttf */,
-				A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */,
 				A76374B41C3FC16400A9616C /* Images.xcassets */,
 				2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */,
 				2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */,
@@ -788,10 +785,34 @@
 		A7888BA21C590CFD0063D097 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				2D0D27D61C47F90000FB5045 /* coint.m4a */,
 				2D0D27D71C47F90000FB5045 /* bgm.m4a */,
 				A7888BA31C590D0E0063D097 /* click.wav */,
 			);
 			name = Sounds;
+			sourceTree = "<group>";
+		};
+		A7A5862C1C670D47007D8370 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				A7EF5AD21C4777FA00032574 /* debussy.ttf */,
+				A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
+		A7A5862D1C670D58007D8370 /* sks */ = {
+			isa = PBXGroup;
+			children = (
+				2D45C6FC1C03708E009FCFB8 /* Bubbles.sks */,
+				2D45C7011C03708E009FCFB8 /* FishLeft.sks */,
+				2D45C7021C03708E009FCFB8 /* FishRight.sks */,
+				2D45C6FE1C03708E009FCFB8 /* SharkLeft.sks */,
+				2D45C6FD1C03708E009FCFB8 /* SharkRight.sks */,
+				2D45C6FF1C03708E009FCFB8 /* WhaleLeft.sks */,
+				2D45C7001C03708E009FCFB8 /* WhaleRight.sks */,
+			);
+			name = sks;
 			sourceTree = "<group>";
 		};
 		A7ABA9581C46934900938492 /* Products */ = {
@@ -1107,6 +1128,7 @@
 				A775634D1C5FA803006E66BF /* MFCCAudioController.mm in Sources */,
 				2D1A04421BB06A2400FA14CC /* NGSplitViewManager.m in Sources */,
 				D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */,
+				A7A586301C6758FA007D8370 /* AppService.m in Sources */,
 				A775634A1C5F9D57006E66BF /* CAXException.cpp in Sources */,
 				A77563481C5F9D57006E66BF /* CAHostTimeBase.cpp in Sources */,
 				A752FBE71C3A2A1B00B8ED60 /* DataManager.m in Sources */,

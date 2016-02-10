@@ -88,7 +88,7 @@
     _barChartView.descriptionText = @"";
     _barChartView.drawGridBackgroundEnabled = NO;
     _barChartView.legend.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13];
-    [UIFont printAllFontName];
+    //[UIFont printAllFontName];
     _barChartView.infoFont = [UIFont fontWithName:@"HelveticaNeue-Medium" size:25];
     _barChartView.infoTextColor = [UIColor colorWithHexString:@"FCB726"];
     _barChartView.drawBarShadowEnabled = NO;

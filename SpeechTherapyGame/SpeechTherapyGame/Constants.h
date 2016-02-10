@@ -13,6 +13,8 @@
 
 #define kKeySound @"soundOn"
 #define kKeyBgm @"bgmOn"
+#define kKeySoundVol @"soundVol"
+#define kKeyBGMVol @"bgmVol"
 
 #define kNotificationShowParentsMode @"showParentsMode"
 #define kNotificationShowSchedule @"showSchedule"

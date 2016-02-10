@@ -630,24 +630,30 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gk4-Pl-7Pn">
                                 <rect key="frame" x="313" y="351" width="76" height="80"/>
                                 <state key="normal" image="btnMinus"/>
+                                <connections>
+                                    <action selector="btnPressed:" destination="tyN-bv-w64" eventType="touchUpInside" id="jIJ-Xq-yxQ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="37p-4Z-7Z9">
                                 <rect key="frame" x="693" y="351" width="76" height="80"/>
                                 <state key="normal" image="btnPlus"/>
+                                <connections>
+                                    <action selector="btnPressed:" destination="tyN-bv-w64" eventType="touchUpInside" id="Dhq-dt-M22"/>
+                                </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="Sh2-5f-g6m">
+                            <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="Sh2-5f-g6m">
                                 <rect key="frame" x="406" y="350" width="38" height="81"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="1dH-ks-siy">
+                            <imageView userInteractionEnabled="NO" tag="21" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="1dH-ks-siy">
                                 <rect key="frame" x="464" y="350" width="38" height="81"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="Nma-Vq-wcA">
+                            <imageView userInteractionEnabled="NO" tag="23" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="Nma-Vq-wcA">
                                 <rect key="frame" x="580" y="350" width="38" height="81"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="COm-rA-xGs">
+                            <imageView userInteractionEnabled="NO" tag="22" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="COm-rA-xGs">
                                 <rect key="frame" x="522" y="350" width="38" height="81"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="Ohm-QY-dLr">
+                            <imageView userInteractionEnabled="NO" tag="24" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="Ohm-QY-dLr">
                                 <rect key="frame" x="638" y="350" width="38" height="81"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Easy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAS-em-2Oa">
@@ -671,25 +677,31 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gdF-rv-de4">
                                 <rect key="frame" x="313" y="184" width="76" height="80"/>
                                 <state key="normal" image="btnMinus"/>
+                                <connections>
+                                    <action selector="btnPressed:" destination="tyN-bv-w64" eventType="touchUpInside" id="5UZ-aH-ozl"/>
+                                </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="eaU-cO-n79">
+                            <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="eaU-cO-n79">
                                 <rect key="frame" x="406" y="183" width="38" height="81"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="kpj-w7-c40">
-                                <rect key="frame" x="464" y="183" width="38" height="81"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="2LO-WF-ieX">
+                            <imageView userInteractionEnabled="NO" tag="12" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="2LO-WF-ieX">
                                 <rect key="frame" x="522" y="183" width="38" height="81"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="jIe-eB-dRe">
+                            <imageView userInteractionEnabled="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="jIe-eB-dRe">
                                 <rect key="frame" x="580" y="183" width="38" height="81"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" tag="14" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="QXE-av-uQo">
+                                <rect key="frame" x="638" y="183" width="38" height="81"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHk-qN-7aO">
                                 <rect key="frame" x="693" y="183" width="76" height="80"/>
                                 <state key="normal" image="btnPlus"/>
+                                <connections>
+                                    <action selector="btnPressed:" destination="tyN-bv-w64" eventType="touchUpInside" id="wzE-hV-OAe"/>
+                                </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="QXE-av-uQo">
-                                <rect key="frame" x="638" y="183" width="38" height="81"/>
+                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="kpj-w7-c40">
+                                <rect key="frame" x="464" y="183" width="38" height="81"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -741,6 +753,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnBGMMinus" destination="Gk4-Pl-7Pn" id="9aY-Mh-Gmu"/>
+                        <outlet property="btnBGMPlus" destination="37p-4Z-7Z9" id="e75-rB-hCP"/>
+                        <outlet property="btnSFXMinus" destination="gdF-rv-de4" id="hR7-MQ-5E7"/>
+                        <outlet property="btnSFXPlus" destination="bHk-qN-7aO" id="Icg-O2-Z5S"/>
                         <outlet property="sliderDifficulty" destination="T0V-L3-FVv" id="BZS-M9-d4G"/>
                     </connections>
                 </viewController>
