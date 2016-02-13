@@ -12,5 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView* leftContainer;
 @property (weak, nonatomic) IBOutlet UIView* rightContainer;
+@property (weak, nonatomic) IBOutlet UIButton *btWordLv;
+@property (weak, nonatomic) IBOutlet UIButton *btnSyllableLv;
+@property (weak, nonatomic) IBOutlet UITableView* tableView;
 
 @end

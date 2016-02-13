@@ -34,8 +34,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    // UI
+    self.view.backgroundColor = [UIColor clearColor];
+    self.leftContainer.backgroundColor = [UIColor whiteColor];
+    self.leftContainer.layer.borderColor = [UIColor flatSkyBlueColorDark].CGColor;
+    self.leftContainer.layer.borderWidth = 5;
+    self.leftContainer.layer.cornerRadius = 30;
+    
+    self.rightContainer.backgroundColor = [UIColor whiteColor];
+    self.rightContainer.layer.borderColor = [UIColor flatSkyBlueColorDark].CGColor;
+    self.rightContainer.layer.borderWidth = 5;
+    self.rightContainer.layer.cornerRadius = 30;
+    
+    self.btWordLv.selected = [[DataManager shared] practisingWordLv];
+    self.btnSyllableLv.selected = [[DataManager shared] practisingSyllableLv];
+    
+    // Amazing audio
+//    self.audioController = [[AEAudioController alloc] initWithAudioDescription:AEAudioStreamBasicDescriptionNonInterleavedFloatStereo inputEnabled:YES];
+//    _audioController.preferredBufferDuration = 0.005;
+//    _audioController.useMeasurementMode = YES;
+//    [_audioController start:NULL];
+
+}
+
+- (void)_reloadDatabase {
     // Database
-    _wordData = [[DataManager shared] getWordLevel];
+    _wordData = [[DataManager shared] getWords];
     
     // Group data
     _groupedWordData = [NSMutableDictionary dictionary];
@@ -53,30 +79,8 @@
     
     /* `sortedCountries` is an instance variable */
     _sortedWordGroup = [[_groupedWordData allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-    
-    // UI
-    self.view.backgroundColor = [UIColor clearColor];
-    self.leftContainer.backgroundColor = [UIColor whiteColor];
-    self.leftContainer.layer.borderColor = [UIColor flatSkyBlueColorDark].CGColor;
-    self.leftContainer.layer.borderWidth = 5;
-    self.leftContainer.layer.cornerRadius = 30;
-    
-    self.rightContainer.backgroundColor = [UIColor whiteColor];
-    self.rightContainer.layer.borderColor = [UIColor flatSkyBlueColorDark].CGColor;
-    self.rightContainer.layer.borderWidth = 5;
-    self.rightContainer.layer.cornerRadius = 30;
-    
-    // Amazing audio
-//    self.audioController = [[AEAudioController alloc] initWithAudioDescription:AEAudioStreamBasicDescriptionNonInterleavedFloatStereo inputEnabled:YES];
-//    _audioController.preferredBufferDuration = 0.005;
-//    _audioController.useMeasurementMode = YES;
-//    [_audioController start:NULL];
-
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    // reload table
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableView Datasource
@@ -153,6 +157,16 @@
     Word * w = [objectsForCountry objectAtIndex:indexPath.row];
     
     
+}
+- (IBAction)wordTouched:(id)sender {
+    self.btWordLv.selected = !self.btWordLv.selected;
+    [[DataManager shared] setPractisingWordLv:self.btWordLv.selected];
+    [self _reloadDatabase];
+}
+- (IBAction)syllableToched:(id)sender {
+    self.btnSyllableLv.selected = !self.btnSyllableLv.selected;
+    [[DataManager shared] setPractisingSyllableLv:self.btnSyllableLv.selected];
+    [self _reloadDatabase];
 }
 
 @end

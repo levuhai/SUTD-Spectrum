@@ -70,15 +70,7 @@ static bool isFirstAccess = YES;
     }
     self = [super init];
     
-    // BGM
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"bgm" ofType:@"m4a"];
-    NSURL *musicFile = [[NSURL alloc] initFileURLWithPath:path];
-    NSError *error = nil;
-    _bgmPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicFile  error:&error];
-    [_bgmPlayer setVolume:[NSStandardUserDefaults floatForKey:kKeyBGMVol]];
-    _bgmPlayer.numberOfLoops = -1; // negative value repeats indefinitely
-    [_bgmPlayer prepareToPlay];
-    [_bgmPlayer play];
+   
     
     return self;
 }

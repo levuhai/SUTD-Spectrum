@@ -13,8 +13,11 @@
 
 #define kKeySound @"soundOn"
 #define kKeyBgm @"bgmOn"
-#define kKeySoundVol @"soundVol"
-#define kKeyBGMVol @"bgmVol"
+#define kKeySoundVol        @"f171bfd96ce7bbed7465d1fca7cc87d5"
+#define kKeyMusicVol        @"b9b4c06e123dc58daa346998d5153c56"
+#define kKeyDifficulty      @"e69523758d94fc38ab2e3366bdc5fc2f"
+#define kKeyWordLevel       @"167094b034ca94cd99966dcae931fcc0"
+#define kKeySyllableLevel   @"13d443903bb94c355293c906126c2f52"
 
 #define kNotificationShowParentsMode @"showParentsMode"
 #define kNotificationShowSchedule @"showSchedule"

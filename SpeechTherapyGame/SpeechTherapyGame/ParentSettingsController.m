@@ -8,10 +8,10 @@
 
 #import "ParentSettingsController.h"
 #import "NSUserDefaults+Convenience.h"
+#import "DataManager.h"
 
 @interface ParentSettingsController () {
-    float _currentSoundVol;
-    float _currentBgmVol;
+    
 }
 
 @end
@@ -20,30 +20,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
+   
     UIImage *sliderTrackImage = [[UIImage imageNamed:@"sliderBar"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 15, 0, 17)];
     
-    [self.sliderDifficulty setMinimumTrackImage: sliderTrackImage forState: UIControlStateNormal];
-    [self.sliderDifficulty setMaximumTrackImage: sliderTrackImage forState: UIControlStateNormal];
-    [[UISlider appearance] setThumbImage:[UIImage imageNamed:@"sliderButton"] forState:UIControlStateNormal];
-    [[UISlider appearance] setThumbImage:[UIImage imageNamed:@"sliderButton"] forState:UIControlStateHighlighted];
+    [self.sliderDifficulty setMinimumTrackImage: sliderTrackImage
+                                       forState: UIControlStateNormal];
+    [self.sliderDifficulty setMaximumTrackImage: sliderTrackImage
+                                       forState: UIControlStateNormal];
+    [[UISlider appearance] setThumbImage:[UIImage imageNamed:@"sliderButton"]
+                                forState:UIControlStateNormal];
+    [[UISlider appearance] setThumbImage:[UIImage imageNamed:@"sliderButton"]
+                                forState:UIControlStateHighlighted];
+    [self.sliderDifficulty setMinimumValue:0.0f];
+    [self.sliderDifficulty setMaximumValue:2.0f];
+    [self.sliderDifficulty setValue:[[DataManager shared] difficultyIndex]];
     
-    if (![NSStandardUserDefaults hasValueForKey:kKeyBGMVol]) {
-        _currentBgmVol = 0.6;
-        [NSStandardUserDefaults setFloat:_currentBgmVol forKey:kKeyBGMVol];
-    } else {
-        _currentBgmVol = [NSStandardUserDefaults floatForKey:kKeyBGMVol];
-    }
-    
-    if (![NSStandardUserDefaults hasValueForKey:kKeySoundVol]) {
-        _currentSoundVol = 0.6;
-        [NSStandardUserDefaults setFloat:_currentSoundVol forKey:kKeySoundVol];
-    } else {
-        _currentSoundVol = [NSStandardUserDefaults floatForKey:kKeySoundVol];
-    }
-    [self _updateSFXVolDisplay];
-    [self _updateBGMVolDisplay];
+    // Volume control
+    float musicVol = [[DataManager shared] musicVolume];
+    float soundVol = [[DataManager shared] soundVolume];
+    [self _updateSoundVolDisplay:soundVol];
+    [self _updateMusicVolDisplay:musicVol];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,39 +47,49 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)valueChanged:(UISlider *)sender {
+    // round the slider position to the nearest index of the numbers array
+    NSUInteger index = (NSUInteger)(self.sliderDifficulty.value + 0.5);
+    [self.sliderDifficulty setValue:index animated:NO];
+    [[DataManager shared] setDifficultyIndex:index];
+}
+
 - (IBAction)btnPressed:(UIButton*)btn {
+    float musicVol = [[DataManager shared] musicVolume];
+    float soundVol = [[DataManager shared] soundVolume];
+    
     if (btn == self.btnBGMMinus) {
-        _currentBgmVol -= 0.2f;
-        _currentBgmVol = MIN(1, _currentBgmVol);
-        _currentBgmVol = MAX(0, _currentBgmVol);
-        [NSStandardUserDefaults setFloat:_currentBgmVol forKey:kKeyBGMVol];
-        [self _updateBGMVolDisplay];
+        musicVol -= 0.2f;
+        musicVol = MIN(1, musicVol);
+        musicVol = MAX(0, musicVol);
+        [[DataManager shared] setMusicVolume:musicVol];
+        [self _updateMusicVolDisplay:musicVol];
     }
     else if (btn == self.btnBGMPlus) {
-        _currentBgmVol += 0.2f;
-        _currentBgmVol = MIN(1, _currentBgmVol);
-        _currentBgmVol = MAX(0, _currentBgmVol);
-        [NSStandardUserDefaults setFloat:_currentBgmVol forKey:kKeyBGMVol];
-        [self _updateBGMVolDisplay];
+        musicVol += 0.2f;
+        musicVol = MIN(1, musicVol);
+        musicVol = MAX(0, musicVol);
+       [[DataManager shared] setMusicVolume:musicVol];
+        [self _updateMusicVolDisplay:musicVol];
     }
     else if (btn == self.btnSFXMinus) {
-        _currentSoundVol -= 0.2f;
-        _currentSoundVol = MIN(1, _currentSoundVol);
-        _currentSoundVol = MAX(0, _currentSoundVol);
-        [NSStandardUserDefaults setFloat:_currentSoundVol forKey:kKeySoundVol];
-        [self _updateSFXVolDisplay];
+        soundVol -= 0.2f;
+        soundVol = MIN(1, soundVol);
+        soundVol = MAX(0, soundVol);
+        [[DataManager shared] setSoundVolume:soundVol];
+        [self _updateSoundVolDisplay:soundVol];
     }
     else if (btn == self.btnSFXPlus) {
-        _currentSoundVol += 0.2f;
-        _currentSoundVol = MIN(1, _currentSoundVol);
-        _currentSoundVol = MAX(0, _currentSoundVol);
-        [NSStandardUserDefaults setFloat:_currentSoundVol forKey:kKeySoundVol];
-        [self _updateSFXVolDisplay];
+        soundVol += 0.2f;
+        soundVol = MIN(1, soundVol);
+        soundVol = MAX(0, soundVol);
+        [[DataManager shared] setSoundVolume:soundVol];
+        [self _updateSoundVolDisplay:soundVol];
     }
     
 }
 
-- (void)_updateBGMVolDisplay {
+- (void)_updateMusicVolDisplay:(float)_currentBgmVol {
     int b = _currentBgmVol/0.2f;
     for (int i = 0; i<=4; i++) {
         UIImageView* v = (UIImageView*)[self.view viewWithTag:(int)i+20];
@@ -95,7 +101,7 @@
     }
 }
 
-- (void)_updateSFXVolDisplay {
+- (void)_updateSoundVolDisplay:(float)_currentSoundVol {
     int a = _currentSoundVol/0.2f;
     for (int i = 0; i<=4; i++) {
         UIImageView* v = (UIImageView*)[self.view viewWithTag:(int)i+10];

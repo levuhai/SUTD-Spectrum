@@ -438,18 +438,25 @@
                                     <constraint firstAttribute="height" constant="44" id="2rP-p5-CiS"/>
                                     <constraint firstAttribute="width" constant="50" id="IaA-4H-Fdw"/>
                                 </constraints>
-                                <state key="normal" image="btnChecked"/>
-                                <state key="selected" image="btnUnchecked"/>
+                                <state key="normal" image="btnUnchecked"/>
+                                <state key="selected" image="btnChecked"/>
+                                <connections>
+                                    <action selector="syllableToched:" destination="xL7-Fc-IYd" eventType="touchUpInside" id="Zal-SK-QfF"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbPhonemeLv" translatesAutoresizingMaskIntoConstraints="NO" id="YY4-dp-NbR">
-                                <rect key="frame" x="147" y="145" width="218" height="24"/>
+                                <rect key="frame" x="147" y="141.5" width="194" height="31"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbWordLv" translatesAutoresizingMaskIntoConstraints="NO" id="mo2-wQ-aBA">
-                                <rect key="frame" x="535" y="145" width="156" height="24"/>
+                                <rect key="frame" x="511" y="145" width="156" height="24"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6i-tD-n2t">
-                                <rect key="frame" x="465" y="135" width="50" height="44"/>
-                                <state key="normal" title="Button" image="btnChecked"/>
+                                <rect key="frame" x="441" y="135" width="50" height="44"/>
+                                <state key="normal" image="btnUnchecked"/>
+                                <state key="selected" image="btnChecked"/>
+                                <connections>
+                                    <action selector="wordTouched:" destination="xL7-Fc-IYd" eventType="touchUpInside" id="1jE-XI-NMj"/>
+                                </connections>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hkr-kO-qy6">
                                 <rect key="frame" x="30" y="205" width="370" height="794"/>
@@ -585,9 +592,12 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="btWordLv" destination="N6i-tD-n2t" id="gb7-R1-JMb"/>
+                        <outlet property="btnSyllableLv" destination="GnC-am-am8" id="TpR-TL-lZd"/>
                         <outlet property="leftContainer" destination="hkr-kO-qy6" id="5wu-94-TwD"/>
                         <outlet property="mainTable" destination="ypH-0X-bYe" id="gwF-M6-5nD"/>
                         <outlet property="rightContainer" destination="Lcu-q8-r0h" id="Ol9-iQ-aYd"/>
+                        <outlet property="tableView" destination="ypH-0X-bYe" id="LhH-zR-EV8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U2u-cT-THy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -618,7 +628,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbDifficulty" translatesAutoresizingMaskIntoConstraints="NO" id="mXl-XQ-nmZ">
                                 <rect key="frame" x="50" y="539" width="183" height="48"/>
                             </imageView>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="T0V-L3-FVv">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="T0V-L3-FVv">
                                 <rect key="frame" x="311" y="548" width="460" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="456" id="aq5-ii-j3Y"/>
@@ -626,6 +636,9 @@
                                 <color key="minimumTrackTintColor" red="0.19115509089999999" green="0.63786703349999996" blue="0.26147949700000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="maximumTrackTintColor" red="0.19215686269999999" green="0.63921568630000003" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="thumbTintColor" red="0.19115509089999999" green="0.63786703349999996" blue="0.26147949700000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="valueChanged:" destination="tyN-bv-w64" eventType="valueChanged" id="F1F-gB-vug"/>
+                                </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gk4-Pl-7Pn">
                                 <rect key="frame" x="313" y="351" width="76" height="80"/>
@@ -837,7 +850,7 @@
         <image name="lbDashboard" width="114" height="21"/>
         <image name="lbDifficulty" width="183" height="48"/>
         <image name="lbGFX" width="83" height="37"/>
-        <image name="lbPhonemeLv" width="218" height="24"/>
+        <image name="lbPhonemeLv" width="194" height="31"/>
         <image name="lbPracticing" width="300" height="55"/>
         <image name="lbSettings" width="86" height="26"/>
         <image name="lbSettings-1" width="443" height="55"/>

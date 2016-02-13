@@ -14,6 +14,7 @@
 @implementation DataManager {
     NSString* _soundsDBPath;
     NSString* _statsDBPath;
+    NSArray* _sliderValues;
 }
 
 static DataManager *sharedInstance = nil;
@@ -45,6 +46,8 @@ static DataManager *sharedInstance = nil;
 {
     self = [super init];
     if (self) {
+        _sliderValues = @[@0.35, @0.4, @0.45];
+        
         _soundsDBPath = [self copyToDocuments:@"sound.sqlite"];
         NSLog(@"Sound DB Path: %@",_soundsDBPath);
         _statsDBPath = [self copyToDocuments:@"score.sqlite"];
@@ -74,6 +77,72 @@ static DataManager *sharedInstance = nil;
     
     return filePathInDocument;
 }
+#pragma mark - Properties
+//
+// Syllable Level
+- (void)setPractisingSyllableLv:(BOOL)practisingSyllableLv {
+    [NSStandardUserDefaults setBool:practisingSyllableLv forKey:kKeySyllableLevel];
+}
+- (BOOL)practisingSyllableLv {
+    if (![NSStandardUserDefaults hasValueForKey:kKeySyllableLevel]) {
+        return YES;
+    } else {
+        return [NSStandardUserDefaults boolForKey:kKeySyllableLevel];
+    }
+}
+//
+// Word Level
+- (void)setPractisingWordLv:(BOOL)practisingWordLv {
+    [NSStandardUserDefaults setBool:practisingWordLv forKey:kKeyWordLevel];
+}
+- (BOOL)practisingWordLv {
+    if (![NSStandardUserDefaults hasValueForKey:kKeyWordLevel]) {
+        return YES;
+    } else {
+        return [NSStandardUserDefaults boolForKey:kKeyWordLevel];
+    }
+}
+//
+// Sound Volume
+- (void)setSoundVolume:(float)soundVolume {
+    [NSStandardUserDefaults setFloat:soundVolume forKey:kKeySoundVol];
+}
+- (float)soundVolume {
+    if (![NSStandardUserDefaults hasValueForKey:kKeySoundVol]) {
+        return 0.6f;
+    } else {
+        return [NSStandardUserDefaults floatForKey:kKeySoundVol];
+    }
+}
+//
+// Music Volume
+- (void)setMusicVolume:(float)musicVolume {
+    [NSStandardUserDefaults setFloat:musicVolume forKey:kKeyMusicVol];
+}
+- (float)musicVolume {
+    if (![NSStandardUserDefaults hasValueForKey:kKeyMusicVol]) {
+        return 0.6f;
+    } else {
+        return [NSStandardUserDefaults floatForKey:kKeyMusicVol];
+    }
+}
+//
+// Difficulty Index
+- (void)setDifficultyIndex:(NSInteger)difficultyIndex{
+    [NSStandardUserDefaults setInteger:difficultyIndex forKey:kKeyDifficulty];
+}
+- (NSInteger)difficultyIndex {
+    if (![NSStandardUserDefaults hasValueForKey:kKeyDifficulty]) {
+        return 1.0;
+    } else {
+        return [NSStandardUserDefaults integerForKey:kKeyDifficulty];
+    }
+}
+//
+// Difficulty value
+- (float)difficultyValue {
+    return [_sliderValues[self.difficultyIndex] floatValue];
+}
 
 #pragma mark - Private
 - (FMDatabaseQueue*)_soundDBQueue {
@@ -86,26 +155,36 @@ static DataManager *sharedInstance = nil;
 #pragma mark - Word
 
 - (NSMutableArray*)getWords {
-    __block NSMutableArray* lvs = [NSMutableArray new];
-    FMDatabaseQueue* db = [self _soundDBQueue];
-    
-    [db inDatabase:^(FMDatabase *db) {
-        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] GROUP BY [w_text]"];
-        FMResultSet *results = [db executeQuery:sql];
-        while([results next]) {
-            @autoreleasepool {
-                NSDictionary* dict = results.resultDictionary;
-                Word* lv = [[Word alloc] initWithDictionary:dict];
-                if (lv != nil) {
-                    [lvs addObject:lv];
+    if (self.practisingSyllableLv && !self.practisingWordLv) {
+        return [self getPhonemeLevel];
+    } else if (!self.practisingSyllableLv && self.practisingWordLv) {
+        return [self getWordLevel];
+    } else  if (!self.practisingSyllableLv && !self.practisingWordLv) {
+        return nil;
+    } else {
+        __block NSMutableArray* lvs = [NSMutableArray new];
+        FMDatabaseQueue* db = [self _soundDBQueue];
+        
+        
+        
+        [db inDatabase:^(FMDatabase *db) {
+            NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] GROUP BY [w_text]"];
+            FMResultSet *results = [db executeQuery:sql];
+            while([results next]) {
+                @autoreleasepool {
+                    NSDictionary* dict = results.resultDictionary;
+                    Word* lv = [[Word alloc] initWithDictionary:dict];
+                    if (lv != nil) {
+                        [lvs addObject:lv];
+                    }
+                    
                 }
-                
             }
-        }
-        [results close];
-    }];
-    [db close];
-    return lvs;
+            [results close];
+        }];
+        [db close];
+        return lvs;
+    }
 }
 
 - (NSMutableArray *)getWordLevel {

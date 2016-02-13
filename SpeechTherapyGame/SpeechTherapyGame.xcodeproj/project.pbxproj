@@ -505,8 +505,6 @@
 				A752FBE91C3A2A2A00B8ED60 /* Word.m */,
 				A752FBE21C3A2A1B00B8ED60 /* BaseModel.h */,
 				A752FBE31C3A2A1B00B8ED60 /* BaseModel.m */,
-				A752FBE41C3A2A1B00B8ED60 /* DataManager.h */,
-				A752FBE51C3A2A1B00B8ED60 /* DataManager.m */,
 				D78865B31C1043B800C3944C /* LPCAudioController.h */,
 				D78865B41C1043B800C3944C /* LPCAudioController.m */,
 				2DE88ABC1BB8517A002438C6 /* Sounds+CoreDataProperties.h */,
@@ -529,6 +527,8 @@
 				A775634C1C5FA803006E66BF /* MFCCAudioController.mm */,
 				A7A5862E1C6758FA007D8370 /* AppService.h */,
 				A7A5862F1C6758FA007D8370 /* AppService.m */,
+				A752FBE41C3A2A1B00B8ED60 /* DataManager.h */,
+				A752FBE51C3A2A1B00B8ED60 /* DataManager.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
