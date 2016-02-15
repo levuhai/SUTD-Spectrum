@@ -188,7 +188,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         }];
     } else {
         Word*a = (Word*)_words[0];
-        _lbWord.text = a.wText;
+        _lbWord.text = a.sound;
         [self removeAllActions];
         _enlarged = YES;
         [self setHidden:NO];

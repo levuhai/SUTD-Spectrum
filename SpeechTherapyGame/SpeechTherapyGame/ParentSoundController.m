@@ -12,6 +12,7 @@
 #import "PhonemeCell.h"
 #import "WordCell.h"
 #import "DataManager.h"
+#import "AudioPlayer.h"
 #import "Word.h"
 #import "ActiveWord.h"
 
@@ -20,7 +21,7 @@
     NSMutableArray* _wordData;
     NSMutableDictionary* _groupedWordData;
     NSArray* _sortedWordGroup;
-    
+    Word *_selectedWord;
     IBOutlet UITableView* mainTable;
 }
 
@@ -51,12 +52,8 @@
     self.btWordLv.selected = [[DataManager shared] practisingWordLv];
     self.btnSyllableLv.selected = [[DataManager shared] practisingSyllableLv];
     
-    // Amazing audio
-//    self.audioController = [[AEAudioController alloc] initWithAudioDescription:AEAudioStreamBasicDescriptionNonInterleavedFloatStereo inputEnabled:YES];
-//    _audioController.preferredBufferDuration = 0.005;
-//    _audioController.useMeasurementMode = YES;
-//    [_audioController start:NULL];
-
+    // reload db
+    [self _reloadDatabase];
 }
 
 - (void)_reloadDatabase {
@@ -68,10 +65,10 @@
     
     // Here `customObjects` is an `NSArray` of your custom objects from the XML
     for (Word * object in _wordData) {
-        NSMutableArray * theMutableArray = [_groupedWordData objectForKey:object.pText];
+        NSMutableArray * theMutableArray = [_groupedWordData objectForKey:object.phoneme];
         if ( theMutableArray == nil ) {
             theMutableArray = [NSMutableArray array];
-            [_groupedWordData setObject:theMutableArray forKey:object.pText];
+            [_groupedWordData setObject:theMutableArray forKey:object.phoneme];
         }
         
         [theMutableArray addObject:object];
@@ -81,6 +78,12 @@
     _sortedWordGroup = [[_groupedWordData allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     // reload table
     [self.tableView reloadData];
+    
+    if (_wordData.count > 0) {
+        NSIndexPath* index = [NSIndexPath indexPathForItem:0 inSection:0];
+        [self.tableView selectRowAtIndexPath:index animated:YES scrollPosition:(UITableViewScrollPositionTop)];
+        [self tableView:self.tableView didSelectRowAtIndexPath:index];
+    }
 }
 
 #pragma mark - UITableView Datasource
@@ -96,10 +99,10 @@
     Word * w = [objectsForCountry objectAtIndex:indexPath.row];
     
     // Text
-    cell.lbText.text = w.wText;
+    cell.lbText.text = w.sound;
     
     // Subtext
-    cell.lbSubtext.text = w.pText;
+    cell.lbSubtext.text = w.phonetic;
     cell.lbSubtext.backgroundColor = [UIColor clearColor];
     cell.lbSubtext.layer.borderWidth = 2;
     cell.lbSubtext.layer.borderColor = [UIColor flatOrangeColor].CGColor;
@@ -152,11 +155,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString * countryName = [_sortedWordGroup objectAtIndex:indexPath.section];
-    NSArray * objectsForCountry = [_groupedWordData objectForKey:countryName];
-    Word * w = [objectsForCountry objectAtIndex:indexPath.row];
+    NSString * phonemeGroup = [_sortedWordGroup objectAtIndex:indexPath.section];
+    NSArray * sounds = [_groupedWordData objectForKey:phonemeGroup];
+    Word * w = [sounds objectAtIndex:indexPath.row];
+    self.lbSoundPreview.text = w.sound;
+    self.lbPhoneticPreview.text = [NSString stringWithFormat:@"/%@/",w.phonetic];
     
-    
+    self.imgPreview.image = [UIImage imageNamed:w.imgFilePath];
+    _selectedWord = w;
 }
 - (IBAction)wordTouched:(id)sender {
     self.btWordLv.selected = !self.btWordLv.selected;
@@ -167,6 +173,9 @@
     self.btnSyllableLv.selected = !self.btnSyllableLv.selected;
     [[DataManager shared] setPractisingSyllableLv:self.btnSyllableLv.selected];
     [self _reloadDatabase];
+}
+- (IBAction)playSoundTouched:(id)sender {
+    [[AudioPlayer shared] playSoundInDocument:[_selectedWord sampleFilePath]];
 }
 
 @end

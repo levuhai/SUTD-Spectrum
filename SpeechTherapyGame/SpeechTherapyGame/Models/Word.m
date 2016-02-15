@@ -17,18 +17,20 @@
     if (self) {
         // ID
         self.ID = [dict intForKey:@"id"];
-        _wLength = [dict intForKey:@"w_length"];
-        _pLength = [dict intForKey:@"p_length"];
-        _start = [dict intForKey:@"start"];
-        _end = [dict intForKey:@"end"];
-        _wText = [dict stringForKey:@"w_text"];
-        _pText = [dict stringForKey:@"p_text"];
-        _wPhonetic = [dict stringForKey:@"w_phonetic"];
-        _pPhonetic = [dict stringForKey:@"p_phonetic"];
-        _wFile = [dict stringForKey:@"w_file"];
-        _pFile = [dict stringForKey:@"p_file"];
-        _speaker = [dict stringForKey:@"speaker"];
+        _phoneme = [dict stringForKey:@"phoneme"];
+        _sound = [dict stringForKey:@"sound"];
+        _phonetic = [dict stringForKey:@"phonetic"];
+        _fullPath = [dict stringForKey:@"full_path"];
+        _croppedPath = [dict stringForKey:@"cropped_path"];
+        _imgPath = [dict stringForKey:@"img_path"];
+        _samplePath = [dict stringForKey:@"sample_path"];
         
+        _fullLen = [dict intForKey:@"full_len"];
+        _croppedLen = [dict intForKey:@"cropped_len"];
+        _type = [dict intForKey:@"type"];
+        _position = [dict intForKey:@"position"];
+        _start = [dict intForKey:@"cropped_start"];
+        _end = [dict intForKey:@"cropped_end"];
     }
     return self;
 }
@@ -37,7 +39,25 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    NSString *file = [NSString stringWithFormat:@"sounds/%@",self.wFile];
+    NSString *file = [NSString stringWithFormat:@"sounds/%@",self.fullPath];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:file];
+    return [filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+- (NSString *)sampleFilePath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSString *file = [NSString stringWithFormat:@"sounds/%@",self.samplePath];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:file];
+    return [filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+- (NSString *)imgFilePath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSString *file = [NSString stringWithFormat:@"sounds/%@",self.imgPath];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:file];
     return [filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }

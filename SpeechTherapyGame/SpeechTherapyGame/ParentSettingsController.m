@@ -8,6 +8,7 @@
 
 #import "ParentSettingsController.h"
 #import "NSUserDefaults+Convenience.h"
+#import "AudioPlayer.h"
 #import "DataManager.h"
 
 @interface ParentSettingsController () {
@@ -36,8 +37,8 @@
     [self.sliderDifficulty setValue:[[DataManager shared] difficultyIndex]];
     
     // Volume control
-    float musicVol = [[DataManager shared] musicVolume];
-    float soundVol = [[DataManager shared] soundVolume];
+    float musicVol = [[AudioPlayer shared] musicVolume];
+    float soundVol = [[AudioPlayer shared] soundVolume];
     [self _updateSoundVolDisplay:soundVol];
     [self _updateMusicVolDisplay:musicVol];
 }
@@ -55,35 +56,35 @@
 }
 
 - (IBAction)btnPressed:(UIButton*)btn {
-    float musicVol = [[DataManager shared] musicVolume];
-    float soundVol = [[DataManager shared] soundVolume];
+    float musicVol = [[AudioPlayer shared] musicVolume];
+    float soundVol = [[AudioPlayer shared] soundVolume];
     
     if (btn == self.btnBGMMinus) {
         musicVol -= 0.2f;
         musicVol = MIN(1, musicVol);
         musicVol = MAX(0, musicVol);
-        [[DataManager shared] setMusicVolume:musicVol];
+        [[AudioPlayer shared] setMusicVolume:musicVol];
         [self _updateMusicVolDisplay:musicVol];
     }
     else if (btn == self.btnBGMPlus) {
         musicVol += 0.2f;
         musicVol = MIN(1, musicVol);
         musicVol = MAX(0, musicVol);
-       [[DataManager shared] setMusicVolume:musicVol];
+       [[AudioPlayer shared] setMusicVolume:musicVol];
         [self _updateMusicVolDisplay:musicVol];
     }
     else if (btn == self.btnSFXMinus) {
         soundVol -= 0.2f;
         soundVol = MIN(1, soundVol);
         soundVol = MAX(0, soundVol);
-        [[DataManager shared] setSoundVolume:soundVol];
+        [[AudioPlayer shared] setSoundVolume:soundVol];
         [self _updateSoundVolDisplay:soundVol];
     }
     else if (btn == self.btnSFXPlus) {
         soundVol += 0.2f;
         soundVol = MIN(1, soundVol);
         soundVol = MAX(0, soundVol);
-        [[DataManager shared] setSoundVolume:soundVol];
+        [[AudioPlayer shared] setSoundVolume:soundVol];
         [self _updateSoundVolDisplay:soundVol];
     }
     

@@ -14,8 +14,6 @@
 + (id) shared;
 @property (nonatomic, assign) BOOL practisingWordLv;
 @property (nonatomic, assign) BOOL practisingSyllableLv;
-@property (nonatomic, assign) float soundVolume;
-@property (nonatomic, assign) float musicVolume;
 @property (nonatomic, assign) NSInteger difficultyIndex;
 @property (nonatomic, readonly) float difficultyValue;
 

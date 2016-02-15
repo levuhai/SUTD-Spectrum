@@ -103,30 +103,6 @@ static DataManager *sharedInstance = nil;
     }
 }
 //
-// Sound Volume
-- (void)setSoundVolume:(float)soundVolume {
-    [NSStandardUserDefaults setFloat:soundVolume forKey:kKeySoundVol];
-}
-- (float)soundVolume {
-    if (![NSStandardUserDefaults hasValueForKey:kKeySoundVol]) {
-        return 0.6f;
-    } else {
-        return [NSStandardUserDefaults floatForKey:kKeySoundVol];
-    }
-}
-//
-// Music Volume
-- (void)setMusicVolume:(float)musicVolume {
-    [NSStandardUserDefaults setFloat:musicVolume forKey:kKeyMusicVol];
-}
-- (float)musicVolume {
-    if (![NSStandardUserDefaults hasValueForKey:kKeyMusicVol]) {
-        return 0.6f;
-    } else {
-        return [NSStandardUserDefaults floatForKey:kKeyMusicVol];
-    }
-}
-//
 // Difficulty Index
 - (void)setDifficultyIndex:(NSInteger)difficultyIndex{
     [NSStandardUserDefaults setInteger:difficultyIndex forKey:kKeyDifficulty];
@@ -168,7 +144,7 @@ static DataManager *sharedInstance = nil;
         
         
         [db inDatabase:^(FMDatabase *db) {
-            NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] GROUP BY [w_text]"];
+            NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] GROUP BY [sound]"];
             FMResultSet *results = [db executeQuery:sql];
             while([results next]) {
                 @autoreleasepool {
@@ -192,7 +168,7 @@ static DataManager *sharedInstance = nil;
     FMDatabaseQueue* db = [self _soundDBQueue];
     
     [db inDatabase:^(FMDatabase *db) {
-        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [w_phonetic] != [w_text] GROUP BY [w_text] ORDER BY [p_text]"];
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [sound] != [phonetic] GROUP BY [sound] ORDER BY [phoneme]"];
         FMResultSet *results = [db executeQuery:sql];
         while([results next]) {
             @autoreleasepool {
@@ -215,7 +191,7 @@ static DataManager *sharedInstance = nil;
     FMDatabaseQueue* db = [self _soundDBQueue];
     
     [db inDatabase:^(FMDatabase *db) {
-        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [w_phonetic] = [w_text] GROUP BY [w_text]"];
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [phonetic] = [sound] GROUP BY [sound]"];
         FMResultSet *results = [db executeQuery:sql];
         while([results next]) {
             @autoreleasepool {
@@ -306,7 +282,7 @@ static DataManager *sharedInstance = nil;
     FMDatabaseQueue* db = [self _soundDBQueue];
     
     [db inDatabase:^(FMDatabase *db) {
-        NSString * sql = [NSString stringWithFormat:@"SELECT DISTINCT w_text FROM [db]"];
+        NSString * sql = [NSString stringWithFormat:@"SELECT DISTINCT sound FROM [db]"];
         FMResultSet *results = [db executeQuery:sql];
         while([results next]) {
             @autoreleasepool {
@@ -325,7 +301,7 @@ static DataManager *sharedInstance = nil;
     __block NSMutableArray* result = [NSMutableArray new];
     db = [self _soundDBQueue];
     [db inDatabase:^(FMDatabase *db) {
-        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [w_text] = '%@'",uniqueWords[rndValue]];
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [sound] = '%@'",uniqueWords[rndValue]];
         FMResultSet *results = [db executeQuery:sql];
         while([results next]) {
             @autoreleasepool {

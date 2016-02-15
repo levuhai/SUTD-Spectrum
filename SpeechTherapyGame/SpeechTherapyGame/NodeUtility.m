@@ -7,6 +7,7 @@
 //
 
 #import "NodeUtility.h"
+#import "AudioPlayer.h"
 
 @implementation NodeUtility
 
@@ -23,15 +24,14 @@
 
 + (SKAction *)buttonPushActionWithSound {
     SKAction *pushDown = [SKAction scaleTo:0.85 duration:0.15];
-    SKAction *click = [SKAction playSoundFileNamed:@"click.wav" waitForCompletion:YES];
+    SKAction * click = [SKAction runBlock:^{
+        [[AudioPlayer shared] playSfx];
+    }];
     SKAction *pushUp = [SKAction scaleTo:1.0 duration:0.1];
     
     SKAction *clickAndUp;
-    if ([NSStandardUserDefaults boolForKey:kKeySound]) {
-        clickAndUp = [SKAction group:@[click, pushUp]];
-    } else {
-        clickAndUp = [SKAction group:@[pushUp]];
-    }
+    clickAndUp = [SKAction group:@[click, pushUp]];
+    
     return [SKAction sequence:@[pushDown, clickAndUp]];
 }
 

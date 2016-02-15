@@ -16,4 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnSyllableLv;
 @property (weak, nonatomic) IBOutlet UITableView* tableView;
 
+@property (weak, nonatomic) IBOutlet UIImageView* imgPreview;
+@property (weak, nonatomic) IBOutlet UILabel* lbSoundPreview;
+@property (weak, nonatomic) IBOutlet UILabel* lbPhoneticPreview;
+
 @end

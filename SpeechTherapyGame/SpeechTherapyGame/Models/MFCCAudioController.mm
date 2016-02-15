@@ -353,8 +353,8 @@ const float kDefaultTrimEndThreshold = -200.0f;
      */
     // Start/End of phoneme
     Word* w = pathB;
-    int start = sizeB*(float)w.start/(float)w.wLength;
-    int end = sizeB*(float)w.end/(float)w.wLength;
+    int start = sizeB*(float)w.start/(float)w.fullLen;
+    int end = sizeB*(float)w.end/(float)w.fullLen;
     
     centroids.clear();
     indices.clear();

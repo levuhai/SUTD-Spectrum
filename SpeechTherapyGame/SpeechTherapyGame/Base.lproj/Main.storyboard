@@ -522,6 +522,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UEz-oY-fHm">
                                                 <rect key="frame" x="22" y="15" width="45" height="45"/>
                                                 <state key="normal" image="btnSpeaker"/>
+                                                <connections>
+                                                    <action selector="playSoundTouched:" destination="xL7-Fc-IYd" eventType="touchUpInside" id="Pty-ai-QN5"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nx0-W8-dI0">
                                                 <rect key="frame" x="82" y="20" width="57" height="34"/>
@@ -548,7 +551,7 @@
                                         </constraints>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sampleTable" translatesAutoresizingMaskIntoConstraints="NO" id="iNw-bp-P9Z">
-                                        <rect key="frame" x="60" y="115" width="188" height="188"/>
+                                        <rect key="frame" x="70" y="150" width="168" height="168"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="iNw-bp-P9Z" secondAttribute="height" multiplier="1:1" id="3Hf-FK-759"/>
@@ -560,9 +563,9 @@
                                     <constraint firstAttribute="trailing" secondItem="bYz-tf-QCp" secondAttribute="trailing" id="Hr5-eJ-H5d"/>
                                     <constraint firstItem="bYz-tf-QCp" firstAttribute="top" secondItem="Lcu-q8-r0h" secondAttribute="top" constant="25" id="aLD-eB-gtz"/>
                                     <constraint firstItem="bYz-tf-QCp" firstAttribute="leading" secondItem="Lcu-q8-r0h" secondAttribute="leading" id="dbr-DK-u8L"/>
-                                    <constraint firstAttribute="trailing" secondItem="iNw-bp-P9Z" secondAttribute="trailing" constant="60" id="jWa-7b-gT6"/>
-                                    <constraint firstItem="iNw-bp-P9Z" firstAttribute="leading" secondItem="Lcu-q8-r0h" secondAttribute="leading" constant="60" id="kK8-ce-5wY"/>
-                                    <constraint firstItem="iNw-bp-P9Z" firstAttribute="top" secondItem="bYz-tf-QCp" secondAttribute="bottom" constant="15" id="lHU-3y-nfF"/>
+                                    <constraint firstAttribute="trailing" secondItem="iNw-bp-P9Z" secondAttribute="trailing" constant="70" id="jWa-7b-gT6"/>
+                                    <constraint firstItem="iNw-bp-P9Z" firstAttribute="leading" secondItem="Lcu-q8-r0h" secondAttribute="leading" constant="70" id="kK8-ce-5wY"/>
+                                    <constraint firstItem="iNw-bp-P9Z" firstAttribute="top" secondItem="bYz-tf-QCp" secondAttribute="bottom" constant="50" id="lHU-3y-nfF"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -594,6 +597,9 @@
                     <connections>
                         <outlet property="btWordLv" destination="N6i-tD-n2t" id="gb7-R1-JMb"/>
                         <outlet property="btnSyllableLv" destination="GnC-am-am8" id="TpR-TL-lZd"/>
+                        <outlet property="imgPreview" destination="iNw-bp-P9Z" id="W2m-ch-lv0"/>
+                        <outlet property="lbPhoneticPreview" destination="EAL-z4-RrT" id="zcm-HE-oe1"/>
+                        <outlet property="lbSoundPreview" destination="nx0-W8-dI0" id="dKO-rF-qdJ"/>
                         <outlet property="leftContainer" destination="hkr-kO-qy6" id="5wu-94-TwD"/>
                         <outlet property="mainTable" destination="ypH-0X-bYe" id="gwF-M6-5nD"/>
                         <outlet property="rightContainer" destination="Lcu-q8-r0h" id="Ol9-iQ-aYd"/>

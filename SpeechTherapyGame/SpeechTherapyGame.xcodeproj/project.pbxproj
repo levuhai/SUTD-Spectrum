@@ -102,6 +102,7 @@
 		A78A2DD21C4BB63D00D8AE75 /* FishingGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */; };
 		A78A2DD51C4BB9BF00D8AE75 /* FishingGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */; };
 		A78A2DD81C4BBB2E00D8AE75 /* SKScene+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A78A2DD71C4BBB2E00D8AE75 /* SKScene+ES.m */; };
+		A79C46D31C70DC26005C1803 /* AudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A79C46D21C70D65D005C1803 /* AudioPlayer.m */; };
 		A7A586291C65A82E007D8370 /* ParentSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A586281C65A82E007D8370 /* ParentSettingsController.m */; };
 		A7A586301C6758FA007D8370 /* AppService.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A5862F1C6758FA007D8370 /* AppService.m */; };
 		A7ABA9631C46949400938492 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; };
@@ -341,6 +342,8 @@
 		A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameScene.m; sourceTree = "<group>"; };
 		A78A2DD61C4BBB2E00D8AE75 /* SKScene+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKScene+ES.h"; sourceTree = "<group>"; };
 		A78A2DD71C4BBB2E00D8AE75 /* SKScene+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKScene+ES.m"; sourceTree = "<group>"; };
+		A79C46D11C70D65D005C1803 /* AudioPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioPlayer.h; sourceTree = "<group>"; };
+		A79C46D21C70D65D005C1803 /* AudioPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioPlayer.m; sourceTree = "<group>"; };
 		A7A586271C65A82E007D8370 /* ParentSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentSettingsController.h; sourceTree = "<group>"; };
 		A7A586281C65A82E007D8370 /* ParentSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentSettingsController.m; sourceTree = "<group>"; };
 		A7A5862E1C6758FA007D8370 /* AppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppService.h; sourceTree = "<group>"; };
@@ -499,6 +502,7 @@
 		2D6064771BA9A35500410B0E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A70EACFD1C6F3552005A7A6A /* removed */,
 				A75A6CAC1C4560BE005CCE5E /* Score.h */,
 				A75A6CAD1C4560BE005CCE5E /* Score.m */,
 				A752FBE81C3A2A2A00B8ED60 /* Word.h */,
@@ -507,28 +511,14 @@
 				A752FBE31C3A2A1B00B8ED60 /* BaseModel.m */,
 				D78865B31C1043B800C3944C /* LPCAudioController.h */,
 				D78865B41C1043B800C3944C /* LPCAudioController.m */,
-				2DE88ABC1BB8517A002438C6 /* Sounds+CoreDataProperties.h */,
-				2DE88ABD1BB8517A002438C6 /* Sounds+CoreDataProperties.m */,
-				2DE88ABE1BB8517A002438C6 /* Sounds.h */,
-				2DE88ABF1BB8517A002438C6 /* Sounds.m */,
-				2DE88AC01BB8517A002438C6 /* Games+CoreDataProperties.h */,
-				2DE88AC11BB8517A002438C6 /* Games+CoreDataProperties.m */,
-				2DE88AC21BB8517A002438C6 /* Games.h */,
-				2DE88AC31BB8517A002438C6 /* Games.m */,
-				2DC195E51BF6338B008669A0 /* GameStatistics+CoreDataProperties.h */,
-				2DC195E61BF6338B008669A0 /* GameStatistics+CoreDataProperties.m */,
-				2DC195E71BF6338B008669A0 /* GameStatistics.h */,
-				2DC195E81BF6338B008669A0 /* GameStatistics.m */,
-				2D650A781C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.h */,
-				2D650A791C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.m */,
-				2D650A7A1C3AD6D000CC4441 /* ActiveWord.h */,
-				2D650A7B1C3AD6D000CC4441 /* ActiveWord.m */,
 				A775634B1C5FA803006E66BF /* MFCCAudioController.h */,
 				A775634C1C5FA803006E66BF /* MFCCAudioController.mm */,
 				A7A5862E1C6758FA007D8370 /* AppService.h */,
 				A7A5862F1C6758FA007D8370 /* AppService.m */,
 				A752FBE41C3A2A1B00B8ED60 /* DataManager.h */,
 				A752FBE51C3A2A1B00B8ED60 /* DataManager.m */,
+				A79C46D11C70D65D005C1803 /* AudioPlayer.h */,
+				A79C46D21C70D65D005C1803 /* AudioPlayer.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -718,6 +708,29 @@
 				2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */,
 			);
 			name = Removed;
+			sourceTree = "<group>";
+		};
+		A70EACFD1C6F3552005A7A6A /* removed */ = {
+			isa = PBXGroup;
+			children = (
+				2D650A781C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.h */,
+				2D650A791C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.m */,
+				2D650A7A1C3AD6D000CC4441 /* ActiveWord.h */,
+				2D650A7B1C3AD6D000CC4441 /* ActiveWord.m */,
+				2DE88AC21BB8517A002438C6 /* Games.h */,
+				2DE88AC31BB8517A002438C6 /* Games.m */,
+				2DC195E51BF6338B008669A0 /* GameStatistics+CoreDataProperties.h */,
+				2DC195E61BF6338B008669A0 /* GameStatistics+CoreDataProperties.m */,
+				2DC195E71BF6338B008669A0 /* GameStatistics.h */,
+				2DC195E81BF6338B008669A0 /* GameStatistics.m */,
+				2DE88AC01BB8517A002438C6 /* Games+CoreDataProperties.h */,
+				2DE88AC11BB8517A002438C6 /* Games+CoreDataProperties.m */,
+				2DE88ABE1BB8517A002438C6 /* Sounds.h */,
+				2DE88ABF1BB8517A002438C6 /* Sounds.m */,
+				2DE88ABC1BB8517A002438C6 /* Sounds+CoreDataProperties.h */,
+				2DE88ABD1BB8517A002438C6 /* Sounds+CoreDataProperties.m */,
+			);
+			name = removed;
 			sourceTree = "<group>";
 		};
 		A752FBDF1C3A29EE00B8ED60 /* Database */ = {
@@ -1091,6 +1104,7 @@
 				2DC904171BB1D0580082DEAC /* ParentStatsController.m in Sources */,
 				2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */,
 				A7888BAD1C59D57F0063D097 /* LPCNode.mm in Sources */,
+				A79C46D31C70DC26005C1803 /* AudioPlayer.m in Sources */,
 				2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */,
 				2DC195E91BF6338B008669A0 /* GameStatistics+CoreDataProperties.m in Sources */,
 				A775630C1C5F9858006E66BF /* WordMatchSession.cpp in Sources */,
