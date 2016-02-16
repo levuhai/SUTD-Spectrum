@@ -38,7 +38,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     
     self.physicsWorld.gravity = CGVectorMake(0, 0);
     self.physicsWorld.contactDelegate = self;
-    _randomWords = [[DataManager shared] getRandomWords];
+    
     [self _setupScene];
     [self _setupSpawner];
 }
@@ -76,8 +76,6 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     
     if (!_aCreatureIsHooked)
         [_fisherman dropHook];
-    else
-        [_card enlarge];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -93,7 +91,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
         if (contact.bodyA.categoryBitMask == bitmaskCategoryHook &&
             contact.bodyB.categoryBitMask == bitmaskCategoryCreature) {
             NSLog(@"Gotcha!");
-            
+            _randomWords = [[DataManager shared] getRandomWords];
             [_card enlargeWithWord:_randomWords];
             
             for (Spawner* spawner in _creatureSpawners) {

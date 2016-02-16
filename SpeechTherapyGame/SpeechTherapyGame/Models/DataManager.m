@@ -278,22 +278,9 @@ static DataManager *sharedInstance = nil;
 
 - (NSMutableArray*)getRandomWords {
     // Select unique words from DB
-    __block NSMutableArray* uniqueWords = [NSMutableArray new];
+    __block NSMutableArray* uniqueWords = [self getWords];
+    
     FMDatabaseQueue* db = [self _soundDBQueue];
-    
-    [db inDatabase:^(FMDatabase *db) {
-        NSString * sql = [NSString stringWithFormat:@"SELECT DISTINCT sound FROM [db]"];
-        FMResultSet *results = [db executeQuery:sql];
-        while([results next]) {
-            @autoreleasepool {
-                [uniqueWords addObject:[results stringForColumnIndex:0]];
-            }
-        }
-        [results close];
-    }];
-    [db close];
-    
-    
     // Random index
     int rndValue = 0 + arc4random() % (uniqueWords.count - 0);
     
@@ -301,7 +288,8 @@ static DataManager *sharedInstance = nil;
     __block NSMutableArray* result = [NSMutableArray new];
     db = [self _soundDBQueue];
     [db inDatabase:^(FMDatabase *db) {
-        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [sound] = '%@'",uniqueWords[rndValue]];
+        Word* w = (Word*)uniqueWords[rndValue];
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [sound] = '%@'",w.sound];
         FMResultSet *results = [db executeQuery:sql];
         while([results next]) {
             @autoreleasepool {
@@ -310,7 +298,6 @@ static DataManager *sharedInstance = nil;
                 if (w != nil) {
                     [result addObject:w];
                 }
-                
             }
         }
         [results close];

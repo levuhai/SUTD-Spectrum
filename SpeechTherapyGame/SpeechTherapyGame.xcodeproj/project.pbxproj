@@ -107,6 +107,8 @@
 		A7A586301C6758FA007D8370 /* AppService.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A5862F1C6758FA007D8370 /* AppService.m */; };
 		A7ABA9631C46949400938492 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; };
 		A7ABA9651C46949C00938492 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7AE30931C7219F200159978 /* SKSpriteNode+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AE30921C7219F200159978 /* SKSpriteNode+ES.m */; };
+		A7AE30981C721DC900159978 /* UIImage+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AE30971C721DC900159978 /* UIImage+ES.m */; };
 		A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7EF5AD21C4777FA00032574 /* debussy.ttf */; };
 		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; };
 		D78865B51C1043B800C3944C /* LPCAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865B41C1043B800C3944C /* LPCAudioController.m */; };
@@ -349,6 +351,10 @@
 		A7A5862E1C6758FA007D8370 /* AppService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppService.h; sourceTree = "<group>"; };
 		A7A5862F1C6758FA007D8370 /* AppService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppService.m; sourceTree = "<group>"; };
 		A7ABA9571C46934900938492 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
+		A7AE30911C7219F200159978 /* SKSpriteNode+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKSpriteNode+ES.h"; sourceTree = "<group>"; };
+		A7AE30921C7219F200159978 /* SKSpriteNode+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKSpriteNode+ES.m"; sourceTree = "<group>"; };
+		A7AE30961C721DC900159978 /* UIImage+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ES.h"; sourceTree = "<group>"; };
+		A7AE30971C721DC900159978 /* UIImage+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ES.m"; sourceTree = "<group>"; };
 		A7EF5AD21C4777FA00032574 /* debussy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = debussy.ttf; sourceTree = "<group>"; };
 		B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.release.xcconfig"; sourceTree = "<group>"; };
 		D716291D1BE76FFE00C56C77 /* ParentMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentMasterController.h; sourceTree = "<group>"; };
@@ -571,30 +577,34 @@
 		2DE0E1351B9CB55100BFEDA6 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				A752FBF81C3B747300B8ED60 /* UIFont+ES.h */,
-				A752FBF91C3B747300B8ED60 /* UIFont+ES.m */,
+				2DB4D6201BF391E100A12481 /* TCProgressTimerNode */,
+				2DE0E1361B9CB55C00BFEDA6 /* SKScene tools */,
+				2D6064701BA99E5B00410B0E /* CoreDataManager */,
+				2D1A04231BB068BF00FA14CC /* NGSplitMenuController */,
+				2DE0E1371B9CB56B00BFEDA6 /* CalendarView */,
+				D78865C51C1047E200C3944C /* Configs.h */,
+				A7888BA81C59C33C0063D097 /* NodeUtility.h */,
+				A7888BA91C59C33C0063D097 /* NodeUtility.m */,
+				2DC195EB1BF63EA4008669A0 /* NSDate+Helper.h */,
+				2DC195EC1BF63EA4008669A0 /* NSDate+Helper.m */,
 				A752FBEE1C3A2D4100B8ED60 /* NSDictionary+ES.h */,
 				A752FBEF1C3A2D4100B8ED60 /* NSDictionary+ES.m */,
-				D78865C51C1047E200C3944C /* Configs.h */,
+				D78865B91C10453800C3944C /* NSMutableArray+Queue.h */,
+				D78865BA1C10453800C3944C /* NSMutableArray+Queue.m */,
 				D78865C21C1047D200C3944C /* NSUserDefaults+Convenience.h */,
 				D78865C31C1047D200C3944C /* NSUserDefaults+Convenience.m */,
+				A78A2DD61C4BBB2E00D8AE75 /* SKScene+ES.h */,
+				A78A2DD71C4BBB2E00D8AE75 /* SKScene+ES.m */,
+				A7AE30911C7219F200159978 /* SKSpriteNode+ES.h */,
+				A7AE30921C7219F200159978 /* SKSpriteNode+ES.m */,
 				D78865BC1C10454700C3944C /* UIColor+Expanded.h */,
 				D78865BD1C10454700C3944C /* UIColor+Expanded.m */,
 				D78865BE1C10454700C3944C /* UIColor+Flat.h */,
 				D78865BF1C10454700C3944C /* UIColor+Flat.m */,
-				D78865B91C10453800C3944C /* NSMutableArray+Queue.h */,
-				D78865BA1C10453800C3944C /* NSMutableArray+Queue.m */,
-				2DC195EB1BF63EA4008669A0 /* NSDate+Helper.h */,
-				2DC195EC1BF63EA4008669A0 /* NSDate+Helper.m */,
-				A78A2DD61C4BBB2E00D8AE75 /* SKScene+ES.h */,
-				A78A2DD71C4BBB2E00D8AE75 /* SKScene+ES.m */,
-				A7888BA81C59C33C0063D097 /* NodeUtility.h */,
-				A7888BA91C59C33C0063D097 /* NodeUtility.m */,
-				2DB4D6201BF391E100A12481 /* TCProgressTimerNode */,
-				2D1A04231BB068BF00FA14CC /* NGSplitMenuController */,
-				2D6064701BA99E5B00410B0E /* CoreDataManager */,
-				2DE0E1371B9CB56B00BFEDA6 /* CalendarView */,
-				2DE0E1361B9CB55C00BFEDA6 /* SKScene tools */,
+				A752FBF81C3B747300B8ED60 /* UIFont+ES.h */,
+				A752FBF91C3B747300B8ED60 /* UIFont+ES.m */,
+				A7AE30961C721DC900159978 /* UIImage+ES.h */,
+				A7AE30971C721DC900159978 /* UIImage+ES.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1093,6 +1103,7 @@
 				A78A2DD51C4BB9BF00D8AE75 /* FishingGameScene.m in Sources */,
 				A7888BAA1C59C33C0063D097 /* NodeUtility.m in Sources */,
 				2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */,
+				A7AE30981C721DC900159978 /* UIImage+ES.m in Sources */,
 				A77563061C5F9858006E66BF /* MFCCProcessor.cpp in Sources */,
 				2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */,
 				2D650A7C1C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.m in Sources */,
@@ -1108,6 +1119,7 @@
 				2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */,
 				2DC195E91BF6338B008669A0 /* GameStatistics+CoreDataProperties.m in Sources */,
 				A775630C1C5F9858006E66BF /* WordMatchSession.cpp in Sources */,
+				A7AE30931C7219F200159978 /* SKSpriteNode+ES.m in Sources */,
 				A752FBFA1C3B747300B8ED60 /* UIFont+ES.m in Sources */,
 				2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */,
 				A7888BA71C5923590063D097 /* SpeechCard.m in Sources */,

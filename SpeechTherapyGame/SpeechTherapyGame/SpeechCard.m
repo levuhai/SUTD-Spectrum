@@ -14,13 +14,17 @@
 #import "MFCCAudioController.h"
 #import "TheAmazingAudioEngine.h"
 #import "AERecorder.h"
+#import "AudioPlayer.h"
+#import "SKSpriteNode+ES.h"
+#import "UIImage+ES.h"
+#import <EZAudio/EZAudio.h>
 #define kBufferLength 90
 
 @interface SpeechCard()
 
-@property (strong, nonatomic) NSTimer *meterTimer;
 @property (nonatomic, strong) AEAudioController* audioController;
 @property (nonatomic, strong) AERecorder *recorder;
+@property (nonatomic, strong) id receiver;
 @property (nonatomic, strong) AEAudioFilePlayer *player;
 
 @end
@@ -41,6 +45,9 @@
     NSMutableArray* _silenceArray;
     NSMutableArray* _words;
     BOOL _soundDetected;
+    int _failedAttemp;
+    float _energyMeter;
+    
 }
 
 AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
@@ -93,13 +100,6 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         _lbDesc.zPosition = self.zPosition+1;
         [self addChild:_lbDesc];
         
-        // Add Speaker
-//        _spriteSpeaker = [SKSpriteNode spriteNodeWithImageNamed:@"btnSpeaker1"];
-//        _spriteSpeaker.anchorPoint = CGPointMake(0.5, 0.5);
-//        _spriteSpeaker.position = CGPointMake(self.size.width - 55.0, 220);
-//        _spriteSpeaker.zPosition = self.zPosition+1;
-//        [self addChild:_spriteSpeaker];
-        
         // Add squid
         _spriteSquid = [SKSpriteNode spriteNodeWithImageNamed:@"charSquid"];
         _spriteSquid.anchorPoint = CGPointMake(0.5, 0.5);
@@ -145,60 +145,109 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         _spriteVolume.zPosition = self.zPosition+1;
         [self addChild:_spriteVolume];
         
-        // Audio Session
+        // ==========================================================================
+        // AE Audio Controller
         self.audioController = [[AEAudioController alloc] initWithAudioDescription:AEAudioStreamBasicDescriptionMono inputEnabled:YES];
         _audioController.preferredBufferDuration = 0.005;
         _audioController.useMeasurementMode = YES;
-        [_audioController start:NULL];
+        [_audioController start:nil];
+        
+        // AE Audio Receiver
+        __block int tick = 0;
+        self.receiver = [AEBlockAudioReceiver audioReceiverWithBlock:
+               ^(void                     *source,
+                 const AudioTimeStamp     *time,
+                 UInt32                    frames,
+                 AudioBufferList          *audio) {
+                   // Do something with 'audio'
+                   if (audio) {
+                       float *source= (float *)audio->mBuffers[0].mData;
+                       _energyMeter = 0;
+                       for (int j = 0; j < frames; j++) {
+                           _energyMeter += sqrtf(source[j]*source[j]);
+                       }
+                       //NSLog(@"%f",_energyMeter);
+                       tick++;
+                       if (tick == 25) {
+                           tick = 0;
+                           [self _updateAudioMeter:nil];
+                       }
+                       
+                       if (_energyMeter>=20 && !_soundDetected) {
+                           _soundDetected = YES;
+                           [_silenceArray removeAllObjects];
+                       }
+                       if (_soundDetected) {
+                           [_silenceArray addItem:[NSNumber numberWithFloat:_energyMeter]];
+                           if (_silenceArray.count == kBufferLength) {
+                               float a = [self avg];
+                               if (a <= 10) {
+                                   [self _stopRecording];
+                                   [self _score];
+                               }
+                           }
+                       }
+                   }
+               }];
+        
+        self.recorder = [[AERecorder alloc] initWithAudioController:_audioController];
     }
     return self;
 }
 
-#pragma mark - Public
-- (void)enlarge {
-    if (_enlarged) {
-        [self removeAllActions];
-        SKAction* slide = [SKAction moveTo:self.startPosition duration:0.4];
-        SKAction* scaleDown = [SKAction scaleTo:0.0 duration:0.4];
-        [self runAction:[SKAction group:@[slide, scaleDown]] completion:^{
-            _enlarged = NO;
-            [self setHidden:YES];
-        }];
-    } else {
-        [self removeAllActions];
-        _enlarged = YES;
-        [self setHidden:NO];
-        
-        SKAction* slide = [SKAction moveTo:self.endPosition duration:0.4];
-        SKAction* scaleUp = [SKAction scaleTo:1.0 duration:0.4];
-        [self runAction:[SKAction group:@[slide, scaleUp]]];
+- (void)_score {
+    BOOL isCorrect = NO;
+    for (Word* w in _words) {
+        float s = [MFCCAudioController scoreFileA:[self _recordedSoundPath] fileB:w];
+        NSLog(@"score %f",s);
+        if (s >= kScore) {
+            isCorrect = YES;
+            _failedAttemp = 0;
+            break;
+        } else {
+            _failedAttemp ++;
+            if (_failedAttemp == 4) {
+                _failedAttemp = 0;
+                isCorrect = YES;
+                break;
+            }
+        }
     }
+    if (isCorrect) {
+        [self _displayStar:YES];
+        _currentStarIdx ++;
+    } else {
+        [self _displayStar:NO];
+    }
+
 }
+
+#pragma mark - Public
 
 - (void)enlargeWithWord:(NSMutableArray*)words {
     _words = words;
     
-    if (_enlarged) {
-        [self removeAllActions];
-        SKAction* slide = [SKAction moveTo:self.startPosition duration:0.4];
-        SKAction* scaleDown = [SKAction scaleTo:0.0 duration:0.4];
-        [self runAction:[SKAction group:@[slide, scaleDown]] completion:^{
-            _enlarged = NO;
-            [self setHidden:YES];
-        }];
-    } else {
-        Word*a = (Word*)_words[0];
+    Word*a = (Word*)_words[0];
+    [_spriteSquid removeFromParent];
+    
+    [self _showWithCompletion:^{
+        // Update UI
         _lbWord.text = a.sound;
-        [self removeAllActions];
-        _enlarged = YES;
-        [self setHidden:NO];
+        CGSize size = _spriteSquid.size;
+        UIImage* img = [UIImage imageWithContentsOfFile:a.imgFilePath];
+        double width = img.size.width;
+        double height = img.size.height;
+        double screenWidth = size.width;
+        double apect = width/height;
+        double nHeight = screenWidth/ apect;
+        img = [UIImage imageWithImage:img scaledToSize:CGSizeMake(size.width, nHeight)];
         
-        SKAction* slide = [SKAction moveTo:self.endPosition duration:0.4];
-        SKAction* scaleUp = [SKAction scaleTo:1.0 duration:0.4];
-        [self runAction:[SKAction group:@[slide, scaleUp]] completion:^{
-            [self _playSound];
-        }];
-    }
+        _spriteSquid = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:img]];
+        _spriteSquid.anchorPoint = CGPointMake(0.5, 0.5);
+        _spriteSquid.position = CGPointMake(self.size.width/2-10, self.size.height/2+45);
+        _spriteSquid.zPosition = self.zPosition+1;
+        [self addChild:_spriteSquid];
+    }];
 }
 
 #pragma mark - Touches
@@ -221,41 +270,58 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     }
 }
 
+- (void)dealloc {
+    // Mic meter timer
+    [self.audioController removeInputReceiver:self.receiver];
+    [self.audioController removeInputReceiver:self.recorder];
+    [self.audioController stop];
+    self.audioController = nil;
+}
+
 #pragma mark - Private
+
+- (void)_hide {
+    [self removeAllActions];
+    SKAction* slide = [SKAction moveTo:self.startPosition duration:0.4];
+    SKAction* scaleDown = [SKAction scaleTo:0.0 duration:0.4];
+    [self runAction:[SKAction group:@[slide, scaleDown]] completion:^{
+        _enlarged = NO;
+        [self setHidden:YES];
+    }];
+}
+
+- (void)_showWithCompletion:(void (^)())block {
+    [self removeAllActions];
+    _enlarged = YES;
+    [self setHidden:NO];
+    
+    SKAction* slide = [SKAction moveTo:self.endPosition duration:0.4];
+    SKAction* scaleUp = [SKAction scaleTo:1.0 duration:0.4];
+    [self runAction:[SKAction group:@[slide, scaleUp]] completion:^{
+        block();
+    }];
+}
 
 - (void)_playSound {
     //
     NSError *error = nil;
     Word*a = (Word*)_words[0];
-    NSURL* url = [NSURL URLWithString:[a fullFilePath]];
+    NSURL* url = [NSURL URLWithString:[a sampleFilePath]];
     self.player = [AEAudioFilePlayer audioFilePlayerWithURL:url error:&error];
-    if ( !_player ) {
-        [[[UIAlertView alloc] initWithTitle:@"Error"
-                                    message:[NSString stringWithFormat:@"Couldn't start playback: %@", [error localizedDescription]]
-                                   delegate:nil
-                          cancelButtonTitle:nil
-                          otherButtonTitles:@"OK", nil] show];
-        return;
-    }
-    
-    
-    
-    _player.removeUponFinish = YES;
+    self.player.removeUponFinish = YES;
     __weak SpeechCard *weakSelf = self;
     _player.completionBlock = ^{
         weakSelf.player = nil;
-        // Stop previous session
-        if ([weakSelf.recorder recording]) {
-            [weakSelf _stopRecording];
-        }
-        
-        // Start new session
         [weakSelf _startRecording];
     };
     [_audioController addChannels:@[_player]];
 }
 
 - (void)_startRecording {
+    if ([self.recorder recording]) {
+        [self _stopRecording];
+        self.recorder = nil;
+    }
     // Session
     _soundDetected = NO;
     
@@ -263,47 +329,32 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     [_spriteMic setTexture:[SKTexture textureWithImageNamed:@"btnMicOn"]];
     _spriteVolume.hidden = NO;
     
-    // Mic meter timer
-    if (!self.meterTimer) {
-        self.meterTimer = [NSTimer scheduledTimerWithTimeInterval:1/60.0f
-                                                           target:self
-                                                         selector:@selector(_updateAudioMeter)
-                                                         userInfo:nil
-                                                          repeats:YES];
-    }
-    
-    
     // Start new session
-    self.recorder = [[AERecorder alloc] initWithAudioController:_audioController];
+    [self.audioController addInputReceiver:self.receiver];
+    // AE Recorder
+    
+    [_audioController addInputReceiver:_recorder];
+    
     NSString *path = [self _recordedSoundPath];
     NSError *error = nil;
-    if ( ![_recorder beginRecordingToFileAtPath:path
+    [_recorder beginRecordingToFileAtPath:path
                                        fileType:kAudioFileWAVEType
-                                          error:&error] ) {
-        [[[UIAlertView alloc] initWithTitle:@"Error"
-                                    message:[NSString stringWithFormat:@"Couldn't start recording: %@", [error localizedDescription]]
-                                   delegate:nil
-                          cancelButtonTitle:nil
-                          otherButtonTitles:@"OK", nil] show];
-        self.recorder = nil;
-        return;
+                                     error:&error];
+
+    if (error) {
+        NSLog(@"error %@",error.description);
     }
     
-    //_recordButton.selected = YES;
-    //self.btnPlay.enabled = NO;
-    [_audioController addInputReceiver:_recorder];
 
 }
 
 - (void)_stopRecording {
-    // Mic meter timer
-    [self.meterTimer invalidate];
-    self.meterTimer = nil;
     
     // Stop session
     [_recorder finishRecording];
-    [_audioController removeInputReceiver:_recorder];
-    self.recorder = nil;
+
+    [_audioController removeInputReceiver:self.recorder];
+    [_audioController removeInputReceiver:self.receiver];
     
     // Remove all buffer
     [_silenceArray removeAllObjects];
@@ -314,57 +365,56 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     _spriteVolume.hidden = YES;
 }
 
-- (void)_updateAudioMeter //called by timer
+- (void)_updateAudioMeter:(NSTimer *) timer //called by timer
 {
-    Float32 vol, peak;
-    [self.audioController inputAveragePowerLevel:&vol peakHoldLevel:&peak];
-    // audioRecorder being your instance of AVAudioRecorder
- 
-    NSLog(@"%f",vol);
-    // Case 1:
-    // After 2s without sound -> stop
-    // Case 2:
-    // After detecting sound, 1s without sound -> stop
-    
-    
-    
-    [_silenceArray addItem:[NSNumber numberWithFloat:vol]];
-    //NSLog(@"%f %lu",vol,(unsigned long)_silenceArray.count);
-    if (vol >= -40 && !_soundDetected) {
-        _soundDetected = YES;
-        [_silenceArray removeAllObjects];
-    }
-    if (_silenceArray.count == kBufferLength) {
-        float a = [self avg];
-        if (a < -35.0f) {
-            [self _stopRecording];
-            if (_soundDetected) {
-                _soundDetected = NO;
-                BOOL isCorrect = NO;
-                for (Word* w in _words) {
-                    float s = [MFCCAudioController scoreFileA:[self _recordedSoundPath] fileB:w];
-                    NSLog(@"score %f",s);
-                    if (s >= kScore) {
-                        isCorrect = YES;
-                        break;
-                    }
-                }
-                if (isCorrect) {
-                    [self _displayStar:YES];
-                    _currentStarIdx ++;
-                } else {
-                    [self _displayStar:NO];
-                }
-                
-//                _spriteStar1
-            }
-        }
-    }
-    
-    
     // Animation
-    float per = MAX((vol+160-110)/50.0, 0.0);
-    [_spriteVolume runAction:[SKAction scaleTo:1+(per/1.8) duration:1/60.0f]];
+    [_spriteVolume removeAllActions];
+    float per = MAX((_energyMeter)/80.0, 0.0);
+    [_spriteVolume runAction:[SKAction scaleTo:1+(per/1.8) duration:0.005f*25]];
+//    
+//    [_silenceArray addItem:[NSNumber numberWithFloat:vol]];
+//    //NSLog(@"%f %lu",vol,(unsigned long)_silenceArray.count);
+//    if (vol >= -40 && !_soundDetected ) {
+//        _soundDetected = YES;
+//        [_silenceArray removeAllObjects];
+//    }
+//    if (_silenceArray.count == kBufferLength) {
+//        float a = [self avg];
+//        if (a < -35.0f) {
+//            [self _stopRecording];
+//            if (_soundDetected) {
+//                _soundDetected = NO;
+//                BOOL isCorrect = NO;
+//                for (Word* w in _words) {
+//                    float s = [MFCCAudioController scoreFileA:[self _recordedSoundPath] fileB:w];
+//                    NSLog(@"score %f",s);
+//                    if (s >= kScore) {
+//                        isCorrect = YES;
+//                        _failedAttemp = 0;
+//                        break;
+//                    } else {
+//                        _failedAttemp ++;
+//                        if (_failedAttemp == 4) {
+//                            _failedAttemp = 0;
+//                            isCorrect = YES;
+//                            break;
+//                        }
+//                    }
+//                }
+//                if (isCorrect) {
+//                    [self _displayStar:YES];
+//                    _currentStarIdx ++;
+//                } else {
+//                    [self _displayStar:NO];
+//                }
+//                
+////                _spriteStar1
+//            }
+//        }
+//    }
+    
+    
+    
 }
 
 - (float)avg {
@@ -412,7 +462,9 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         [node runAction:scaleUp completion:^{
             node.texture = [SKTexture textureWithImageNamed:@"imgStar1"];
             SKAction* scaleDown = [SKAction scaleTo:1.0 duration:0.2];
-            [node runAction:scaleDown];
+            [node runAction:scaleDown completion:^{
+                
+            }];
         }];
     } else {
         SKAction* rot1 = [SKAction rotateByAngle:-3 duration:0.2];

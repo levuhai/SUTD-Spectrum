@@ -22,6 +22,8 @@
 
 - (void)playSoundInDocument:(NSString*)path;
 - (void)playBgm;
+- (void)stopBgm;
+
 - (void)playSfx;
 
 @end

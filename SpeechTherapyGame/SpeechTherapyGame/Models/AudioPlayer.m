@@ -100,6 +100,10 @@ static bool isFirstAccess = YES;
     }
 }
 
+- (void)stopBgm {
+    [self.bgmPlayer stop];
+}
+
 - (void)playSfx {
     if (self.soundVolume == 0) {
         [self.sfxPlayer stop];

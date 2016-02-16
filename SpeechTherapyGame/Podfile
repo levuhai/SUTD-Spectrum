@@ -11,6 +11,7 @@ pod 'FMDB'
 pod 'ChameleonFramework'
 pod 'TheAmazingAudioEngine'
 pod 'SpinKit', '~> 1.1'
+pod 'EZAudio'
 
 end
 
