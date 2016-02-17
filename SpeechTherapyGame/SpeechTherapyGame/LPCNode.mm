@@ -66,6 +66,9 @@
     freqRespScale = gHeight / (maxFreqResp - minFreqResp);
     
     endPoint = CGPointMake(0, freqRespScale*(_plotData[0]-minFreqResp));
+    if (std::isnan(endPoint.y)) {
+        endPoint.y = 0;
+    }
     //    startPoint = CGPointMake(0, self.y + self.height);
     CGPathMoveToPoint(_pathToDraw, NULL, endPoint.x, endPoint.y);
     for (int chunkIdx=0; chunkIdx < gWidth; chunkIdx++) {
@@ -74,10 +77,8 @@
             endPoint.y = 0;
         }
 
-        //CGPathMoveToPoint(pathRealTime, NULL, startPoint.x, startPoint.y);
         CGPathAddLineToPoint(_pathToDraw, NULL, endPoint.x, endPoint.y);
     }
-    //CGPathAddLineToPoint(_pathToDraw, NULL, gWidth, endPoint.y);
 
     self.path = _pathToDraw;
     // Reset controller
