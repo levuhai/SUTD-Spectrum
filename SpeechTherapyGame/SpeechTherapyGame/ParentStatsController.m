@@ -137,7 +137,7 @@
     // Get bottom labels
     NSMutableArray* dates = [NSMutableArray new];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd MMM, yyyy"];
+    [dateFormatter setDateFormat:@"dd MMM, yy"];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *oneDay = [[NSDateComponents alloc] init];
     [oneDay setDay: 1];
@@ -315,16 +315,23 @@
         f = [NSDate beginningOfToday];
         t = [NSDate endOfToday];
     } else if (index == 1) {
-        [components setDay:(- 1)];
-        f = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:[NSDate beginningOfToday] options:0];
-        t = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:[NSDate endOfToday] options:0];
+        [components setHour:0];
+        [components setMinute:0];
+        [components setSecond:0];
+        [components setDay:([components day] - 1)];
+        f = [cal dateFromComponents:components];
+        
+        [components setHour:23];
+        [components setMinute:59];
+        [components setSecond:59];
+        t = [cal dateFromComponents:components];
     } else if (index == 2) { // Lasy 7 days
-        [components setDay:([components day] - 7)];
+        [components setDay:([components day] - 6)];
         NSDate *thisWeek  = [cal dateFromComponents:components];
         f = thisWeek;
         t = [NSDate endOfToday];
     } else if (index == 3) { // Last 30 days
-        [components setDay:([components day] - 30)];
+        [components setDay:([components day] - 29)];
         NSDate *last30Days  = [cal dateFromComponents:components];
         f = last30Days;
         t = [NSDate endOfToday];
