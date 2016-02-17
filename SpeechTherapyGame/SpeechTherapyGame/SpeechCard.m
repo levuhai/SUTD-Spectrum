@@ -18,11 +18,12 @@
 #import "SKSpriteNode+ES.h"
 #import "UIImage+ES.h"
 #import <EZAudio/EZAudio.h>
+#import "AudioPlayer.h"
 #define kBufferLength 90
 
 @interface SpeechCard()
 
-@property (nonatomic, strong) AEAudioController* audioController;
+@property (nonatomic, weak) AEAudioController* audioController;
 @property (nonatomic, strong) AERecorder *recorder;
 @property (nonatomic, strong) id receiver;
 @property (nonatomic, strong) AEAudioFilePlayer *player;
@@ -49,17 +50,6 @@
     float _energyMeter;
     
 }
-
-AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
-    .mFormatID          = kAudioFormatLinearPCM,
-    .mFormatFlags       = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked | kAudioFormatFlagIsNonInterleaved,
-    .mChannelsPerFrame  = 1,
-    .mBytesPerPacket    = sizeof(float),
-    .mFramesPerPacket   = 1,
-    .mBytesPerFrame     = sizeof(float),
-    .mBitsPerChannel    = 8 * sizeof(float),
-    .mSampleRate        = 44100.0,
-};
 
 - (id)initWithColor:(UIColor *)color size:(CGSize)size {
     self = [super initWithColor:[UIColor clearColor] size:size];
@@ -147,10 +137,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         
         // ==========================================================================
         // AE Audio Controller
-        self.audioController = [[AEAudioController alloc] initWithAudioDescription:AEAudioStreamBasicDescriptionMono inputEnabled:YES];
-        _audioController.preferredBufferDuration = 0.005;
-        _audioController.useMeasurementMode = YES;
-        [_audioController start:nil];
+        self.audioController = [[AudioPlayer shared] aAEController];
         
         // AE Audio Receiver
         __block int tick = 0;
@@ -270,12 +257,18 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     }
 }
 
-- (void)dealloc {
+- (void)removeFromParent {
+    
     // Mic meter timer
     [self.audioController removeInputReceiver:self.receiver];
     [self.audioController removeInputReceiver:self.recorder];
-    [self.audioController stop];
-    self.audioController = nil;
+    
+    self.receiver = nil;
+    
+    [self.recorder finishRecording];
+    self.recorder = nil;
+    
+    [super removeFromParent];
 }
 
 #pragma mark - Private

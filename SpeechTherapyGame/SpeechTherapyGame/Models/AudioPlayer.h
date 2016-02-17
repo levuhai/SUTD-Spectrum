@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+@class AEAudioController;
 
 @interface AudioPlayer : NSObject
 
 @property (nonatomic, assign) float soundVolume;
 @property (nonatomic, assign) float musicVolume;
+@property (nonatomic, strong) AEAudioController* aAEController;
 
 
 /**

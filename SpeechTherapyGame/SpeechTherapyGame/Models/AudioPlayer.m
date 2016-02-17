@@ -7,6 +7,7 @@
 //
 
 #import "AudioPlayer.h"
+#import "TheAmazingAudioEngine.h"
 
 @interface AudioPlayer ()
 
@@ -62,6 +63,17 @@ static bool isFirstAccess = YES;
     return [[AudioPlayer alloc] init];
 }
 
+AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
+    .mFormatID          = kAudioFormatLinearPCM,
+    .mFormatFlags       = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked | kAudioFormatFlagIsNonInterleaved,
+    .mChannelsPerFrame  = 1,
+    .mBytesPerPacket    = sizeof(float),
+    .mFramesPerPacket   = 1,
+    .mBytesPerFrame     = sizeof(float),
+    .mBitsPerChannel    = 8 * sizeof(float),
+    .mSampleRate        = 44100.0,
+};
+
 - (id) init
 {
     if(SINGLETON){
@@ -85,6 +97,12 @@ static bool isFirstAccess = YES;
     self.sfxPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundfx error:&error];
     [self.sfxPlayer setVolume:self.soundVolume];
     [self.sfxPlayer prepareToPlay];
+    
+    // AE Controlelr
+    self.aAEController = [[AEAudioController alloc] initWithAudioDescription:AEAudioStreamBasicDescriptionMono inputEnabled:YES];
+    self.aAEController.preferredBufferDuration = 0.005;
+    self.aAEController.useMeasurementMode = YES;
+    [self.aAEController start:nil];
     
     return self;
 }

@@ -43,6 +43,17 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     [self _setupSpawner];
 }
 
+-(void) willMoveFromView:(SKView *)view
+{
+    [self.children enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        SKNode* child = obj;
+        [child removeAllActions];
+        [child removeFromParent];
+    }];
+    
+    [self removeAllChildren];
+}
+
 #pragma mark - Timer
 
 -(void)update:(CFTimeInterval)currentTime {

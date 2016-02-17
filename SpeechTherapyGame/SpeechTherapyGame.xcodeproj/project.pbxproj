@@ -555,8 +555,6 @@
 				2D7580A21C2B062A0004B125 /* StarsNode.m */,
 				2D61B2E21C38096E006FC272 /* FishBar.h */,
 				2D61B2E31C38096E006FC272 /* FishBar.m */,
-				A7888BA51C5923590063D097 /* SpeechCard.h */,
-				A7888BA61C5923590063D097 /* SpeechCard.m */,
 				A7888BAB1C59D57F0063D097 /* LPCNode.h */,
 				A7888BAC1C59D57F0063D097 /* LPCNode.mm */,
 			);
@@ -630,6 +628,8 @@
 		2DF67F7C1BD4A14600EB7390 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				A7888BA51C5923590063D097 /* SpeechCard.h */,
+				A7888BA61C5923590063D097 /* SpeechCard.m */,
 				A78A2DD31C4BB9BF00D8AE75 /* FishingGameScene.h */,
 				A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */,
 				A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */,
