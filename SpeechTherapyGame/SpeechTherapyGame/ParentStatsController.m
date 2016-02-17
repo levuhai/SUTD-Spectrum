@@ -25,6 +25,9 @@
     NSMutableArray* _scoreData;
     NSMutableArray* _lineBottomLabels;
     NSMutableArray* _barBottomLabels;
+    NSDate* _from;
+    NSDate* _to;
+    NSInteger _currentIndex;
 }
 
 @property (nonatomic, strong) IBOutlet CombinedChartView *chartView;
@@ -51,6 +54,7 @@
     _chartView.delegate = self;
     _chartView.pinchZoomEnabled = YES;
     _chartView.doubleTapToZoomEnabled = NO;
+    _chartView.scaleYEnabled = NO;
     _chartView.descriptionText = @"";
     _chartView.legend.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13];
     _chartView.infoFont = [UIFont fontWithName:@"ArialRoundedMTBold" size:25];
@@ -85,6 +89,7 @@
     _barChartView.delegate = self;
     _barChartView.pinchZoomEnabled = YES;
     _barChartView.doubleTapToZoomEnabled = NO;
+    _barChartView.scaleYEnabled = NO;
     _barChartView.descriptionText = @"";
     _barChartView.drawGridBackgroundEnabled = NO;
     _barChartView.legend.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13];
@@ -122,23 +127,33 @@
 
 
 - (void)loadDataForLineChart:(NSMutableArray*)rawData {
-    if (rawData.count == 0) {
-        [_chartView clearValues];
-        [_chartView clear];
-        [_chartView setNeedsDisplay];
-        return;
-    }
+//    if (rawData.count == 0) {
+//        [_chartView clearValues];
+//        [_chartView clear];
+//        [_chartView setNeedsDisplay];
+//        return;
+//    }
     
     // Get bottom labels
     NSMutableArray* dates = [NSMutableArray new];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd MMM, yyyy"];
-    for (Score* score in rawData) {
-        NSString *dateString = [dateFormatter stringFromDate:score.date];
-        if (![dates containsObject:dateString]) {
-            [dates addObject:dateString];
-        }
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *oneDay = [[NSDateComponents alloc] init];
+    [oneDay setDay: 1];
+    if (_currentIndex == 6) {
+        Score* s = rawData[0];
+        _from = s.date;
+        _to = [NSDate endOfToday];
     }
+    for (id date = [_from copy];
+         [date compare: _to] <= 0;
+         date = [calendar dateByAddingComponents: oneDay
+                                          toDate: date
+                                         options: 0] )
+        {
+            [dates addObject:[dateFormatter stringFromDate:date]];
+        }
     
     // Line Data
     LineChartData *lData = [[LineChartData alloc] init];
@@ -275,7 +290,7 @@
     
     [ActionSheetStringPicker showPickerWithTitle:@"Date ranges"
                                             rows:rangeData
-                                initialSelection:0
+                                initialSelection:_currentIndex
                                        doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
                                            NSString* v = [selectedValue stringByReplacingOccurrencesOfString:@" " withString:@""];
                                            NSString* name = [NSString stringWithFormat:@"lb%@",v];
@@ -291,9 +306,9 @@
 }
 
 - (void)fetchDataByDateRange:(NSInteger)index {
-    
+    _currentIndex = index;
     NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *components = [cal components:NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[[NSDate alloc] init]];
+    NSDateComponents *components = [cal components:NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[NSDate date]];
     
     NSDate *f, *t;
     if (index == 0) {
@@ -301,19 +316,18 @@
         t = [NSDate endOfToday];
     } else if (index == 1) {
         [components setDay:(- 1)];
-        NSDate *yesterday = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:[NSDate beginningOfToday] options:0];
-        f = yesterday;
-        t = [NSDate beginningOfToday];
+        f = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:[NSDate beginningOfToday] options:0];
+        t = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:[NSDate endOfToday] options:0];
     } else if (index == 2) { // Lasy 7 days
         [components setDay:([components day] - 7)];
         NSDate *thisWeek  = [cal dateFromComponents:components];
         f = thisWeek;
-        t = [NSDate beginningOfToday];
+        t = [NSDate endOfToday];
     } else if (index == 3) { // Last 30 days
         [components setDay:([components day] - 30)];
         NSDate *last30Days  = [cal dateFromComponents:components];
         f = last30Days;
-        t = [NSDate beginningOfToday];
+        t = [NSDate endOfToday];
     } else if (index == 4) {
         
         [components setDay:([components day] - ([components day] -1))];
@@ -321,7 +335,6 @@
         f = thisMonth;
         t = [NSDate endOfToday];
     } else if (index == 5) {
-        components = [cal components:NSCalendarUnitWeekday | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:[[NSDate alloc] init]];
         [components setDay:([components day] - ([components day] -1))];
         NSDate *thisMonth = [cal dateFromComponents:components];
         [components setMonth:([components month] - 1)];
@@ -330,8 +343,9 @@
         f = lastMonth;
         t = thisMonth;
     }
-
-    _scoreData = [[DataManager shared] getScoresFrom:f to:t];
+    _from = f;
+    _to = t;
+    _scoreData = [[DataManager shared] getScoresFrom:_from to:_to];
     
     // Reload data
     [self loadDataForLineChart:_scoreData];

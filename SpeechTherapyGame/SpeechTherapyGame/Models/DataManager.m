@@ -54,6 +54,12 @@ static DataManager *sharedInstance = nil;
         NSLog(@"Stats DB Path: %@",_statsDBPath);
 
         //[self insertRandomScore];
+        NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *recordingFolder = [doc stringByAppendingString:@"/Recordings"];
+        [[NSFileManager defaultManager] createDirectoryAtPath:recordingFolder
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:nil];
     }
     return self;
 }
@@ -308,6 +314,15 @@ static DataManager *sharedInstance = nil;
 }
 
 #pragma mark - Score
+
+- (void)insertScore:(Score*)score {
+    FMDatabaseQueue* db = [self _scoreDBQueue];
+    [db inDatabase:^(FMDatabase *db) {
+        NSString* query = [NSString stringWithFormat:@"INSERT INTO [score] ([phoneme],[sound],[date], [score], [date_string], [record_file]) VALUES ('%@','%@',%f,%.2f,'%@','%@')",score.phoneme, score.sound, [score.date timeIntervalSince1970], score.score, score.dateString, score.recordPath];
+        [db executeUpdate:query];
+    }];
+    [db close];
+}
 
 - (void)insertRandomScore {
     for (int i = 0; i < 100; i++) {

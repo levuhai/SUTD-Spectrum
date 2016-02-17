@@ -10,10 +10,12 @@
 
 @interface Score : BaseModel
 
-@property(readonly, nonatomic) NSString* sound;
-@property(readonly, nonatomic) NSString* phoneme;
-@property(readonly, nonatomic) NSDate* date;
-@property(readonly, nonatomic) float score;
+@property(strong, nonatomic) NSString* sound;
+@property(strong, nonatomic) NSString* phoneme;
+@property(strong, nonatomic) NSDate* date;
+@property(assign, nonatomic) float score;
+@property(strong, nonatomic) NSString* recordPath;
+@property(strong, nonatomic) NSString* dateString;
 
 - (id)initRandomScore;
 

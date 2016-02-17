@@ -19,7 +19,10 @@
 #import "UIImage+ES.h"
 #import <EZAudio/EZAudio.h>
 #import "AudioPlayer.h"
-#define kBufferLength 90
+#import "DataManager.h"
+#import "Score.h"
+#define kBufferLength 60
+#define kTick 20
 
 @interface SpeechCard()
 
@@ -48,6 +51,8 @@
     BOOL _soundDetected;
     int _failedAttemp;
     float _energyMeter;
+    NSString* _currentFileName;
+    NSString* _currentFilePath;
     
 }
 
@@ -155,12 +160,12 @@
                        }
                        //NSLog(@"%f",_energyMeter);
                        tick++;
-                       if (tick == 25) {
+                       if (tick == kTick) {
                            tick = 0;
                            [self _updateAudioMeter:nil];
                        }
                        
-                       if (_energyMeter>=20 && !_soundDetected) {
+                       if (_energyMeter>=25 && !_soundDetected) {
                            _soundDetected = YES;
                            [_silenceArray removeAllObjects];
                        }
@@ -168,7 +173,7 @@
                            [_silenceArray addItem:[NSNumber numberWithFloat:_energyMeter]];
                            if (_silenceArray.count == kBufferLength) {
                                float a = [self avg];
-                               if (a <= 10) {
+                               if (a <= 25) {
                                    [self _stopRecording];
                                    [self _score];
                                }
@@ -183,26 +188,40 @@
 }
 
 - (void)_score {
+    // Calculate score
     BOOL isCorrect = NO;
+    float maxScore = 0.0f;
     for (Word* w in _words) {
-        float s = [MFCCAudioController scoreFileA:[self _recordedSoundPath] fileB:w];
-        NSLog(@"score %f",s);
-        if (s >= kScore) {
-            isCorrect = YES;
+        float s = [MFCCAudioController scoreFileA:_currentFilePath fileB:w];
+        if (s > maxScore) maxScore = s;
+    }
+    
+    // Insert score to database
+    Word* word = _words[0];
+    Score *score = [[Score alloc] init];
+    score.phoneme = word.phoneme;
+    score.sound = word.sound;
+    score.score = maxScore;
+    score.date = [NSDate date];
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"dd-mm-yyyy"];
+    score.dateString = [format stringFromDate:score.date];
+    score.recordPath = _currentFileName;
+    [[DataManager shared] insertScore:score];
+    
+    // Update UI
+    if (maxScore >= kScore) {
+        isCorrect = YES;
+        _failedAttemp = 0;
+    } else {
+        _failedAttemp ++;
+        if (_failedAttemp == 4) {
             _failedAttemp = 0;
-            break;
-        } else {
-            _failedAttemp ++;
-            if (_failedAttemp == 4) {
-                _failedAttemp = 0;
-                isCorrect = YES;
-                break;
-            }
+            isCorrect = YES;
         }
     }
     if (isCorrect) {
         [self _displayStar:YES];
-        _currentStarIdx ++;
     } else {
         [self _displayStar:NO];
     }
@@ -343,8 +362,10 @@
 
 - (void)_stopRecording {
     
-    // Stop session
-    [_recorder finishRecording];
+    // Stop recording
+    if ([_recorder recording]) {
+        [_recorder finishRecording];
+    }
 
     [_audioController removeInputReceiver:self.recorder];
     [_audioController removeInputReceiver:self.receiver];
@@ -363,7 +384,7 @@
     // Animation
     [_spriteVolume removeAllActions];
     float per = MAX((_energyMeter)/80.0, 0.0);
-    [_spriteVolume runAction:[SKAction scaleTo:1+(per/1.8) duration:0.005f*25]];
+    [_spriteVolume runAction:[SKAction scaleTo:1+(MIN(per,1)) duration:0.005f*kTick]];
 //    
 //    [_silenceArray addItem:[NSNumber numberWithFloat:vol]];
 //    //NSLog(@"%f %lu",vol,(unsigned long)_silenceArray.count);
@@ -417,20 +438,11 @@
     }
     return sum/_silenceArray.count;
 }
-
-- (NSURL*)_recordedSoundURL {
-    NSArray *dirPaths;
-    NSString *docsDir;
-    
-    dirPaths = NSSearchPathForDirectoriesInDomains(
-                                                   NSDocumentDirectory, NSUserDomainMask, YES);
-    docsDir = dirPaths[0];
-    
-    NSString *soundFilePath = [docsDir
-                               stringByAppendingPathComponent:@"sound.wav"];
-    
-    NSURL* url = [NSURL fileURLWithPath:soundFilePath];
-    return url;
+- (NSString*)_recordingFile {
+    NSDate *d = [NSDate date];
+    int num = [d timeIntervalSince1970];
+    _currentFileName = [NSString stringWithFormat:@"Recordings/%d.wav",num];
+    return _currentFileName;
 }
 
 - (NSString*)_recordedSoundPath {
@@ -442,7 +454,8 @@
     docsDir = dirPaths[0];
     
     NSString *soundFilePath = [docsDir
-                               stringByAppendingPathComponent:@"sound.wav"];
+                               stringByAppendingPathComponent:[self _recordingFile]];
+    _currentFilePath = soundFilePath;
     
     return soundFilePath;
 }
@@ -456,7 +469,11 @@
             node.texture = [SKTexture textureWithImageNamed:@"imgStar1"];
             SKAction* scaleDown = [SKAction scaleTo:1.0 duration:0.2];
             [node runAction:scaleDown completion:^{
-                
+                _currentStarIdx ++;
+                if (_currentStarIdx > 3) {
+                    [self _hide];
+                    [self _stopRecording];
+                }
             }];
         }];
     } else {

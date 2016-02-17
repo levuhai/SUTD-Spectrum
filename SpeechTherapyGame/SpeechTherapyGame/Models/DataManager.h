@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class Score;
 
 @interface DataManager : NSObject
 
@@ -27,6 +28,7 @@
 - (NSMutableArray*)getPhonemeLevel;
 
 // Stats DB
+- (void)insertScore:(Score*)score;
 - (void)insertRandomScore;
 - (NSMutableArray*)getScores;
 - (NSMutableArray*)getScoresFrom:(NSDate*)from to:(NSDate*)to;
