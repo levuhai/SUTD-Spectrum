@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PhonemeCell : UITableViewCell
+@interface DetailsCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel* lbText;
-
+@property (weak, nonatomic) IBOutlet UILabel* lbDate;
+@property (weak, nonatomic) IBOutlet UILabel* lbScore;
+@property (weak, nonatomic) IBOutlet UILabel* lbPhoneme;
 
 @end

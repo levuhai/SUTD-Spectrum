@@ -15,6 +15,8 @@
 #import "UIColor+Expanded.h"
 #import "Chameleon.h"
 #import <Charts/Charts.h>
+#import "MZFormSheetController.h"
+#import "ParentSoundDetailsController.h"
 
 #define CORRECT_VALUE 0.5f;
 
@@ -28,6 +30,7 @@
     NSDate* _from;
     NSDate* _to;
     NSInteger _currentIndex;
+    NSMutableArray* _dates;
 }
 
 @property (nonatomic, strong) IBOutlet CombinedChartView *chartView;
@@ -41,6 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
+    _dates = [NSMutableArray new];
     
     self.lineGraphContainer.layer.cornerRadius = 30;
     self.lineGraphContainer.layer.borderWidth = 5;
@@ -135,9 +139,9 @@
 //    }
     
     // Get bottom labels
-    NSMutableArray* dates = [NSMutableArray new];
+    [_dates removeAllObjects];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd MMM, yy"];
+    [dateFormatter setDateFormat:@"dd MMM yyyy"];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *oneDay = [[NSDateComponents alloc] init];
     [oneDay setDay: 1];
@@ -152,7 +156,7 @@
                                           toDate: date
                                          options: 0] )
         {
-            [dates addObject:[dateFormatter stringFromDate:date]];
+            [_dates addObject:[dateFormatter stringFromDate:date]];
         }
     
     // Line Data
@@ -163,7 +167,10 @@
     NSMutableArray *barEntries = [[NSMutableArray alloc] init];
     
     int index = 0;
-    for (NSString* dateString in dates) {
+    int max = 0;
+    BOOL maxCalculated = NO;
+    float minScore = [[DataManager shared] difficultyValue];
+    for (NSString* dateString in _dates) {
         
         int totalPlayedCount = 0;
         int totalCorrectCount = 0;
@@ -171,14 +178,25 @@
             NSString *gsDate = [dateFormatter stringFromDate:gs.date];
             if ([gsDate isEqualToString:dateString]) {
                 totalPlayedCount += 1;
-                totalCorrectCount += gs.score>=CORRECT_VALUE;
+                totalCorrectCount += gs.score>=minScore;
+            }
+            if (max < totalPlayedCount && maxCalculated == NO) {
+                max = totalPlayedCount;
             }
         }
+        maxCalculated = YES;
         [lineEntries addObject:[[ChartDataEntry alloc] initWithValue:totalCorrectCount
                                                           xIndex:index]];
         [barEntries addObject:[[BarChartDataEntry alloc] initWithValue:totalPlayedCount
                                                                 xIndex:index]];
         index++;
+    }
+    
+    // validate yAxis data
+    if (rawData.count == 0 || max < 6) {
+        _chartView.leftAxis.customAxisMax = 6;
+    } else {
+        [_chartView.leftAxis resetCustomAxisMax];
     }
     
     // Line Dataset
@@ -210,7 +228,7 @@
     [bData addDataSet:set1];
     
     // Line chart
-    CombinedChartData *combinedData = [[CombinedChartData alloc] initWithXVals:dates];
+    CombinedChartData *combinedData = [[CombinedChartData alloc] initWithXVals:_dates];
     combinedData.lineData = lData;
     combinedData.barData = bData;
 
@@ -365,6 +383,27 @@
 - (void)chartValueSelected:(ChartViewBase * __nonnull)chartView entry:(ChartDataEntry * __nonnull)entry dataSetIndex:(NSInteger)dataSetIndex highlight:(ChartHighlight * __nonnull)highlight
 {
     NSLog(@"chartValueSelected");
+    if ([chartView isKindOfClass:[CombinedChartView class]]) {
+        NSLog(@"date %@",_dates[entry.xIndex]);
+        ParentSoundDetailsController * vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SoundDetails"];
+        [vc reloadTableWithDateString:_dates[entry.xIndex]];
+        
+        MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
+        formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromRight;
+        formSheet.presentedFormSheetSize = CGSizeMake(550, self.view.height-80);
+        formSheet.shouldDismissOnBackgroundViewTap = YES;
+        formSheet.shouldCenterVertically = YES;
+        formSheet.cornerRadius = 20.0;
+        
+//        vc.container = formSheet;
+//        vc.homeSceneVC = self;
+        formSheet.didDismissCompletionHandler = ^(UIViewController *vc){};
+        
+        [self mz_presentFormSheetController:formSheet
+                                   animated:YES
+                          completionHandler:nil];
+    }
+    
 }
 
 - (void)chartValueNothingSelected:(ChartViewBase * __nonnull)chartView

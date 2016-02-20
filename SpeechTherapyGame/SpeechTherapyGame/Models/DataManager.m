@@ -126,6 +126,7 @@ static DataManager *sharedInstance = nil;
     return [_sliderValues[self.difficultyIndex] floatValue];
 }
 
+
 #pragma mark - Private
 - (FMDatabaseQueue*)_soundDBQueue {
     return [FMDatabaseQueue databaseQueueWithPath:_soundsDBPath];
@@ -334,6 +335,30 @@ static DataManager *sharedInstance = nil;
         }];
         [db close];
     }
+}
+
+- (NSMutableArray*)getScoresByDateString:(NSString*)dateStr {
+    // Select all sounds from randomized word
+    __block NSMutableArray* result = [NSMutableArray new];
+    FMDatabaseQueue* db = [self _scoreDBQueue];
+    [db inDatabase:^(FMDatabase *db) {
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [score] WHERE [date_string] = '%@'",dateStr];
+        FMResultSet *results = [db executeQuery:sql];
+        while([results next]) {
+            @autoreleasepool {
+                NSDictionary* dict = results.resultDictionary;
+                Score* w = [[Score alloc] initWithDictionary:dict];
+                if (w != nil) {
+                    [result addObject:w];
+                }
+                
+            }
+        }
+        [results close];
+    }];
+    [db close];
+    
+    return result;
 }
 
 - (NSMutableArray *)getScoresFrom:(NSDate *)from to:(NSDate*)to {

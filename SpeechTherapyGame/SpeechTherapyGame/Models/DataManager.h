@@ -30,6 +30,7 @@
 // Stats DB
 - (void)insertScore:(Score*)score;
 - (void)insertRandomScore;
+- (NSMutableArray*)getScoresByDateString:(NSString*)dateStr;
 - (NSMutableArray*)getScores;
 - (NSMutableArray*)getScoresFrom:(NSDate*)from to:(NSDate*)to;
 

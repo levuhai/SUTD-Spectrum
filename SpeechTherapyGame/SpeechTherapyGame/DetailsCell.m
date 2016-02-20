@@ -6,8 +6,8 @@
 //  Copyright © 2016 SUTD. All rights reserved.
 //
 
-#import "PhonemeCell.h"
+#import "DetailsCell.h"
 
-@implementation PhonemeCell
+@implementation DetailsCell
 
 @end

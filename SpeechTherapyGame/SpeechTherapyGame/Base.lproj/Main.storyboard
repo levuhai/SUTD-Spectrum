@@ -13,6 +13,7 @@
             <string>Debussy</string>
             <string>Debussy</string>
             <string>Debussy</string>
+            <string>Debussy</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -834,6 +835,102 @@
             </objects>
             <point key="canvasLocation" x="898.56000000000006" y="1916.5866666666668"/>
         </scene>
+        <!--Parent Sound Details Controller-->
+        <scene sceneID="05U-rI-zQm">
+            <objects>
+                <tableViewController storyboardIdentifier="SoundDetails" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QTE-mV-1HM" customClass="ParentSoundDetailsController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="71" sectionHeaderHeight="28" sectionFooterHeight="28" id="JSa-6U-84t">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Tyw-FT-LEB">
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="85"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbRecordHistory" translatesAutoresizingMaskIntoConstraints="NO" id="99b-D1-Gcv">
+                                    <rect key="frame" x="40" y="20.5" width="260" height="43"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="260" id="Ofe-1E-1DO"/>
+                                        <constraint firstAttribute="width" secondItem="99b-D1-Gcv" secondAttribute="height" multiplier="6:1" id="t7W-9P-abo"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 Jan 2016" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2bv-d9-fZP">
+                                    <rect key="frame" x="605" y="32" width="128" height="21.5"/>
+                                    <fontDescription key="fontDescription" name="Debussy" family="Debussy" pointSize="20"/>
+                                    <color key="textColor" red="0.15410047769999999" green="0.41306763889999998" blue="0.69063264130000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.18198148906230927" green="0.69426733255386353" blue="0.53024792671203613" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="99b-D1-Gcv" firstAttribute="centerY" secondItem="Tyw-FT-LEB" secondAttribute="centerY" id="2Kc-JG-5lM"/>
+                                <constraint firstItem="99b-D1-Gcv" firstAttribute="leading" secondItem="Tyw-FT-LEB" secondAttribute="leading" constant="40" id="dBV-1d-4Sd"/>
+                                <constraint firstAttribute="trailing" secondItem="2bv-d9-fZP" secondAttribute="trailing" constant="35" id="fsH-80-6lR"/>
+                                <constraint firstItem="2bv-d9-fZP" firstAttribute="centerY" secondItem="Tyw-FT-LEB" secondAttribute="centerY" id="mzu-Fr-8FH"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="75" id="Ycx-xm-8Yp" customClass="DetailsCell">
+                                <rect key="frame" x="0.0" y="113" width="768" height="75"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ycx-xm-8Yp" id="0MP-zn-jZ7">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="75"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CvT-Nm-LYe">
+                                            <rect key="frame" x="354" y="24" width="60.5" height="26"/>
+                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="23"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="crab" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6O9-jb-8Cy">
+                                            <rect key="frame" x="41" y="24" width="49" height="28"/>
+                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="25"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSO-Q9-IWe">
+                                            <rect key="frame" x="696.5" y="25" width="22.5" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="1je-l0-8h8"/>
+                                                <constraint firstAttribute="width" secondItem="nSO-Q9-IWe" secondAttribute="height" multiplier="28:31" id="VSn-yb-ZW8"/>
+                                            </constraints>
+                                            <state key="normal" image="btnPlaySmall"/>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="CvT-Nm-LYe" firstAttribute="centerY" secondItem="0MP-zn-jZ7" secondAttribute="centerY" id="Jsl-zT-U2D"/>
+                                        <constraint firstItem="CvT-Nm-LYe" firstAttribute="centerX" secondItem="0MP-zn-jZ7" secondAttribute="centerX" id="Jz6-AC-605"/>
+                                        <constraint firstItem="6O9-jb-8Cy" firstAttribute="centerY" secondItem="0MP-zn-jZ7" secondAttribute="centerY" id="Uci-Ks-rCk"/>
+                                        <constraint firstItem="6O9-jb-8Cy" firstAttribute="leading" secondItem="0MP-zn-jZ7" secondAttribute="leadingMargin" constant="33" id="UhL-Os-MFq"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="nSO-Q9-IWe" secondAttribute="trailing" constant="41" id="eps-FC-ZaC"/>
+                                        <constraint firstItem="nSO-Q9-IWe" firstAttribute="centerY" secondItem="0MP-zn-jZ7" secondAttribute="centerY" id="zuX-TN-Gh2"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="lbScore" destination="CvT-Nm-LYe" id="dtq-2F-a81"/>
+                                    <outlet property="lbText" destination="6O9-jb-8Cy" id="buv-eO-cbz"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="QTE-mV-1HM" id="AbD-QO-CYg"/>
+                            <outlet property="delegate" destination="QTE-mV-1HM" id="xBn-Nc-OfD"/>
+                        </connections>
+                    </tableView>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="lbText" destination="2bv-d9-fZP" id="SwU-pa-ljP"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sm2-uA-TZj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4663" y="1371"/>
+        </scene>
     </scenes>
     <resources>
         <image name="btnBack" width="66" height="64"/>
@@ -842,6 +939,7 @@
         <image name="btnDashboardSelected" width="142" height="140"/>
         <image name="btnDate" width="154" height="70"/>
         <image name="btnMinus" width="76" height="80"/>
+        <image name="btnPlaySmall" width="39" height="42"/>
         <image name="btnPlus" width="76" height="80"/>
         <image name="btnProgress0" width="38" height="81"/>
         <image name="btnSave" width="154" height="70"/>
@@ -858,6 +956,7 @@
         <image name="lbGFX" width="83" height="37"/>
         <image name="lbPhonemeLv" width="194" height="31"/>
         <image name="lbPracticing" width="300" height="55"/>
+        <image name="lbRecordHistory" width="336" height="56"/>
         <image name="lbSettings" width="86" height="26"/>
         <image name="lbSettings-1" width="443" height="55"/>
         <image name="lbSound" width="86" height="45"/>

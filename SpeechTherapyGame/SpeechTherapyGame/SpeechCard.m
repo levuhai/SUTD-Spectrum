@@ -204,13 +204,14 @@
     score.score = maxScore;
     score.date = [NSDate date];
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setDateFormat:@"dd-mm-yyyy"];
+    [format setDateFormat:@"dd MMM yyyy"];
     score.dateString = [format stringFromDate:score.date];
     score.recordPath = _currentFileName;
     [[DataManager shared] insertScore:score];
     
     // Update UI
-    if (maxScore >= kScore) {
+    float minScore = [[DataManager shared] difficultyValue];
+    if (maxScore >= minScore) {
         isCorrect = YES;
         _failedAttemp = 0;
     } else {

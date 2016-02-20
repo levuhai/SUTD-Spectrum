@@ -64,7 +64,7 @@
 		A752FBE61C3A2A1B00B8ED60 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBE31C3A2A1B00B8ED60 /* BaseModel.m */; };
 		A752FBE71C3A2A1B00B8ED60 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBE51C3A2A1B00B8ED60 /* DataManager.m */; };
 		A752FBEA1C3A2A2A00B8ED60 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBE91C3A2A2A00B8ED60 /* Word.m */; };
-		A752FBED1C3A2BF900B8ED60 /* PhonemeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBEC1C3A2BF900B8ED60 /* PhonemeCell.m */; };
+		A752FBED1C3A2BF900B8ED60 /* DetailsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBEC1C3A2BF900B8ED60 /* DetailsCell.m */; };
 		A752FBF01C3A2D4100B8ED60 /* NSDictionary+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBEF1C3A2D4100B8ED60 /* NSDictionary+ES.m */; };
 		A752FBF21C3A2E8C00B8ED60 /* sound.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A752FBF11C3A2E8C00B8ED60 /* sound.sqlite */; };
 		A752FBF51C3AA79400B8ED60 /* WordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBF41C3AA79400B8ED60 /* WordCell.m */; };
@@ -109,6 +109,7 @@
 		A7ABA9651C46949C00938492 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7AE30931C7219F200159978 /* SKSpriteNode+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AE30921C7219F200159978 /* SKSpriteNode+ES.m */; };
 		A7AE30981C721DC900159978 /* UIImage+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AE30971C721DC900159978 /* UIImage+ES.m */; };
+		A7E467C01C78689A00254852 /* ParentSoundDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E467BF1C78689900254852 /* ParentSoundDetailsController.m */; };
 		A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7EF5AD21C4777FA00032574 /* debussy.ttf */; };
 		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; };
 		D78865B51C1043B800C3944C /* LPCAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = D78865B41C1043B800C3944C /* LPCAudioController.m */; };
@@ -277,8 +278,8 @@
 		A752FBE51C3A2A1B00B8ED60 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		A752FBE81C3A2A2A00B8ED60 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
 		A752FBE91C3A2A2A00B8ED60 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
-		A752FBEB1C3A2BF900B8ED60 /* PhonemeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhonemeCell.h; sourceTree = "<group>"; };
-		A752FBEC1C3A2BF900B8ED60 /* PhonemeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhonemeCell.m; sourceTree = "<group>"; };
+		A752FBEB1C3A2BF900B8ED60 /* DetailsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsCell.h; sourceTree = "<group>"; };
+		A752FBEC1C3A2BF900B8ED60 /* DetailsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsCell.m; sourceTree = "<group>"; };
 		A752FBEE1C3A2D4100B8ED60 /* NSDictionary+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ES.h"; sourceTree = "<group>"; };
 		A752FBEF1C3A2D4100B8ED60 /* NSDictionary+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ES.m"; sourceTree = "<group>"; };
 		A752FBF11C3A2E8C00B8ED60 /* sound.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.sqlite; sourceTree = "<group>"; };
@@ -355,6 +356,8 @@
 		A7AE30921C7219F200159978 /* SKSpriteNode+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKSpriteNode+ES.m"; sourceTree = "<group>"; };
 		A7AE30961C721DC900159978 /* UIImage+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ES.h"; sourceTree = "<group>"; };
 		A7AE30971C721DC900159978 /* UIImage+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ES.m"; sourceTree = "<group>"; };
+		A7E467BE1C78689900254852 /* ParentSoundDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentSoundDetailsController.h; sourceTree = "<group>"; };
+		A7E467BF1C78689900254852 /* ParentSoundDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentSoundDetailsController.m; sourceTree = "<group>"; };
 		A7EF5AD21C4777FA00032574 /* debussy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = debussy.ttf; sourceTree = "<group>"; };
 		B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.release.xcconfig"; sourceTree = "<group>"; };
 		D716291D1BE76FFE00C56C77 /* ParentMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentMasterController.h; sourceTree = "<group>"; };
@@ -455,6 +458,7 @@
 		2D28753A1B9770A00068818D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				2DF6B74E1B94A14800B7F92C /* Main.storyboard */,
 				D716291C1BE7613300C56C77 /* Parent */,
 				2DF67F7C1BD4A14600EB7390 /* Game */,
 				2DE0E12B1B9CAF2400BFEDA6 /* Loading */,
@@ -490,7 +494,6 @@
 				2DF6B74C1B94A14800B7F92C /* HomeSceneViewController.m */,
 				2DF6B7431B94A14800B7F92C /* AppDelegate.h */,
 				2DF6B7441B94A14800B7F92C /* AppDelegate.m */,
-				2DF6B74E1B94A14800B7F92C /* Main.storyboard */,
 				2DC904141BB1C5430082DEAC /* Macro.h */,
 			);
 			name = Common;
@@ -880,10 +883,12 @@
 				2DC904191BB1D0710082DEAC /* ParentSoundController.m */,
 				2DC904151BB1D0580082DEAC /* ParentStatsController.h */,
 				2DC904161BB1D0580082DEAC /* ParentStatsController.m */,
-				A752FBEB1C3A2BF900B8ED60 /* PhonemeCell.h */,
-				A752FBEC1C3A2BF900B8ED60 /* PhonemeCell.m */,
 				A752FBF31C3AA79400B8ED60 /* WordCell.h */,
 				A752FBF41C3AA79400B8ED60 /* WordCell.m */,
+				A7E467BE1C78689900254852 /* ParentSoundDetailsController.h */,
+				A7E467BF1C78689900254852 /* ParentSoundDetailsController.m */,
+				A752FBEB1C3A2BF900B8ED60 /* DetailsCell.h */,
+				A752FBEC1C3A2BF900B8ED60 /* DetailsCell.m */,
 			);
 			name = Parent;
 			sourceTree = "<group>";
@@ -1136,12 +1141,13 @@
 				A709FCCD1C5131E30093AF8C /* Spawner.m in Sources */,
 				2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */,
 				A709FCD01C5133B10093AF8C /* SeaCreature.m in Sources */,
+				A7E467C01C78689A00254852 /* ParentSoundDetailsController.m in Sources */,
 				A77563461C5F9D57006E66BF /* CADebugMacros.cpp in Sources */,
 				A77563491C5F9D57006E66BF /* CAStreamBasicDescription.cpp in Sources */,
 				2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */,
 				2DC9041A1BB1D0710082DEAC /* ParentSoundController.m in Sources */,
 				A75A6CAE1C4560BE005CCE5E /* Score.m in Sources */,
-				A752FBED1C3A2BF900B8ED60 /* PhonemeCell.m in Sources */,
+				A752FBED1C3A2BF900B8ED60 /* DetailsCell.m in Sources */,
 				2D61B2E41C38096E006FC272 /* FishBar.m in Sources */,
 				2DE88ACB1BB8517A002438C6 /* Games.m in Sources */,
 				A709FCDB1C5137120093AF8C /* SeaTurtle.m in Sources */,
