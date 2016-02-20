@@ -18,5 +18,6 @@
 @property(strong, nonatomic) NSString* dateString;
 
 - (id)initRandomScore;
+- (NSString *)filePath;
 
 @end

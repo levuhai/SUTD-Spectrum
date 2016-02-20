@@ -14,5 +14,8 @@
 @property (weak, nonatomic) IBOutlet UILabel* lbDate;
 @property (weak, nonatomic) IBOutlet UILabel* lbScore;
 @property (weak, nonatomic) IBOutlet UILabel* lbPhoneme;
+@property (strong, nonatomic) NSString* filePath;
+
+- (IBAction)playSound:(id)sender;
 
 @end

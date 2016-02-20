@@ -23,6 +23,7 @@
 + (AudioPlayer*)shared;
 
 - (void)playSoundInDocument:(NSString*)path;
+- (void)playSoundInDocument:(NSString *)path delegate:(id)del;
 - (void)playBgm;
 - (void)stopBgm;
 

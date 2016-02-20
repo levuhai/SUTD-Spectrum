@@ -31,6 +31,7 @@
 - (void)insertScore:(Score*)score;
 - (void)insertRandomScore;
 - (NSMutableArray*)getScoresByDateString:(NSString*)dateStr;
+- (NSMutableArray*)getScoresBySound:(NSString*)sound;
 - (NSMutableArray*)getScores;
 - (NSMutableArray*)getScoresFrom:(NSDate*)from to:(NSDate*)to;
 

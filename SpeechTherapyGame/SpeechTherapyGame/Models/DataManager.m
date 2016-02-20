@@ -55,7 +55,7 @@ static DataManager *sharedInstance = nil;
 
         //[self insertRandomScore];
         NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *recordingFolder = [doc stringByAppendingString:@"/Recordings"];
+        NSString *recordingFolder = [doc stringByAppendingString:@"/recordings"];
         [[NSFileManager defaultManager] createDirectoryAtPath:recordingFolder
                                   withIntermediateDirectories:YES
                                                    attributes:nil
@@ -335,6 +335,30 @@ static DataManager *sharedInstance = nil;
         }];
         [db close];
     }
+}
+
+- (NSMutableArray*)getScoresBySound:(NSString*)sound {
+    // Select all sounds from randomized word
+    __block NSMutableArray* result = [NSMutableArray new];
+    FMDatabaseQueue* db = [self _scoreDBQueue];
+    [db inDatabase:^(FMDatabase *db) {
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [score] WHERE [sound] = '%@'",sound];
+        FMResultSet *results = [db executeQuery:sql];
+        while([results next]) {
+            @autoreleasepool {
+                NSDictionary* dict = results.resultDictionary;
+                Score* w = [[Score alloc] initWithDictionary:dict];
+                if (w != nil) {
+                    [result addObject:w];
+                }
+                
+            }
+        }
+        [results close];
+    }];
+    [db close];
+    
+    return result;
 }
 
 - (NSMutableArray*)getScoresByDateString:(NSString*)dateStr {

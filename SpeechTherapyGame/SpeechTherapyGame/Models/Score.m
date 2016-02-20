@@ -37,8 +37,19 @@
         _sound = [dict stringForKey:@"sound"];
         _score = [dict floatForKey:@"score"];
         _date = [dict dateForKey:@"date"];
+        _recordPath = [dict stringForKey:@"record_file"];
+        _dateString = [dict stringForKey:@"date_string"];
     }
     return self;
+}
+
+- (NSString *)filePath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSString *file = [NSString stringWithFormat:@"%@",self.recordPath];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:file];
+    return [filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 @end

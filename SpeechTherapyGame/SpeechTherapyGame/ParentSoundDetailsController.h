@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel* lbText;
 
 - (void)reloadTableWithDateString:(NSString*)date;
+- (void)reloadTableWithSound:(NSString*)sound;
 
 @end

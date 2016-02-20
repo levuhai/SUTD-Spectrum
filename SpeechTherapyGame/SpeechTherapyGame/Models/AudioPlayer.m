@@ -144,6 +144,20 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     [self.soundPlayer play];
 }
 
+- (void)playSoundInDocument:(NSString *)path delegate:(id)del {
+    self.soundPlayer.delegate = nil;
+    self.soundPlayer = nil;
+    NSError *error;
+    NSURL *url = [NSURL URLWithString:path];
+    self.soundPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    self.soundPlayer.delegate = del;
+    if (error) {
+        NSLog(@"%@",error.description);
+    }
+    [self.soundPlayer prepareToPlay];
+    [self.soundPlayer play];
+}
+
 //
 // Sound Volume
 - (void)setSoundVolume:(float)soundVolume {

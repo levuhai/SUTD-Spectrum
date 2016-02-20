@@ -31,6 +31,7 @@
     NSDate* _to;
     NSInteger _currentIndex;
     NSMutableArray* _dates;
+    NSMutableArray* _sounds;
 }
 
 @property (nonatomic, strong) IBOutlet CombinedChartView *chartView;
@@ -244,11 +245,14 @@
     }
     
     // X values
-    NSMutableArray *xVals = [[NSMutableArray alloc] init];
+    if (!_sounds) {
+        _sounds = [[NSMutableArray alloc] init];
+    }
+    [_sounds removeAllObjects];
     
     for (Score* gs in gameStatData) {
-        if (![xVals containsObject:gs.sound]) {
-            [xVals addObject:gs.sound];
+        if (![_sounds containsObject:gs.sound]) {
+            [_sounds addObject:gs.sound];
         }
     }
     
@@ -256,7 +260,7 @@
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
     
     int index = 0;
-    for (NSString* letter in xVals) {
+    for (NSString* letter in _sounds) {
         float totalScore = 0.0f;
         float totalPlay = 0.0f;
         for (Score* gs in gameStatData) {
@@ -282,7 +286,7 @@
     NSMutableArray *dataSets = [[NSMutableArray alloc] init];
     [dataSets addObject:set1];
     
-    BarChartData *data = [[BarChartData alloc] initWithXVals:xVals dataSets:dataSets];
+    BarChartData *data = [[BarChartData alloc] initWithXVals:_sounds dataSets:dataSets];
     [data setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10.f]];
     
     _barChartView.data = data;
@@ -394,10 +398,33 @@
         formSheet.shouldDismissOnBackgroundViewTap = YES;
         formSheet.shouldCenterVertically = YES;
         formSheet.cornerRadius = 20.0;
-        
 //        vc.container = formSheet;
 //        vc.homeSceneVC = self;
-        formSheet.didDismissCompletionHandler = ^(UIViewController *vc){};
+        formSheet.didDismissCompletionHandler = ^(UIViewController *vc){
+            [_chartView highlightValues:nil];
+            [_barChartView highlightValues:nil];
+        };
+        
+        [self mz_presentFormSheetController:formSheet
+                                   animated:YES
+                          completionHandler:nil];
+    } else {
+        
+        ParentSoundDetailsController * vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SoundDetails"];
+        [vc reloadTableWithSound:_sounds[entry.xIndex]];
+        
+        MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
+        formSheet.transitionStyle = MZFormSheetTransitionStyleSlideFromRight;
+        formSheet.presentedFormSheetSize = CGSizeMake(550, self.view.height-80);
+        formSheet.shouldDismissOnBackgroundViewTap = YES;
+        formSheet.shouldCenterVertically = YES;
+        formSheet.cornerRadius = 20.0;
+        //        vc.container = formSheet;
+        //        vc.homeSceneVC = self;
+        formSheet.didDismissCompletionHandler = ^(UIViewController *vc){
+            [_chartView highlightValues:nil];
+            [_barChartView highlightValues:nil];
+        };
         
         [self mz_presentFormSheetController:formSheet
                                    animated:YES
@@ -409,6 +436,10 @@
 - (void)chartValueNothingSelected:(ChartViewBase * __nonnull)chartView
 {
     NSLog(@"chartValueNothingSelected");
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 @end

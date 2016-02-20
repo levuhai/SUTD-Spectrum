@@ -21,7 +21,7 @@
 #import "AudioPlayer.h"
 #import "DataManager.h"
 #import "Score.h"
-#define kBufferLength 60
+#define kBufferLength 40
 #define kTick 20
 
 @interface SpeechCard()
@@ -442,7 +442,7 @@
 - (NSString*)_recordingFile {
     NSDate *d = [NSDate date];
     int num = [d timeIntervalSince1970];
-    _currentFileName = [NSString stringWithFormat:@"Recordings/%d.wav",num];
+    _currentFileName = [NSString stringWithFormat:@"recordings/%d.wav",num];
     return _currentFileName;
 }
 

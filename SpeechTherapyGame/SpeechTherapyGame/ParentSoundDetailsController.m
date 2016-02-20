@@ -14,10 +14,15 @@
 @implementation ParentSoundDetailsController {
     NSArray* _groupNames;
     NSMutableDictionary* _groupedData;
+    NSString* _txt;
+}
+
+- (void)viewDidLoad {
+    self.lbText.text = _txt;
 }
 
 - (void)reloadTableWithDateString:(NSString *)date {
-    self.lbText.text = date;
+    _txt = date;
     NSMutableArray* arr = [[DataManager shared] getScoresByDateString:date];
     
     // Group data
@@ -29,6 +34,30 @@
         if ( theMutableArray == nil ) {
             theMutableArray = [NSMutableArray array];
             [_groupedData setObject:theMutableArray forKey:object.phoneme];
+        }
+        
+        [theMutableArray addObject:object];
+    }
+    
+    /* `sortedCountries` is an instance variable */
+    _groupNames = [[_groupedData allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    // reload table
+    [self.tableView reloadData];
+}
+
+- (void)reloadTableWithSound:(NSString *)sound {
+    _txt = sound;
+    NSMutableArray* arr = [[DataManager shared] getScoresBySound:sound];
+    
+    // Group data
+    _groupedData = [NSMutableDictionary dictionary];
+    
+    // Here `customObjects` is an `NSArray` of your custom objects from the XML
+    for (Score * object in arr) {
+        NSMutableArray * theMutableArray = [_groupedData objectForKey:object.dateString];
+        if ( theMutableArray == nil ) {
+            theMutableArray = [NSMutableArray array];
+            [_groupedData setObject:theMutableArray forKey:object.dateString];
         }
         
         [theMutableArray addObject:object];
@@ -61,10 +90,13 @@
     // Score
     cell.lbScore.text = [NSString stringWithFormat:@"%.2f",w.score];
     if (w.score >= [[DataManager shared] difficultyValue]) {
-        cell.lbScore.textColor = [UIColor flatGreenColorDark];
+        cell.lbScore.textColor = [UIColor flatGreenColor];
     } else {
-        cell.lbScore.textColor = [UIColor flatRedColorDark];
+        cell.lbScore.textColor = [UIColor flatRedColor];
     }
+    
+    // File Path
+    cell.filePath = w.filePath;
     
     // Selected Background
     UIView *myBackView = [[UIView alloc] initWithFrame:cell.frame];
@@ -96,13 +128,13 @@
     
     // Color
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 50)];
-    [headerView setBackgroundColor:[[UIColor flatWatermelonColor] colorWithAlphaComponent:0.4f]];
+    [headerView setBackgroundColor:[[UIColor flatSkyBlueColor] colorWithAlphaComponent:0.45f]];
     
     
     // Text
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, 0, tableView.width-30, 50)];
     label.text = _groupNames[section];
-    label.textColor = [UIColor flatRedColor];
+    label.textColor = [UIColor flatSkyBlueColorDark];
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont fontWithName:@"Arial-BoldItalicMT" size:25];
     [headerView addSubview:label];
@@ -112,14 +144,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NSString * phonemeGroup = [_sortedWordGroup objectAtIndex:indexPath.section];
-//    NSArray * sounds = [_groupedWordData objectForKey:phonemeGroup];
-//    Word * w = [sounds objectAtIndex:indexPath.row];
-//    self.lbSoundPreview.text = w.sound;
-//    self.lbPhoneticPreview.text = [NSString stringWithFormat:@"/%@/",w.phonetic];
-//    
-//    self.imgPreview.image = [UIImage imageNamed:w.imgFilePath];
-//    _selectedWord = w;
+
 }
 
 - (BOOL)prefersStatusBarHidden {

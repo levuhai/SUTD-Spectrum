@@ -177,4 +177,8 @@
     [[AudioPlayer shared] playSoundInDocument:[_selectedWord sampleFilePath]];
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 @end
