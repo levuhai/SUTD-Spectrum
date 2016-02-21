@@ -27,6 +27,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     NSMutableArray* _creatureSpawners;
     LPCNode* _lpcNode;
     NSMutableArray* _randomWords;
+    SeaCreature* _caughtCreature;
 }
 
 @end
@@ -89,6 +90,16 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
         [_fisherman dropHook];
 }
 
+- (void)removeCatchCreature {
+    [_caughtCreature.spawner removeCreature:_caughtCreature];
+    _aCreatureIsHooked = NO;
+    if (_caughtCreature.spawner.creatureLimit == 0) {
+        HomeScene *scene = [HomeScene unarchiveFromFile:@"HomeScene"];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        [self.view presentScene:scene];
+    }
+}
+
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [_fisherman raiseHook];
 }
@@ -106,10 +117,10 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
             [_card enlargeWithWord:_randomWords];
             
             for (Spawner* spawner in _creatureSpawners) {
-                SeaCreature* caughtCreature = [spawner getCreatureByContactNode:contact.bodyB.node];
-                if (caughtCreature) {
+                _caughtCreature = [spawner getCreatureByContactNode:contact.bodyB.node];
+                if (_caughtCreature) {
                     _aCreatureIsHooked = YES;
-                    [caughtCreature beingCaughtAnimationByHook:[_fisherman getHook]];
+                    [_caughtCreature beingCaughtAnimationByHook:[_fisherman getHook]];
                     break;
                 }
             }

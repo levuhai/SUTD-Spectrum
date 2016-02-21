@@ -21,7 +21,8 @@
 #import "AudioPlayer.h"
 #import "DataManager.h"
 #import "Score.h"
-#define kBufferLength 40
+#import "FishingGameScene.h"
+#define kBufferLength 30
 #define kTick 20
 
 @interface SpeechCard()
@@ -162,7 +163,7 @@
                        tick++;
                        if (tick == kTick) {
                            tick = 0;
-                           [self _updateAudioMeter:nil];
+                           //[self _updateAudioMeter:nil];
                        }
                        
                        if (_energyMeter>=25 && !_soundDetected) {
@@ -216,7 +217,7 @@
         _failedAttemp = 0;
     } else {
         _failedAttemp ++;
-        if (_failedAttemp == 4) {
+        if (_failedAttemp == 3) {
             _failedAttemp = 0;
             isCorrect = YES;
         }
@@ -241,19 +242,27 @@
         // Update UI
         _lbWord.text = a.sound;
         CGSize size = _spriteSquid.size;
-        UIImage* img = [UIImage imageWithContentsOfFile:a.imgFilePath];
-        double width = img.size.width;
-        double height = img.size.height;
-        double screenWidth = size.width;
-        double apect = width/height;
-        double nHeight = screenWidth/ apect;
-        img = [UIImage imageWithImage:img scaledToSize:CGSizeMake(size.width, nHeight)];
-        
-        _spriteSquid = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:img]];
-        _spriteSquid.anchorPoint = CGPointMake(0.5, 0.5);
-        _spriteSquid.position = CGPointMake(self.size.width/2-10, self.size.height/2+45);
-        _spriteSquid.zPosition = self.zPosition+1;
-        [self addChild:_spriteSquid];
+        if (a.imgPath.length == 0) {
+            _spriteSquid = [SKSpriteNode spriteNodeWithImageNamed:@"charSquid"];
+            _spriteSquid.anchorPoint = CGPointMake(0.5, 0.5);
+            _spriteSquid.position = CGPointMake(self.size.width/2-10, self.size.height/2+45);
+            _spriteSquid.zPosition = self.zPosition+1;
+            [self addChild:_spriteSquid];
+        } else {
+            UIImage* img = [UIImage imageWithContentsOfFile:a.imgFilePath];
+            double width = img.size.width;
+            double height = img.size.height;
+            double screenWidth = size.width;
+            double apect = width/height;
+            double nHeight = screenWidth/ apect;
+            img = [UIImage imageWithImage:img scaledToSize:CGSizeMake(size.width, nHeight)];
+            
+            _spriteSquid = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:img]];
+            _spriteSquid.anchorPoint = CGPointMake(0.5, 0.5);
+            _spriteSquid.position = CGPointMake(self.size.width/2-10, self.size.height/2+45);
+            _spriteSquid.zPosition = self.zPosition+1;
+            [self addChild:_spriteSquid];
+        }
     }];
 }
 
@@ -294,12 +303,21 @@
 #pragma mark - Private
 
 - (void)_hide {
+    _currentStarIdx = 1;
+    _failedAttemp = 0;
+    for (int i = 1; i<4; i++) {
+        NSString* key = [NSString stringWithFormat:@"star%d",i];
+        SKSpriteNode* node = (SKSpriteNode*)[self childNodeWithName:key];
+        node.texture = [SKTexture textureWithImageNamed:@"imgStar0"];
+    }
     [self removeAllActions];
     SKAction* slide = [SKAction moveTo:self.startPosition duration:0.4];
     SKAction* scaleDown = [SKAction scaleTo:0.0 duration:0.4];
     [self runAction:[SKAction group:@[slide, scaleDown]] completion:^{
         _enlarged = NO;
         [self setHidden:YES];
+        FishingGameScene* s = (FishingGameScene*)self.scene;
+        [s removeCatchCreature];
     }];
 }
 

@@ -118,8 +118,10 @@
 }
 
 - (void)removeCreature:(SeaCreature*)creature {
+    
     [_creatures removeObject:creature];
     [creature removeFromParent];
+    self.creatureLimit -= 1;
     NSLog(@"creature removed: %lu",(unsigned long)[_creatures count]);
 }
 

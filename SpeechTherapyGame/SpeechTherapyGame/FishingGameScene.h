@@ -13,4 +13,6 @@
 
 @property (weak, nonatomic) HomeSceneViewController* parentController;
 
+- (void)removeCatchCreature;
+
 @end

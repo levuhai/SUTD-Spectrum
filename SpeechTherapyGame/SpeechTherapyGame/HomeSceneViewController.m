@@ -16,7 +16,9 @@
 #import "ParentMasterController.h"
 #import "SKScene+ES.h"
 
-@implementation HomeSceneViewController
+@implementation HomeSceneViewController {
+    BOOL _showingParent;
+}
 
 - (void)awakeFromNib {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -31,6 +33,7 @@
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
+    _showingParent = NO;
     
     // Configure the view.
     SKView * skView = (SKView *)self.view;
@@ -78,7 +81,10 @@
 }
 
 - (void)_showParentsSecurity {
-    
+    if (_showingParent == YES) {
+        return;
+    }
+    _showingParent = YES;
     ParentSecurityController * vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SecurityController"];
     
     MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
@@ -89,7 +95,9 @@
     formSheet.cornerRadius = 70.0;
     vc.container = formSheet;
     vc.homeSceneVC = self;
-    formSheet.didDismissCompletionHandler = ^(UIViewController *vc){};
+    formSheet.didDismissCompletionHandler = ^(UIViewController *vc){
+        _showingParent = NO;
+    };
     
     [self mz_presentFormSheetController:formSheet
                                animated:YES

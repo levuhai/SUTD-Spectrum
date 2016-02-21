@@ -3,34 +3,38 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+            <rect key="frame" x="0.0" y="0.0" width="683" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoSUTD" translatesAutoresizingMaskIntoConstraints="NO" id="QYy-9A-UTT">
-                    <rect key="frame" x="115" y="115" width="250" height="250"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="250" id="Bql-rA-uQp"/>
-                        <constraint firstAttribute="width" secondItem="QYy-9A-UTT" secondAttribute="height" multiplier="1:1" id="wpj-bH-aXt"/>
-                    </constraints>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sutdlogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="QYy-9A-UTT">
+                    <rect key="frame" x="100" y="-260" width="192.5" height="1000"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nuslogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="3mE-CD-Hdf">
+                    <rect key="frame" x="342.5" y="24" width="240.5" height="431"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="QYy-9A-UTT" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ATi-Pr-ctw"/>
-                <constraint firstItem="QYy-9A-UTT" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="YP4-3I-Ze6"/>
+                <constraint firstAttribute="trailing" secondItem="3mE-CD-Hdf" secondAttribute="trailing" constant="100" id="NgV-Jp-xgz"/>
+                <constraint firstItem="QYy-9A-UTT" firstAttribute="width" secondItem="3mE-CD-Hdf" secondAttribute="width" multiplier="0.8" id="Qa8-gG-IOY"/>
+                <constraint firstItem="3mE-CD-Hdf" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="jeH-Bg-2fh"/>
+                <constraint firstItem="QYy-9A-UTT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="100" id="kHH-VC-esA"/>
+                <constraint firstItem="3mE-CD-Hdf" firstAttribute="leading" secondItem="QYy-9A-UTT" secondAttribute="trailing" constant="50" id="sS7-ap-jB8"/>
+                <constraint firstItem="QYy-9A-UTT" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="wBl-sQ-zZS"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="548" y="455"/>
+            <point key="canvasLocation" x="649.5" y="455"/>
         </view>
     </objects>
     <resources>
-        <image name="logoSUTD" width="400" height="400"/>
+        <image name="nuslogo.png" width="695" height="431"/>
+        <image name="sutdlogo.png" width="1000" height="1000"/>
     </resources>
 </document>

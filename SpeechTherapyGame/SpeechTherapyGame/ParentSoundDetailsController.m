@@ -30,10 +30,10 @@
     
     // Here `customObjects` is an `NSArray` of your custom objects from the XML
     for (Score * object in arr) {
-        NSMutableArray * theMutableArray = [_groupedData objectForKey:object.phoneme];
+        NSMutableArray * theMutableArray = [_groupedData objectForKey:object.sound];
         if ( theMutableArray == nil ) {
             theMutableArray = [NSMutableArray array];
-            [_groupedData setObject:theMutableArray forKey:object.phoneme];
+            [_groupedData setObject:theMutableArray forKey:object.sound];
         }
         
         [theMutableArray addObject:object];
