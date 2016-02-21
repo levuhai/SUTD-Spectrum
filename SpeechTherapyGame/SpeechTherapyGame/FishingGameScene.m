@@ -12,6 +12,7 @@
 #import "Fisherman.h"
 #import "Spawner.h"
 #import "SeaTurtle.h"
+#import "SeaFish.h"
 #import "SpeechCard.h"
 #import "Word.h"
 #import "DataManager.h"
@@ -93,11 +94,23 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 - (void)removeCatchCreature {
     [_caughtCreature.spawner removeCreature:_caughtCreature];
     _aCreatureIsHooked = NO;
-    if (_caughtCreature.spawner.creatureLimit == 0) {
+    
+    // Check all creatures removed
+    __block BOOL removed = NO;
+    [_creatureSpawners enumerateObjectsUsingBlock:^(id _spawner, NSUInteger idx, BOOL *stop) {
+        Spawner* spawner = (Spawner*)_spawner;
+        if (spawner.creatureLimit != 0) {
+            removed = YES;
+            *stop = YES;
+        }
+    }];
+    
+    if (removed) {
         HomeScene *scene = [HomeScene unarchiveFromFile:@"HomeScene"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [self.view presentScene:scene];
     }
+    
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -159,9 +172,13 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     //Turtle Spawner
     Spawner* turtleCreatureSpawner = [[Spawner alloc] initWithCreatureClass:[SeaTurtle class]
                                                                     inScene:self];
-    turtleCreatureSpawner.creatureLimit = 3;
+    turtleCreatureSpawner.creatureLimit = 4;
     
-    _creatureSpawners = [NSMutableArray arrayWithObjects:turtleCreatureSpawner, nil];
+//    Spawner* fishCreatureSpawner = [[Spawner alloc] initWithCreatureClass:[SeaFish class]
+//                                                                    inScene:self];
+//    fishCreatureSpawner.creatureLimit = 4;
+    
+    _creatureSpawners = [NSMutableArray arrayWithObjects:turtleCreatureSpawner,nil];
     
     [_creatureSpawners enumerateObjectsUsingBlock:^(id _spawner, NSUInteger idx, BOOL *stop) {
         Spawner* spawner = (Spawner*)_spawner;

@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 PRZM. All rights reserved.
 //
 
-#import "SeaTurtle.h"
+#import "SeaFish.h"
 
-@implementation SeaTurtle
+@implementation SeaFish
 
 -(id) init
 {
@@ -16,18 +16,18 @@
     
     if (self)
     {
-        NSLog(@"init sea turtle");
+        NSLog(@"init sea fish");
 
-        movementSpeed = 0.1; // time to move 1 tile width
+        movementSpeed = 0.15; // time to move 1 tile width
         
-        float creatureWidth = turtleWidth;
-        float creatureHeight = turtleHeight;
+        float creatureWidth = fishAwidth;
+        float creatureHeight = fishAheight;
 
-        self.name = @nodeNameTurtle;
+        self.name = @nodeNameFish;
         self.zPosition = zOceanForeground;
         
         //[self updateBody];
-        self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(creatureWidth, creatureHeight)];
+        self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(creatureWidth*fishAContactSizeRatio, creatureHeight*fishAContactSizeRatio)];
         
         self.physicsBody.categoryBitMask = bitmaskCategoryCreature;
         self.physicsBody.allowsRotation = NO;
@@ -39,7 +39,7 @@
         self.physicsBody.mass = 5;
          
 
-        SKSpriteNode* newBody = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@fileTurtle] size:CGSizeMake(creatureWidth, creatureHeight)];
+        SKSpriteNode* newBody = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@fileFish] size:CGSizeMake(creatureWidth, creatureHeight)];
         newBody.color = [SKColor randomFlatColor];
         newBody.colorBlendFactor = 1.0f;
 
@@ -59,16 +59,11 @@
 
 -(void)swimmingLoop
 {
-    SKTextureAtlas *fishSwimmingAtlas = [SKTextureAtlas atlasNamed:@"seaturtle"];
+    SKTextureAtlas *fishSwimmingAtlas = [SKTextureAtlas atlasNamed:@"fish"];
     
-    NSArray *swimFrames = @[[fishSwimmingAtlas textureNamed:@"seaturtle1"],
-                            [fishSwimmingAtlas textureNamed:@"seaturtle2"],
-                            [fishSwimmingAtlas textureNamed:@"seaturtle3"],
-                            [fishSwimmingAtlas textureNamed:@"seaturtle4"],
-                            [fishSwimmingAtlas textureNamed:@"seaturtle5"],
-                            [fishSwimmingAtlas textureNamed:@"seaturtle4"],
-                            [fishSwimmingAtlas textureNamed:@"seaturtle3"],
-                            [fishSwimmingAtlas textureNamed:@"seaturtle2"]];
+    NSArray *swimFrames = @[[fishSwimmingAtlas textureNamed:@"fish1"],
+                            [fishSwimmingAtlas textureNamed:@"fish2"],
+                            [fishSwimmingAtlas textureNamed:@"fish3"]];
     
     //NSLog(@"swim frames: %@",swimFrames);
     

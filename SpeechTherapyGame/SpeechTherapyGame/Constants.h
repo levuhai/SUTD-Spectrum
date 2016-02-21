@@ -43,6 +43,16 @@
 #define nodeNameFish "fish"
 #define nodeNameTurtle "turtle"
 #define fileTurtle "seaturtle1.png"
+#define fileFish "fish1.png"
+#define fishAwidth 104.0
+#define fishAheight 72.0
+#define fishAContactSizeRatio 0.3
+
+#define fishSize0 0.5
+#define fishSize1 0.65
+#define fishSize2 0.8
+#define fishSize3 1.0
+#define fishSize4 1.15
 #define turtleWidth 132.0
 #define turtleHeight 102.0
 

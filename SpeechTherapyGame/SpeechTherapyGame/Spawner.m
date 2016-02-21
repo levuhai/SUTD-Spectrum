@@ -96,7 +96,7 @@
         _nextCreatureSpawnTime = currentTime+timeToNextSpawn;
         
         if ([_creatures count]<creatureLimit) {
-            int newY = floorf([self randomBetween:5 and:20]);
+            int newY = floorf([self randomBetween:3 and:22]);
         
             int type = floorf([self randomBetween:0 and:2]);
             int newX, newDirection;

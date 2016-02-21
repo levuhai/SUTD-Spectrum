@@ -56,6 +56,7 @@
 		2DF6B7611B94A14800B7F92C /* SpeechTherapyGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7601B94A14800B7F92C /* SpeechTherapyGameTests.m */; };
 		A701EA9A1C79C551003B45C7 /* nuslogo.png in Resources */ = {isa = PBXBuildFile; fileRef = A701EA991C79C551003B45C7 /* nuslogo.png */; };
 		A701EA9C1C79C580003B45C7 /* sutdlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = A701EA9B1C79C580003B45C7 /* sutdlogo.png */; };
+		A701EA9F1C79CC3E003B45C7 /* SeaFish.m in Sources */ = {isa = PBXBuildFile; fileRef = A701EA9E1C79CC3E003B45C7 /* SeaFish.m */; };
 		A709FCC71C4FEA810093AF8C /* fisherman.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A709FCC61C4FEA810093AF8C /* fisherman.atlas */; };
 		A709FCCA1C50A4CA0093AF8C /* Fisherman.m in Sources */ = {isa = PBXBuildFile; fileRef = A709FCC91C50A4CA0093AF8C /* Fisherman.m */; };
 		A709FCCD1C5131E30093AF8C /* Spawner.m in Sources */ = {isa = PBXBuildFile; fileRef = A709FCCC1C5131E30093AF8C /* Spawner.m */; };
@@ -264,6 +265,8 @@
 		7C3B006EFB154C6DB3574B82 /* libPods-SpeechTherapyGame.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpeechTherapyGame.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A701EA991C79C551003B45C7 /* nuslogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nuslogo.png; sourceTree = "<group>"; };
 		A701EA9B1C79C580003B45C7 /* sutdlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sutdlogo.png; sourceTree = "<group>"; };
+		A701EA9D1C79CC3E003B45C7 /* SeaFish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeaFish.h; sourceTree = "<group>"; };
+		A701EA9E1C79CC3E003B45C7 /* SeaFish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeaFish.m; sourceTree = "<group>"; };
 		A709FCC61C4FEA810093AF8C /* fisherman.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = fisherman.atlas; sourceTree = "<group>"; };
 		A709FCC81C50A4CA0093AF8C /* Fisherman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fisherman.h; sourceTree = "<group>"; };
 		A709FCC91C50A4CA0093AF8C /* Fisherman.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fisherman.m; sourceTree = "<group>"; };
@@ -554,6 +557,8 @@
 				A709FCC91C50A4CA0093AF8C /* Fisherman.m */,
 				A709FCCE1C5133B10093AF8C /* SeaCreature.h */,
 				A709FCCF1C5133B10093AF8C /* SeaCreature.m */,
+				A701EA9D1C79CC3E003B45C7 /* SeaFish.h */,
+				A701EA9E1C79CC3E003B45C7 /* SeaFish.m */,
 				A709FCD81C5137120093AF8C /* SeaTurtle.h */,
 				A709FCD91C5137120093AF8C /* SeaTurtle.m */,
 				A709FCCB1C5131E30093AF8C /* Spawner.h */,
@@ -1133,6 +1138,7 @@
 				2DC195E91BF6338B008669A0 /* GameStatistics+CoreDataProperties.m in Sources */,
 				A775630C1C5F9858006E66BF /* WordMatchSession.cpp in Sources */,
 				A7AE30931C7219F200159978 /* SKSpriteNode+ES.m in Sources */,
+				A701EA9F1C79CC3E003B45C7 /* SeaFish.m in Sources */,
 				A752FBFA1C3B747300B8ED60 /* UIFont+ES.m in Sources */,
 				2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */,
 				A7888BA71C5923590063D097 /* SpeechCard.m in Sources */,
