@@ -16,6 +16,7 @@
 #import "SpeechCard.h"
 #import "Word.h"
 #import "DataManager.h"
+#import "AudioPlayer.h"
 
 const uint32_t HOOK_BIT_MASK = 0x1 << 0;
 const uint32_t FISH_BIT_MASK = 0x1 << 1;
@@ -43,6 +44,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     
     [self _setupScene];
     [self _setupSpawner];
+    [[AudioPlayer shared] stopBgm];
 }
 
 -(void) willMoveFromView:(SKView *)view
