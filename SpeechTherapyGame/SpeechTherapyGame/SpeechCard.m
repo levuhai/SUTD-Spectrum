@@ -92,7 +92,7 @@
         _lbDesc.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
         _lbDesc.fontColor = [UIColor colorWithHexString:@"847C7C"];
         _lbDesc.position = CGPointMake(self.size.width/2, self.size.height-105);
-        _lbDesc.text = @"Tap on picture to hear sample sound";
+        _lbDesc.text = @"Tap the picture to hear the sound";
         _lbDesc.zPosition = self.zPosition+1;
         [self addChild:_lbDesc];
         
@@ -487,7 +487,9 @@
         [node runAction:scaleUp completion:^{
             node.texture = [SKTexture textureWithImageNamed:@"imgStar1"];
             SKAction* scaleDown = [SKAction scaleTo:1.0 duration:0.2];
-            [node runAction:scaleDown completion:^{
+            SKAction* sound = [SKAction playSoundFileNamed:@"correct.m4a" waitForCompletion:YES];
+            SKAction* s = [SKAction sequence:@[scaleDown, sound]];
+            [node runAction:s completion:^{
                 _currentStarIdx ++;
                 if (_currentStarIdx > 3) {
                     [self _hide];
@@ -498,7 +500,8 @@
     } else {
         SKAction* rot1 = [SKAction rotateByAngle:-3 duration:0.2];
         SKAction* rot2 = [SKAction rotateByAngle:6 duration:0.2];
-        [node runAction:[SKAction group:@[rot1, rot2]] completion:^{
+        SKAction* sound = [SKAction playSoundFileNamed:@"incorrect.m4a" waitForCompletion:NO];
+        [node runAction:[SKAction group:@[rot1,sound, rot2]] completion:^{
             node.texture = [SKTexture textureWithImageNamed:@"imgStar0"];
             SKAction* rot3 = [SKAction rotateByAngle:-3 duration:0.2];
             [node runAction:rot3];

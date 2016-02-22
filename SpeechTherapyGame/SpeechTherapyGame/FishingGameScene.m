@@ -98,11 +98,11 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     _aCreatureIsHooked = NO;
     
     // Check all creatures removed
-    __block BOOL removed = NO;
+    __block BOOL removed = YES;
     [_creatureSpawners enumerateObjectsUsingBlock:^(id _spawner, NSUInteger idx, BOOL *stop) {
         Spawner* spawner = (Spawner*)_spawner;
         if (spawner.creatureLimit != 0) {
-            removed = YES;
+            removed = NO;
             *stop = YES;
         }
     }];

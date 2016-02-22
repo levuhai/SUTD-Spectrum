@@ -93,7 +93,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     [self.bgmPlayer prepareToPlay];
     
     // SFX
-    NSURL *soundfx = [[NSBundle mainBundle] URLForResource:@"click" withExtension:@"wav"];
+    NSURL *soundfx = [[NSBundle mainBundle] URLForResource:@"click" withExtension:@"m4a"];
     self.sfxPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundfx error:&error];
     [self.sfxPlayer setVolume:self.soundVolume];
     [self.sfxPlayer prepareToPlay];

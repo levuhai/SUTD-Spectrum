@@ -98,7 +98,6 @@
 		A77563491C5F9D57006E66BF /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77563421C5F9D57006E66BF /* CAStreamBasicDescription.cpp */; };
 		A775634A1C5F9D57006E66BF /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77563441C5F9D57006E66BF /* CAXException.cpp */; };
 		A775634D1C5FA803006E66BF /* MFCCAudioController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A775634C1C5FA803006E66BF /* MFCCAudioController.mm */; };
-		A7888BA41C590D0E0063D097 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = A7888BA31C590D0E0063D097 /* click.wav */; };
 		A7888BA71C5923590063D097 /* SpeechCard.m in Sources */ = {isa = PBXBuildFile; fileRef = A7888BA61C5923590063D097 /* SpeechCard.m */; };
 		A7888BAA1C59C33C0063D097 /* NodeUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = A7888BA91C59C33C0063D097 /* NodeUtility.m */; };
 		A7888BAD1C59D57F0063D097 /* LPCNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7888BAC1C59D57F0063D097 /* LPCNode.mm */; };
@@ -112,6 +111,9 @@
 		A7ABA9651C46949C00938492 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7ABA95E1C46934A00938492 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7AE30931C7219F200159978 /* SKSpriteNode+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AE30921C7219F200159978 /* SKSpriteNode+ES.m */; };
 		A7AE30981C721DC900159978 /* UIImage+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AE30971C721DC900159978 /* UIImage+ES.m */; };
+		A7C51FB31C7B726900CDEB8A /* correct.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FB21C7B726900CDEB8A /* correct.m4a */; };
+		A7C51FB51C7B75C200CDEB8A /* incorrect.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FB41C7B75C200CDEB8A /* incorrect.m4a */; };
+		A7C51FB71C7B75F500CDEB8A /* click.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FB61C7B75F500CDEB8A /* click.m4a */; };
 		A7E467C01C78689A00254852 /* ParentSoundDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E467BF1C78689900254852 /* ParentSoundDetailsController.m */; };
 		A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7EF5AD21C4777FA00032574 /* debussy.ttf */; };
 		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; };
@@ -340,7 +342,6 @@
 		A77563451C5F9D57006E66BF /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
 		A775634B1C5FA803006E66BF /* MFCCAudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFCCAudioController.h; sourceTree = "<group>"; };
 		A775634C1C5FA803006E66BF /* MFCCAudioController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MFCCAudioController.mm; sourceTree = "<group>"; };
-		A7888BA31C590D0E0063D097 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		A7888BA51C5923590063D097 /* SpeechCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechCard.h; sourceTree = "<group>"; };
 		A7888BA61C5923590063D097 /* SpeechCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechCard.m; sourceTree = "<group>"; };
 		A7888BA81C59C33C0063D097 /* NodeUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeUtility.h; sourceTree = "<group>"; };
@@ -363,6 +364,9 @@
 		A7AE30921C7219F200159978 /* SKSpriteNode+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKSpriteNode+ES.m"; sourceTree = "<group>"; };
 		A7AE30961C721DC900159978 /* UIImage+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ES.h"; sourceTree = "<group>"; };
 		A7AE30971C721DC900159978 /* UIImage+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ES.m"; sourceTree = "<group>"; };
+		A7C51FB21C7B726900CDEB8A /* correct.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = correct.m4a; sourceTree = "<group>"; };
+		A7C51FB41C7B75C200CDEB8A /* incorrect.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = incorrect.m4a; sourceTree = "<group>"; };
+		A7C51FB61C7B75F500CDEB8A /* click.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = click.m4a; sourceTree = "<group>"; };
 		A7E467BE1C78689900254852 /* ParentSoundDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentSoundDetailsController.h; sourceTree = "<group>"; };
 		A7E467BF1C78689900254852 /* ParentSoundDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentSoundDetailsController.m; sourceTree = "<group>"; };
 		A7EF5AD21C4777FA00032574 /* debussy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = debussy.ttf; sourceTree = "<group>"; };
@@ -822,9 +826,11 @@
 		A7888BA21C590CFD0063D097 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				A7C51FB61C7B75F500CDEB8A /* click.m4a */,
+				A7C51FB41C7B75C200CDEB8A /* incorrect.m4a */,
+				A7C51FB21C7B726900CDEB8A /* correct.m4a */,
 				2D0D27D61C47F90000FB5045 /* coint.m4a */,
 				2D0D27D71C47F90000FB5045 /* bgm.m4a */,
-				A7888BA31C590D0E0063D097 /* click.wav */,
 			);
 			name = Sounds;
 			sourceTree = "<group>";
@@ -1034,7 +1040,6 @@
 				A752FBF71C3B73AD00B8ED60 /* ionicons.ttf in Resources */,
 				2D0D27D91C47F90000FB5045 /* bgm.m4a in Resources */,
 				2D45C7091C03708E009FCFB8 /* FishRight.sks in Resources */,
-				A7888BA41C590D0E0063D097 /* click.wav in Resources */,
 				A76374B51C3FC16400A9616C /* Images.xcassets in Resources */,
 				A709FCD51C5136D80093AF8C /* seaturtle.atlas in Resources */,
 				A701EA9C1C79C580003B45C7 /* sutdlogo.png in Resources */,
@@ -1044,12 +1049,15 @@
 				2D45C7081C03708E009FCFB8 /* FishLeft.sks in Resources */,
 				2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */,
 				A709FCD41C5136D80093AF8C /* fish.atlas in Resources */,
+				A7C51FB71C7B75F500CDEB8A /* click.m4a in Resources */,
 				A701EA9A1C79C551003B45C7 /* nuslogo.png in Resources */,
 				A709FCC71C4FEA810093AF8C /* fisherman.atlas in Resources */,
 				2D45C7051C03708E009FCFB8 /* SharkLeft.sks in Resources */,
 				A75A6CAB1C455745005CCE5E /* score.sqlite in Resources */,
+				A7C51FB51C7B75C200CDEB8A /* incorrect.m4a in Resources */,
 				A78A2DD21C4BB63D00D8AE75 /* FishingGameScene.sks in Resources */,
 				A752FBF21C3A2E8C00B8ED60 /* sound.sqlite in Resources */,
+				A7C51FB31C7B726900CDEB8A /* correct.m4a in Resources */,
 				2DF6B74A1B94A14800B7F92C /* HomeScene.sks in Resources */,
 				A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */,
 				2DF6B7501B94A14800B7F92C /* Main.storyboard in Resources */,
