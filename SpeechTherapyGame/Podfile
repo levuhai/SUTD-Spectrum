@@ -12,6 +12,8 @@ pod 'ChameleonFramework'
 pod 'TheAmazingAudioEngine'
 pod 'SpinKit', '~> 1.1'
 pod 'EZAudio'
+pod 'Fabric'
+pod 'Crashlytics'
 
 end
 

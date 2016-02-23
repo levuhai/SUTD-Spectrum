@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "DataManager.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface AppDelegate ()
 
@@ -18,22 +20,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [DataManager shared];
-    // Override point for customization after application launch.
-    //[MagicalRecord cleanUp];
-    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"DataModel"];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveContext) name:kSaveMagicalRecordContext object:nil];
+    [Fabric with:@[[Crashlytics class]]];
+    
     return YES;
-}
-
-- (void)saveContext {
-    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-        if (success) {
-            NSLog(@"You successfully saved your context.");
-        } else if (error) {
-            NSLog(@"Error saving context: %@", error.description);
-        }
-    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
