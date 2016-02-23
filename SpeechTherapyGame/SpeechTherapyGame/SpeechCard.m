@@ -22,7 +22,7 @@
 #import "DataManager.h"
 #import "Score.h"
 #import "FishingGameScene.h"
-#define kBufferLength 30
+#define kBufferLength 25
 #define kTick 20
 
 @interface SpeechCard()
@@ -146,7 +146,6 @@
         self.audioController = [[AudioPlayer shared] aAEController];
         
         // AE Audio Receiver
-        __block int tick = 0;
         self.receiver = [AEBlockAudioReceiver audioReceiverWithBlock:
                ^(void                     *source,
                  const AudioTimeStamp     *time,
@@ -155,7 +154,7 @@
                    // Do something with 'audio'
                    if (audio) {
                        float *source= (float *)audio->mBuffers[0].mData;
-                       tick = 0;
+                       float tick = 0;
                        for (int j = 0; j < frames; j++) {
                            tick += sqrtf(source[j]*source[j]);
                        }
@@ -168,7 +167,7 @@
                            [_silenceArray addItem:[NSNumber numberWithFloat:tick]];
                            if (_silenceArray.count == kBufferLength) {
                                float a = [self avg];
-                               if (a <= 25) {
+                               if (a <= 30) {
                                    [self _stopRecording];
                                    [self _score];
                                }
@@ -307,7 +306,8 @@
     [self removeAllActions];
     SKAction* slide = [SKAction moveTo:self.startPosition duration:0.4];
     SKAction* scaleDown = [SKAction scaleTo:0.0 duration:0.4];
-    [self runAction:[SKAction group:@[slide, scaleDown]] completion:^{
+    SKAction* sound = [SKAction playSoundFileNamed:@"hide.m4a" waitForCompletion:NO];
+    [self runAction:[SKAction group:@[slide, sound,scaleDown]] completion:^{
         _enlarged = NO;
         [self setHidden:YES];
         FishingGameScene* s = (FishingGameScene*)self.scene;
@@ -322,7 +322,8 @@
     
     SKAction* slide = [SKAction moveTo:self.endPosition duration:0.4];
     SKAction* scaleUp = [SKAction scaleTo:1.0 duration:0.4];
-    [self runAction:[SKAction group:@[slide, scaleUp]] completion:^{
+    SKAction* sound = [SKAction playSoundFileNamed:@"show.m4a" waitForCompletion:NO];
+    [self runAction:[SKAction group:@[slide,sound, scaleUp]] completion:^{
         block();
     }];
 }

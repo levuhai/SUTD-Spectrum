@@ -115,6 +115,12 @@
 		A7C51FB71C7B75F500CDEB8A /* click.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FB61C7B75F500CDEB8A /* click.m4a */; };
 		A7C51FB91C7B89AA00CDEB8A /* sound.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FB81C7B89AA00CDEB8A /* sound.sqlite */; };
 		A7C51FBB1C7C107400CDEB8A /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FBA1C7C107400CDEB8A /* bgm.mp3 */; };
+		A7C51FBE1C7C193500CDEB8A /* show.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FBC1C7C193500CDEB8A /* show.m4a */; };
+		A7C51FBF1C7C193500CDEB8A /* hide.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FBD1C7C193500CDEB8A /* hide.m4a */; };
+		A7C51FC11C7C1CCD00CDEB8A /* FishingSplash.sks in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FC01C7C1CCD00CDEB8A /* FishingSplash.sks */; };
+		A7C51FC41C7C562E00CDEB8A /* FishingSplash.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C51FC31C7C562E00CDEB8A /* FishingSplash.m */; };
+		A7C51FC61C7C624200CDEB8A /* go fishing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FC51C7C624200CDEB8A /* go fishing.mp3 */; };
+		A7C51FC81C7C630200CDEB8A /* slide.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FC71C7C630200CDEB8A /* slide.m4a */; };
 		A7E467C01C78689A00254852 /* ParentSoundDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E467BF1C78689900254852 /* ParentSoundDetailsController.m */; };
 		A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7EF5AD21C4777FA00032574 /* debussy.ttf */; };
 		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; };
@@ -369,6 +375,13 @@
 		A7C51FB61C7B75F500CDEB8A /* click.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = click.m4a; sourceTree = "<group>"; };
 		A7C51FB81C7B89AA00CDEB8A /* sound.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.sqlite; sourceTree = "<group>"; };
 		A7C51FBA1C7C107400CDEB8A /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm.mp3; sourceTree = "<group>"; };
+		A7C51FBC1C7C193500CDEB8A /* show.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = show.m4a; sourceTree = "<group>"; };
+		A7C51FBD1C7C193500CDEB8A /* hide.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = hide.m4a; sourceTree = "<group>"; };
+		A7C51FC01C7C1CCD00CDEB8A /* FishingSplash.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FishingSplash.sks; sourceTree = "<group>"; };
+		A7C51FC21C7C562E00CDEB8A /* FishingSplash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingSplash.h; sourceTree = "<group>"; };
+		A7C51FC31C7C562E00CDEB8A /* FishingSplash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingSplash.m; sourceTree = "<group>"; };
+		A7C51FC51C7C624200CDEB8A /* go fishing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "go fishing.mp3"; sourceTree = "<group>"; };
+		A7C51FC71C7C630200CDEB8A /* slide.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = slide.m4a; sourceTree = "<group>"; };
 		A7E467BE1C78689900254852 /* ParentSoundDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentSoundDetailsController.h; sourceTree = "<group>"; };
 		A7E467BF1C78689900254852 /* ParentSoundDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentSoundDetailsController.m; sourceTree = "<group>"; };
 		A7EF5AD21C4777FA00032574 /* debussy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = debussy.ttf; sourceTree = "<group>"; };
@@ -651,6 +664,9 @@
 				A78A2DD31C4BB9BF00D8AE75 /* FishingGameScene.h */,
 				A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */,
 				A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */,
+				A7C51FC01C7C1CCD00CDEB8A /* FishingSplash.sks */,
+				A7C51FC21C7C562E00CDEB8A /* FishingSplash.h */,
+				A7C51FC31C7C562E00CDEB8A /* FishingSplash.m */,
 				A709FCC41C4DEF110093AF8C /* Removed */,
 			);
 			name = Game;
@@ -828,6 +844,10 @@
 		A7888BA21C590CFD0063D097 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				A7C51FC71C7C630200CDEB8A /* slide.m4a */,
+				A7C51FC51C7C624200CDEB8A /* go fishing.mp3 */,
+				A7C51FBC1C7C193500CDEB8A /* show.m4a */,
+				A7C51FBD1C7C193500CDEB8A /* hide.m4a */,
 				A7C51FB61C7B75F500CDEB8A /* click.m4a */,
 				A7C51FB41C7B75C200CDEB8A /* incorrect.m4a */,
 				A7C51FB21C7B726900CDEB8A /* correct.m4a */,
@@ -1043,10 +1063,12 @@
 				A752FBF71C3B73AD00B8ED60 /* ionicons.ttf in Resources */,
 				2D0D27D91C47F90000FB5045 /* bgm.m4a in Resources */,
 				2D45C7091C03708E009FCFB8 /* FishRight.sks in Resources */,
+				A7C51FC61C7C624200CDEB8A /* go fishing.mp3 in Resources */,
 				A76374B51C3FC16400A9616C /* Images.xcassets in Resources */,
 				A709FCD51C5136D80093AF8C /* seaturtle.atlas in Resources */,
 				A7C51FB91C7B89AA00CDEB8A /* sound.sqlite in Resources */,
 				A701EA9C1C79C580003B45C7 /* sutdlogo.png in Resources */,
+				A7C51FC11C7C1CCD00CDEB8A /* FishingSplash.sks in Resources */,
 				2D45C7041C03708E009FCFB8 /* SharkRight.sks in Resources */,
 				2D45C7031C03708E009FCFB8 /* Bubbles.sks in Resources */,
 				2D45C7071C03708E009FCFB8 /* WhaleRight.sks in Resources */,
@@ -1057,12 +1079,15 @@
 				A7C51FB71C7B75F500CDEB8A /* click.m4a in Resources */,
 				A701EA9A1C79C551003B45C7 /* nuslogo.png in Resources */,
 				A709FCC71C4FEA810093AF8C /* fisherman.atlas in Resources */,
+				A7C51FC81C7C630200CDEB8A /* slide.m4a in Resources */,
 				2D45C7051C03708E009FCFB8 /* SharkLeft.sks in Resources */,
+				A7C51FBE1C7C193500CDEB8A /* show.m4a in Resources */,
 				A75A6CAB1C455745005CCE5E /* score.sqlite in Resources */,
 				A7C51FB51C7B75C200CDEB8A /* incorrect.m4a in Resources */,
 				A78A2DD21C4BB63D00D8AE75 /* FishingGameScene.sks in Resources */,
 				A7C51FB31C7B726900CDEB8A /* correct.m4a in Resources */,
 				2DF6B74A1B94A14800B7F92C /* HomeScene.sks in Resources */,
+				A7C51FBF1C7C193500CDEB8A /* hide.m4a in Resources */,
 				A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */,
 				2DF6B7501B94A14800B7F92C /* Main.storyboard in Resources */,
 			);
@@ -1203,6 +1228,7 @@
 				A78A2DD81C4BBB2E00D8AE75 /* SKScene+ES.m in Sources */,
 				2DF6B7421B94A14800B7F92C /* main.m in Sources */,
 				2DC195EA1BF6338B008669A0 /* GameStatistics.m in Sources */,
+				A7C51FC41C7C562E00CDEB8A /* FishingSplash.m in Sources */,
 				2DE0E1341B9CB24B00BFEDA6 /* ScheduleViewController.m in Sources */,
 				A752FBEA1C3A2A2A00B8ED60 /* Word.m in Sources */,
 			);

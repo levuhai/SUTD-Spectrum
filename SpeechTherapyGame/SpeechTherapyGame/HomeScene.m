@@ -10,6 +10,7 @@
 #import "HomeScene.h"
 #import "HomeSceneViewController.h"
 #import "FishingGameScene.h"
+#import "FishingSplash.h"
 #import "AudioPlayer.h"
 
 @interface HomeScene ()
@@ -49,9 +50,9 @@
         }];
     }
     else {
-        SKScene *scene = [FishingGameScene unarchiveFromFile:@"FishingGameScene"];
+        SKScene *scene = [FishingSplash unarchiveFromFile:@"FishingSplash"];
         //scene.scaleMode = SKSceneScaleModeAspectFill;
-        [self.view presentScene:scene];
+        [self.view presentScene:scene transition:[SKTransition moveInWithDirection:SKTransitionDirectionRight duration:1]];
     }
 }
 
