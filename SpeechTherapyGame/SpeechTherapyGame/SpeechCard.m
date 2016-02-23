@@ -416,17 +416,19 @@
 
 - (void)_playSound {
     //
-    NSError *error = nil;
     Word*a = (Word*)_words[0];
     NSURL* url = [NSURL URLWithString:[a sampleFilePath]];
-    self.player = [AEAudioFilePlayer audioFilePlayerWithURL:url error:&error];
-    self.player.removeUponFinish = YES;
-    __weak SpeechCard *weakSelf = self;
-    _player.completionBlock = ^{
-        weakSelf.player = nil;
-        [weakSelf _startRecording];
-    };
-    [_audioController addChannels:@[_player]];
+    [self runAction:[SKAction playSoundFileNamed:@"say.mp3" waitForCompletion:YES] completion:^{
+        self.player = [AEAudioFilePlayer audioFilePlayerWithURL:url error:nil];
+        self.player.removeUponFinish = YES;
+        __weak SpeechCard *weakSelf = self;
+        _player.completionBlock = ^{
+            weakSelf.player = nil;
+            [weakSelf _startRecording];
+        };
+        [_audioController addChannels:@[_player]];
+    }];
+    
 }
 
 - (void)_startRecording {
@@ -575,6 +577,8 @@
                 if (_currentStarIdx > 5) {
                     [self _hide];
                     [self _stopRecording];
+                } else {
+                    [self runAction:[SKAction playSoundFileNamed:@"let try again.mp3" waitForCompletion:YES]];
                 }
                 _recording = NO;
                 [self resetIdleTimer];
@@ -587,9 +591,12 @@
         [node runAction:[SKAction sequence:@[rot1,sound, rot2]] completion:^{
             node.texture = [SKTexture textureWithImageNamed:@"imgStar0"];
             SKAction* rot3 = [SKAction rotateByAngle:-1.5 duration:0.2];
-            [node runAction:rot3];
-            _recording = NO;
-            [self resetIdleTimer];
+            SKAction* s = [SKAction playSoundFileNamed:@"let try again.mp3" waitForCompletion:YES];
+            [node runAction:[SKAction sequence:@[rot3, s]] completion:^{
+                _recording = NO;
+                [self resetIdleTimer];
+            }];
+            
         }];
     }
 }

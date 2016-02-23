@@ -44,7 +44,6 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     
     [self _setupScene];
     [self _setupSpawner];
-    [[AudioPlayer shared] stopBgm];
 }
 
 -(void) willMoveFromView:(SKView *)view

@@ -169,7 +169,6 @@
     
     int index = 0;
     int max = 0;
-    BOOL maxCalculated = NO;
     float minScore = [[DataManager shared] difficultyValue];
     for (NSString* dateString in _dates) {
         
@@ -181,11 +180,11 @@
                 totalPlayedCount += 1;
                 totalCorrectCount += gs.score>=minScore;
             }
-            if (max < totalPlayedCount && maxCalculated == NO) {
-                max = totalPlayedCount;
-            }
+            
         }
-        maxCalculated = YES;
+        if (max < totalPlayedCount) {
+            max = totalPlayedCount;
+        }
         [lineEntries addObject:[[ChartDataEntry alloc] initWithValue:totalCorrectCount
                                                           xIndex:index]];
         [barEntries addObject:[[BarChartDataEntry alloc] initWithValue:totalPlayedCount
@@ -260,12 +259,13 @@
     NSMutableArray *yVals = [[NSMutableArray alloc] init];
     
     int index = 0;
+    float minScore = [[DataManager shared] difficultyValue];
     for (NSString* letter in _sounds) {
         float totalScore = 0.0f;
         float totalPlay = 0.0f;
         for (Score* gs in gameStatData) {
             if ([gs.sound isEqualToString:letter]) {
-                if (gs.score >= 0.5) {
+                if (gs.score >= minScore) {
                     totalScore += 1;
                 }
                 totalPlay += 1;
