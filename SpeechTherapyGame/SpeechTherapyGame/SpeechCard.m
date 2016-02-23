@@ -155,23 +155,17 @@
                    // Do something with 'audio'
                    if (audio) {
                        float *source= (float *)audio->mBuffers[0].mData;
-                       _energyMeter = 0;
+                       tick = 0;
                        for (int j = 0; j < frames; j++) {
-                           _energyMeter += sqrtf(source[j]*source[j]);
-                       }
-                       //NSLog(@"%f",_energyMeter);
-                       tick++;
-                       if (tick == kTick) {
-                           tick = 0;
-                           //[self _updateAudioMeter:nil];
+                           tick += sqrtf(source[j]*source[j]);
                        }
                        
-                       if (_energyMeter>=25 && !_soundDetected) {
+                       if (tick>=25 && !_soundDetected) {
                            _soundDetected = YES;
                            [_silenceArray removeAllObjects];
                        }
                        if (_soundDetected) {
-                           [_silenceArray addItem:[NSNumber numberWithFloat:_energyMeter]];
+                           [_silenceArray addItem:[NSNumber numberWithFloat:tick]];
                            if (_silenceArray.count == kBufferLength) {
                                float a = [self avg];
                                if (a <= 25) {

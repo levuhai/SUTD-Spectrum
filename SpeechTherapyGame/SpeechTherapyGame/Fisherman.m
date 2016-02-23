@@ -15,6 +15,7 @@
     SKSpriteNode* _rod;
     SKSpriteNode* _hook;
     SKSpriteNode* _hookLine;
+    float _y;
 }
 
 -(SKSpriteNode*) getHook {
@@ -24,17 +25,19 @@
 - (void)dropHook {
     [_hook removeActionForKey:@"hook"];
     [_hookLine removeAllActions];
+    float delta = hookMovementDeltaY;
+    int count = ceilf((_hook.position.y - 50)/hookMovementDeltaY);
     
     SKAction *hookGoingDownOnceAction = [SKAction moveByX:0
-                                                        y:-hookMovementDeltaY
+                                                        y:-delta
                                                  duration:1.0/hookDropSpeed];
-    SKAction *hookGoingDownAction = [SKAction repeatActionForever:hookGoingDownOnceAction];
+    SKAction *hookGoingDownAction = [SKAction repeatAction:hookGoingDownOnceAction count:count];
     [_hook runAction:hookGoingDownAction withKey:@"hook"];
     
     SKAction *hookLineOnceAction = [SKAction resizeByWidth:0
-                                                    height:hookMovementDeltaY
+                                                    height:delta
                                                   duration:1.0/hookDropSpeed];
-    SKAction *hookLineAction = [SKAction repeatActionForever:hookLineOnceAction];
+    SKAction *hookLineAction = [SKAction repeatAction:hookLineOnceAction count:count];
     [_hookLine runAction:hookLineAction withKey:@"hookline"];
     //[self _animateReelDown];
 }
@@ -69,6 +72,7 @@
 
 - (void)setupRod {
     _rod = (SKSpriteNode*)[self childNodeWithName:@"rod"];
+    _y = _rod.position.y;
     
     // Hook
     CGPoint rodPos = [self convertPoint:_rod.position toNode:self.scene];

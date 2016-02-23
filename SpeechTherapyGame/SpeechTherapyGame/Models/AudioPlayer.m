@@ -86,7 +86,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     
     // BGM
     NSError *error;
-    NSURL *soundURL = [[NSBundle mainBundle] URLForResource:@"bgm" withExtension:@"m4a"];
+    NSURL *soundURL = [[NSBundle mainBundle] URLForResource:@"bgm" withExtension:@"mp3"];
     self.bgmPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:&error];
     self.bgmPlayer.numberOfLoops = -1;
     [self.bgmPlayer setVolume:self.musicVolume];
