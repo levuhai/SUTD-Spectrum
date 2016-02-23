@@ -498,12 +498,12 @@
             }];
         }];
     } else {
-        SKAction* rot1 = [SKAction rotateByAngle:-3 duration:0.2];
-        SKAction* rot2 = [SKAction rotateByAngle:6 duration:0.2];
+        SKAction* rot1 = [SKAction rotateByAngle:-1.5 duration:0.2];
+        SKAction* rot2 = [SKAction rotateByAngle:3 duration:0.2];
         SKAction* sound = [SKAction playSoundFileNamed:@"incorrect.m4a" waitForCompletion:NO];
-        [node runAction:[SKAction group:@[rot1,sound, rot2]] completion:^{
+        [node runAction:[SKAction sequence:@[rot1,sound, rot2]] completion:^{
             node.texture = [SKTexture textureWithImageNamed:@"imgStar0"];
-            SKAction* rot3 = [SKAction rotateByAngle:-3 duration:0.2];
+            SKAction* rot3 = [SKAction rotateByAngle:-1.5 duration:0.2];
             [node runAction:rot3];
         }];
     }

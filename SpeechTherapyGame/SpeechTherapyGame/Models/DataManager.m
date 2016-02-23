@@ -7,6 +7,7 @@
 //
 
 #import "DataManager.h"
+#import <TheAmazingAudioEngine/TheAmazingAudioEngine.h>
 #import <FMDB/FMDB.h>
 #import "Word.h"
 #import "Score.h"
@@ -15,9 +16,22 @@
     NSString* _soundsDBPath;
     NSString* _statsDBPath;
     NSArray* _sliderValues;
+    
+    NSString* _soundFolder;
 }
 
 static DataManager *sharedInstance = nil;
+
+AudioStreamBasicDescription const ASBD = {
+    .mFormatID          = kAudioFormatLinearPCM,
+    .mFormatFlags       = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked | kAudioFormatFlagIsNonInterleaved,
+    .mChannelsPerFrame  = 1,
+    .mBytesPerPacket    = sizeof(float),
+    .mFramesPerPacket   = 1,
+    .mBytesPerFrame     = sizeof(float),
+    .mBitsPerChannel    = 8 * sizeof(float),
+    .mSampleRate        = 44100.0,
+};
 
 #pragma mark - Singleton
 + (id)shared {
@@ -48,20 +62,157 @@ static DataManager *sharedInstance = nil;
     if (self) {
         _sliderValues = @[@0.35, @0.4, @0.45];
         
-        _soundsDBPath = [self copyToDocuments:@"sound.sqlite"];
-        NSLog(@"Sound DB Path: %@",_soundsDBPath);
         _statsDBPath = [self copyToDocuments:@"score.sqlite"];
         NSLog(@"Stats DB Path: %@",_statsDBPath);
 
         //[self insertRandomScore];
+        NSFileManager* fm = [NSFileManager defaultManager];
         NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSString *recordingFolder = [doc stringByAppendingString:@"/recordings"];
         [[NSFileManager defaultManager] createDirectoryAtPath:recordingFolder
                                   withIntermediateDirectories:YES
                                                    attributes:nil
                                                         error:nil];
+        
+        // sounds folder
+        _soundsDBPath = [doc stringByAppendingString:@"/sound.sqlite"];
+        _soundFolder = [doc stringByAppendingString:@"/sounds"];
+        
+        [fm removeItemAtPath:_soundsDBPath error:nil];
+        NSString* boneDBPath = [[NSBundle mainBundle] pathForResource:@"sound" ofType:@"sqlite"];
+        [fm copyItemAtPath:boneDBPath toPath:_soundsDBPath error:nil];
+        [self _generateDB];
     }
     return self;
+}
+
+- (void)_generateDB {
+    NSFileManager* fm = [NSFileManager defaultManager];
+    // Read files in Sounds folder
+    NSArray *sourceFolder =  [fm contentsOfDirectoryAtPath:_soundFolder error:nil];
+    NSMutableArray* queries = [NSMutableArray new];
+    
+    for (NSString *subFolder in sourceFolder) {
+        if (![subFolder isEqualToString:@".DS_Store"]) {
+            NSString* subFolderPath = [_soundFolder stringByAppendingPathComponent:subFolder];
+            NSArray *subFolderContents = [fm contentsOfDirectoryAtPath:subFolderPath error:nil];
+            NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '_full.wav'"];
+            NSArray *onlyWAVs = [subFolderContents filteredArrayUsingPredicate:fltr];
+            
+            // Add files to db
+            for (NSString* file in onlyWAVs) {
+                NSLog(@"%@",file);
+                
+                // Read full file
+                NSString* temp = [NSString stringWithFormat:@"%@/%@",subFolder,file];
+                NSString *fullPath = [_soundFolder stringByAppendingPathComponent:temp];
+                AEAudioFileLoaderOperation* full
+                = [self _readFilePath:fullPath
+                            audioDesc:ASBD];
+                
+                // Read cropped file
+                NSString *croppedPath = fullPath;
+                AEAudioFileLoaderOperation* cropped
+                = [self _readFilePath:croppedPath
+                            audioDesc:ASBD];
+                
+                // If one of these 2 files is nil skip
+                if (cropped == nil || full == nil) {
+                    continue;
+                }
+                
+                // Buffer reader
+                float *mBuffer = (float*)full.bufferList->mBuffers[0].mData;
+                float *sBuffer = (float*)cropped.bufferList->mBuffers[0].mData;
+                for (int i = 0; i < full.lengthInFrames-3-1; i++) {
+                    if (mBuffer[i+0] == sBuffer[0]
+                        && mBuffer[i+1] == sBuffer[1]
+                        && mBuffer[i+2] == sBuffer[2]) {
+                        
+                        BOOL equal = YES;
+                        int j = 0;
+                        while (equal) {
+                            if (mBuffer[i+j]==sBuffer[j] && i+j <= full.lengthInFrames) {
+                                j++;
+                            } else {
+                                break;
+                            }
+                        }
+                        
+                        // components of file name
+                        NSArray* cols = [file componentsSeparatedByString:@"_"];
+                        
+                        // Info
+                        
+                        // Phoneme
+                        NSString* phoneme = subFolder;
+                        
+                        // Type
+                        int type; // 0: Word, 1: Syllable
+                        if (cols.count == 5) type = 0; else type = 1;
+                        
+                        // Start, End
+                        int start = i, end = i+j;
+                        
+                        // Sound
+                        NSString* sound = cols[1];
+                        
+                        // Phonetic
+                        NSString* phonetic;
+                        if (cols.count == 5) phonetic = cols[2]; else phonetic = cols[1];
+                        
+                        // Position
+                        int pos = 0;
+                        NSString* position = cols[0];
+                        if ([position isEqual: @"i"]) pos = 0;
+                        if ([position isEqual: @"m"]) pos = 1;
+                        if ([position isEqual: @"e"]) pos = 2;
+                        
+                        // Full Path
+                        NSString* fullPath = [NSString stringWithFormat:@"%@/%@",phoneme,file];
+                        
+                        // Cropped Path
+                        NSString* croppedPath = [fullPath stringByReplacingOccurrencesOfString:@"_full" withString:@""];
+                        
+                        // Img Path
+                        NSString* imgPath = @"";
+                        if (cols.count == 5) {
+                            imgPath = [NSString stringWithFormat:@"%@/%@_%@.png",phoneme,position,sound];
+                        }
+                        
+                        // Sample Path
+                        NSString* samplePath = [NSString stringWithFormat:@"%@/%@_%@.wav",phoneme,position,sound];
+                        
+                        NSString *query = [NSString stringWithFormat:@"INSERT INTO [db] ([phoneme],[sound],[phonetic],[position],[full_path],[full_len],[cropped_path],[cropped_len],[cropped_start],[cropped_end],[type],[img_path],[sample_path]) VALUES ('%@','%@','%@',%d,'%@',%d,'%@',%d,%d,%d,%d,'%@','%@')",phoneme,sound,phonetic,pos,fullPath,full.lengthInFrames,croppedPath,cropped.lengthInFrames,start,end,type,imgPath,samplePath];
+                        [queries addObject:query];
+                        //}
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:_soundsDBPath];
+    [queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        for (NSString* q in queries) {
+            [db executeUpdate:q];
+        }
+    }];
+}
+
+- (AEAudioFileLoaderOperation*)_readFilePath:(NSString*)filePath
+                                   audioDesc:(AudioStreamBasicDescription)ad {
+    NSCharacterSet *set = [NSCharacterSet URLQueryAllowedCharacterSet];
+    NSString *result = [filePath stringByAddingPercentEncodingWithAllowedCharacters:set];
+    NSURL *url = [NSURL URLWithString:result];
+    AEAudioFileLoaderOperation *operation = [[AEAudioFileLoaderOperation alloc] initWithFileURL:url
+                                                                         targetAudioDescription:ad];
+    [operation start];
+    if ( operation.error ) {
+        // Load failed! Clean up, report error, etc.
+        return nil;
+    }
+    return operation;
 }
 
 - (NSString*)copyToDocuments:(NSString*)dbName {

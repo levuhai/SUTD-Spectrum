@@ -69,7 +69,6 @@
 		A752FBEA1C3A2A2A00B8ED60 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBE91C3A2A2A00B8ED60 /* Word.m */; };
 		A752FBED1C3A2BF900B8ED60 /* DetailsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBEC1C3A2BF900B8ED60 /* DetailsCell.m */; };
 		A752FBF01C3A2D4100B8ED60 /* NSDictionary+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBEF1C3A2D4100B8ED60 /* NSDictionary+ES.m */; };
-		A752FBF21C3A2E8C00B8ED60 /* sound.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A752FBF11C3A2E8C00B8ED60 /* sound.sqlite */; };
 		A752FBF51C3AA79400B8ED60 /* WordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBF41C3AA79400B8ED60 /* WordCell.m */; };
 		A752FBF71C3B73AD00B8ED60 /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */; };
 		A752FBFA1C3B747300B8ED60 /* UIFont+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBF91C3B747300B8ED60 /* UIFont+ES.m */; };
@@ -114,6 +113,7 @@
 		A7C51FB31C7B726900CDEB8A /* correct.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FB21C7B726900CDEB8A /* correct.m4a */; };
 		A7C51FB51C7B75C200CDEB8A /* incorrect.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FB41C7B75C200CDEB8A /* incorrect.m4a */; };
 		A7C51FB71C7B75F500CDEB8A /* click.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FB61C7B75F500CDEB8A /* click.m4a */; };
+		A7C51FB91C7B89AA00CDEB8A /* sound.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A7C51FB81C7B89AA00CDEB8A /* sound.sqlite */; };
 		A7E467C01C78689A00254852 /* ParentSoundDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E467BF1C78689900254852 /* ParentSoundDetailsController.m */; };
 		A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7EF5AD21C4777FA00032574 /* debussy.ttf */; };
 		D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D716291E1BE76FFE00C56C77 /* ParentMasterController.m */; };
@@ -291,7 +291,6 @@
 		A752FBEC1C3A2BF900B8ED60 /* DetailsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsCell.m; sourceTree = "<group>"; };
 		A752FBEE1C3A2D4100B8ED60 /* NSDictionary+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ES.h"; sourceTree = "<group>"; };
 		A752FBEF1C3A2D4100B8ED60 /* NSDictionary+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ES.m"; sourceTree = "<group>"; };
-		A752FBF11C3A2E8C00B8ED60 /* sound.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.sqlite; sourceTree = "<group>"; };
 		A752FBF31C3AA79400B8ED60 /* WordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCell.h; sourceTree = "<group>"; };
 		A752FBF41C3AA79400B8ED60 /* WordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCell.m; sourceTree = "<group>"; };
 		A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
@@ -367,6 +366,7 @@
 		A7C51FB21C7B726900CDEB8A /* correct.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = correct.m4a; sourceTree = "<group>"; };
 		A7C51FB41C7B75C200CDEB8A /* incorrect.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = incorrect.m4a; sourceTree = "<group>"; };
 		A7C51FB61C7B75F500CDEB8A /* click.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = click.m4a; sourceTree = "<group>"; };
+		A7C51FB81C7B89AA00CDEB8A /* sound.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.sqlite; sourceTree = "<group>"; };
 		A7E467BE1C78689900254852 /* ParentSoundDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentSoundDetailsController.h; sourceTree = "<group>"; };
 		A7E467BF1C78689900254852 /* ParentSoundDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentSoundDetailsController.m; sourceTree = "<group>"; };
 		A7EF5AD21C4777FA00032574 /* debussy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = debussy.ttf; sourceTree = "<group>"; };
@@ -764,7 +764,7 @@
 		A752FBDF1C3A29EE00B8ED60 /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				A752FBF11C3A2E8C00B8ED60 /* sound.sqlite */,
+				A7C51FB81C7B89AA00CDEB8A /* sound.sqlite */,
 				A75A6CAA1C455745005CCE5E /* score.sqlite */,
 			);
 			name = Database;
@@ -1042,6 +1042,7 @@
 				2D45C7091C03708E009FCFB8 /* FishRight.sks in Resources */,
 				A76374B51C3FC16400A9616C /* Images.xcassets in Resources */,
 				A709FCD51C5136D80093AF8C /* seaturtle.atlas in Resources */,
+				A7C51FB91C7B89AA00CDEB8A /* sound.sqlite in Resources */,
 				A701EA9C1C79C580003B45C7 /* sutdlogo.png in Resources */,
 				2D45C7041C03708E009FCFB8 /* SharkRight.sks in Resources */,
 				2D45C7031C03708E009FCFB8 /* Bubbles.sks in Resources */,
@@ -1056,7 +1057,6 @@
 				A75A6CAB1C455745005CCE5E /* score.sqlite in Resources */,
 				A7C51FB51C7B75C200CDEB8A /* incorrect.m4a in Resources */,
 				A78A2DD21C4BB63D00D8AE75 /* FishingGameScene.sks in Resources */,
-				A752FBF21C3A2E8C00B8ED60 /* sound.sqlite in Resources */,
 				A7C51FB31C7B726900CDEB8A /* correct.m4a in Resources */,
 				2DF6B74A1B94A14800B7F92C /* HomeScene.sks in Resources */,
 				A7EF5AD31C4777FA00032574 /* debussy.ttf in Resources */,
