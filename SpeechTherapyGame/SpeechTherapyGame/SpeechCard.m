@@ -31,6 +31,8 @@
 @property (nonatomic, strong) AERecorder *recorder;
 @property (nonatomic, strong) id receiver;
 @property (nonatomic, strong) AEAudioFilePlayer *player;
+@property (nonatomic, assign) int count;
+@property (nonatomic, strong) NSMutableArray *silenceArray;
 
 @end
 
@@ -46,15 +48,16 @@
     SKSpriteNode* _spriteStar1;
     SKSpriteNode* _spriteStar2;
     SKSpriteNode* _spriteStar3;
+    SKSpriteNode* _spriteStar4;
+    SKSpriteNode* _spriteStar5;
     
-    NSMutableArray* _silenceArray;
     NSMutableArray* _words;
     BOOL _soundDetected;
     int _failedAttemp;
     float _energyMeter;
     NSString* _currentFileName;
     NSString* _currentFilePath;
-    
+    BOOL _recording;
 }
 
 - (id)initWithColor:(UIColor *)color size:(CGSize)size {
@@ -62,7 +65,7 @@
     if (self) {
         self.userInteractionEnabled = YES;
         
-        _silenceArray = [[NSMutableArray alloc] initWithMaxItem:kBufferLength];
+        self.silenceArray = [[NSMutableArray alloc] initWithMaxItem:kBufferLength];
         _soundDetected = NO;
         _currentStarIdx = 1;
         
@@ -99,50 +102,65 @@
         // Add squid
         _spriteSquid = [SKSpriteNode spriteNodeWithImageNamed:@"charSquid"];
         _spriteSquid.anchorPoint = CGPointMake(0.5, 0.5);
-        _spriteSquid.position = CGPointMake(self.size.width/2-10, self.size.height/2+45);
+        _spriteSquid.position = CGPointMake(self.size.width/2-10, self.size.height/2+25);
         _spriteSquid.zPosition = self.zPosition+1;
         [self addChild:_spriteSquid];
         
         // Star 1
         _spriteStar1 = [SKSpriteNode spriteNodeWithImageNamed:@"imgStar0"];
         _spriteStar1.anchorPoint = CGPointMake(0.5, 0.5);
-        _spriteStar1.position = CGPointMake(self.size.width/2-70, 50);
+        _spriteStar1.position = CGPointMake(self.size.width/2-140, 80);
         _spriteStar1.zPosition = self.zPosition+1;
         _spriteStar1.name = @"star1";
         [self addChild:_spriteStar1];
         
         _spriteStar2 = [SKSpriteNode spriteNodeWithImageNamed:@"imgStar0"];
         _spriteStar2.anchorPoint = CGPointMake(0.5, 0.5);
-        _spriteStar2.position = CGPointMake(self.size.width/2, 40);
+        _spriteStar2.position = CGPointMake(self.size.width/2-70, 80);
         _spriteStar2.zPosition = self.zPosition+1;
         _spriteStar2.name = @"star2";
         [self addChild:_spriteStar2];
         
         _spriteStar3 = [SKSpriteNode spriteNodeWithImageNamed:@"imgStar0"];
         _spriteStar3.anchorPoint = CGPointMake(0.5, 0.5);
-        _spriteStar3.position = CGPointMake(self.size.width/2+70, 50);
+        _spriteStar3.position = CGPointMake(self.size.width/2, 80);
         _spriteStar3.zPosition = self.zPosition+1;
         _spriteStar3.name = @"star3";
         [self addChild:_spriteStar3];
         
+        _spriteStar4 = [SKSpriteNode spriteNodeWithImageNamed:@"imgStar0"];
+        _spriteStar4.anchorPoint = CGPointMake(0.5, 0.5);
+        _spriteStar4.position = CGPointMake(self.size.width/2+70, 80);
+        _spriteStar4.zPosition = self.zPosition+1;
+        _spriteStar4.name = @"star4";
+        [self addChild:_spriteStar4];
+        
+        _spriteStar5 = [SKSpriteNode spriteNodeWithImageNamed:@"imgStar0"];
+        _spriteStar5.anchorPoint = CGPointMake(0.5, 0.5);
+        _spriteStar5.position = CGPointMake(self.size.width/2+140, 80);
+        _spriteStar5.zPosition = self.zPosition+1;
+        _spriteStar5.name = @"star5";
+        [self addChild:_spriteStar5];
+        
         // Add mic
         _spriteMic = [SKSpriteNode spriteNodeWithImageNamed:@"btnMicOff"];
         _spriteMic.anchorPoint = CGPointMake(0.5, 0.5);
-        _spriteMic.position = CGPointMake(self.size.width/2, 115);
+        _spriteMic.position = CGPointMake(self.size.width - 70, 175);
         _spriteMic.zPosition = self.zPosition+2;
         [self addChild:_spriteMic];
         
         // Add vol meter
-        _spriteVolume = [SKShapeNode shapeNodeWithCircleOfRadius:_spriteMic.size.height/2];
-        _spriteVolume.position = _spriteMic.position;
-        _spriteVolume.fillColor = [[SKColor flatWhiteColor] colorWithAlphaComponent:0.3];
-        _spriteVolume.lineWidth = 0;
-        _spriteVolume.antialiased = YES;
-        _spriteVolume.zPosition = self.zPosition+1;
-        [self addChild:_spriteVolume];
+//        _spriteVolume = [SKShapeNode shapeNodeWithCircleOfRadius:_spriteMic.size.height/2];
+//        _spriteVolume.position = _spriteMic.position;
+//        _spriteVolume.fillColor = [[SKColor flatWhiteColor] colorWithAlphaComponent:0.3];
+//        _spriteVolume.lineWidth = 0;
+//        _spriteVolume.antialiased = YES;
+//        _spriteVolume.zPosition = self.zPosition+1;
+//        [self addChild:_spriteVolume];
         
         // ==========================================================================
         // AE Audio Controller
+        __weak SpeechCard *weakSelf = self;
         self.audioController = [[AudioPlayer shared] aAEController];
         
         // AE Audio Receiver
@@ -158,18 +176,26 @@
                        for (int j = 0; j < frames; j++) {
                            tick += sqrtf(source[j]*source[j]);
                        }
-                       
+                       if (!_soundDetected) {
+                           weakSelf.count++;
+                       }
+                       if (weakSelf.count == 120) {
+                           [weakSelf _stopRecording];
+                           weakSelf.count = 0;
+                           _recording = NO;
+                       }
                        if (tick>=25 && !_soundDetected) {
                            _soundDetected = YES;
-                           [_silenceArray removeAllObjects];
+                           [weakSelf.silenceArray removeAllObjects];
+                           weakSelf.count = 0;
                        }
                        if (_soundDetected) {
-                           [_silenceArray addItem:[NSNumber numberWithFloat:tick]];
-                           if (_silenceArray.count == kBufferLength) {
-                               float a = [self avg];
+                           [weakSelf.silenceArray addItem:[NSNumber numberWithFloat:tick]];
+                           if (weakSelf.silenceArray.count == kBufferLength) {
+                               float a = [weakSelf avg];
                                if (a <= 30) {
-                                   [self _stopRecording];
-                                   [self _score];
+                                   [weakSelf _stopRecording];
+                                   [weakSelf _score];
                                }
                            }
                        }
@@ -245,10 +271,10 @@
             UIImage* img = [UIImage imageWithContentsOfFile:a.imgFilePath];
             double width = img.size.width;
             double height = img.size.height;
-            double screenWidth = size.width;
+            double screenWidth = size.width+30;
             double apect = width/height;
             double nHeight = screenWidth/ apect;
-            img = [UIImage imageWithImage:img scaledToSize:CGSizeMake(size.width, nHeight)];
+            img = [UIImage imageWithImage:img scaledToSize:CGSizeMake(screenWidth, nHeight)];
             
             _spriteSquid = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:img]];
             _spriteSquid.anchorPoint = CGPointMake(0.5, 0.5);
@@ -269,13 +295,19 @@
     SKAction *push = [NodeUtility buttonPushAction];
     
     // Button Home clicked
-    if (touchNode == _spriteSquid) {
-        [touchNode runAction:push completion:^{
+    if (![touchNode.name containsString:@"star"] && !_recording) {
+        _recording = YES;
+        if (touchNode == self) {
             [self _stopRecording];
             // Present home scene
             [self _playSound];
-            
-        }];
+        } else {
+            [touchNode runAction:push completion:^{
+                [self _stopRecording];
+                // Present home scene
+                [self _playSound];
+            }];
+        }
     }
 }
 
@@ -486,10 +518,11 @@
             SKAction* s = [SKAction sequence:@[scaleDown, sound]];
             [node runAction:s completion:^{
                 _currentStarIdx ++;
-                if (_currentStarIdx > 3) {
+                if (_currentStarIdx > 5) {
                     [self _hide];
                     [self _stopRecording];
                 }
+                _recording = NO;
             }];
         }];
     } else {
@@ -500,6 +533,7 @@
             node.texture = [SKTexture textureWithImageNamed:@"imgStar0"];
             SKAction* rot3 = [SKAction rotateByAngle:-1.5 duration:0.2];
             [node runAction:rot3];
+            _recording = NO;
         }];
     }
 }

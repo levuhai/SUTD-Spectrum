@@ -87,9 +87,12 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
             scene.scaleMode = SKSceneScaleModeAspectFill;
             [self.view presentScene:scene];
         }];
-    }
-    
-    if (!_aCreatureIsHooked)
+    } else if ([touchNode.name isEqualToString:@"spriteSun"]) {
+         SKAction *push = [NodeUtility buttonPushActionWithSoundNamed:@"sun.mp3"];
+        [touchNode runAction:push completion:^{
+            
+        }];
+    } else if (!_aCreatureIsHooked)
         [_fisherman dropHook];
 }
 

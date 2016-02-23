@@ -22,6 +22,17 @@
     return [SKAction sequence:@[pushDown, clickAndUp]];
 }
 
++ (SKAction *)buttonPushActionWithSoundNamed:(NSString*)name {
+    SKAction *pushDown = [SKAction scaleTo:0.85 duration:0.15];
+    SKAction *click = [SKAction playSoundFileNamed:name waitForCompletion:YES];
+    SKAction *pushUp = [SKAction scaleTo:1.0 duration:0.1];
+    
+    SKAction *clickAndUp;
+    clickAndUp = [SKAction group:@[click, pushUp]];
+    
+    return [SKAction sequence:@[pushDown, clickAndUp]];
+}
+
 + (SKAction *)buttonPushActionWithSound {
     SKAction *pushDown = [SKAction scaleTo:0.85 duration:0.15];
     SKAction * click = [SKAction runBlock:^{

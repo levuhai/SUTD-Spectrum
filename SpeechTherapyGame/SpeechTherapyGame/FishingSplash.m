@@ -12,11 +12,12 @@
 @implementation FishingSplash
 
 - (void)didMoveToView:(SKView *)view {
+    SKScene *scene = [FishingGameScene unarchiveFromFile:@"FishingGameScene"];
     SKAction *eff = [SKAction playSoundFileNamed:@"slide.m4a" waitForCompletion:NO];
     SKAction *voice = [SKAction playSoundFileNamed:@"go fishing.mp3" waitForCompletion:YES];
     SKAction* wait = [SKAction waitForDuration:0.5f];
     [self runAction:[SKAction sequence:@[eff, wait, voice, wait, eff]] completion:^{
-        SKScene *scene = [FishingGameScene unarchiveFromFile:@"FishingGameScene"];
+        
         //scene.scaleMode = SKSceneScaleModeAspectFill;
         [self.view presentScene:scene transition:[SKTransition moveInWithDirection:SKTransitionDirectionRight duration:1]];
     }];

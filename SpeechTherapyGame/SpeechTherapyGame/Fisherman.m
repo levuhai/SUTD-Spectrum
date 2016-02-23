@@ -32,7 +32,10 @@
                                                         y:-delta
                                                  duration:1.0/hookDropSpeed];
     SKAction *hookGoingDownAction = [SKAction repeatAction:hookGoingDownOnceAction count:count];
-    [_hook runAction:hookGoingDownAction withKey:@"hook"];
+    SKAction *s = [SKAction playSoundFileNamed:@"reelin.wav" waitForCompletion:YES];
+    SKAction *loopMusic = [SKAction repeatActionForever:s];
+    
+    [_hook runAction:[SKAction group:@[hookGoingDownAction,loopMusic]] withKey:@"hook"];
     
     SKAction *hookLineOnceAction = [SKAction resizeByWidth:0
                                                     height:delta
