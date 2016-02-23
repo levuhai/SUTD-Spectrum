@@ -119,7 +119,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 }
 
 - (void)stopBgm {
-    [self.bgmPlayer stop];
+    [self.bgmPlayer pause];
 }
 
 - (void)playSfx {

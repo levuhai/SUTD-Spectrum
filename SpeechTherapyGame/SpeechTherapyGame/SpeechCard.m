@@ -32,6 +32,7 @@
 @property (nonatomic, strong) id receiver;
 @property (nonatomic, strong) AEAudioFilePlayer *player;
 @property (nonatomic, assign) int count;
+@property (nonatomic, assign) BOOL recording;
 @property (nonatomic, strong) NSMutableArray *silenceArray;
 
 @end
@@ -44,12 +45,14 @@
     SKSpriteNode* _spriteMic;
     SKSpriteNode* _spriteSquid;
     SKShapeNode* _spriteVolume;
+    SKSpriteNode* _spriteFinger;
     Word *_word;
     SKSpriteNode* _spriteStar1;
     SKSpriteNode* _spriteStar2;
     SKSpriteNode* _spriteStar3;
     SKSpriteNode* _spriteStar4;
     SKSpriteNode* _spriteStar5;
+    NSTimer *_idleTimer;
     
     NSMutableArray* _words;
     BOOL _soundDetected;
@@ -57,7 +60,6 @@
     float _energyMeter;
     NSString* _currentFileName;
     NSString* _currentFilePath;
-    BOOL _recording;
 }
 
 - (id)initWithColor:(UIColor *)color size:(CGSize)size {
@@ -179,10 +181,11 @@
                        if (!_soundDetected) {
                            weakSelf.count++;
                        }
-                       if (weakSelf.count == 120) {
+                       if (weakSelf.count == 150) {
                            [weakSelf _stopRecording];
                            weakSelf.count = 0;
                            _recording = NO;
+                           [weakSelf resetIdleTimer];
                        }
                        if (tick>=25 && !_soundDetected) {
                            _soundDetected = YES;
@@ -249,9 +252,60 @@
 
 }
 
+#pragma mark - Idle Timer
+
+- (void)resetIdleTimer {
+    dispatch_async(dispatch_get_main_queue(), ^{
+    if (_idleTimer) {
+        [_idleTimer invalidate];
+    }
+    [self removeFinger];
+    if (!_recording) {
+        _idleTimer = [NSTimer scheduledTimerWithTimeInterval:5
+                                                      target:self
+                                                    selector:@selector(idleTimerExceeded)
+                                                    userInfo:nil
+                                                     repeats:NO];
+        //[_idleTimer fire];
+    }
+    });
+}
+
+- (void)idleTimerExceeded {
+    NSLog(@"idle time exceeded");
+    [self addFinger];
+}
+
+- (void)addFinger {
+    if (!_spriteFinger) {
+        _spriteFinger = [SKSpriteNode spriteNodeWithImageNamed:@"finger1.png"];
+        _spriteFinger.anchorPoint = CGPointMake(0.5, 0.5);
+        _spriteFinger.position = CGPointMake(self.size.width - 70, 275);
+        _spriteFinger.zPosition = self.zPosition+10;
+        [self addChild:_spriteFinger];
+        
+        SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"finger"];
+        
+        NSArray *frames = @[[atlas textureNamed:@"finger1"],
+                            [atlas textureNamed:@"finger2"]];
+        
+        [_spriteFinger runAction:[SKAction repeatActionForever:
+                         [SKAction animateWithTextures:frames
+                                          timePerFrame:0.25f
+                                                resize:NO
+                                               restore:NO]] withKey:@"finger"];
+    }
+    [_spriteFinger runAction:[SKAction fadeInWithDuration:0.3]];
+}
+
+- (void)removeFinger {
+    [_spriteFinger runAction:[SKAction fadeOutWithDuration:0.3]];
+}
+
 #pragma mark - Public
 
 - (void)enlargeWithWord:(NSMutableArray*)words {
+    [self resetIdleTimer];
     _words = words;
     
     Word*a = (Word*)_words[0];
@@ -293,7 +347,6 @@
     SKNode *touchNode = [self nodeAtPoint:location];
     
     SKAction *push = [NodeUtility buttonPushAction];
-    
     // Button Home clicked
     if (![touchNode.name containsString:@"star"] && !_recording) {
         _recording = YES;
@@ -309,6 +362,7 @@
             }];
         }
     }
+    [self resetIdleTimer];
 }
 
 - (void)removeFromParent {
@@ -523,6 +577,7 @@
                     [self _stopRecording];
                 }
                 _recording = NO;
+                [self resetIdleTimer];
             }];
         }];
     } else {
@@ -534,6 +589,7 @@
             SKAction* rot3 = [SKAction rotateByAngle:-1.5 duration:0.2];
             [node runAction:rot3];
             _recording = NO;
+            [self resetIdleTimer];
         }];
     }
 }
