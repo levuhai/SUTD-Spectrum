@@ -36,8 +36,8 @@
     // Do any additional setup after loading the view.
     [self setupCalendar];
     
-    NSArray* allGames = [Games MR_findAll];
-    NSLog(@"%@",allGames);
+    //NSArray* allGames = [Games MR_findAll];
+    //NSLog(@"%@",allGames);
     
 }
 

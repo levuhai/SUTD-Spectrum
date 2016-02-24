@@ -38,6 +38,7 @@
     #import "Sounds.h"
     #import "GameStatistics.h"
     #import "Constants.h"
+    #import "AudioPlayer.h"
 #endif
 
 #include <AudioToolbox/AudioToolbox.h>

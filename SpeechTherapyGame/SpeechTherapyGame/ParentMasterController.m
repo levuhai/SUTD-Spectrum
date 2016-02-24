@@ -8,6 +8,7 @@
 
 #import "ParentMasterController.h"
 #import <Masonry/Masonry.h>
+#import "AudioPlayer.h"
 
 @interface ParentMasterController () {
     UIViewController* _currentVC;
@@ -30,18 +31,22 @@
 
 - (IBAction)showStatsViewController:(UIButton*)sender {
     [self displayViewController:0];
+    [[AudioPlayer shared] playSfx];
 }
 
 - (IBAction)showSoundViewController:(UIButton*)sender {
     [self displayViewController:1];
+     [[AudioPlayer shared] playSfx];
 }
 
 - (IBAction)showSettingsViewController:(UIButton*)sender {
     [self displayViewController:2];
+     [[AudioPlayer shared] playSfx];
 }
 
 - (IBAction)back:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+     [[AudioPlayer shared] playSfx];
 }
 
 - (BOOL)prefersStatusBarHidden {

@@ -384,7 +384,7 @@
 - (void)_hide {
     _currentStarIdx = 1;
     _failedAttemp = 0;
-    for (int i = 1; i<4; i++) {
+    for (int i = 1; i<=5; i++) {
         NSString* key = [NSString stringWithFormat:@"star%d",i];
         SKSpriteNode* node = (SKSpriteNode*)[self childNodeWithName:key];
         node.texture = [SKTexture textureWithImageNamed:@"imgStar0"];

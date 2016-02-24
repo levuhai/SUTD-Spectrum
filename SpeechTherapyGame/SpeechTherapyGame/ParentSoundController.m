@@ -164,11 +164,13 @@
     _selectedWord = w;
 }
 - (IBAction)wordTouched:(id)sender {
+    [[AudioPlayer shared] playSfx];
     self.btWordLv.selected = !self.btWordLv.selected;
     [[DataManager shared] setPractisingWordLv:self.btWordLv.selected];
     [self _reloadDatabase];
 }
 - (IBAction)syllableToched:(id)sender {
+    [[AudioPlayer shared] playSfx];
     self.btnSyllableLv.selected = !self.btnSyllableLv.selected;
     [[DataManager shared] setPractisingSyllableLv:self.btnSyllableLv.selected];
     [self _reloadDatabase];

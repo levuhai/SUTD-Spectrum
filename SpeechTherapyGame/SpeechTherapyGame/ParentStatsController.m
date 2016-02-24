@@ -299,7 +299,13 @@
 
 
 #pragma mark - Action methods
+- (IBAction) savePressed:(id)sender {
+    [_barChartView saveToCameraRoll];
+    [_chartView saveToCameraRoll];
+    [[AudioPlayer shared] playSfx];
+}
 - (IBAction) timeRange_pressed:(id)sender {
+    [[AudioPlayer shared] playSfx];
     __block NSArray *rangeData = [NSArray arrayWithObjects:
                                   @"Today",
                                   @"Yesterday",
