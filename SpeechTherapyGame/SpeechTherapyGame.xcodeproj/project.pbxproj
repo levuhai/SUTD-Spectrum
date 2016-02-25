@@ -52,7 +52,6 @@
 		2DF6B74A1B94A14800B7F92C /* HomeScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B7491B94A14800B7F92C /* HomeScene.sks */; };
 		2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B74C1B94A14800B7F92C /* HomeSceneViewController.m */; };
 		2DF6B7501B94A14800B7F92C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B74E1B94A14800B7F92C /* Main.storyboard */; };
-		2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */; };
 		2DF6B7611B94A14800B7F92C /* SpeechTherapyGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7601B94A14800B7F92C /* SpeechTherapyGameTests.m */; };
 		A701EA9A1C79C551003B45C7 /* nus_logo1.png in Resources */ = {isa = PBXBuildFile; fileRef = A701EA991C79C551003B45C7 /* nus_logo1.png */; };
 		A701EA9C1C79C580003B45C7 /* sutdlogo1.png in Resources */ = {isa = PBXBuildFile; fileRef = A701EA9B1C79C580003B45C7 /* sutdlogo1.png */; };
@@ -271,7 +270,6 @@
 		2DF6B74B1B94A14800B7F92C /* HomeSceneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeSceneViewController.h; sourceTree = "<group>"; };
 		2DF6B74C1B94A14800B7F92C /* HomeSceneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeSceneViewController.m; sourceTree = "<group>"; };
 		2DF6B74F1B94A14800B7F92C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2DF6B7541B94A14800B7F92C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		2DF6B75A1B94A14800B7F92C /* SpeechTherapyGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeechTherapyGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DF6B75F1B94A14800B7F92C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DF6B7601B94A14800B7F92C /* SpeechTherapyGameTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpeechTherapyGameTests.m; sourceTree = "<group>"; };
@@ -737,7 +735,6 @@
 				A701EA991C79C551003B45C7 /* nus_logo1.png */,
 				A76374B41C3FC16400A9616C /* Images.xcassets */,
 				2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */,
-				2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */,
 				A709FCD11C5134B00093AF8C /* Constants.h */,
 			);
 			name = "Supporting Files";
@@ -1095,7 +1092,6 @@
 				A7C51FCE1C7CC9D200CDEB8A /* finger.atlas in Resources */,
 				A7C51FBB1C7C107400CDEB8A /* bgm.mp3 in Resources */,
 				2D45C7081C03708E009FCFB8 /* FishLeft.sks in Resources */,
-				2DF6B7551B94A14800B7F92C /* LaunchScreen.xib in Resources */,
 				A709FCD41C5136D80093AF8C /* fish.atlas in Resources */,
 				A7C51FB71C7B75F500CDEB8A /* click.m4a in Resources */,
 				A701EA9A1C79C551003B45C7 /* nus_logo1.png in Resources */,
@@ -1304,14 +1300,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		2DF6B7531B94A14800B7F92C /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2DF6B7541B94A14800B7F92C /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1403,6 +1391,7 @@
 			baseConfigurationReference = 482749E27D29E52B34F59317 /* Pods-SpeechTherapyGame.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Hai Le Vu (CY4CF8PRK2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hai Le Vu (CY4CF8PRK2)";
@@ -1448,6 +1437,7 @@
 			baseConfigurationReference = B9515279F1ADE87EA07CCCA8 /* Pods-SpeechTherapyGame.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hai Le Vu (L8GZZ588QM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hai Le Vu (L8GZZ588QM)";
