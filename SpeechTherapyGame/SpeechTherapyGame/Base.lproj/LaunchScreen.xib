@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,17 +10,17 @@
             <rect key="frame" x="0.0" y="0.0" width="683" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sutdlogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="QYy-9A-UTT">
-                    <rect key="frame" x="125" y="-260" width="170.5" height="1000"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sutdlogo1.png" translatesAutoresizingMaskIntoConstraints="NO" id="QYy-9A-UTT">
+                    <rect key="frame" x="125" y="-260" width="191.5" height="1000"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nuslogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="3mE-CD-Hdf">
-                    <rect key="frame" x="370.5" y="24" width="212.5" height="431"/>
+                <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nus_logo1.png" translatesAutoresizingMaskIntoConstraints="NO" id="3mE-CD-Hdf">
+                    <rect key="frame" x="391.5" y="-10.5" width="191.5" height="501"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="3mE-CD-Hdf" secondAttribute="trailing" constant="100" id="NgV-Jp-xgz"/>
-                <constraint firstItem="QYy-9A-UTT" firstAttribute="width" secondItem="3mE-CD-Hdf" secondAttribute="width" multiplier="0.8" id="Qa8-gG-IOY"/>
+                <constraint firstItem="QYy-9A-UTT" firstAttribute="width" secondItem="3mE-CD-Hdf" secondAttribute="width" id="Qa8-gG-IOY"/>
                 <constraint firstItem="3mE-CD-Hdf" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="jeH-Bg-2fh"/>
                 <constraint firstItem="QYy-9A-UTT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="125" id="kHH-VC-esA"/>
                 <constraint firstItem="3mE-CD-Hdf" firstAttribute="leading" secondItem="QYy-9A-UTT" secondAttribute="trailing" constant="75" id="sS7-ap-jB8"/>
@@ -33,7 +32,7 @@
         </view>
     </objects>
     <resources>
-        <image name="nuslogo.png" width="695" height="431"/>
-        <image name="sutdlogo.png" width="1000" height="1000"/>
+        <image name="nus_logo1.png" width="1021" height="501"/>
+        <image name="sutdlogo1.png" width="1000" height="1000"/>
     </resources>
 </document>

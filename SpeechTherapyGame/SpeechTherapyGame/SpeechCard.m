@@ -33,6 +33,7 @@
 @property (nonatomic, strong) AEAudioFilePlayer *player;
 @property (nonatomic, assign) int count;
 @property (nonatomic, assign) BOOL recording;
+@property (nonatomic, assign) BOOL soundDetected;
 @property (nonatomic, strong) NSMutableArray *silenceArray;
 
 @end
@@ -55,7 +56,6 @@
     NSTimer *_idleTimer;
     
     NSMutableArray* _words;
-    BOOL _soundDetected;
     int _failedAttemp;
     float _energyMeter;
     NSString* _currentFileName;
@@ -178,21 +178,22 @@
                        for (int j = 0; j < frames; j++) {
                            tick += sqrtf(source[j]*source[j]);
                        }
-                       if (!_soundDetected) {
+                       if (!weakSelf.soundDetected) {
                            weakSelf.count++;
                        }
                        if (weakSelf.count == 150) {
                            [weakSelf _stopRecording];
                            weakSelf.count = 0;
-                           _recording = NO;
-                           [weakSelf resetIdleTimer];
+                           weakSelf.recording = NO;
+                           //[weakSelf resetIdleTimer];
+                           [self doSth];
                        }
                        if (tick>=25 && !_soundDetected) {
-                           _soundDetected = YES;
+                           weakSelf.soundDetected = YES;
                            [weakSelf.silenceArray removeAllObjects];
                            weakSelf.count = 0;
                        }
-                       if (_soundDetected) {
+                       if (weakSelf.soundDetected) {
                            [weakSelf.silenceArray addItem:[NSNumber numberWithFloat:tick]];
                            if (weakSelf.silenceArray.count == kBufferLength) {
                                float a = [weakSelf avg];
@@ -218,7 +219,7 @@
         float s = [MFCCAudioController scoreFileA:_currentFilePath fileB:w];
         if (s > maxScore) maxScore = s;
     }
-    
+    NSLog(@"%f",maxScore);
     // Insert score to database
     Word* word = _words[0];
     Score *score = [[Score alloc] init];
@@ -305,7 +306,7 @@
 #pragma mark - Public
 
 - (void)enlargeWithWord:(NSMutableArray*)words {
-    [self resetIdleTimer];
+    //[self resetIdleTimer];
     _words = words;
     
     Word*a = (Word*)_words[0];
@@ -314,7 +315,6 @@
     [self _showWithCompletion:^{
         // Update UI
         _lbWord.text = a.sound;
-        CGSize size = _spriteSquid.size;
         if (a.imgPath.length == 0) {
             _spriteSquid = [SKSpriteNode spriteNodeWithImageNamed:@"charSquid"];
             _spriteSquid.anchorPoint = CGPointMake(0.5, 0.5);
@@ -325,7 +325,7 @@
             UIImage* img = [UIImage imageWithContentsOfFile:a.imgFilePath];
             double width = img.size.width;
             double height = img.size.height;
-            double screenWidth = size.width+30;
+            double screenWidth = 270;
             double apect = width/height;
             double nHeight = screenWidth/ apect;
             img = [UIImage imageWithImage:img scaledToSize:CGSizeMake(screenWidth, nHeight)];
@@ -336,33 +336,42 @@
             _spriteSquid.zPosition = self.zPosition+1;
             [self addChild:_spriteSquid];
         }
+        [self doSth];
     }];
 }
 
 #pragma mark - Touches
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
-    CGPoint location = [touch locationInNode:self];
-    SKNode *touchNode = [self nodeAtPoint:location];
+//    UITouch *touch = [touches anyObject];
+//    CGPoint location = [touch locationInNode:self];
+//    SKNode *touchNode = [self nodeAtPoint:location];
+//    
+//    SKAction *push = [NodeUtility buttonPushAction];
+//    // Button Home clicked
+//    if (![touchNode.name containsString:@"star"] && !_recording) {
+//        _recording = YES;
+//        if (touchNode == self) {
+//            [self _stopRecording];
+//            // Present home scene
+//            [self _playSound];
+//        } else {
+//            [touchNode runAction:push completion:^{
+//                [self _stopRecording];
+//                // Present home scene
+//                [self _playSound];
+//            }];
+//        }
+//    }
+    //[self resetIdleTimer];
+}
+
+- (void)doSth {
+    _recording = YES;
     
-    SKAction *push = [NodeUtility buttonPushAction];
-    // Button Home clicked
-    if (![touchNode.name containsString:@"star"] && !_recording) {
-        _recording = YES;
-        if (touchNode == self) {
-            [self _stopRecording];
-            // Present home scene
-            [self _playSound];
-        } else {
-            [touchNode runAction:push completion:^{
-                [self _stopRecording];
-                // Present home scene
-                [self _playSound];
-            }];
-        }
-    }
-    [self resetIdleTimer];
+    [self _stopRecording];
+    // Present home scene
+    [self _playSound];
 }
 
 - (void)removeFromParent {
@@ -578,10 +587,13 @@
                     [self _hide];
                     [self _stopRecording];
                 } else {
-                    [self runAction:[SKAction playSoundFileNamed:@"let try again.mp3" waitForCompletion:YES]];
+                    [self runAction:[SKAction playSoundFileNamed:@"again.mp3" waitForCompletion:YES] completion:^{
+                        [self doSth];
+                    }];
+                    
                 }
                 _recording = NO;
-                [self resetIdleTimer];
+                //[self resetIdleTimer];
             }];
         }];
     } else {
@@ -591,10 +603,11 @@
         [node runAction:[SKAction sequence:@[rot1,sound, rot2]] completion:^{
             node.texture = [SKTexture textureWithImageNamed:@"imgStar0"];
             SKAction* rot3 = [SKAction rotateByAngle:-1.5 duration:0.2];
-            SKAction* s = [SKAction playSoundFileNamed:@"let try again.mp3" waitForCompletion:YES];
+            SKAction* s = [SKAction playSoundFileNamed:@"again.mp3" waitForCompletion:YES];
             [node runAction:[SKAction sequence:@[rot3, s]] completion:^{
                 _recording = NO;
-                [self resetIdleTimer];
+                //[self resetIdleTimer];
+                [self doSth];
             }];
             
         }];

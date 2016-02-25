@@ -101,7 +101,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     // AE Controlelr
     self.aAEController = [[AEAudioController alloc] initWithAudioDescription:AEAudioStreamBasicDescriptionMono inputEnabled:YES];
     self.aAEController.preferredBufferDuration = 0.005;
-    self.aAEController.useMeasurementMode = YES;
+    self.aAEController.useMeasurementMode = NO;
     [self.aAEController start:nil];
     
     return self;
@@ -156,6 +156,14 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     }
     [self.soundPlayer prepareToPlay];
     [self.soundPlayer play];
+}
+
+- (void)stopSound {
+    if (self.soundPlayer) {
+        [self.soundPlayer stop];
+        self.soundPlayer.delegate = nil;
+        self.soundPlayer = nil;
+    }
 }
 
 //

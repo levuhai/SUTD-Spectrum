@@ -88,7 +88,7 @@
     
     if ( currentTime > _nextCreatureSpawnTime) {
     
-        NSLog(@"creature count: %lu",(unsigned long)[_creatures count]);
+        //NSLog(@"creature count: %lu",(unsigned long)[_creatures count]);
         
         float timeToNextSpawn = [self randomBetween:minimumSpawnTime
                                                 and:maximumSpawnTime];

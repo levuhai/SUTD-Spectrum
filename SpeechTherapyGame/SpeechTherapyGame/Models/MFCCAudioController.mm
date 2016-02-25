@@ -103,13 +103,13 @@ const float kDefaultTrimEndThreshold = -200.0f;
     
     // Sort
     vDSP_vsort(sortedOutput,sizeA*sizeB,1);
-    NSLog(@"min %f max %f",sortedOutput[0],sortedOutput[sizeA*sizeB-1]);
+    //NSLog(@"min %f max %f",sortedOutput[0],sortedOutput[sizeA*sizeB-1]);
     
     // Output count
     float keepPct = 0.25f;
     float outputCount = sizeA*sizeB;
     float maxDiff = sortedOutput[(int)roundf(keepPct*outputCount)];
-    NSLog(@"diff %f",maxDiff);
+    //NSLog(@"diff %f",maxDiff);
     // TODO: maxDiff
     maxDiff = 7;//maxDiff*0.5;
     /*

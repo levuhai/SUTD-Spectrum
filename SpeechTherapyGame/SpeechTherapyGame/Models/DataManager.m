@@ -60,7 +60,7 @@ AudioStreamBasicDescription const ASBD = {
 {
     self = [super init];
     if (self) {
-        _sliderValues = @[@0.35, @0.4, @0.45];
+        _sliderValues = @[@0.3, @0.4, @0.5];
         
         _statsDBPath = [self copyToDocuments:@"score.sqlite"];
         NSLog(@"Stats DB Path: %@",_statsDBPath);
@@ -111,7 +111,7 @@ AudioStreamBasicDescription const ASBD = {
                             audioDesc:ASBD];
                 
                 // Read cropped file
-                NSString *croppedPath = fullPath;
+                NSString *croppedPath = [fullPath stringByReplacingOccurrencesOfString:@"_full" withString:@""];
                 AEAudioFileLoaderOperation* cropped
                 = [self _readFilePath:croppedPath
                             audioDesc:ASBD];

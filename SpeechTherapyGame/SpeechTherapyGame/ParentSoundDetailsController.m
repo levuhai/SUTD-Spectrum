@@ -21,6 +21,10 @@
     self.lbText.text = _txt;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [[AudioPlayer shared] stopSound];
+}
+
 - (void)reloadTableWithDateString:(NSString *)date {
     _txt = date;
     NSMutableArray* arr = [[DataManager shared] getScoresByDateString:date];

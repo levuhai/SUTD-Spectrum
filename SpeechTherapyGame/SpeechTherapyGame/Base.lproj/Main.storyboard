@@ -849,7 +849,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="85" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PBK-eg-VdJ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="85" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PBK-eg-VdJ">
                                 <rect key="frame" x="0.0" y="85" width="768" height="939"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -863,19 +863,19 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPp-kx-scJ">
                                                     <rect key="frame" x="354" y="24.5" width="60.5" height="26"/>
                                                     <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="23"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="crab" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M46-mz-FTH">
                                                     <rect key="frame" x="41" y="23.5" width="49" height="28"/>
                                                     <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="25"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yD4-hb-fQM">
-                                                    <rect key="frame" x="696" y="25" width="22.5" height="25"/>
+                                                    <rect key="frame" x="689.5" y="21.5" width="29" height="32"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="NJg-H2-DQk"/>
+                                                        <constraint firstAttribute="height" constant="32" id="NJg-H2-DQk"/>
                                                         <constraint firstAttribute="width" secondItem="yD4-hb-fQM" secondAttribute="height" multiplier="28:31" id="Ygh-h3-1kU"/>
                                                     </constraints>
                                                     <state key="normal" image="btnPlaySmall"/>

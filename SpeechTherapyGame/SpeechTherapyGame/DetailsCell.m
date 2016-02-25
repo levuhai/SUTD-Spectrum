@@ -17,6 +17,7 @@
 
 - (IBAction)playSound:(id)sender {
     [self setSelected:YES animated:YES];
+    
     [[AudioPlayer shared] playSoundInDocument:self.filePath delegate:self];
 }
 
