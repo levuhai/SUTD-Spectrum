@@ -111,7 +111,7 @@ AudioStreamBasicDescription const ASBD = {
                             audioDesc:ASBD];
                 
                 // Read cropped file
-                NSString *croppedPath = [fullPath stringByReplacingOccurrencesOfString:@"_full" withString:@""];
+                NSString *croppedPath = fullPath;
                 AEAudioFileLoaderOperation* cropped
                 = [self _readFilePath:croppedPath
                             audioDesc:ASBD];
