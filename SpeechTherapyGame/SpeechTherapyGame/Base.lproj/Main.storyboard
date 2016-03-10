@@ -245,7 +245,7 @@
                                         <rect key="frame" x="18" y="208" width="114" height="21"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbSound" translatesAutoresizingMaskIntoConstraints="NO" id="Qka-nO-ukP">
-                                        <rect key="frame" x="32" y="495" width="86" height="45"/>
+                                        <rect key="frame" x="36.5" y="507" width="77" height="21"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbSettings" translatesAutoresizingMaskIntoConstraints="NO" id="wH3-QS-GQG">
                                         <rect key="frame" x="32" y="782" width="86" height="26"/>
@@ -433,7 +433,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbPracticing" translatesAutoresizingMaskIntoConstraints="NO" id="wpM-Or-xVX">
-                                <rect key="frame" x="40" y="60" width="300" height="55"/>
+                                <rect key="frame" x="40" y="60" width="299" height="55"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GnC-am-am8">
                                 <rect key="frame" x="77" y="135" width="50" height="44"/>
@@ -448,7 +448,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbPhonemeLv" translatesAutoresizingMaskIntoConstraints="NO" id="YY4-dp-NbR">
-                                <rect key="frame" x="147" y="141.5" width="194" height="31"/>
+                                <rect key="frame" x="147" y="141" width="194" height="31"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbWordLv" translatesAutoresizingMaskIntoConstraints="NO" id="mo2-wQ-aBA">
                                 <rect key="frame" x="511" y="145" width="156" height="24"/>
@@ -629,16 +629,16 @@
                                 <rect key="frame" x="40" y="60" width="443" height="55"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbGFX" translatesAutoresizingMaskIntoConstraints="NO" id="Ao8-bi-RxK">
-                                <rect key="frame" x="50" y="205" width="83" height="37"/>
+                                <rect key="frame" x="50" y="205" width="127" height="39"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbBGM" translatesAutoresizingMaskIntoConstraints="NO" id="0Ck-bG-P1m">
-                                <rect key="frame" x="50" y="372" width="97" height="37"/>
+                                <rect key="frame" x="50" y="374" width="120" height="40"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lbDifficulty" translatesAutoresizingMaskIntoConstraints="NO" id="mXl-XQ-nmZ">
-                                <rect key="frame" x="50" y="539" width="183" height="48"/>
+                                <rect key="frame" x="50" y="544" width="183" height="48"/>
                             </imageView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="T0V-L3-FVv">
-                                <rect key="frame" x="311" y="548" width="460" height="31"/>
+                                <rect key="frame" x="311" y="553" width="460" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="456" id="aq5-ii-j3Y"/>
                                 </constraints>
@@ -650,80 +650,80 @@
                                 </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gk4-Pl-7Pn">
-                                <rect key="frame" x="313" y="351" width="76" height="80"/>
+                                <rect key="frame" x="313" y="354" width="76" height="80"/>
                                 <state key="normal" image="btnMinus"/>
                                 <connections>
                                     <action selector="btnPressed:" destination="tyN-bv-w64" eventType="touchUpInside" id="jIJ-Xq-yxQ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="37p-4Z-7Z9">
-                                <rect key="frame" x="693" y="351" width="76" height="80"/>
+                                <rect key="frame" x="693" y="354" width="76" height="80"/>
                                 <state key="normal" image="btnPlus"/>
                                 <connections>
                                     <action selector="btnPressed:" destination="tyN-bv-w64" eventType="touchUpInside" id="Dhq-dt-M22"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="Sh2-5f-g6m">
-                                <rect key="frame" x="406" y="350" width="38" height="81"/>
+                                <rect key="frame" x="406" y="353" width="38" height="81"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" tag="21" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="1dH-ks-siy">
-                                <rect key="frame" x="464" y="350" width="38" height="81"/>
+                                <rect key="frame" x="464" y="353" width="38" height="81"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" tag="23" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="Nma-Vq-wcA">
-                                <rect key="frame" x="580" y="350" width="38" height="81"/>
+                                <rect key="frame" x="580" y="353" width="38" height="81"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" tag="22" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="COm-rA-xGs">
-                                <rect key="frame" x="522" y="350" width="38" height="81"/>
+                                <rect key="frame" x="522" y="353" width="38" height="81"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" tag="24" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="Ohm-QY-dLr">
-                                <rect key="frame" x="638" y="350" width="38" height="81"/>
+                                <rect key="frame" x="638" y="353" width="38" height="81"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Easy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAS-em-2Oa">
-                                <rect key="frame" x="313" y="603" width="55.5" height="27"/>
+                                <rect key="frame" x="313" y="608" width="55.5" height="27"/>
                                 <fontDescription key="fontDescription" name="Debussy" family="Debussy" pointSize="25"/>
                                 <color key="textColor" red="0.19215686269999999" green="0.4941176471" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medium" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FL7-hY-mX0">
-                                <rect key="frame" x="490.5" y="603" width="100.5" height="27"/>
+                                <rect key="frame" x="490" y="608" width="100.5" height="27"/>
                                 <fontDescription key="fontDescription" name="Debussy" family="Debussy" pointSize="25"/>
                                 <color key="textColor" red="0.19215686274509802" green="0.49411764705882355" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hard" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHQ-2l-TO5">
-                                <rect key="frame" x="707.5" y="603" width="61.5" height="27"/>
+                                <rect key="frame" x="707" y="608" width="61.5" height="27"/>
                                 <fontDescription key="fontDescription" name="Debussy" family="Debussy" pointSize="25"/>
                                 <color key="textColor" red="0.19215686269999999" green="0.4941176471" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gdF-rv-de4">
-                                <rect key="frame" x="313" y="184" width="76" height="80"/>
+                                <rect key="frame" x="313" y="185" width="76" height="80"/>
                                 <state key="normal" image="btnMinus"/>
                                 <connections>
                                     <action selector="btnPressed:" destination="tyN-bv-w64" eventType="touchUpInside" id="5UZ-aH-ozl"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="eaU-cO-n79">
-                                <rect key="frame" x="406" y="183" width="38" height="81"/>
+                                <rect key="frame" x="406" y="184" width="38" height="81"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" tag="12" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="2LO-WF-ieX">
-                                <rect key="frame" x="522" y="183" width="38" height="81"/>
+                                <rect key="frame" x="522" y="184" width="38" height="81"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="jIe-eB-dRe">
-                                <rect key="frame" x="580" y="183" width="38" height="81"/>
+                                <rect key="frame" x="580" y="184" width="38" height="81"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" tag="14" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="QXE-av-uQo">
-                                <rect key="frame" x="638" y="183" width="38" height="81"/>
+                                <rect key="frame" x="638" y="184" width="38" height="81"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHk-qN-7aO">
-                                <rect key="frame" x="693" y="183" width="76" height="80"/>
+                                <rect key="frame" x="693" y="184" width="76" height="80"/>
                                 <state key="normal" image="btnPlus"/>
                                 <connections>
                                     <action selector="btnPressed:" destination="tyN-bv-w64" eventType="touchUpInside" id="wzE-hV-OAe"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btnProgress0" translatesAutoresizingMaskIntoConstraints="NO" id="kpj-w7-c40">
-                                <rect key="frame" x="464" y="183" width="38" height="81"/>
+                                <rect key="frame" x="464" y="184" width="38" height="81"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -784,7 +784,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VHj-es-jDR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="212" y="226"/>
+            <point key="canvasLocation" x="184" y="222"/>
         </scene>
         <!--Schedule View Controller-->
         <scene sceneID="bng-U9-vcW">
@@ -972,16 +972,16 @@
         <image name="btnSpeaker" width="45" height="45"/>
         <image name="btnUnchecked" width="40" height="44"/>
         <image name="lbArrow" width="24" height="38"/>
-        <image name="lbBGM" width="97" height="37"/>
+        <image name="lbBGM" width="120" height="40"/>
         <image name="lbDashboard" width="114" height="21"/>
         <image name="lbDifficulty" width="183" height="48"/>
-        <image name="lbGFX" width="83" height="37"/>
+        <image name="lbGFX" width="127" height="39"/>
         <image name="lbPhonemeLv" width="194" height="31"/>
-        <image name="lbPracticing" width="300" height="55"/>
+        <image name="lbPracticing" width="299" height="55"/>
         <image name="lbRecordHistory" width="336" height="56"/>
         <image name="lbSettings" width="86" height="26"/>
         <image name="lbSettings-1" width="443" height="55"/>
-        <image name="lbSound" width="86" height="45"/>
+        <image name="lbSound" width="77" height="21"/>
         <image name="lbToday" width="141" height="54"/>
         <image name="lbWordLv" width="156" height="24"/>
         <image name="sampleTable" width="772" height="656"/>
