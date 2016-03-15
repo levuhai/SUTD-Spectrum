@@ -30,6 +30,8 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     LPCNode* _lpcNode;
     NSMutableArray* _randomWords;
     SeaCreature* _caughtCreature;
+    SKSpriteNode* _lpcBg;
+    BOOL _lpcHidden;
 }
 
 @end
@@ -41,6 +43,8 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     
     self.physicsWorld.gravity = CGVectorMake(0, 0);
     self.physicsWorld.contactDelegate = self;
+
+    _lpcHidden = NO;
     
     [self _setupScene];
     [self _setupSpawner];
@@ -65,7 +69,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
         [spawner spawnCreaturesContinuously];
     }];
     
-    if (_lpcNode)
+    if (_lpcNode && !_lpcHidden)
         [_lpcNode draw];
 }
 
@@ -86,6 +90,22 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
             scene.scaleMode = SKSceneScaleModeAspectFill;
             [self.view presentScene:scene];
         }];
+    } else if ([touchNode.name isEqualToString:@"nodeLpcBg"] || touchNode == _lpcNode) {
+        SKAction *slide;
+        
+        if (!_lpcHidden) {
+            slide = [SKAction moveByX:(60-_lpcBg.size.width) y:0 duration:0.3];
+        } else {
+            slide = [SKAction moveByX:(_lpcBg.size.width-60) y:0 duration:0.3];
+        }
+        
+        [_lpcBg runAction:slide completion:^{
+            
+        }];
+        [_lpcNode runAction:slide completion:^{
+            _lpcHidden = !_lpcHidden;
+        }];
+        
     } else if (!_aCreatureIsHooked)
         [_fisherman dropHook];
 }
@@ -102,6 +122,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
             removed = NO;
             *stop = YES;
         }
+        spawner.isActive = YES;
     }];
     
     if (removed) {
@@ -133,6 +154,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
                 if (_caughtCreature) {
                     _aCreatureIsHooked = YES;
                     [_caughtCreature beingCaughtAnimationByHook:[_fisherman getHook]];
+                    spawner.isActive = NO;
                     break;
                 }
             }
@@ -143,13 +165,14 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 #pragma mark - Private Method
 
 - (void) _setupScene {
-    SKSpriteNode* lpcBg = (SKSpriteNode*)[self childNodeWithName:@"nodeLpcBg"];
+    _lpcBg = (SKSpriteNode*)[self childNodeWithName:@"nodeLpcBg"];
+    _lpcBg.zPosition = zCard+1;
     // LPC Graph
     _lpcNode = [LPCNode node];
     _lpcNode.lineWidth = 2;
-    _lpcNode.position = CGPointMake(lpcBg.position.x+5, lpcBg.position.y+15);
-    _lpcNode.zPosition = lpcBg.zPosition+1;
-    [_lpcNode setupWithSize:CGSizeMake(lpcBg.size.width-10, lpcBg.size.height-30)];
+    _lpcNode.position = CGPointMake(_lpcBg.position.x+5, _lpcBg.position.y+15);
+    _lpcNode.zPosition = zCard+2;
+    [_lpcNode setupWithSize:CGSizeMake(_lpcBg.size.width-70, _lpcBg.size.height-30)];
     [self addChild:_lpcNode];
     
     // Fisherman
@@ -157,9 +180,9 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     [_fisherman setupRod];
     
     // Speech Card
-    _card = [[SpeechCard alloc] initWithColor:[UIColor clearColor] size:CGSizeMake(429, 600)];
+    _card = [[SpeechCard alloc] initWithColor:[UIColor clearColor] size:CGSizeMake(550, 610)];
     _card.startPosition = [_fisherman hookStartPosition];
-    _card.endPosition = CGPointMake(80, 50);
+    _card.endPosition = CGPointMake((self.view.width-550)*0.75+57, (self.view.height-610)*0.5);
     _card.anchorPoint = CGPointMake(0, 0);
     _card.position = [_fisherman hookStartPosition];
     _card.zPosition = zCard;
