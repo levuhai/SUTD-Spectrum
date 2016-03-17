@@ -60,7 +60,7 @@ AudioStreamBasicDescription const ASBD = {
 {
     self = [super init];
     if (self) {
-        _sliderValues = @[@0.25, @0.29, @0.33];
+        _sliderValues = @[@0.20, @0.25, @0.33];
         
         _statsDBPath = [self copyToDocuments:@"score.sqlite"];
         NSLog(@"Stats DB Path: %@",_statsDBPath);

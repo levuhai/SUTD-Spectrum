@@ -111,7 +111,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
     float maxDiff = sortedOutput[(int)roundf(keepPct*outputCount)];
     //NSLog(@"diff %f",maxDiff);
     // TODO: maxDiff
-    maxDiff = 7;//maxDiff*0.5;
+    maxDiff = 6.5;//maxDiff*0.5;
     /*
      % initialize a new matrix to store the normalized output values
      normalizedOutput = output;
@@ -132,7 +132,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
      */
     
     // make sure normalisedOutput is empty and has the correct size
-    normalisedOutput.clear();
+    //normalisedOutput.clear();
     normalisedOutput.resize(sizeA);
     for (size_t i = 0; i<normalisedOutput.size(); i++){
         //normalisedOutput[i].clear();
@@ -165,7 +165,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
      matchedFrameQuality(i) = max(normalizedOutput(i,:));
      end
      */
-    matchedFrameQuality.clear();
+    //matchedFrameQuality.clear();
     matchedFrameQuality.resize(sizeA);
     for (int i = 0; i < sizeA; i++) {
         matchedFrameQuality[i] = *std::max_element(normalisedOutput[i].begin(), normalisedOutput[i].end());
