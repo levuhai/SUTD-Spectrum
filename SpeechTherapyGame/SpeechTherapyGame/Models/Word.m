@@ -29,8 +29,10 @@
         _croppedLen = [dict intForKey:@"cropped_len"];
         _type = [dict intForKey:@"type"];
         _position = [dict intForKey:@"position"];
-        _start = [dict intForKey:@"cropped_start"];
-        _end = [dict intForKey:@"cropped_end"];
+        _start = 0;
+        _end = _fullLen;
+        _targetStart = [dict intForKey:@"cropped_start"];
+        _targetEnd = [dict intForKey:@"cropped_end"];
     }
     return self;
 }
@@ -41,7 +43,7 @@
     
     NSString *file = [NSString stringWithFormat:@"sounds/%@",self.fullPath];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:file];
-    return [filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return [filePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
 }
 
 - (NSString *)sampleFilePath {
@@ -50,7 +52,10 @@
     
     NSString *file = [NSString stringWithFormat:@"sounds/%@",self.samplePath];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:file];
-    return [filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        return self.fullFilePath;
+    }
+    return [filePath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
 }
 
 - (NSString *)imgFilePath {

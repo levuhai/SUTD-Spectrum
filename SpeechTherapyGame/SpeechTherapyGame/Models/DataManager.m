@@ -60,7 +60,7 @@ AudioStreamBasicDescription const ASBD = {
 {
     self = [super init];
     if (self) {
-        _sliderValues = @[@0.20, @0.25, @0.33];
+        _sliderValues = @[@0.10, @0.10, @0.2];
         
         _statsDBPath = [self copyToDocuments:@"score.sqlite"];
         NSLog(@"Stats DB Path: %@",_statsDBPath);
@@ -101,7 +101,7 @@ AudioStreamBasicDescription const ASBD = {
             
             // Add files to db
             for (NSString* file in onlyWAVs) {
-                NSLog(@"%@",file);
+                //NSLog(@"%@",file);
                 
                 // Read full file
                 NSString* temp = [NSString stringWithFormat:@"%@/%@",subFolder,file];
@@ -111,33 +111,37 @@ AudioStreamBasicDescription const ASBD = {
                             audioDesc:ASBD];
                 
                 // Read cropped file
-                NSString *croppedPath = fullPath;
+                NSString *croppedPath = [fullPath stringByReplacingOccurrencesOfString:@"_full" withString:@""];
                 AEAudioFileLoaderOperation* cropped
                 = [self _readFilePath:croppedPath
                             audioDesc:ASBD];
                 
                 // If one of these 2 files is nil skip
                 if (cropped == nil || full == nil) {
+                    NSLog(@"skip %@",fullPath);
                     continue;
                 }
                 
                 // Buffer reader
-                float *mBuffer = (float*)full.bufferList->mBuffers[0].mData;
-                float *sBuffer = (float*)cropped.bufferList->mBuffers[0].mData;
-                for (int i = 0; i < full.lengthInFrames-3-1; i++) {
-                    if (mBuffer[i+0] == sBuffer[0]
-                        && mBuffer[i+1] == sBuffer[1]
-                        && mBuffer[i+2] == sBuffer[2]) {
-                        
-                        BOOL equal = YES;
-                        int j = 0;
-                        while (equal) {
-                            if (mBuffer[i+j]==sBuffer[j] && i+j <= full.lengthInFrames) {
-                                j++;
-                            } else {
-                                break;
-                            }
-                        }
+//                float *mBuffer = (float*)full.bufferList->mBuffers[0].mData;
+//                float *sBuffer = (float*)cropped.bufferList->mBuffers[0].mData;
+//                for (int i = 0; i < full.lengthInFrames-3-1; i++) {
+//                    if (mBuffer[i+0] == sBuffer[0]
+//                        && mBuffer[i+1] == sBuffer[1]
+//                        && mBuffer[i+2] == sBuffer[2]
+//                        && mBuffer[i+3] == sBuffer[3]) {
+//                                               BOOL equal = YES;
+//                        int j = 0;
+//                        while (equal) {
+//                            if (mBuffer[i+j]==sBuffer[j] && i+j <= full.lengthInFrames) {
+//                                j++;
+//                            } else {
+//                                equal = NO;
+//                                break;
+//                            }
+//                        }
+//                        if (equal) {
+                
                         
                         // components of file name
                         NSArray* cols = [file componentsSeparatedByString:@"_"];
@@ -152,7 +156,7 @@ AudioStreamBasicDescription const ASBD = {
                         if (cols.count == 5) type = 0; else type = 1;
                         
                         // Start, End
-                        int start = i, end = i+j;
+                        int start = 0, end = full.lengthInFrames-1;
                         
                         // Sound
                         NSString* sound = cols[1];
@@ -165,14 +169,14 @@ AudioStreamBasicDescription const ASBD = {
                         int pos = 0;
                         NSString* position = cols[0];
                         if ([position isEqual: @"i"]) pos = 0;
-                        if ([position isEqual: @"m"]) pos = 1;
-                        if ([position isEqual: @"e"]) pos = 2;
+                        else if ([position isEqual: @"m"]) pos = 1;
+                        else if ([position isEqual: @"e"]) pos = 2;
                         
                         // Full Path
-                        NSString* fullPath = [NSString stringWithFormat:@"%@/%@",phoneme,file];
+                        NSString* f = [NSString stringWithFormat:@"%@/%@",phoneme,file];
                         
                         // Cropped Path
-                        NSString* croppedPath = [fullPath stringByReplacingOccurrencesOfString:@"_full" withString:@""];
+                        NSString* c = [f stringByReplacingOccurrencesOfString:@"_full" withString:@""];
                         
                         // Img Path
                         NSString* imgPath = @"";
@@ -183,12 +187,12 @@ AudioStreamBasicDescription const ASBD = {
                         // Sample Path
                         NSString* samplePath = [NSString stringWithFormat:@"%@/%@_%@.wav",phoneme,position,sound];
                         
-                        NSString *query = [NSString stringWithFormat:@"INSERT INTO [db] ([phoneme],[sound],[phonetic],[position],[full_path],[full_len],[cropped_path],[cropped_len],[cropped_start],[cropped_end],[type],[img_path],[sample_path]) VALUES ('%@','%@','%@',%d,'%@',%d,'%@',%d,%d,%d,%d,'%@','%@')",phoneme,sound,phonetic,pos,fullPath,full.lengthInFrames,croppedPath,cropped.lengthInFrames,start,end,type,imgPath,samplePath];
+                        NSString *query = [NSString stringWithFormat:@"INSERT INTO [db] ([phoneme],[sound],[phonetic],[position],[full_path],[full_len],[cropped_path],[cropped_len],[cropped_start],[cropped_end],[type],[img_path],[sample_path]) VALUES ('%@','%@','%@',%d,'%@',%d,'%@',%d,%d,%d,%d,'%@','%@')",phoneme,sound,phonetic,pos,f,full.lengthInFrames,c,cropped.lengthInFrames,start,end,type,imgPath,samplePath];
                         [queries addObject:query];
-                        //}
-                        break;
-                    }
-                }
+//                            break;
+//                        }
+//                    }
+//                }
             }
         }
     }

@@ -84,7 +84,7 @@ static DataManager *sharedInstance = nil;
     FMDatabaseQueue* db = [self _dbQueue];
     
     [db inDatabase:^(FMDatabase *db) {
-        NSString * sql = [NSString stringWithFormat:@"SELECT DISTINCT w_text FROM [db]"];
+        NSString * sql = [NSString stringWithFormat:@"SELECT DISTINCT phonetic FROM [db]"];
         FMResultSet *results = [db executeQuery:sql];
         while([results next]) {
             @autoreleasepool {
@@ -103,7 +103,7 @@ static DataManager *sharedInstance = nil;
     __block NSMutableArray* result = [NSMutableArray new];
     db = [self _dbQueue];
     [db inDatabase:^(FMDatabase *db) {
-        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [w_text] = '%@'",uniqueWords[rndValue]];
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [phonetic] = '%@'",uniqueWords[rndValue]];
         FMResultSet *results = [db executeQuery:sql];
         while([results next]) {
             @autoreleasepool {

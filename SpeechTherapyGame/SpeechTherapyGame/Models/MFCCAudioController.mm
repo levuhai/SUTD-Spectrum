@@ -30,8 +30,8 @@ const float kDefaultTrimBeginThreshold = -200.0f;
 const float kDefaultTrimEndThreshold = -200.0f;
 
 + (float)scoreFileA:(NSString*)pathA fileB:(Word*)pathB {
-    float _startTrimPercentage;
-    float _endTrimPercentage;
+    //float _startTrimPercentage;
+    //float _endTrimPercentage;
     
     std::vector<float> centroids; // dataY
     std::vector<float> indices; // dataX
@@ -154,7 +154,6 @@ const float kDefaultTrimEndThreshold = -200.0f;
             }
         }
     }
-    
     /* -------------------------------------------------------------------------
      % find the contiguous region of MFCC1 that has the most matches to
      % MFCC2
@@ -353,8 +352,8 @@ const float kDefaultTrimEndThreshold = -200.0f;
      */
     // Start/End of phoneme
     Word* w = pathB;
-    int start = sizeB*(float)w.start/(float)w.fullLen;
-    int end = sizeB*(float)w.end/(float)w.fullLen;
+    int start = 0;
+    int end = sizeB;
     
     centroids.clear();
     indices.clear();
@@ -451,14 +450,22 @@ const float kDefaultTrimEndThreshold = -200.0f;
     //        bestFitLine[i][y] = 1;
     //    }
     
-    _startTrimPercentage = maxWindowStart/(float)sizeA;
-    _endTrimPercentage  = maxWindowEnd/(float)sizeA;
+    //_startTrimPercentage = maxWindowStart/(float)sizeA;
+    //_endTrimPercentage  = maxWindowEnd/(float)sizeA;
     
     float sumScore = 0.0f;
-    for (int i = start-1; i<end; i++) {
+    for (int i = start; i<end; i++) {
         sumScore+= fitQuality[i];
     }
     float score = sumScore/(end-start+1);
+    score = roundf (score * 100) / 100.0;
+    
+    for(int i = 0; i < sizeA; ++i) {
+        delete [] output[i];
+    }
+    delete [] output;
+    delete [] sortedOutput;
+    
     return score;
 }
 

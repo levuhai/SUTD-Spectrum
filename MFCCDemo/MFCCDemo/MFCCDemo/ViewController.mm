@@ -100,7 +100,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     // Randomize words
     words = [[DataManager shared] getRandomWords];
     Word* firstW = (Word*)words[0];
-    NSString* t = [NSString stringWithFormat:@"%@:%@",firstW.pText,firstW.wText];
+    NSString* t = [NSString stringWithFormat:@"%@:%@",firstW.phoneme,firstW.phonetic];
     self.lbWord.text = t;
     
     for (int i =11; i<=14;i++) {
@@ -199,7 +199,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 - (void)setCurrentAudioToIndex:(int)index {
     _currentIndex = index;
     Word* w1 = words[index];
-    _currentAudioPath = [[NSBundle mainBundle] pathForResource:[w1.wFile stringByDeletingPathExtension] ofType:@"wav" inDirectory:@"sounds"];
+    _currentAudioPath = [[NSBundle mainBundle] pathForResource:[w1.fullPath stringByDeletingPathExtension] ofType:@"wav" inDirectory:@"sounds"];
     UIButton* button = (UIButton*)[self.view viewWithTag:index+11];
     button.selected = YES;
 }
@@ -428,7 +428,7 @@ static inline float _translate(float val, float min, float max) {
     float maxDiff = sortedOutput[(int)roundf(keepPct*outputCount)];
      NSLog(@"diff %f",maxDiff);
     // TODO: maxDiff
-    maxDiff = 7;//maxDiff*0.5;
+    maxDiff = maxDiff*0.5;
     /*
      % initialize a new matrix to store the normalized output values
      normalizedOutput = output;
@@ -670,8 +670,8 @@ static inline float _translate(float val, float min, float max) {
  */
     // Start/End of phoneme
     Word* w = words[_currentIndex];
-    int start = sizeB*(float)w.start/(float)w.wLength;
-    int end = sizeB*(float)w.end/(float)w.wLength;
+    int start = 0;
+    int end = sizeB;
     
     centroids.clear();
     indices.clear();
@@ -799,8 +799,9 @@ static inline float _translate(float val, float min, float max) {
 
 - (void)_score:(int)start end:(int)end {
     float sum = 0.0f;
-    for (int i = start-1; i<end; i++) {
+    for (int i = start; i<end; i++) {
         sum+= fitQuality[i];
+        NSLog(@"fit %f",fitQuality[i]);
     }
     float score = sum/(end-start+1);
     self.lbScore.text = [NSString stringWithFormat:@"%f",score];

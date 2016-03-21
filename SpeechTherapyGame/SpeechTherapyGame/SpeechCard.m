@@ -29,7 +29,7 @@
 
 @property (nonatomic, weak) AEAudioController* audioController;
 @property (nonatomic, strong) AERecorder *recorder;
-@property (nonatomic, strong) id receiver;
+//@property (nonatomic, strong) id receiver;
 @property (nonatomic, strong) AEAudioFilePlayer *player;
 @property (nonatomic, assign) int count;
 @property (nonatomic, assign) BOOL recording;
@@ -162,49 +162,49 @@
         
         // ==========================================================================
         // AE Audio Controller
-        __weak SpeechCard *weakSelf = self;
+//        __weak SpeechCard *weakSelf = self;
         self.audioController = [[AudioPlayer shared] aAEController];
         
-        // AE Audio Receiver
-        self.receiver = [AEBlockAudioReceiver audioReceiverWithBlock:
-               ^(void                     *source,
-                 const AudioTimeStamp     *time,
-                 UInt32                    frames,
-                 AudioBufferList          *audio) {
-                   // Do something with 'audio'
-                   if (audio) {
-                       float *source= (float *)audio->mBuffers[0].mData;
-                       float tick = 0;
-                       for (int j = 0; j < frames; j++) {
-                           tick += sqrtf(source[j]*source[j]);
-                       }
-                       if (!weakSelf.soundDetected) {
-                           weakSelf.count++;
-                       }
-                       if (weakSelf.count == 150) {
-                           [weakSelf _stopRecording];
-                           weakSelf.count = 0;
-                           weakSelf.recording = NO;
-                           //[weakSelf resetIdleTimer];
-                           [self doSth];
-                       }
-                       if (tick>=25 && !_soundDetected) {
-                           weakSelf.soundDetected = YES;
-                           [weakSelf.silenceArray removeAllObjects];
-                           weakSelf.count = 0;
-                       }
-                       if (weakSelf.soundDetected) {
-                           [weakSelf.silenceArray addItem:[NSNumber numberWithFloat:tick]];
-                           if (weakSelf.silenceArray.count == kBufferLength) {
-                               float a = [weakSelf avg];
-                               if (a <= 30) {
-                                   [weakSelf _stopRecording];
-                                   [weakSelf _score];
-                               }
-                           }
-                       }
-                   }
-               }];
+//        // AE Audio Receiver
+//        self.receiver = [AEBlockAudioReceiver audioReceiverWithBlock:
+//               ^(void                     *source,
+//                 const AudioTimeStamp     *time,
+//                 UInt32                    frames,
+//                 AudioBufferList          *audio) {
+//                   // Do something with 'audio'
+//                   if (audio) {
+//                       float *source= (float *)audio->mBuffers[0].mData;
+//                       float tick = 0;
+//                       for (int j = 0; j < frames; j++) {
+//                           tick += sqrtf(source[j]*source[j]);
+//                       }
+//                       if (!weakSelf.soundDetected) {
+//                           weakSelf.count++;
+//                       }
+//                       if (weakSelf.count == 150) {
+//                           [weakSelf _stopRecording];
+//                           weakSelf.count = 0;
+//                           weakSelf.recording = NO;
+//                           //[weakSelf resetIdleTimer];
+//                           [self doSth];
+//                       }
+//                       if (tick>=25 && !_soundDetected) {
+//                           weakSelf.soundDetected = YES;
+//                           [weakSelf.silenceArray removeAllObjects];
+//                           weakSelf.count = 0;
+//                       }
+//                       if (weakSelf.soundDetected) {
+//                           [weakSelf.silenceArray addItem:[NSNumber numberWithFloat:tick]];
+//                           if (weakSelf.silenceArray.count == kBufferLength) {
+//                               float a = [weakSelf avg];
+//                               if (a <= 30) {
+//                                   [weakSelf _stopRecording];
+//                                   [weakSelf _score];
+//                               }
+//                           }
+//                       }
+//                   }
+//               }];
         
         self.recorder = [[AERecorder alloc] initWithAudioController:_audioController];
     }
@@ -260,21 +260,55 @@
     if (_idleTimer) {
         [_idleTimer invalidate];
     }
-    [self removeFinger];
-    if (!_recording) {
-        _idleTimer = [NSTimer scheduledTimerWithTimeInterval:5
-                                                      target:self
-                                                    selector:@selector(idleTimerExceeded)
-                                                    userInfo:nil
-                                                     repeats:NO];
+    
+    _idleTimer = [NSTimer scheduledTimerWithTimeInterval:1/60.0f
+                                                  target:self
+                                                selector:@selector(tick)
+                                                userInfo:nil
+                                                 repeats:YES];
         //[_idleTimer fire];
-    }
+    
     });
 }
 
-- (void)idleTimerExceeded {
-    NSLog(@"idle time exceeded");
-    [self addFinger];
+- (void)stopTimer {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (_idleTimer) {
+            [_idleTimer invalidate];
+        }
+    });
+}
+
+- (void)tick {
+    Float32 avg;
+    Float32 peak;
+    [self.audioController inputAveragePowerLevel:&avg peakHoldLevel:&peak];
+    
+    if (!self.soundDetected) {
+        self.count++;
+    }
+    if (self.count == 150) {
+        [self _stopRecording];
+        self.count = 0;
+        self.recording = NO;
+        //[weakSelf resetIdleTimer];
+        [self doSth];
+    }
+    if (avg>=-25 && !_soundDetected) {
+        self.soundDetected = YES;
+        [self.silenceArray removeAllObjects];
+        self.count = 0;
+    }
+    if (self.soundDetected) {
+        [self.silenceArray addItem:[NSNumber numberWithFloat:avg]];
+        if (self.silenceArray.count == kBufferLength) {
+            float a = [self avg];
+            if (a <= -30) {
+                [self _stopRecording];
+                [self _score];
+            }
+        }
+    }
 }
 
 - (void)addFinger {
@@ -306,7 +340,7 @@
 #pragma mark - Public
 
 - (void)enlargeWithWord:(NSMutableArray*)words {
-    //[self resetIdleTimer];
+    [self resetIdleTimer];
     _words = words;
     
     Word*a = (Word*)_words[0];
@@ -377,10 +411,11 @@
 - (void)removeFromParent {
     
     // Mic meter timer
-    [self.audioController removeInputReceiver:self.receiver];
+    [self stopTimer];
+    //[self.audioController removeInputReceiver:self.receiver];
     [self.audioController removeInputReceiver:self.recorder];
     
-    self.receiver = nil;
+    //self.receiver = nil;
     
     [self.recorder finishRecording];
     self.recorder = nil;
@@ -453,7 +488,8 @@
     _spriteVolume.hidden = NO;
     
     // Start new session
-    [self.audioController addInputReceiver:self.receiver];
+    //[self.audioController addInputReceiver:self.receiver];
+    [self resetIdleTimer];
     // AE Recorder
     
     [_audioController addInputReceiver:_recorder];
@@ -479,7 +515,8 @@
     }
 
     [_audioController removeInputReceiver:self.recorder];
-    [_audioController removeInputReceiver:self.receiver];
+    //[_audioController removeInputReceiver:self.receiver];
+    [self stopTimer];
     
     // Remove all buffer
     [_silenceArray removeAllObjects];

@@ -1473,7 +1473,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sutd.SpeechTherapyGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1e5bf0a9-d67f-42ea-9594-5b302162e0cc";
+				PROVISIONING_PROFILE = "67908df0-9daa-40dc-a6ce-89cc88c79861";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

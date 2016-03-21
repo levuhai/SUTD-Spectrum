@@ -23,6 +23,8 @@
 
 @property(readonly, nonatomic) int start;
 @property(readonly, nonatomic) int end;
+@property(readonly, nonatomic) int targetStart;
+@property(readonly, nonatomic) int targetEnd;
 @property(readonly, nonatomic) int type;
 
 @property(readonly, nonatomic) NSString* imgPath;

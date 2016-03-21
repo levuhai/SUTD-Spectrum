@@ -7,14 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A746F86D1C27A51200150C25 /* ∫_action1.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F8651C27A51200150C25 /* ∫_action1.wav */; };
-		A746F86E1C27A51200150C25 /* ∫_action2.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F8661C27A51200150C25 /* ∫_action2.wav */; };
-		A746F86F1C27A51200150C25 /* ∫_cash1.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F8671C27A51200150C25 /* ∫_cash1.wav */; };
-		A746F8701C27A51200150C25 /* ∫_cash2.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F8681C27A51200150C25 /* ∫_cash2.wav */; };
-		A746F8711C27A51200150C25 /* action1.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F8691C27A51200150C25 /* action1.wav */; };
-		A746F8721C27A51200150C25 /* action2.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F86A1C27A51200150C25 /* action2.wav */; };
-		A746F8731C27A51200150C25 /* cash1.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F86B1C27A51200150C25 /* cash1.wav */; };
-		A746F8741C27A51200150C25 /* cash2.wav in Resources */ = {isa = PBXBuildFile; fileRef = A746F86C1C27A51200150C25 /* cash2.wav */; };
 		A746F8781C27A59100150C25 /* WordController.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F8771C27A59100150C25 /* WordController.m */; };
 		A746F87B1C27A80900150C25 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F87A1C27A80900150C25 /* Word.m */; };
 		A746F87E1C27A81C00150C25 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F87D1C27A81C00150C25 /* DataManager.m */; };
@@ -79,14 +71,6 @@
 		07C44AA08666DCA9410EF65F /* libPods-MFCCDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MFCCDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E15C89C5659778544E4952A /* Pods-MFCCDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFCCDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		70991DECC5FEC8561D7AD94F /* Pods-MFCCDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFCCDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo.release.xcconfig"; sourceTree = "<group>"; };
-		A746F8651C27A51200150C25 /* ∫_action1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "∫_action1.wav"; sourceTree = "<group>"; };
-		A746F8661C27A51200150C25 /* ∫_action2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "∫_action2.wav"; sourceTree = "<group>"; };
-		A746F8671C27A51200150C25 /* ∫_cash1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "∫_cash1.wav"; sourceTree = "<group>"; };
-		A746F8681C27A51200150C25 /* ∫_cash2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "∫_cash2.wav"; sourceTree = "<group>"; };
-		A746F8691C27A51200150C25 /* action1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = action1.wav; sourceTree = "<group>"; };
-		A746F86A1C27A51200150C25 /* action2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = action2.wav; sourceTree = "<group>"; };
-		A746F86B1C27A51200150C25 /* cash1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cash1.wav; sourceTree = "<group>"; };
-		A746F86C1C27A51200150C25 /* cash2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cash2.wav; sourceTree = "<group>"; };
 		A746F8761C27A59100150C25 /* WordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordController.h; sourceTree = "<group>"; };
 		A746F8771C27A59100150C25 /* WordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordController.m; sourceTree = "<group>"; };
 		A746F8791C27A80900150C25 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
@@ -227,14 +211,6 @@
 			children = (
 				A7D81BA51C377ECE00839158 /* sounds */,
 				A7BFD42E1C26A46A00A81D7B /* result.sqlite */,
-				A746F8651C27A51200150C25 /* ∫_action1.wav */,
-				A746F8661C27A51200150C25 /* ∫_action2.wav */,
-				A746F8671C27A51200150C25 /* ∫_cash1.wav */,
-				A746F8681C27A51200150C25 /* ∫_cash2.wav */,
-				A746F8691C27A51200150C25 /* action1.wav */,
-				A746F86A1C27A51200150C25 /* action2.wav */,
-				A746F86B1C27A51200150C25 /* cash1.wav */,
-				A746F86C1C27A51200150C25 /* cash2.wav */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -535,21 +511,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7C075ED1BB2572A000DB38A /* Main.storyboard in Resources */,
-				A746F86F1C27A51200150C25 /* ∫_cash1.wav in Resources */,
 				A7D81BA61C377ECE00839158 /* sounds in Resources */,
 				D7C075F21BB2572A000DB38A /* LaunchScreen.xib in Resources */,
-				A746F86D1C27A51200150C25 /* ∫_action1.wav in Resources */,
 				D7C075EF1BB2572A000DB38A /* Images.xcassets in Resources */,
-				A746F86E1C27A51200150C25 /* ∫_action2.wav in Resources */,
 				D759FD1C1BCE33C900225400 /* test.wav in Resources */,
-				A746F8741C27A51200150C25 /* cash2.wav in Resources */,
-				A746F8701C27A51200150C25 /* ∫_cash2.wav in Resources */,
 				D7C076301BB25D10000DB38A /* good2.wav in Resources */,
 				A7BFD42F1C26A46A00A81D7B /* result.sqlite in Resources */,
-				A746F8711C27A51200150C25 /* action1.wav in Resources */,
-				A746F8721C27A51200150C25 /* action2.wav in Resources */,
 				D7C0762F1BB25D10000DB38A /* good1.wav in Resources */,
-				A746F8731C27A51200150C25 /* cash1.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
