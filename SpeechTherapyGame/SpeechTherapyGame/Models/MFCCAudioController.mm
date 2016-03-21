@@ -460,6 +460,8 @@ const float kDefaultTrimEndThreshold = -200.0f;
     float score = sumScore/(end-start+1);
     score = roundf (score * 100) / 100.0;
     
+    // ================================================
+    // Free float array
     for(int i = 0; i < sizeA; ++i) {
         delete [] output[i];
     }
