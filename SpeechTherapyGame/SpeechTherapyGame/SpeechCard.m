@@ -22,7 +22,7 @@
 #import "DataManager.h"
 #import "Score.h"
 #import "FishingGameScene.h"
-#define kBufferLength 25
+#define kBufferLength 80
 #define kTick 20
 
 @interface SpeechCard()
@@ -214,12 +214,15 @@
 - (void)_score {
     // Calculate score
     BOOL isCorrect = NO;
+    NSLog(@"=======================================");
     float maxScore = 0.0f;
     for (Word* w in _words) {
         float s = [MFCCAudioController scoreFileA:_currentFilePath fileB:w];
         if (s > maxScore) maxScore = s;
+        NSLog(@"score %f",s);
     }
-    NSLog(@"%f",maxScore);
+    NSLog(@"max score %f",maxScore);
+    NSLog(@"=======================================");
     // Insert score to database
     Word* word = _words[0];
     Score *score = [[Score alloc] init];
@@ -294,7 +297,8 @@
         //[weakSelf resetIdleTimer];
         [self doSth];
     }
-    if (avg>=-25 && !_soundDetected) {
+    
+    if (avg>=-30 && !_soundDetected) {
         self.soundDetected = YES;
         [self.silenceArray removeAllObjects];
         self.count = 0;
@@ -303,7 +307,8 @@
         [self.silenceArray addItem:[NSNumber numberWithFloat:avg]];
         if (self.silenceArray.count == kBufferLength) {
             float a = [self avg];
-            if (a <= -30) {
+            NSLog(@"%f",a);
+            if (a <= -40) {
                 [self _stopRecording];
                 [self _score];
             }
@@ -498,6 +503,7 @@
     NSError *error = nil;
     [_recorder beginRecordingToFileAtPath:path
                                        fileType:kAudioFileWAVEType
+     bitDepth:32 channels:1
                                      error:&error];
 
     if (error) {

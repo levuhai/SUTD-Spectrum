@@ -64,7 +64,7 @@
 		A709FCD51C5136D80093AF8C /* seaturtle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A709FCD31C5136D80093AF8C /* seaturtle.atlas */; };
 		A709FCDB1C5137120093AF8C /* SeaTurtle.m in Sources */ = {isa = PBXBuildFile; fileRef = A709FCD91C5137120093AF8C /* SeaTurtle.m */; };
 		A752FBE61C3A2A1B00B8ED60 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBE31C3A2A1B00B8ED60 /* BaseModel.m */; };
-		A752FBE71C3A2A1B00B8ED60 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBE51C3A2A1B00B8ED60 /* DataManager.m */; };
+		A752FBE71C3A2A1B00B8ED60 /* DataManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A752FBE51C3A2A1B00B8ED60 /* DataManager.mm */; };
 		A752FBEA1C3A2A2A00B8ED60 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBE91C3A2A2A00B8ED60 /* Word.m */; };
 		A752FBED1C3A2BF900B8ED60 /* DetailsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBEC1C3A2BF900B8ED60 /* DetailsCell.m */; };
 		A752FBF01C3A2D4100B8ED60 /* NSDictionary+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBEF1C3A2D4100B8ED60 /* NSDictionary+ES.m */; };
@@ -295,7 +295,7 @@
 		A752FBE21C3A2A1B00B8ED60 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		A752FBE31C3A2A1B00B8ED60 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		A752FBE41C3A2A1B00B8ED60 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
-		A752FBE51C3A2A1B00B8ED60 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		A752FBE51C3A2A1B00B8ED60 /* DataManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DataManager.mm; sourceTree = "<group>"; };
 		A752FBE81C3A2A2A00B8ED60 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
 		A752FBE91C3A2A2A00B8ED60 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
 		A752FBEB1C3A2BF900B8ED60 /* DetailsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsCell.h; sourceTree = "<group>"; };
@@ -561,7 +561,7 @@
 				A7A5862E1C6758FA007D8370 /* AppService.h */,
 				A7A5862F1C6758FA007D8370 /* AppService.m */,
 				A752FBE41C3A2A1B00B8ED60 /* DataManager.h */,
-				A752FBE51C3A2A1B00B8ED60 /* DataManager.m */,
+				A752FBE51C3A2A1B00B8ED60 /* DataManager.mm */,
 				A79C46D11C70D65D005C1803 /* AudioPlayer.h */,
 				A79C46D21C70D65D005C1803 /* AudioPlayer.m */,
 			);
@@ -1248,7 +1248,7 @@
 				A7A586301C6758FA007D8370 /* AppService.m in Sources */,
 				A775634A1C5F9D57006E66BF /* CAXException.cpp in Sources */,
 				A77563481C5F9D57006E66BF /* CAHostTimeBase.cpp in Sources */,
-				A752FBE71C3A2A1B00B8ED60 /* DataManager.m in Sources */,
+				A752FBE71C3A2A1B00B8ED60 /* DataManager.mm in Sources */,
 				2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */,
 				2DB4D6261BF391F200A12481 /* TCProgressTimerNode.m in Sources */,
 				2D650A7D1C3AD6D000CC4441 /* ActiveWord.m in Sources */,
@@ -1392,6 +1392,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Hai Le Vu (CY4CF8PRK2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hai Le Vu (CY4CF8PRK2)";
@@ -1438,6 +1439,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hai Le Vu (L8GZZ588QM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hai Le Vu (L8GZZ588QM)";

@@ -217,7 +217,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         self.recorder = [[AERecorder alloc] initWithAudioController:_audioController];
         NSString *path = [self test1FilePath];
         NSError *error = nil;
-        if ( ![_recorder beginRecordingToFileAtPath:path fileType:kAudioFileWAVEType error:&error] ) {
+        if ( ![_recorder beginRecordingToFileAtPath:path fileType:kAudioFileWAVEType bitDepth:32 channels:1 error:&error] ) {
             [[[UIAlertView alloc] initWithTitle:@"Error"
                                         message:[NSString stringWithFormat:@"Couldn't start recording: %@", [error localizedDescription]]
                                        delegate:nil
@@ -377,22 +377,22 @@ static inline float _translate(float val, float min, float max) {
                                                             info:&_fileBInfo];
     
 
-    int sizeA = (int)featureA.size();
-    int sizeB = (int)featureB.size();
-    if (sizeA <= sizeB) {
-        featureA = [self _getPreProcessInfo:urlB
-                             beginThreshold:kDefaultTrimBeginThreshold
-                               endThreshold:kDefaultTrimEndThreshold
-                                       info:&_fileAInfo];
-        featureB = [self _getPreProcessInfo:urlA
-                             beginThreshold:kDefaultTrimBeginThreshold
-                               endThreshold:kDefaultTrimEndThreshold
-                                       info:&_fileBInfo];
-        
-        
-    }
-    sizeA = (int)featureA.size();
-    sizeB = (int)featureB.size();
+    int sizeA = floor(featureA.size()*0.5f);
+    int sizeB = floor(featureB.size()*0.5f);
+//    if (sizeA <= sizeB) {
+//        featureA = [self _getPreProcessInfo:urlB
+//                             beginThreshold:kDefaultTrimBeginThreshold
+//                               endThreshold:kDefaultTrimEndThreshold
+//                                       info:&_fileAInfo];
+//        featureB = [self _getPreProcessInfo:urlA
+//                             beginThreshold:kDefaultTrimBeginThreshold
+//                               endThreshold:kDefaultTrimEndThreshold
+//                                       info:&_fileBInfo];
+//        
+//        
+//    }
+//    sizeA = (int)featureA.size();
+//    sizeB = (int)featureB.size();
     
     //------------------------------------------------------------------------------
     // Init SortedOutput[a*b]
@@ -405,11 +405,11 @@ static inline float _translate(float val, float min, float max) {
     }
     
     // Set up matrix of MFCC similarity
-    for (int i = 0; i<sizeA; i ++) {
-        for (int j = 0; j<sizeB; j++) {
+    for (int i = 0; i<sizeA; i+=1) {
+        for (int j = 0; j<sizeB; j+=1) {
             float diff = 0;
-            for (int k = 0; k<12; k++) {
-                diff += (featureA[i][k] - featureB[j][k])*(featureA[i][k] - featureB[j][k]);
+            for (int k = 0; k<9; k++) {
+                diff += (featureA[i*2][k] - featureB[j*2][k])*(featureA[i*2][k] - featureB[j*2][k]);
             }
             output[i][j] = sqrtf(diff);
             // Copy all the data from output into sorted output
@@ -423,12 +423,12 @@ static inline float _translate(float val, float min, float max) {
      NSLog(@"min %f max %f",sortedOutput[0],sortedOutput[sizeA*sizeB-1]);
     
     // Output count
-    float keepPct = 0.25f;
+    float keepPct = 0.1f;
     float outputCount = sizeA*sizeB;
     float maxDiff = sortedOutput[(int)roundf(keepPct*outputCount)];
      NSLog(@"diff %f",maxDiff);
     // TODO: maxDiff
-    maxDiff = maxDiff*0.5;
+    maxDiff = 7;
     /*
      % initialize a new matrix to store the normalized output values
      normalizedOutput = output;
@@ -670,8 +670,8 @@ static inline float _translate(float val, float min, float max) {
  */
     // Start/End of phoneme
     Word* w = words[_currentIndex];
-    int start = 0;
-    int end = sizeB;
+    int start = sizeB*(float)w.targetStart/(float)w.fullLen;
+    int end = sizeB*(float)w.targetEnd/(float)w.fullLen;
     
     centroids.clear();
     indices.clear();
@@ -720,7 +720,7 @@ static inline float _translate(float val, float min, float max) {
 //    fitQuality = zeros(size(MFCC2,2),1);
 */
     
-    fitQuality.resize(featureB.size());
+    fitQuality.resize(sizeB);
     // Best fit line
     bestFitLine.clear();
     nearLineMatrix.clear();
@@ -733,10 +733,10 @@ static inline float _translate(float val, float min, float max) {
     }
     
     // Point near fit line
-    float timeTolerance = 10;
+    float timeTolerance = 7;
     for (int y = 0; y < trimmedNormalisedOutput.size();y++) {
         for (int x = start-1; x < end;x++) {
-            if (pointToLineDistance(x-start+1,y,slope,intercept)>timeTolerance) {
+            if (pointToLineDistance(x-start+1,y,slope,intercept)>timeTolerance && (slope <0 || slope >=0.75)) {
                 nearLineMatrix[y][x] = 0;
             } else {
                 nearLineMatrix[y][x] = trimmedNormalisedOutput[y][x];

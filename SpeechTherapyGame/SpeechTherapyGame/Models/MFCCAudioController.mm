@@ -29,10 +29,11 @@
 const float kDefaultTrimBeginThreshold = -200.0f;
 const float kDefaultTrimEndThreshold = -200.0f;
 
+
+
 + (float)scoreFileA:(NSString*)pathA fileB:(Word*)pathB {
     //float _startTrimPercentage;
     //float _endTrimPercentage;
-    
     std::vector<float> centroids; // dataY
     std::vector<float> indices; // dataX
     std::vector<float> matchedFrameQuality;
@@ -60,22 +61,22 @@ const float kDefaultTrimEndThreshold = -200.0f;
                                                             info:&_fileBInfo];
     
     
-    int sizeA = (int)featureA.size();
-    int sizeB = (int)featureB.size();
-    if (sizeA <= sizeB) {
-        featureA = [MFCCAudioController _getPreProcessInfo:urlB
-                             beginThreshold:kDefaultTrimBeginThreshold
-                               endThreshold:kDefaultTrimEndThreshold
-                                       info:&_fileAInfo];
-        featureB = [MFCCAudioController _getPreProcessInfo:urlA
-                             beginThreshold:kDefaultTrimBeginThreshold
-                               endThreshold:kDefaultTrimEndThreshold
-                                       info:&_fileBInfo];
-        
-        
-    }
-    sizeA = (int)featureA.size();
-    sizeB = (int)featureB.size();
+    int sizeA = floor(featureA.size()*0.5f);
+    int sizeB = floor(featureB.size()*0.5f);
+    //    if (sizeA <= sizeB) {
+    //        featureA = [self _getPreProcessInfo:urlB
+    //                             beginThreshold:kDefaultTrimBeginThreshold
+    //                               endThreshold:kDefaultTrimEndThreshold
+    //                                       info:&_fileAInfo];
+    //        featureB = [self _getPreProcessInfo:urlA
+    //                             beginThreshold:kDefaultTrimBeginThreshold
+    //                               endThreshold:kDefaultTrimEndThreshold
+    //                                       info:&_fileBInfo];
+    //
+    //
+    //    }
+    //    sizeA = (int)featureA.size();
+    //    sizeB = (int)featureB.size();
     
     //------------------------------------------------------------------------------
     // Init SortedOutput[a*b]
@@ -88,11 +89,11 @@ const float kDefaultTrimEndThreshold = -200.0f;
     }
     
     // Set up matrix of MFCC similarity
-    for (int i = 0; i<sizeA; i ++) {
-        for (int j = 0; j<sizeB; j++) {
+    for (int i = 0; i<sizeA; i+=1) {
+        for (int j = 0; j<sizeB; j+=1) {
             float diff = 0;
-            for (int k = 0; k<12; k++) {
-                diff += (featureA[i][k] - featureB[j][k])*(featureA[i][k] - featureB[j][k]);
+            for (int k = 0; k<9; k++) {
+                diff += (featureA[i*2][k] - featureB[j*2][k])*(featureA[i*2][k] - featureB[j*2][k]);
             }
             output[i][j] = sqrtf(diff);
             // Copy all the data from output into sorted output
@@ -111,7 +112,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
     float maxDiff = sortedOutput[(int)roundf(keepPct*outputCount)];
     //NSLog(@"diff %f",maxDiff);
     // TODO: maxDiff
-    maxDiff = 6.5;//maxDiff*0.5;
+    //maxDiff = 20;
     /*
      % initialize a new matrix to store the normalized output values
      normalizedOutput = output;
@@ -132,7 +133,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
      */
     
     // make sure normalisedOutput is empty and has the correct size
-    //normalisedOutput.clear();
+    normalisedOutput.clear();
     normalisedOutput.resize(sizeA);
     for (size_t i = 0; i<normalisedOutput.size(); i++){
         //normalisedOutput[i].clear();
@@ -154,6 +155,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
             }
         }
     }
+    
     /* -------------------------------------------------------------------------
      % find the contiguous region of MFCC1 that has the most matches to
      % MFCC2
@@ -164,7 +166,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
      matchedFrameQuality(i) = max(normalizedOutput(i,:));
      end
      */
-    //matchedFrameQuality.clear();
+    matchedFrameQuality.clear();
     matchedFrameQuality.resize(sizeA);
     for (int i = 0; i < sizeA; i++) {
         matchedFrameQuality[i] = *std::max_element(normalisedOutput[i].begin(), normalisedOutput[i].end());
@@ -352,8 +354,8 @@ const float kDefaultTrimEndThreshold = -200.0f;
      */
     // Start/End of phoneme
     Word* w = pathB;
-    int start = 0;
-    int end = sizeB;
+    int start = sizeB*(float)w.targetStart/(float)w.fullLen;
+    int end = sizeB*(float)w.targetEnd/(float)w.fullLen;
     
     centroids.clear();
     indices.clear();
@@ -402,7 +404,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
      //    fitQuality = zeros(size(MFCC2,2),1);
      */
     
-    fitQuality.resize(featureB.size());
+    fitQuality.resize(sizeB);
     // Best fit line
     bestFitLine.clear();
     nearLineMatrix.clear();
@@ -415,10 +417,10 @@ const float kDefaultTrimEndThreshold = -200.0f;
     }
     
     // Point near fit line
-    float timeTolerance = 10;
+    float timeTolerance = 7;
     for (int y = 0; y < trimmedNormalisedOutput.size();y++) {
         for (int x = start-1; x < end;x++) {
-            if (pointToLineDistance(x-start+1,y,slope,intercept)>timeTolerance) {
+            if (pointToLineDistance(x-start+1,y,slope,intercept)>timeTolerance && (slope <0 || slope >=0.85)) {
                 nearLineMatrix[y][x] = 0;
             } else {
                 nearLineMatrix[y][x] = trimmedNormalisedOutput[y][x];
@@ -439,25 +441,12 @@ const float kDefaultTrimEndThreshold = -200.0f;
         fitQuality[i] = max;
     }
     
-    
-    //    for (int i = 0; i < trimmedNormalisedOutput.size();i++) {
-    //        for (int j = 0; j < trimmedNormalisedOutput[0].size();j++) {
-    //            bestFitLine[i][j] = 0;
-    //        }
-    //        int y = roundf(linearFun(i, slope, intercept));
-    //        if (y<0) y = 0;
-    //        if (y>trimmedNormalisedOutput[0].size()) y = 0;
-    //        bestFitLine[i][y] = 1;
-    //    }
-    
-    //_startTrimPercentage = maxWindowStart/(float)sizeA;
-    //_endTrimPercentage  = maxWindowEnd/(float)sizeA;
-    
     float sumScore = 0.0f;
+    float lenScore = end-start+1;
     for (int i = start; i<end; i++) {
         sumScore+= fitQuality[i];
     }
-    float score = sumScore/(end-start+1);
+    float score = sumScore/lenScore;
     score = roundf (score * 100) / 100.0;
     
     // ================================================
