@@ -377,8 +377,8 @@ static inline float _translate(float val, float min, float max) {
                                                             info:&_fileBInfo];
     
 
-    int sizeA = floor(featureA.size()*0.5f);
-    int sizeB = floor(featureB.size()*0.5f);
+    int sizeA = (int)featureA.size();
+    int sizeB = (int)featureB.size();
 //    if (sizeA <= sizeB) {
 //        featureA = [self _getPreProcessInfo:urlB
 //                             beginThreshold:kDefaultTrimBeginThreshold
@@ -405,11 +405,11 @@ static inline float _translate(float val, float min, float max) {
     }
     
     // Set up matrix of MFCC similarity
-    for (int i = 0; i<sizeA; i+=1) {
-        for (int j = 0; j<sizeB; j+=1) {
+    for (int i = 0; i<sizeA; i++) {
+        for (int j = 0; j<sizeB; j++) {
             float diff = 0;
-            for (int k = 0; k<9; k++) {
-                diff += (featureA[i*2][k] - featureB[j*2][k])*(featureA[i*2][k] - featureB[j*2][k]);
+            for (int k = 0; k<12; k++) {
+                diff += (featureA[i][k] - featureB[j][k])*(featureA[i][k] - featureB[j][k]);
             }
             output[i][j] = sqrtf(diff);
             // Copy all the data from output into sorted output
@@ -423,7 +423,7 @@ static inline float _translate(float val, float min, float max) {
      NSLog(@"min %f max %f",sortedOutput[0],sortedOutput[sizeA*sizeB-1]);
     
     // Output count
-    float keepPct = 0.1f;
+    float keepPct = 0.25f;
     float outputCount = sizeA*sizeB;
     float maxDiff = sortedOutput[(int)roundf(keepPct*outputCount)];
      NSLog(@"diff %f",maxDiff);
@@ -733,7 +733,7 @@ static inline float _translate(float val, float min, float max) {
     }
     
     // Point near fit line
-    float timeTolerance = 7;
+    float timeTolerance = 10;
     for (int y = 0; y < trimmedNormalisedOutput.size();y++) {
         for (int x = start-1; x < end;x++) {
             if (pointToLineDistance(x-start+1,y,slope,intercept)>timeTolerance && (slope <0 || slope >=0.75)) {
