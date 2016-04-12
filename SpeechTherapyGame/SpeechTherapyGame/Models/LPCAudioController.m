@@ -530,12 +530,12 @@ static OSStatus recordingCallback(void* inRefCon,AudioUnitRenderActionFlags* ioA
     // Now work with a lot of complex variables to find complex roots of LPC filter.
     // These roots will give us formant frequencies.
     
-    _Complex double *compCoeff = (_Complex double *)(malloc((self.order + 1) * sizeof(_Complex double)));
+    //_Complex double *compCoeff = (_Complex double *)(malloc((self.order + 1) * sizeof(_Complex double)));
     
     // Transfer pCoeff (real-valued) to compCoeff (complex-valued).
-    for (dummo=0; dummo <= self.order; dummo++) {
-        compCoeff[dummo] = pCoeff[self.order - dummo] + 0.0 * I;
-    }
+//    for (dummo=0; dummo <= self.order; dummo++) {
+//        compCoeff[dummo] = pCoeff[self.order - dummo] + 0.0 * I;
+//    }
     
     // Formant frequencies are computed in a separate function.
     
