@@ -478,6 +478,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
     *fileInfo = fileInf;
     
     AudioFileReaderRef reader_a(new WM::AudioFileReader(cfurl));
+    CFRelease(cfurl);
     return get_mfcc_features(reader_a, fileInfo);
     
 }

@@ -470,8 +470,9 @@
 - (void)_playSound {
     //
     Word*a = (Word*)_words[0];
-    NSURL* url = [NSURL URLWithString:[a sampleFilePath]];
+    
     [self runAction:[SKAction playSoundFileNamed:@"say.mp3" waitForCompletion:YES] completion:^{
+        NSURL* url = [NSURL URLWithString:[a sampleFilePath]];
         self.player = [AEAudioFilePlayer audioFilePlayerWithURL:url error:nil];
         self.player.removeUponFinish = YES;
         __weak SpeechCard *weakSelf = self;
