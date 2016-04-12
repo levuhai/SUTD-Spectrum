@@ -91,20 +91,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
             [self.view presentScene:scene];
         }];
     } else if ([touchNode.name isEqualToString:@"nodeLpcBg"] || touchNode == _lpcNode) {
-        SKAction *slide;
-        
-        if (!_lpcHidden) {
-            slide = [SKAction moveByX:(60-_lpcBg.size.width) y:0 duration:0.3];
-        } else {
-            slide = [SKAction moveByX:(_lpcBg.size.width-60) y:0 duration:0.3];
-        }
-        
-        [_lpcBg runAction:slide completion:^{
-            
-        }];
-        [_lpcNode runAction:slide completion:^{
-            _lpcHidden = !_lpcHidden;
-        }];
+         _lpcHidden = !_lpcHidden;
         
     } else if (!_aCreatureIsHooked)
         [_fisherman dropHook];
@@ -165,14 +152,14 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 #pragma mark - Private Method
 
 - (void) _setupScene {
-    _lpcBg = (SKSpriteNode*)[self childNodeWithName:@"nodeLpcBg"];
-    _lpcBg.zPosition = zCard+1;
+//    _lpcBg = (SKSpriteNode*)[self childNodeWithName:@"nodeLpcBg"];
+//    _lpcBg.zPosition = zCard+1;
     // LPC Graph
     _lpcNode = [LPCNode node];
     _lpcNode.lineWidth = 2;
-    _lpcNode.position = CGPointMake(_lpcBg.position.x+5, _lpcBg.position.y+15);
+    _lpcNode.position = CGPointMake((self.view.width-521)*0.5, (self.view.height-660)*0.5);
     _lpcNode.zPosition = zCard+2;
-    [_lpcNode setupWithSize:CGSizeMake(_lpcBg.size.width-70, _lpcBg.size.height-30)];
+    [_lpcNode setupWithSize:CGSizeMake(521, 160)];
     [self addChild:_lpcNode];
     
     // Fisherman
@@ -180,12 +167,18 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     [_fisherman setupRod];
     
     // Speech Card
-    _card = [[SpeechCard alloc] initWithColor:[UIColor clearColor] size:CGSizeMake(550, 610)];
+    _card = [[SpeechCard alloc] initWithColor:[UIColor clearColor] size:CGSizeMake(561, 700)];
     _card.startPosition = [_fisherman hookStartPosition];
-    _card.endPosition = CGPointMake((self.view.width-550)*0.75+57, (self.view.height-610)*0.5);
+    _card.endPosition = CGPointMake((self.view.width-561)*0.5, (self.view.height-700)*0.5);
     _card.anchorPoint = CGPointMake(0, 0);
     _card.position = [_fisherman hookStartPosition];
     _card.zPosition = zCard;
+    
+    // background
+    _lpcBg = (SKSpriteNode*)[self childNodeWithName:@"nodeLpcBg"];
+    CGPoint p = _lpcBg.position;
+    p.y = _card.endPosition.y;
+    _lpcBg.position = p;
     
     [self addChild:_card];
 }

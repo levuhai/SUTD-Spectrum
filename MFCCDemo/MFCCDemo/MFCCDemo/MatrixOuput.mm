@@ -64,7 +64,7 @@
 - (void)drawRect:(CGRect)rect {
     if (!_drawFit) {
         _maxVal = 1;
-        _size = 4;//MAX(self.bounds.size.width/_w, 1);
+        _size = 2;//MAX(self.bounds.size.width/_w, 1);
         // Drawing code
         for (int i = 0; i <_h; i++) {
             for (int j = 0; j<_w; j++) {

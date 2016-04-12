@@ -36,6 +36,11 @@
     
     //_lineNode = [SKShapeNode node];
     [self setStrokeColor:[UIColor flatYellowColor]];
+//    SKSpriteNode* bg = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithWhite:0 alpha:0.2]
+//                                                    size:size];
+//    bg.position = self.position;
+//    
+//    [self addChild:bg];
     //[self addChild:_lineNode];
 }
 

@@ -108,38 +108,41 @@
         _spriteSquid.zPosition = self.zPosition+1;
         [self addChild:_spriteSquid];
         
+        int y = 65;
+        int x = 60;
+        int dY = 75;
         // Star 1
         _spriteStar1 = [SKSpriteNode spriteNodeWithImageNamed:@"imgStar0"];
         _spriteStar1.anchorPoint = CGPointMake(0.5, 0.5);
-        _spriteStar1.position = CGPointMake(self.size.width/2-140, 80);
+        _spriteStar1.position = CGPointMake(x, self.size.height-y-dY);
         _spriteStar1.zPosition = self.zPosition+1;
         _spriteStar1.name = @"star1";
         [self addChild:_spriteStar1];
         
         _spriteStar2 = [SKSpriteNode spriteNodeWithImageNamed:@"imgStar0"];
         _spriteStar2.anchorPoint = CGPointMake(0.5, 0.5);
-        _spriteStar2.position = CGPointMake(self.size.width/2-70, 80);
+        _spriteStar2.position = CGPointMake(x, self.size.height-y-dY*2);
         _spriteStar2.zPosition = self.zPosition+1;
         _spriteStar2.name = @"star2";
         [self addChild:_spriteStar2];
         
         _spriteStar3 = [SKSpriteNode spriteNodeWithImageNamed:@"imgStar0"];
         _spriteStar3.anchorPoint = CGPointMake(0.5, 0.5);
-        _spriteStar3.position = CGPointMake(self.size.width/2, 80);
+        _spriteStar3.position = CGPointMake(x, self.size.height-y-dY*3);
         _spriteStar3.zPosition = self.zPosition+1;
         _spriteStar3.name = @"star3";
         [self addChild:_spriteStar3];
         
         _spriteStar4 = [SKSpriteNode spriteNodeWithImageNamed:@"imgStar0"];
         _spriteStar4.anchorPoint = CGPointMake(0.5, 0.5);
-        _spriteStar4.position = CGPointMake(self.size.width/2+70, 80);
+        _spriteStar4.position = CGPointMake(x, self.size.height-y-dY*4);
         _spriteStar4.zPosition = self.zPosition+1;
         _spriteStar4.name = @"star4";
         [self addChild:_spriteStar4];
         
         _spriteStar5 = [SKSpriteNode spriteNodeWithImageNamed:@"imgStar0"];
         _spriteStar5.anchorPoint = CGPointMake(0.5, 0.5);
-        _spriteStar5.position = CGPointMake(self.size.width/2+140, 80);
+        _spriteStar5.position = CGPointMake(x, self.size.height-y-dY*5);
         _spriteStar5.zPosition = self.zPosition+1;
         _spriteStar5.name = @"star5";
         [self addChild:_spriteStar5];
@@ -147,7 +150,7 @@
         // Add mic
         _spriteMic = [SKSpriteNode spriteNodeWithImageNamed:@"btnMicOff"];
         _spriteMic.anchorPoint = CGPointMake(0.5, 0.5);
-        _spriteMic.position = CGPointMake(self.size.width - 70, 175);
+        _spriteMic.position = CGPointMake(self.size.width - 70, 200);
         _spriteMic.zPosition = self.zPosition+2;
         [self addChild:_spriteMic];
         
@@ -240,20 +243,21 @@
     float minScore = [[DataManager shared] difficultyValue];
     if (maxScore >= minScore) {
         isCorrect = YES;
-        _failedAttemp = 0;
-    } else {
-        _failedAttemp ++;
-        if (_failedAttemp == 3) {
-            _failedAttemp = 0;
-            isCorrect = YES;
-        }
     }
-    if (isCorrect) {
-        [self _displayStar:YES];
-    } else {
-        [self _displayStar:NO];
-    }
-
+//        _failedAttemp = 0;
+//    } else {
+//        _failedAttemp ++;
+//        if (_failedAttemp == 3) {
+//            _failedAttemp = 0;
+//            isCorrect = YES;
+//        }
+//    }
+//    if (isCorrect) {
+//        [self _displayStar:isCorrect];
+//    } else {
+//        [self _displayStar:NO];
+//    }
+    [self _displayStar:isCorrect];
 }
 
 #pragma mark - Idle Timer
@@ -617,12 +621,20 @@
 - (void)_displayStar:(BOOL)boo {
     NSString* key = [NSString stringWithFormat:@"star%d",_currentStarIdx];
     SKSpriteNode* node = (SKSpriteNode*)[self childNodeWithName:key];
+    SKAction* sound;
+    NSString* textureName = @"imgStar1";
     if (boo) {
+        sound = [SKAction playSoundFileNamed:@"correct.m4a" waitForCompletion:YES];
+        textureName = @"imgStar1";
+    } else {
+        sound = [SKAction playSoundFileNamed:@"incorrect.m4a" waitForCompletion:YES];
+        textureName = @"imgStar2";
+    }
+    {
         SKAction* scaleUp = [SKAction scaleTo:1.2 duration:0.2];
         [node runAction:scaleUp completion:^{
-            node.texture = [SKTexture textureWithImageNamed:@"imgStar1"];
+            node.texture = [SKTexture textureWithImageNamed:textureName];
             SKAction* scaleDown = [SKAction scaleTo:1.0 duration:0.2];
-            SKAction* sound = [SKAction playSoundFileNamed:@"correct.m4a" waitForCompletion:YES];
             SKAction* s = [SKAction sequence:@[scaleDown, sound]];
             [node runAction:s completion:^{
                 _currentStarIdx ++;
@@ -639,22 +651,23 @@
                 //[self resetIdleTimer];
             }];
         }];
-    } else {
-        SKAction* rot1 = [SKAction rotateByAngle:-1.5 duration:0.2];
-        SKAction* rot2 = [SKAction rotateByAngle:3 duration:0.2];
-        SKAction* sound = [SKAction playSoundFileNamed:@"incorrect.m4a" waitForCompletion:NO];
-        [node runAction:[SKAction sequence:@[rot1,sound, rot2]] completion:^{
-            node.texture = [SKTexture textureWithImageNamed:@"imgStar0"];
-            SKAction* rot3 = [SKAction rotateByAngle:-1.5 duration:0.2];
-            SKAction* s = [SKAction playSoundFileNamed:@"again.mp3" waitForCompletion:YES];
-            [node runAction:[SKAction sequence:@[rot3, s]] completion:^{
-                _recording = NO;
-                //[self resetIdleTimer];
-                [self doSth];
-            }];
-            
-        }];
     }
+//    else {
+//        SKAction* rot1 = [SKAction rotateByAngle:-1.5 duration:0.2];
+//        SKAction* rot2 = [SKAction rotateByAngle:3 duration:0.2];
+//        SKAction* sound = [SKAction playSoundFileNamed:@"incorrect.m4a" waitForCompletion:NO];
+//        [node runAction:[SKAction sequence:@[rot1,sound, rot2]] completion:^{
+//            node.texture = [SKTexture textureWithImageNamed:@"imgStar0"];
+//            SKAction* rot3 = [SKAction rotateByAngle:-1.5 duration:0.2];
+//            SKAction* s = [SKAction playSoundFileNamed:@"again.mp3" waitForCompletion:YES];
+//            [node runAction:[SKAction sequence:@[rot3, s]] completion:^{
+//                _recording = NO;
+//                //[self resetIdleTimer];
+//                [self doSth];
+//            }];
+//            
+//        }];
+//    }
 }
 
 @end
