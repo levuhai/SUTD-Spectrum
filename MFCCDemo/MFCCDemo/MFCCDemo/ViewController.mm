@@ -360,7 +360,7 @@ static inline float _translate(float val, float min, float max) {
 - (void)_compareFileA:(NSString*)pathA fileB:(NSString*)pathB {
     //------------------------------------------------------------------------------
     // Read audio files from file paths
-    NSURL *urlA = [NSURL URLWithString:pathA];
+    NSURL *urlA = [NSURL URLWithString:[pathA stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     FeatureTypeDTW::Features featureA = [self _getPreProcessInfo:urlA
                                                   beginThreshold:kDefaultTrimBeginThreshold
                                                     endThreshold:kDefaultTrimEndThreshold
@@ -771,7 +771,7 @@ static inline float _translate(float val, float min, float max) {
     [_trimVC.graph2 inputMFCC:featureB start:0 end:0];
     
     // Page 2
-    [_trim1VC.graph1 inputMFCC:featureA start:(int)maxWindowStart end:(int)maxWindowEnd];
+    //[_trim1VC.graph1 inputMFCC:featureA start:(int)maxWindowStart end:(int)maxWindowEnd];
     
     // Page 3
     _matrixVC.upperView.graphColor = [UIColor greenColor];
