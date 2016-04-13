@@ -665,7 +665,7 @@ static inline float _translate(float val, float min, float max) {
  end
  */
     // Start/End of phoneme
-    Word* w = words[_currentIndex];
+    Word* w = _currentWord;
     int start = sizeB*(float)w.targetStart/(float)w.fullLen;
     int end = sizeB*(float)w.targetEnd/(float)w.fullLen;
     
@@ -729,7 +729,7 @@ static inline float _translate(float val, float min, float max) {
     }
     
     // Point near fit line
-    float timeTolerance = 10;
+    float timeTolerance = 7;
     for (int y = 0; y < trimmedNormalisedOutput.size();y++) {
         for (int x = start-1; x < end;x++) {
             if (pointToLineDistance(x-start+1,y,slope,intercept)>timeTolerance && (slope <0 || slope >=0.75)) {

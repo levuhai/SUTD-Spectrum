@@ -216,8 +216,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="graph1" destination="gzw-Tg-dKr" id="Ozv-ys-sfF"/>
-                        <outlet property="graph2" destination="MSP-5E-uBz" id="ZXF-Rz-3PX"/>
+                        <outlet property="graph1" destination="MSP-5E-uBz" id="zUZ-2S-Hms"/>
+                        <outlet property="graph2" destination="gzw-Tg-dKr" id="Qj2-Gg-CaB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TRf-dP-sxw" userLabel="First Responder" sceneMemberID="firstResponder"/>
