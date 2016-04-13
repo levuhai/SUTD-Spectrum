@@ -10,6 +10,7 @@
 #import "MatrixOuput.h"
 #include "MFCCProcessor.hpp"
 #include <boost/scoped_array.hpp>
+#import <MZFormSheetController/MZFormSheetController.h>
 #include "WordMatch.h"
 #include "Types.h"
 #include "AudioFileReader.hpp"
@@ -17,6 +18,7 @@
 #include "MFCCUtils.h"
 #include "CAHostTimeBase.h"
 #include <Accelerate/Accelerate.h>
+#import "SelectionTable.h"
 #import "DataManager.h"
 #import "Word.h"
 
@@ -50,6 +52,8 @@ const float kDefaultTrimEndThreshold = -200.0f;
     BOOL _currentRecordingState;
     int _currentIndex;
     NSString* _currentAudioPath;
+    NSString* _currentRecordPath;
+    Word* _currentWord;
     
     std::vector<float> centroids; // dataY
     std::vector<float> indices; // dataX
@@ -96,31 +100,10 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     .mSampleRate        = 44100.0,
 };
 
-- (void)_randomWord {
-    // Randomize words
-    words = [[DataManager shared] getRandomWords];
-    Word* firstW = (Word*)words[0];
-    NSString* t = [NSString stringWithFormat:@"%@:%@",firstW.phoneme,firstW.phonetic];
-    self.lbWord.text = t;
-    
-    for (int i =11; i<=14;i++) {
-        UIButton* button = (UIButton*)[self.view viewWithTag:i];
-        button.selected = NO;
-        if (i > 10 + words.count) {
-            button.hidden = YES;
-        } else {
-            Word *w = (Word*)words[i-11];
-            [button setTitle:w.speaker forState:UIControlStateNormal];
-        }
-    }
-    [self setCurrentAudioToIndex:0];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     NSLog(@"%@",[self applicationDocuments]);
-    [self _randomWord];
     
     // Setup UIScrollView
     // Trimming
@@ -132,17 +115,17 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     [self addChildViewController:_trimVC];
     [_trimVC didMoveToParentViewController:self];
     // Second page
-    _trim1VC = [storyboard instantiateViewControllerWithIdentifier:@"MFCCController"];
+//    _trim1VC = [storyboard instantiateViewControllerWithIdentifier:@"MFCCController"];
     CGRect f = _scrollView.frame;
-    f.origin.x = self.view.frame.size.width;
-    _trim1VC.view.frame = f ;
-    [self.scrollView addSubview:_trim1VC.view];
-    [self addChildViewController:_trim1VC];
-    [_trim1VC didMoveToParentViewController:self];
+//    f.origin.x = self.view.frame.size.width;
+//    _trim1VC.view.frame = f ;
+//    [self.scrollView addSubview:_trim1VC.view];
+//    [self addChildViewController:_trim1VC];
+//    [_trim1VC didMoveToParentViewController:self];
     // Third page
     _matrixVC = [storyboard instantiateViewControllerWithIdentifier:@"MatrixController"];
     f = _scrollView.frame;
-    f.origin.x = self.view.frame.size.width*2;
+    f.origin.x = self.view.frame.size.width;
     _matrixVC.view.frame = f ;
     [self.scrollView addSubview:_matrixVC.view];
     [self addChildViewController:_matrixVC];
@@ -150,7 +133,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     // Forth page
     _matrix2VC = [storyboard instantiateViewControllerWithIdentifier:@"MatrixController"];
     f = _scrollView.frame;
-    f.origin.x = self.view.frame.size.width*3;
+    f.origin.x = self.view.frame.size.width*2;
     _matrix2VC.view.frame = f ;
     [self.scrollView addSubview:_matrix2VC.view];
     [self addChildViewController:_matrix2VC];
@@ -158,54 +141,64 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     
     // Set content size;
     CGSize contentSize = _scrollView.frame.size;
-    contentSize.width = self.view.frame.size.width*4;
+    contentSize.width = self.view.frame.size.width*3;
     _scrollView.contentSize = contentSize;
     
     [self _setupAudioController];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    self.levelsTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
-                                                        target:self
-                                                      selector:@selector(_updateLevels:)
-                                                      userInfo:nil
-                                                       repeats:YES];
-}
-
 #pragma mark - Actions
 
-- (IBAction)randomTouched:(id)sender {
-    [self _randomWord];
+- (IBAction)selectTouched:(id)sender {
+    SelectionTable *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"selection"];
+    vc.showRecordedSounds = NO;
+    
+    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
+    formSheet.shouldDismissOnBackgroundViewTap = NO;
+    formSheet.transitionStyle = MZFormSheetTransitionStyleFade;
+    formSheet.cornerRadius = 0.0;
+    formSheet.presentedFormSheetSize = CGSizeMake(self.view.bounds.size.width-40, self.view.bounds.size.height-200);
+    formSheet.didDismissCompletionHandler = ^(UIViewController *presentedFSViewController){
+        SelectionTable* t = (SelectionTable*)presentedFSViewController;
+        _currentWord = t.selectedWord;
+        _lbWord.text = [[_currentWord.croppedPath lastPathComponent] stringByDeletingPathExtension];
+        _currentAudioPath = [[NSBundle mainBundle] pathForResource:[_currentWord.fullPath stringByDeletingPathExtension] ofType:@"wav" inDirectory:@"sounds"];
+    };
+    
+    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+        //do sth
+        NSLog(@"asdfsadf");
+    }];
+    
+}
+
+- (IBAction)selectRecordTouched:(id)sender {
+    SelectionTable *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"selection"];
+    vc.showRecordedSounds = YES;
+    
+    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
+    formSheet.shouldDismissOnBackgroundViewTap = NO;
+    formSheet.transitionStyle = MZFormSheetTransitionStyleFade;
+    formSheet.cornerRadius = 0.0;
+    formSheet.presentedFormSheetSize = CGSizeMake(self.view.bounds.size.width-40, self.view.bounds.size.height-200);
+    formSheet.didDismissCompletionHandler = ^(UIViewController *presentedFSViewController){
+        SelectionTable* t = (SelectionTable*)presentedFSViewController;
+        _currentRecordPath = t.selectedRecordPath;
+    };
+    
+    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+        //do sth
+        NSLog(@"asdfsadf");
+    }];
+    
 }
 
 - (IBAction)compareTouched:(id)sender {
-    
-    [self _compareFileA:[self test1FilePath] fileB:_currentAudioPath];//[self testFilePath]
-    [self playClicked:self.playrecord];
+    [self _compareFileA:_currentRecordPath fileB:_currentAudioPath];//[self testFilePath]
+    [self playRecordClicked:nil];
 }
 
-- (IBAction)changeSoundTouched:(UIButton*)sender {
-    [self setCurrentAudioToIndex:(int)(sender.tag-11)];
-    for (int i =11; i<=14;i++) {
-        UIButton* button = (UIButton*)[self.view viewWithTag:i];
-        button.selected = NO;
-    }
-    sender.selected = YES;
-    
-}
-
-- (void)setCurrentAudioToIndex:(int)index {
-    _currentIndex = index;
-    Word* w1 = words[index];
-    _currentAudioPath = [[NSBundle mainBundle] pathForResource:[w1.fullPath stringByDeletingPathExtension] ofType:@"wav" inDirectory:@"sounds"];
-    UIButton* button = (UIButton*)[self.view viewWithTag:index+11];
-    button.selected = YES;
-}
-
-- (IBAction)toggleRecording:(id)sender
-{
+- (IBAction)stopRecording:(id)sender {
     if ( _recorder ) {
         [_recorder finishRecording];
         [_audioController removeOutputReceiver:_recorder];
@@ -213,9 +206,14 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         self.recorder = nil;
         //self.btnPlay.enabled = YES;
         //_recordButton.selected = NO;
-    } else {
+    }
+}
+
+- (IBAction)startRecording:(id)sender
+{
+     if ( !_recorder ) {
         self.recorder = [[AERecorder alloc] initWithAudioController:_audioController];
-        NSString *path = [self test1FilePath];
+        NSString *path = [self testFilePath];
         NSError *error = nil;
         if ( ![_recorder beginRecordingToFileAtPath:path fileType:kAudioFileWAVEType bitDepth:32 channels:1 error:&error] ) {
             [[[UIAlertView alloc] initWithTitle:@"Error"
@@ -234,9 +232,49 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     }
 }
 
-- (IBAction)playClicked:(id)sender {
-    
-    UIButton* button = (UIButton*)sender;
+- (IBAction)playRecordClicked:(UIButton*)button {
+    if ( _player ) {
+        [_audioController removeChannels:@[_player]];
+        self.player = nil;
+        button.selected = NO;
+    } else {
+        NSString *path = (button.tag==3?[self test1FilePath]:_currentRecordPath);
+        if ( ![[NSFileManager defaultManager] fileExistsAtPath:path] ) return;
+        
+        NSError *error = nil;
+        self.player = [AEAudioFilePlayer audioFilePlayerWithURL:[NSURL fileURLWithPath:path] error:&error];
+        
+        if ( !_player ) {
+            [[[UIAlertView alloc] initWithTitle:@"Error"
+                                        message:[NSString stringWithFormat:@"Couldn't start playback: %@", [error localizedDescription]]
+                                       delegate:nil
+                              cancelButtonTitle:nil
+                              otherButtonTitles:@"OK", nil] show];
+            return;
+        }
+        
+        
+        
+        _player.removeUponFinish = YES;
+        __weak ViewController *weakSelf = self;
+        _player.completionBlock = ^{
+            button.selected = NO;
+            weakSelf.player = nil;
+        };
+        [_audioController addChannels:@[_player]];
+        if (button == nil) {
+            NSLog(@"%f",self.player.duration*_startTrimPercentage);
+            self.player.currentTime = self.player.duration*_startTrimPercentage;
+            [self performSelector:@selector(_stop)
+                       withObject:nil
+                       afterDelay:self.player.duration*(_endTrimPercentage-_startTrimPercentage)];
+        }
+        
+        button.selected = YES;
+    }
+}
+
+- (IBAction)playClicked:(UIButton*)button {
     if ( _player ) {
         [_audioController removeChannels:@[_player]];
         self.player = nil;
@@ -266,13 +304,6 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
             weakSelf.player = nil;
         };
         [_audioController addChannels:@[_player]];
-        if (button.tag == 3) {
-            NSLog(@"%f",self.player.duration*_startTrimPercentage);
-            self.player.currentTime = self.player.duration*_startTrimPercentage;
-            [self performSelector:@selector(_stop)
-                       withObject:nil
-                       afterDelay:self.player.duration*(_endTrimPercentage-_startTrimPercentage)];
-        }
         
         
         button.selected = YES;
@@ -293,25 +324,6 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     _audioController.preferredBufferDuration = 0.005;
     _audioController.useMeasurementMode = YES;
     [_audioController start:NULL];
-    
-    if (self.headerView) {
-        // Oscilloscope
-        self.inputOscilloscope = [[TPOscilloscopeLayer alloc] initWithAudioDescription:_audioController.audioDescription];
-        _inputOscilloscope.frame = CGRectMake(0, 0, self.view.bounds.size.width, 44-10);
-        _inputOscilloscope.lineColor = [UIColor colorWithWhite:0.0 alpha:0.3];
-        [self.headerView.layer addSublayer:_inputOscilloscope];
-        [_audioController addInputReceiver:_inputOscilloscope];
-        [_inputOscilloscope start];
-        
-        // Volume
-        self.inputLevelLayer = [CALayer layer];
-        _inputLevelLayer.backgroundColor = [[UIColor colorWithWhite:0.0 alpha:0.3] CGColor];
-        _inputLevelLayer.frame = CGRectMake(0,
-                                            _headerView.bounds.size.height-10,
-                                            _headerView.bounds.size.width,
-                                            10);
-        [_headerView.layer addSublayer:_inputLevelLayer];
-    }
 }
 
 // =============================================================================
@@ -321,22 +333,6 @@ static inline float _translate(float val, float min, float max) {
     if ( val < min ) val = min;
     if ( val > max ) val = max;
     return (val - min) / (max - min);
-}
-
-- (void)_updateLevels:(NSTimer*)timer {
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
-    
-    Float32 inputAvg, inputPeak;
-    [_audioController inputAveragePowerLevel:&inputAvg peakHoldLevel:&inputPeak];
-    
-    _inputLevelLayer.frame = CGRectMake(0,
-                                        _headerView.bounds.size.height-10,
-                                        _translate(inputAvg,-40,0) * (_headerView.bounds.size.width),
-                                        10);
-    
-    
-    [CATransaction commit];
 }
 
 - (FeatureTypeDTW::Features)_getPreProcessInfo:(NSURL*)url beginThreshold:(float)bt endThreshold:(float)et info:(WMAudioFilePreProcessInfo*) fileInfo{
@@ -804,7 +800,7 @@ static inline float _translate(float val, float min, float max) {
         NSLog(@"fit %f",fitQuality[i]);
     }
     float score = sum/(end-start+1);
-    self.lbScore.text = [NSString stringWithFormat:@"%f",score];
+    self.lbScore.text = [NSString stringWithFormat:@"%.3f",score];
 }
 
 inline float linearFun(float x, float slope, float intercept) {
@@ -867,9 +863,22 @@ void getLinearFit(float* xData, float* yData, size_t length, float* slope, float
 
 - (NSURL *)testFilePathURL
 {
-    return [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@",
-                                   [self applicationDocumentsDirectory],
-                                   @"test.wav"]];
+    NSDate* d = [NSDate date];
+    NSString* name = [NSString stringWithFormat:@"%.0f.wav",d.timeIntervalSince1970];
+    _currentRecordPath = [NSString stringWithFormat:@"%@/%@",
+                          [self applicationDocumentsDirectory],
+                          name];
+    return [NSURL fileURLWithPath:_currentRecordPath];
+}
+
+- (NSString *)testFilePath
+{
+    NSDate* d = [NSDate date];
+    NSString* name = [NSString stringWithFormat:@"%.0f.wav",d.timeIntervalSince1970];
+    _currentRecordPath = [NSString stringWithFormat:@"%@/%@",
+                          [self applicationDocumentsDirectory],
+                          name];
+    return _currentRecordPath;
 }
 
 - (NSString*)test2FilePath {

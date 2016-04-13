@@ -15,13 +15,12 @@
 @property (nonatomic, strong) AEAudioController* audioController;
 
 // Others UI Elements
-@property (nonatomic, strong) IBOutlet UIView* headerView;
 @property (nonatomic, strong) IBOutlet UIScrollView* scrollView;
 @property (nonatomic, strong) IBOutlet UIView* footerView;
 @property (nonatomic, strong) IBOutlet UIButton* playrecord;
-@property (nonatomic, weak) IBOutlet UIButton *btnRandom;
 @property (nonatomic, weak) IBOutlet UILabel *lbScore;
 @property (nonatomic, weak) IBOutlet UILabel *lbWord;
+@property (nonatomic, weak) IBOutlet UILabel *lbRecord;
 
 /**
  A flag indicating whether we are recording or not

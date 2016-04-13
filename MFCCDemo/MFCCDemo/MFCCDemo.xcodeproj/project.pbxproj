@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A746F8781C27A59100150C25 /* WordController.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F8771C27A59100150C25 /* WordController.m */; };
 		A746F87B1C27A80900150C25 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F87A1C27A80900150C25 /* Word.m */; };
 		A746F87E1C27A81C00150C25 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F87D1C27A81C00150C25 /* DataManager.m */; };
 		A746F8811C27BBBC00150C25 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F8801C27BBBC00150C25 /* BaseModel.m */; };
 		A746F8841C27BD7D00150C25 /* NSDictionary+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F8831C27BD7D00150C25 /* NSDictionary+ES.m */; };
 		A7BFD42F1C26A46A00A81D7B /* result.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A7BFD42E1C26A46A00A81D7B /* result.sqlite */; };
 		A7D81BA61C377ECE00839158 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = A7D81BA51C377ECE00839158 /* sounds */; };
+		A7EB1A861CBDF128001A5959 /* SelectionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EB1A851CBDF128001A5959 /* SelectionTable.m */; };
 		D759FD1C1BCE33C900225400 /* test.wav in Resources */ = {isa = PBXBuildFile; fileRef = D759FD1B1BCE33C900225400 /* test.wav */; };
 		D761191B1BBA47280027706B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D761191A1BBA47280027706B /* CoreFoundation.framework */; };
 		D763E8AC1BD77565000CDE19 /* TPOscilloscopeLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = D763E8AB1BD77565000CDE19 /* TPOscilloscopeLayer.mm */; };
@@ -71,8 +71,6 @@
 		07C44AA08666DCA9410EF65F /* libPods-MFCCDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MFCCDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E15C89C5659778544E4952A /* Pods-MFCCDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFCCDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		70991DECC5FEC8561D7AD94F /* Pods-MFCCDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFCCDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo.release.xcconfig"; sourceTree = "<group>"; };
-		A746F8761C27A59100150C25 /* WordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordController.h; sourceTree = "<group>"; };
-		A746F8771C27A59100150C25 /* WordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordController.m; sourceTree = "<group>"; };
 		A746F8791C27A80900150C25 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
 		A746F87A1C27A80900150C25 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
 		A746F87C1C27A81C00150C25 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
@@ -83,6 +81,8 @@
 		A746F8831C27BD7D00150C25 /* NSDictionary+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ES.m"; sourceTree = "<group>"; };
 		A7BFD42E1C26A46A00A81D7B /* result.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = result.sqlite; sourceTree = "<group>"; };
 		A7D81BA51C377ECE00839158 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
+		A7EB1A841CBDF128001A5959 /* SelectionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionTable.h; sourceTree = "<group>"; };
+		A7EB1A851CBDF128001A5959 /* SelectionTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionTable.m; sourceTree = "<group>"; };
 		D759FD1B1BCE33C900225400 /* test.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test.wav; sourceTree = "<group>"; };
 		D761191A1BBA47280027706B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		D761191C1BBA473B0027706B /* libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; path = "boost_ext/lib/libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; sourceTree = "<group>"; };
@@ -215,13 +215,26 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
-		A746F8751C27A53600150C25 /* New */ = {
+		A7EB1A871CBDF165001A5959 /* Selection */ = {
 			isa = PBXGroup;
 			children = (
-				A746F8761C27A59100150C25 /* WordController.h */,
-				A746F8771C27A59100150C25 /* WordController.m */,
+				A7EB1A841CBDF128001A5959 /* SelectionTable.h */,
+				A7EB1A851CBDF128001A5959 /* SelectionTable.m */,
 			);
-			name = New;
+			name = Selection;
+			sourceTree = "<group>";
+		};
+		A7EB1A881CBDF184001A5959 /* Graph */ = {
+			isa = PBXGroup;
+			children = (
+				D76B34B71C06076A00ACA397 /* MatrixController.h */,
+				D76B34B81C06076A00ACA397 /* MatrixController.mm */,
+				D76B34AE1C05A62100ACA397 /* MFCCController.h */,
+				D76B34AF1C05A62100ACA397 /* MFCCController.mm */,
+				D76B34B41C05BC6B00ACA397 /* MFCC1Controller.h */,
+				D76B34B51C05BC6B00ACA397 /* MFCC1Controller.mm */,
+			);
+			name = Graph;
 			sourceTree = "<group>";
 		};
 		D763E8AD1BD7F4BF000CDE19 /* Oscilloscope */ = {
@@ -237,15 +250,10 @@
 			isa = PBXGroup;
 			children = (
 				D7C075EB1BB2572A000DB38A /* Main.storyboard */,
-				A746F8751C27A53600150C25 /* New */,
-				D76B34AE1C05A62100ACA397 /* MFCCController.h */,
-				D76B34AF1C05A62100ACA397 /* MFCCController.mm */,
-				D76B34B41C05BC6B00ACA397 /* MFCC1Controller.h */,
-				D76B34B51C05BC6B00ACA397 /* MFCC1Controller.mm */,
+				A7EB1A871CBDF165001A5959 /* Selection */,
+				A7EB1A881CBDF184001A5959 /* Graph */,
 				D7C075E81BB2572A000DB38A /* ViewController.h */,
 				D7C075E91BB2572A000DB38A /* ViewController.mm */,
-				D76B34B71C06076A00ACA397 /* MatrixController.h */,
-				D76B34B81C06076A00ACA397 /* MatrixController.mm */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -590,7 +598,6 @@
 				D7C075EA1BB2572A000DB38A /* ViewController.mm in Sources */,
 				A746F87B1C27A80900150C25 /* Word.m in Sources */,
 				D76B34B01C05A62100ACA397 /* MFCCController.mm in Sources */,
-				A746F8781C27A59100150C25 /* WordController.m in Sources */,
 				D7C08AE31BB3AAFF000DB38A /* WordMatchSession.cpp in Sources */,
 				D7C076AB1BB273C8000DB38A /* CAXException.cpp in Sources */,
 				D76B34B91C06076A00ACA397 /* MatrixController.mm in Sources */,
@@ -609,6 +616,7 @@
 				D7C076A81BB273C8000DB38A /* CADebugPrintf.cpp in Sources */,
 				D7C08ADD1BB3AAFF000DB38A /* MFCCProcessor.cpp in Sources */,
 				D7C076A71BB273C8000DB38A /* CADebugMacros.cpp in Sources */,
+				A7EB1A861CBDF128001A5959 /* SelectionTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

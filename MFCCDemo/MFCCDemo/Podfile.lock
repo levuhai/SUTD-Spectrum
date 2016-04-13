@@ -4,14 +4,23 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
+  - MZAppearance (1.1.6)
+  - MZFormSheetController (3.1.3):
+    - MZAppearance
+    - MZFormSheetController/Core (= 3.1.3)
+  - MZFormSheetController/Core (3.1.3):
+    - MZAppearance
   - TheAmazingAudioEngine (1.5.2)
 
 DEPENDENCIES:
   - FMDB
+  - MZFormSheetController
   - TheAmazingAudioEngine
 
 SPEC CHECKSUMS:
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  MZAppearance: 0c06d3fa9cc55142f1da14bc8631fbe8fd6e19d5
+  MZFormSheetController: da2df509805d757e04b052915057d8e1a338b050
   TheAmazingAudioEngine: 1151341915dc91620bc6b2a7a5bf5920001b4f75
 
 COCOAPODS: 0.39.0

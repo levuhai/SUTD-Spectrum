@@ -61,8 +61,8 @@ const float kDefaultTrimEndThreshold = -200.0f;
                                                             info:&_fileBInfo];
     
     
-    int sizeA = floor(featureA.size()*0.5f);
-    int sizeB = floor(featureB.size()*0.5f);
+    int sizeA = (int)featureA.size();
+    int sizeB = (int)featureB.size();
     //    if (sizeA <= sizeB) {
     //        featureA = [self _getPreProcessInfo:urlB
     //                             beginThreshold:kDefaultTrimBeginThreshold
@@ -92,8 +92,8 @@ const float kDefaultTrimEndThreshold = -200.0f;
     for (int i = 0; i<sizeA; i+=1) {
         for (int j = 0; j<sizeB; j+=1) {
             float diff = 0;
-            for (int k = 0; k<9; k++) {
-                diff += (featureA[i*2][k] - featureB[j*2][k])*(featureA[i*2][k] - featureB[j*2][k]);
+            for (int k = 0; k<12; k++) {
+                diff += (featureA[i][k] - featureB[j][k])*(featureA[i][k] - featureB[j][k]);
             }
             output[i][j] = sqrtf(diff);
             // Copy all the data from output into sorted output
@@ -109,10 +109,10 @@ const float kDefaultTrimEndThreshold = -200.0f;
     // Output count
     float keepPct = 0.25f;
     float outputCount = sizeA*sizeB;
-    float maxDiff = sortedOutput[(int)roundf(keepPct*outputCount)];
+    float maxDiff ;//= sortedOutput[(int)roundf(keepPct*outputCount)];
     //NSLog(@"diff %f",maxDiff);
     // TODO: maxDiff
-    //maxDiff = 20;
+    maxDiff = 6.5;
     /*
      % initialize a new matrix to store the normalized output values
      normalizedOutput = output;
@@ -451,7 +451,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
     
     // ================================================
     // Free float array
-    for(int i = 0; i < sizeA; ++i) {
+    for(int i = 0; i < sizeA; i++) {
         delete [] output[i];
     }
     delete [] output;
