@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A8E38381CBF8BE400B29645 /* SUTDMFCCHelperFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E38361CBF8BE400B29645 /* SUTDMFCCHelperFunctions.cpp */; };
 		A746F87B1C27A80900150C25 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F87A1C27A80900150C25 /* Word.m */; };
 		A746F87E1C27A81C00150C25 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F87D1C27A81C00150C25 /* DataManager.m */; };
 		A746F8811C27BBBC00150C25 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F8801C27BBBC00150C25 /* BaseModel.m */; };
@@ -69,6 +70,8 @@
 
 /* Begin PBXFileReference section */
 		07C44AA08666DCA9410EF65F /* libPods-MFCCDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MFCCDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A8E38361CBF8BE400B29645 /* SUTDMFCCHelperFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SUTDMFCCHelperFunctions.cpp; sourceTree = "<group>"; };
+		3A8E38371CBF8BE400B29645 /* SUTDMFCCHelperFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SUTDMFCCHelperFunctions.hpp; sourceTree = "<group>"; };
 		4E15C89C5659778544E4952A /* Pods-MFCCDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFCCDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		70991DECC5FEC8561D7AD94F /* Pods-MFCCDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MFCCDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo.release.xcconfig"; sourceTree = "<group>"; };
 		A746F8791C27A80900150C25 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
@@ -233,6 +236,8 @@
 				D76B34AF1C05A62100ACA397 /* MFCCController.mm */,
 				D76B34B41C05BC6B00ACA397 /* MFCC1Controller.h */,
 				D76B34B51C05BC6B00ACA397 /* MFCC1Controller.mm */,
+				3A8E38361CBF8BE400B29645 /* SUTDMFCCHelperFunctions.cpp */,
+				3A8E38371CBF8BE400B29645 /* SUTDMFCCHelperFunctions.hpp */,
 			);
 			name = Graph;
 			sourceTree = "<group>";
@@ -604,6 +609,7 @@
 				A746F8841C27BD7D00150C25 /* NSDictionary+ES.m in Sources */,
 				D7C08AE21BB3AAFF000DB38A /* WordMatch.cpp in Sources */,
 				D7C075E71BB2572A000DB38A /* AppDelegate.m in Sources */,
+				3A8E38381CBF8BE400B29645 /* SUTDMFCCHelperFunctions.cpp in Sources */,
 				D7C076AA1BB273C8000DB38A /* CAStreamBasicDescription.cpp in Sources */,
 				D7C076A91BB273C8000DB38A /* CAHostTimeBase.cpp in Sources */,
 				D7C075E41BB2572A000DB38A /* main.m in Sources */,

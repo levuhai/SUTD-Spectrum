@@ -9,6 +9,8 @@
 #ifndef SUTDMFCCHelperFunctions_h
 #define SUTDMFCCHelperFunctions_h
 
-#include <stdio.h>
+#include "MFCCUtils.h"
+
+float euclideanDistance(FeatureTypeDTW::FeatureVector a, FeatureTypeDTW::FeatureVector b, size_t n);
 
 #endif /* SUTDMFCCHelperFunctions_h */

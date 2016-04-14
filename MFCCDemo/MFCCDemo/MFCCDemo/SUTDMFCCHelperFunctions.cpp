@@ -6,7 +6,7 @@
 //  Copyright © 2016 Hai Le. All rights reserved.
 //
 
-#include "SUTDMFCCHelperFunctions.h"
+#include "SUTDMFCCHelperFunctions.hpp"
 
 
 /*

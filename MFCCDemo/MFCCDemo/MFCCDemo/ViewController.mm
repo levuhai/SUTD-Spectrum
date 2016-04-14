@@ -21,6 +21,7 @@
 #import "SelectionTable.h"
 #import "DataManager.h"
 #import "Word.h"
+#include "SUTDMFCCHelperFunctions.hpp"
 
 #import "MFCCController.h"
 #import "MFCC1Controller.h"
@@ -40,6 +41,7 @@
 #define kAudioFile2 [[NSBundle mainBundle] pathForResource:@"good2" ofType:@"wav"]
 #define kAudioFile3 [[NSBundle mainBundle] pathForResource:@"test" ofType:@"wav"]
 #define MAX_NUM_FRAMES 500
+#define SUTDMFCC_FEATURE_LENGTH 12
 
 //const float kDefaultComparisonThreshold = 3.09f;
 const float kDefaultTrimBeginThreshold = -200.0f;
@@ -357,6 +359,8 @@ static inline float _translate(float val, float min, float max) {
     
 }
 
+
+
 - (void)_compareFileA:(NSString*)pathA fileB:(NSString*)pathB {
     //------------------------------------------------------------------------------
     // Read audio files from file paths
@@ -391,8 +395,6 @@ static inline float _translate(float val, float min, float max) {
 //    sizeB = (int)featureB.size();
     
     //------------------------------------------------------------------------------
-    // Init SortedOutput[a*b]
-    float *sortedOutput = new float[sizeA*sizeB];
    
     // Init Output[a][b]
     float **output = new float*[sizeA];
@@ -403,28 +405,12 @@ static inline float _translate(float val, float min, float max) {
     // Set up matrix of MFCC similarity
     for (int i = 0; i<sizeA; i++) {
         for (int j = 0; j<sizeB; j++) {
-            float diff = 0;
-            for (int k = 0; k<12; k++) {
-                diff += (featureA[i][k] - featureB[j][k])*(featureA[i][k] - featureB[j][k]);
-            }
-            output[i][j] = sqrtf(diff);
-            // Copy all the data from output into sorted output
-            //NSLog(@"%f",output[i][j]);
-            sortedOutput[i*sizeB+j] = output[i][j];
+            output[i][j] = euclideanDistance(featureA[i], featureB[j],SUTDMFCC_FEATURE_LENGTH);
         }
     }
     
-    // Sort
-    vDSP_vsort(sortedOutput,sizeA*sizeB,1);
-     NSLog(@"min %f max %f",sortedOutput[0],sortedOutput[sizeA*sizeB-1]);
-    
-    // Output count
-    float keepPct = 0.25f;
-    float outputCount = sizeA*sizeB;
-    float maxDiff = sortedOutput[(int)roundf(keepPct*outputCount)];
-     NSLog(@"diff %f",maxDiff);
-    // TODO: maxDiff
-    maxDiff = 7;
+    float maxDiff = 7;
+
     /*
      % initialize a new matrix to store the normalized output values
      normalizedOutput = output;
