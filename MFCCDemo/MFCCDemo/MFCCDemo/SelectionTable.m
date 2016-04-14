@@ -18,7 +18,7 @@
 
 - (NSArray *)ls {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = [[paths objectAtIndex:0] stringByAppendingString:@"/recordings"];
     NSArray *directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectory error:nil];
     
     NSLog(@"%@", documentsDirectory);
@@ -78,7 +78,7 @@
             _selectedRecordPath = [[NSBundle mainBundle] pathForResource:[w.fullPath stringByDeletingPathExtension] ofType:@"wav" inDirectory:@"sounds"];
         }
         else
-            _selectedRecordPath = [NSString stringWithFormat:@"%@/%@",
+            _selectedRecordPath = [NSString stringWithFormat:@"%@/recordings/%@",
                                    [self applicationDocumentsDirectory],
                                    records[indexPath.row]];
     
