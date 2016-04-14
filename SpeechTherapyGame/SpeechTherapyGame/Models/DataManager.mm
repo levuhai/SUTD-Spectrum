@@ -85,6 +85,7 @@ static DataManager *sharedInstance = nil;
         [fm removeItemAtPath:_soundsDBPath error:nil];
         NSString* boneDBPath = [[NSBundle mainBundle] pathForResource:@"sound" ofType:@"sqlite"];
         [fm copyItemAtPath:boneDBPath toPath:_soundsDBPath error:nil];
+        
         [self _generateDB];
     }
     return self;

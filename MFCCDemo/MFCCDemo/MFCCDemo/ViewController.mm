@@ -851,7 +851,7 @@ void getLinearFit(float* xData, float* yData, size_t length, float* slope, float
 {
     NSDate* d = [NSDate date];
     NSString* name = [NSString stringWithFormat:@"%.0f.wav",d.timeIntervalSince1970];
-    _currentRecordPath = [NSString stringWithFormat:@"%@/%@",
+    _currentRecordPath = [NSString stringWithFormat:@"%@/recordings/%@",
                           [self applicationDocumentsDirectory],
                           name];
     return [NSURL fileURLWithPath:_currentRecordPath];
@@ -861,7 +861,7 @@ void getLinearFit(float* xData, float* yData, size_t length, float* slope, float
 {
     NSDate* d = [NSDate date];
     NSString* name = [NSString stringWithFormat:@"%.0f.wav",d.timeIntervalSince1970];
-    _currentRecordPath = [NSString stringWithFormat:@"%@/%@",
+    _currentRecordPath = [NSString stringWithFormat:@"%@/recordings/%@",
                           [self applicationDocumentsDirectory],
                           name];
     return _currentRecordPath;

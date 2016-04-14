@@ -1,4 +1,10 @@
 PODS:
+  - EZAudio (1.1.2):
+    - EZAudio/Full (= 1.1.2)
+  - EZAudio/Core (1.1.2)
+  - EZAudio/Full (1.1.2):
+    - EZAudio/Core
+    - TPCircularBuffer (~> 0.0)
   - FMDB (2.5):
     - FMDB/standard (= 2.5)
   - FMDB/common (2.5)
@@ -11,16 +17,20 @@ PODS:
   - MZFormSheetController/Core (3.1.3):
     - MZAppearance
   - TheAmazingAudioEngine (1.5.2)
+  - TPCircularBuffer (0.0.1)
 
 DEPENDENCIES:
+  - EZAudio
   - FMDB
   - MZFormSheetController
   - TheAmazingAudioEngine
 
 SPEC CHECKSUMS:
+  EZAudio: 01373de2b1257b77be1bf13753fb1c4ea8a9777e
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   MZAppearance: 0c06d3fa9cc55142f1da14bc8631fbe8fd6e19d5
   MZFormSheetController: da2df509805d757e04b052915057d8e1a338b050
   TheAmazingAudioEngine: 1151341915dc91620bc6b2a7a5bf5920001b4f75
+  TPCircularBuffer: 949e9632b9fb99b7274d7b2296ee22bff5841e35
 
 COCOAPODS: 0.39.0
