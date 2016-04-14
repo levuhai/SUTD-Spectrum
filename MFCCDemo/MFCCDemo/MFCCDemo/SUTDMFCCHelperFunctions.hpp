@@ -13,4 +13,8 @@
 
 float euclideanDistance(FeatureTypeDTW::FeatureVector a, FeatureTypeDTW::FeatureVector b, size_t n);
 
+void similarityMatrix(FeatureTypeDTW::Features a, FeatureTypeDTW::Features b, size_t featureLength, float** matrix);
+
+void normaliseMatrix(const float** M, std::vector< std::vector<float> >& MN, size_t sizeA, size_t sizeB);
+
 #endif /* SUTDMFCCHelperFunctions_h */

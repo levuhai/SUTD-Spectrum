@@ -379,80 +379,29 @@ static inline float _translate(float val, float min, float max) {
 
     int sizeA = (int)featureA.size();
     int sizeB = (int)featureB.size();
-//    if (sizeA <= sizeB) {
-//        featureA = [self _getPreProcessInfo:urlB
-//                             beginThreshold:kDefaultTrimBeginThreshold
-//                               endThreshold:kDefaultTrimEndThreshold
-//                                       info:&_fileAInfo];
-//        featureB = [self _getPreProcessInfo:urlA
-//                             beginThreshold:kDefaultTrimBeginThreshold
-//                               endThreshold:kDefaultTrimEndThreshold
-//                                       info:&_fileBInfo];
-//        
-//        
-//    }
-//    sizeA = (int)featureA.size();
-//    sizeB = (int)featureB.size();
+
     
-    //------------------------------------------------------------------------------
-   
     // Init Output[a][b]
     float **output = new float*[sizeA];
-    for(int i = 0; i < sizeA; ++i) {
+    for(size_t i = 0; i < sizeA; ++i) {
         output[i] = new float[sizeB];
     }
     
-    // Set up matrix of MFCC similarity
-    for (int i = 0; i<sizeA; i++) {
-        for (int j = 0; j<sizeB; j++) {
-            output[i][j] = euclideanDistance(featureA[i], featureB[j],SUTDMFCC_FEATURE_LENGTH);
-        }
-    }
     
-    float maxDiff = 7;
+    // calculate the matrix of similarity
+    similarityMatrix(featureA, featureB, SUTDMFCC_FEATURE_LENGTH, output);
 
-    /*
-     % initialize a new matrix to store the normalized output values
-     normalizedOutput = output;
-     % convert from output to normalized output.
-     for i = 1:size(MFCC1,2)
-     for j = 1:size(MFCC2,2)
-     if output(i,j) > maxDiff
-     % anything that isn't in the top keepPct%, set to 0
-     normalizedOutput(i,j) = 0;
-     else
-     % anything that is in the top keepPct%, normalize to put it
-     % between 0 and 1, with 1 being perfect match and 0 being
-     % no match at all.
-     normalizedOutput(i,j) = (maxDiff-output(i,j))/maxDiff;
-     end
-     end
-     end
-     */
-        
+    
     // make sure normalisedOutput is empty and has the correct size
     normalisedOutput.clear();
     normalisedOutput.resize(sizeA);
     for (size_t i = 0; i<normalisedOutput.size(); i++){
-        //normalisedOutput[i].clear();
         normalisedOutput[i].resize(sizeB);
     }
     
-    float maxVal = 0.0f; // Use to calculate alpha of matrix
-    for (int i = 0; i<sizeA; i ++) {
-        for (int j = 0; j<sizeB; j++) {
-            if (output[i][j] > maxDiff) {
-                normalisedOutput[i][j] = 0.0f;
-            } else {
-                float value = (maxDiff - output[i][j])/maxDiff;
-                normalisedOutput[i][j] = value;
-                
-                if (value > maxVal) {
-                    maxVal = value;
-                }
-            }
-        }
-    }
+    
+    // normalize the output
+    normaliseMatrix((const float**) output, normalisedOutput, sizeA, sizeB);
     
 /* -------------------------------------------------------------------------
  % find the contiguous region of MFCC1 that has the most matches to
@@ -493,19 +442,6 @@ static inline float _translate(float val, float min, float max) {
     size_t windowLength = sizeB;
     int maxWindowStart = 0;
     
-    //float windowSum = 0.0f;
-    //int maxWindowSum = 0, maxWindowStart = 0, windowLength = sizeB;
-//    for (size_t i = 0; i < windowLength; i++) {
-//        windowSum += matchedFrameQuality[i];
-//    }
-//    for (size_t i = 0; i < sizeA - sizeB; i++) {
-//        if (windowSum > maxWindowSum) {
-//            maxWindowSum = windowSum;
-//            maxWindowStart = i;
-//        }
-//        windowSum -= matchedFrameQuality[i];
-//        windowSum += matchedFrameQuality[i+windowLength];
-//    }
     for (int i = 0; i < sizeA - sizeB; i++) {
         float slidingSum = 0;
         for (int j = i; j < i+sizeB-1; j++) {
