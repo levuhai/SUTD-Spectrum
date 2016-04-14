@@ -15,6 +15,8 @@
 		A7D81BA61C377ECE00839158 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = A7D81BA51C377ECE00839158 /* sounds */; };
 		A7EB1A861CBDF128001A5959 /* SelectionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EB1A851CBDF128001A5959 /* SelectionTable.m */; };
 		A7EB1A8D1CBF45F1001A5959 /* sound.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A7EB1A8C1CBF45F1001A5959 /* sound.sqlite */; };
+		A7EB1A911CBFA2BD001A5959 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EB1A8F1CBFA2BD001A5959 /* Fabric.framework */; };
+		A7EB1A921CBFA2BD001A5959 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EB1A901CBFA2BD001A5959 /* Crashlytics.framework */; };
 		D759FD1C1BCE33C900225400 /* test.wav in Resources */ = {isa = PBXBuildFile; fileRef = D759FD1B1BCE33C900225400 /* test.wav */; };
 		D761191B1BBA47280027706B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D761191A1BBA47280027706B /* CoreFoundation.framework */; };
 		D763E8AC1BD77565000CDE19 /* TPOscilloscopeLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = D763E8AB1BD77565000CDE19 /* TPOscilloscopeLayer.mm */; };
@@ -85,6 +87,8 @@
 		A7EB1A841CBDF128001A5959 /* SelectionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionTable.h; sourceTree = "<group>"; };
 		A7EB1A851CBDF128001A5959 /* SelectionTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionTable.m; sourceTree = "<group>"; };
 		A7EB1A8C1CBF45F1001A5959 /* sound.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound.sqlite; sourceTree = "<group>"; };
+		A7EB1A8F1CBFA2BD001A5959 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		A7EB1A901CBFA2BD001A5959 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		D759FD1B1BCE33C900225400 /* test.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test.wav; sourceTree = "<group>"; };
 		D761191A1BBA47280027706B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		D761191C1BBA473B0027706B /* libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; path = "boost_ext/lib/libboost_prg_exec_monitor-xgcc42-mt-1_46_OSX_10_6_32_64.a"; sourceTree = "<group>"; };
@@ -174,12 +178,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D761191B1BBA47280027706B /* CoreFoundation.framework in Frameworks */,
+				A7EB1A921CBFA2BD001A5959 /* Crashlytics.framework in Frameworks */,
 				D7C08AF71BB3AEED000DB38A /* CoreMedia.framework in Frameworks */,
 				D7C08A341BB2E3B0000DB38A /* OpenGLES.framework in Frameworks */,
 				D7C08A131BB2E1F4000DB38A /* UIKit.framework in Frameworks */,
 				D7C08A111BB2E1E0000DB38A /* CoreGraphics.framework in Frameworks */,
 				D7C08A0F1BB2E173000DB38A /* QuartzCore.framework in Frameworks */,
 				D7C08A0D1BB2E0AC000DB38A /* Accelerate.framework in Frameworks */,
+				A7EB1A911CBFA2BD001A5959 /* Fabric.framework in Frameworks */,
 				D7C08A0B1BB2DC6D000DB38A /* Foundation.framework in Frameworks */,
 				D7C08A081BB2DA19000DB38A /* CoreAudio.framework in Frameworks */,
 				D7C076361BB26132000DB38A /* GLKit.framework in Frameworks */,
@@ -288,6 +294,8 @@
 		D7C075D51BB2572A000DB38A = {
 			isa = PBXGroup;
 			children = (
+				A7EB1A8F1CBFA2BD001A5959 /* Fabric.framework */,
+				A7EB1A901CBFA2BD001A5959 /* Crashlytics.framework */,
 				A746F8641C27A4F800150C25 /* Data */,
 				D7C08A141BB2E238000DB38A /* Frameworks */,
 				D7C0762C1BB25975000DB38A /* References */,
@@ -451,6 +459,7 @@
 				D7C075DC1BB2572A000DB38A /* Resources */,
 				3B275DDE3DD227344188F9A3 /* Copy Pods Resources */,
 				CCEDC2843FA699331C742444 /* Embed Pods Frameworks */,
+				A7EB1A8E1CBFA2AC001A5959 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -572,6 +581,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MFCCDemo/Pods-MFCCDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		A7EB1A8E1CBFA2AC001A5959 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 38ee958469ea48aec391ad248a3dbd889d6bc7fd 30b9e84f5fa4cc9f107a1973a8be68c2cf231c78a9ce3468b6da4d2be1aa6887    ";
 		};
 		CCEDC2843FA699331C742444 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -762,6 +784,10 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MFCCDemo/Prefix.pch;
@@ -790,6 +816,10 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MFCCDemo/Prefix.pch;
