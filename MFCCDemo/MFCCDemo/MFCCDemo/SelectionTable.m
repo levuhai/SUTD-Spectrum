@@ -75,7 +75,9 @@
     if (_showRecordedSounds)
         if (indexPath.section == 1) {
             Word *w= words[indexPath.row];
-            _selectedRecordPath = [[NSBundle mainBundle] pathForResource:[w.fullPath stringByDeletingPathExtension] ofType:@"wav" inDirectory:@"sounds"];
+            _selectedRecordPath = [NSString stringWithFormat:@"%@/sounds/%@",
+                                   [self applicationDocumentsDirectory],
+                                   w.fullPath];
         }
         else
             _selectedRecordPath = [NSString stringWithFormat:@"%@/recordings/%@",

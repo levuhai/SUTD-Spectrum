@@ -841,6 +841,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sutd.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "32056e61-f28c-41e8-be9f-8e181665f997";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;

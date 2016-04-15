@@ -164,7 +164,10 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         SelectionTable* t = (SelectionTable*)presentedFSViewController;
         _currentWord = t.selectedWord;
         _lbWord.text = [[_currentWord.croppedPath lastPathComponent] stringByDeletingPathExtension];
-        _currentAudioPath = [[NSBundle mainBundle] pathForResource:[_currentWord.fullPath stringByDeletingPathExtension] ofType:@"wav" inDirectory:@"sounds"];
+        
+        _currentAudioPath = [NSString stringWithFormat:@"%@/sounds/%@",
+                             [self applicationDocumentsDirectory],
+                             _currentWord.fullPath];
     };
     
     [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
@@ -282,7 +285,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         self.player = nil;
         button.selected = NO;
     } else {
-        NSString *path = (button.tag==3?[self test1FilePath]:_currentAudioPath);
+        NSString *path = _currentAudioPath;
         if ( ![[NSFileManager defaultManager] fileExistsAtPath:path] ) return;
         
         NSError *error = nil;
@@ -326,15 +329,6 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     _audioController.preferredBufferDuration = 0.005;
     _audioController.useMeasurementMode = YES;
     [_audioController start:NULL];
-}
-
-// =============================================================================
-// Update Volume
-
-static inline float _translate(float val, float min, float max) {
-    if ( val < min ) val = min;
-    if ( val > max ) val = max;
-    return (val - min) / (max - min);
 }
 
 - (FeatureTypeDTW::Features)_getPreProcessInfo:(NSURL*)url beginThreshold:(float)bt endThreshold:(float)et info:(WMAudioFilePreProcessInfo*) fileInfo{
