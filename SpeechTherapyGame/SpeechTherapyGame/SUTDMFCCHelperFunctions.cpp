@@ -85,13 +85,13 @@ void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startC
     assert(numRows <= M.size());
     
     // initialize variables related to length and height of match region
-    size_t targetPhonemeLength = endColumn - startColumn;
+    size_t targetPhonemeLength = 1 + endColumn - startColumn;
     size_t matchRegionHeight = targetPhonemeLength < numRows ? targetPhonemeLength : numRows;
     
     
     // get the total match score for each row
     std::vector<float> rowScores(matchRegionHeight);
-    for(size_t i=0; i<numRows; i++){
+    for(size_t i=0; i<matchRegionHeight; i++){
         rowScores.at(i) = 0.0f;
         for(size_t j=startColumn;j<=endColumn;j++)
             rowScores.at(i) += M.at(i).at(j);
