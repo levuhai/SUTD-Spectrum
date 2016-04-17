@@ -389,7 +389,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     
     
     // calculate the matrix of similarity
-    genSimilarityMatrix(userVoiceFeatures, databaseVoiceFeatures, SUTDMFCC_FEATURE_LENGTH, similarityMatrix);
+    genSimilarityMatrix(userVoiceFeatures, databaseVoiceFeatures, similarityMatrix);
     
     
     // normalize the output
@@ -413,7 +413,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     // find the vertical location of a square match region, centred on the
     // target phoneme and the rows in the user voice that best match it.
     size_t matchRegionStartInUV, matchRegionEndInUV;
-    bestMatchLocation(similarityMatrix, targetPhonemeStartInDB, targetPhonemeEndInDB, &matchRegionStartInUV, &matchRegionEndInUV, uvSize);
+    bestMatchLocation(similarityMatrix, targetPhonemeStartInDB, targetPhonemeEndInDB, matchRegionStartInUV, matchRegionEndInUV);
     
     
     
@@ -461,6 +461,13 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
                              matchRegionStartInUV, matchRegionEndInUV);
     
     self.lbScore.text = [NSString stringWithFormat:@"%.3f", score];
+    
+    
+    /*
+     * Trim the user voice audio to the match region
+     */
+    _startTrimPercentage = matchRegionStartInUV/(float)similarityMatrix.size();
+    _endTrimPercentage  = matchRegionEndInUV/(float)similarityMatrix.size();
 }
 
 

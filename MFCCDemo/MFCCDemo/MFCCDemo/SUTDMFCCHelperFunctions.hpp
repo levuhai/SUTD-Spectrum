@@ -11,13 +11,13 @@
 
 #include "MFCCUtils.h"
 
-float euclideanDistance(FeatureTypeDTW::FeatureVector a, FeatureTypeDTW::FeatureVector b, size_t n);
+float euclideanDistance(const FeatureTypeDTW::FeatureVector& a, const FeatureTypeDTW::FeatureVector& b);
 
-void genSimilarityMatrix(FeatureTypeDTW::Features a, FeatureTypeDTW::Features b, size_t featureLength, std::vector< std::vector<float> >& M);
+void genSimilarityMatrix(const FeatureTypeDTW::Features& userVoice, const FeatureTypeDTW::Features& databaseVoice, std::vector< std::vector<float> >& M);
 
 void normaliseMatrix(std::vector< std::vector<float> >& M);
 
-void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startRow, size_t endRow, size_t* startColumn, size_t* endColumn, size_t numRows);
+void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startRow, size_t endRow, size_t& startColumn, size_t& endColumn);
 
 float matchDirection(const std::vector< std::vector<float> >& M,
                      size_t startColumn, size_t endColumn,
