@@ -30,6 +30,18 @@
 const float kDefaultTrimBeginThreshold = -200.0f;
 const float kDefaultTrimEndThreshold = -200.0f;
 
+
++ (float)scoreUserVoiceMemoryTest:(NSString*)userVoicePath dbVoice:(Word*)databaseVoiceWord {
+    
+    for(size_t i=0; i < 100; i++){
+        std::vector<float> foo (1000);
+        for(size_t j=0; j<foo.size(); j++)
+            foo.at(j) = MAXFLOAT;
+    }
+    
+    return 0.0f;
+}
+
 + (float)scoreUserVoice:(NSString*)userVoicePath dbVoice:(Word*)databaseVoiceWord {
     
     
