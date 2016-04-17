@@ -26,7 +26,7 @@ float euclideanDistance(FeatureTypeDTW::FeatureVector a, FeatureTypeDTW::Feature
     float distanceSquared = 0.0f;
     
     for(size_t i=0; i<a.size(); i++){
-        float diff = a[i] - b[i];
+        float diff = a.at(i) - b.at(i);
         distanceSquared += diff*diff;
     }
     
@@ -40,11 +40,11 @@ float euclideanDistance(FeatureTypeDTW::FeatureVector a, FeatureTypeDTW::Feature
 void genSimilarityMatrix(FeatureTypeDTW::Features userVoice, FeatureTypeDTW::Features databaseVoice, std::vector< std::vector<float> >& M){
     
     assert(userVoice.size() == M.size());
-    assert(databaseVoice.size() == M[0].size());
+    assert(databaseVoice.size() == M.at(0).size());
     
     for (int i = 0; i<userVoice.size(); i++)
         for (int j = 0; j<databaseVoice.size(); j++)
-            M[i][j] = euclideanDistance(userVoice[i], databaseVoice[j]);
+            M.at(i).at(j) = euclideanDistance(userVoice.at(i), databaseVoice.at(j));
 }
 
 /*
@@ -55,15 +55,15 @@ void genSimilarityMatrix(FeatureTypeDTW::Features userVoice, FeatureTypeDTW::Fea
 void normaliseMatrix(std::vector< std::vector<float> >& M){
     
     for (int i = 0; i<M.size(); i ++) {
-        for (int j = 0; j<M[0].size(); j++) {
+        for (int j = 0; j<M.at(0).size(); j++) {
             
             // zero out values above the threshold
-            if (M[i][j] > SUTDMFCC_MATCH_THRESHOLD) M[i][j] = 0.0f;
+            if (M.at(i).at(j) > SUTDMFCC_MATCH_THRESHOLD) M.at(i).at(j) = 0.0f;
             
             
             // invert values above the threshold
             else
-                M[i][j] = (SUTDMFCC_MATCH_THRESHOLD - M[i][j])/SUTDMFCC_MATCH_THRESHOLD;
+                M.at(i).at(j) = (SUTDMFCC_MATCH_THRESHOLD - M.at(i).at(j))/SUTDMFCC_MATCH_THRESHOLD;
             
         }
     }
@@ -81,7 +81,7 @@ void normaliseMatrix(std::vector< std::vector<float> >& M){
  */
 void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startColumn, size_t endColumn, size_t* startRow, size_t* endRow, size_t numRows){
     assert(startColumn <= endColumn);
-    assert(endColumn < M[0].size());
+    assert(endColumn < M.at(0).size());
     assert(numRows <= M.size());
     
     // initialize variables related to length and height of match region
@@ -92,9 +92,9 @@ void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startC
     // get the total match score for each row
     std::vector<float> rowScores(matchRegionHeight);
     for(size_t i=0; i<numRows; i++){
-        rowScores[i] = 0.0f;
+        rowScores.at(i) = 0.0f;
         for(size_t j=startColumn;j<=endColumn;j++)
-            rowScores[i] += M[i][j];
+            rowScores.at(i) += M.at(i).at(j);
     }
     
     
@@ -109,7 +109,7 @@ void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startC
             // best matching features
             float rowEmphasis = i < matchRegionHeight/2 ? i+matchRegionHeight : 2*matchRegionHeight - (i + 1);
             
-            matchRegionScore += rowScores[i+k] * rowEmphasis;
+            matchRegionScore += rowScores.at(i+k) * rowEmphasis;
         }
         
         // if the current placement has the highest score so far, record its
@@ -182,10 +182,10 @@ float matchDirection(const std::vector< std::vector<float> >& M,
     size_t diamondSquareLength = 1 + (workingDiamondHeight/2);
     std::vector< std::vector<float> > diamondSquare(diamondSquareLength);
     for(size_t i=0; i<diamondSquareLength; i++)
-        diamondSquare[i].resize(diamondSquareLength);
+        diamondSquare.at(i).resize(diamondSquareLength);
     for(size_t i=0; i<diamondSquareLength; i++)
         for(size_t j=0; j<diamondSquareLength; j++)
-            diamondSquare[i][j] = M[startRow+i+j][workingDiamondCentreColumn+i-j];
+            diamondSquare.at(i).at(j) = M.at(startRow+i+j).at(workingDiamondCentreColumn+i-j);
     
     /*
      * Find the squared difference between elements in adjacent rows
@@ -193,7 +193,7 @@ float matchDirection(const std::vector< std::vector<float> >& M,
     float forwardSquaredDifference = 0.0001;
     for(size_t i=0; i<diamondSquareLength-1; i++)
         for(size_t j=0; j<diamondSquareLength; j++){
-            float d = diamondSquare[i][j]-diamondSquare[i+1][j];
+            float d = diamondSquare.at(i).at(j)-diamondSquare.at(i+1).at(j);
             forwardSquaredDifference += d*d;
         }
     
@@ -203,7 +203,7 @@ float matchDirection(const std::vector< std::vector<float> >& M,
     float backwardSquaredDifference = 0.0001;
     for(size_t i=0; i<diamondSquareLength; i++)
         for(size_t j=0; j<diamondSquareLength-1; j++){
-            float d = diamondSquare[i][j]-diamondSquare[i][j+1];
+            float d = diamondSquare.at(i).at(j)-diamondSquare.at(i).at(j+1);
             backwardSquaredDifference += d*d;
         }
     
@@ -216,7 +216,7 @@ float matchScore(const std::vector< std::vector<float> >& M,
     float score = 0.0f;
     for(size_t i=startRow; i<=endRow; i++)
         for(size_t j=startColumn; j<=endColumn; j++)
-            score += M[i][j]*M[i][j];
+            score += M.at(i).at(j)*M.at(i).at(j);
     
     float height = endRow - startRow + 1;
     float width = endColumn - startColumn + 1;

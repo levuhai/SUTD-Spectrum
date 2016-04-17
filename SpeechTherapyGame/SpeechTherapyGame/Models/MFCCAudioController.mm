@@ -62,7 +62,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
      * initialize the similarity matrix
      */
     std::vector< std::vector<float> > similarityMatrix(uvSize);
-    for(size_t i=0; i<uvSize; i++) similarityMatrix[i].resize(dbSize);
+    for(size_t i=0; i<uvSize; i++) similarityMatrix.at(i).resize(dbSize);
     
     
     /*
