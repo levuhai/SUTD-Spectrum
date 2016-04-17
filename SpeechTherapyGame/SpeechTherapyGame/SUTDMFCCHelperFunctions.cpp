@@ -15,7 +15,7 @@
  * take a and b as vectors in the space R^n
  * return the euclidean distance
  */
-float euclideanDistance(FeatureTypeDTW::FeatureVector a, FeatureTypeDTW::FeatureVector b){
+float euclideanDistance(const FeatureTypeDTW::FeatureVector& a, const FeatureTypeDTW::FeatureVector& b){
     
     // the feature length should be 12
     assert(a.size() == SUTDMFCC_FEATURE_LENGTH);
@@ -37,7 +37,7 @@ float euclideanDistance(FeatureTypeDTW::FeatureVector a, FeatureTypeDTW::Feature
  * Compute a matrix of similarity, the euclidean distance between each pair
  * feature vectors in a and b
  */
-void genSimilarityMatrix(FeatureTypeDTW::Features userVoice, FeatureTypeDTW::Features databaseVoice, std::vector< std::vector<float> >& M){
+void genSimilarityMatrix(const FeatureTypeDTW::Features& userVoice, const FeatureTypeDTW::Features& databaseVoice, std::vector< std::vector<float> >& M){
     
     assert(userVoice.size() == M.size());
     assert(databaseVoice.size() == M.at(0).size());

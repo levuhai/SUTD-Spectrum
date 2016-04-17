@@ -11,9 +11,9 @@
 
 #include "MFCCUtils.h"
 
-float euclideanDistance(FeatureTypeDTW::FeatureVector a, FeatureTypeDTW::FeatureVector b);
+float euclideanDistance(const FeatureTypeDTW::FeatureVector& a, const FeatureTypeDTW::FeatureVector& b);
 
-void genSimilarityMatrix(FeatureTypeDTW::Features userVoice, FeatureTypeDTW::Features databaseVoice, std::vector< std::vector<float> >& M);
+void genSimilarityMatrix(const FeatureTypeDTW::Features& userVoice, const FeatureTypeDTW::Features& databaseVoice, std::vector< std::vector<float> >& M);
 
 void normaliseMatrix(std::vector< std::vector<float> >& M);
 
