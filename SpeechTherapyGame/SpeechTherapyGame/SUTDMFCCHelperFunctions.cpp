@@ -100,21 +100,21 @@ void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startC
     // use a square match region
     size_t matchRegionWidth = 1 + endColumn - startColumn;
     size_t matchRegionHeight = matchRegionWidth;
-   
+    
     
     /*
      * if the user voice is shorter than the target phoneme then the entire
      * sub matrix between startColumn and endColumn is the best match region
      */
     // if the height of M is less than the width, use the whole matrix height
-    if (M.size() <= M.at(0).size()){
+    if (M.size() <= matchRegionWidth){
         startRow = 0;
         endRow = M.size()-1;
         return;
     }
     
     /*
-     * We already returned in the previous if statement so everything below 
+     * We already returned in the previous if statement so everything below
      * this line will only happen if the match region is square.
      */
     
