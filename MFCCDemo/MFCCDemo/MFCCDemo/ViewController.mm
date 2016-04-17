@@ -48,8 +48,8 @@ const float kDefaultTrimBeginThreshold = -200.0f;
 const float kDefaultTrimEndThreshold = -200.0f;
 
 @interface ViewController () {
-    WMAudioFilePreProcessInfo _fileAInfo;
-    WMAudioFilePreProcessInfo _fileBInfo;
+    WMAudioFilePreProcessInfo _userVoiceFileInfo;
+    WMAudioFilePreProcessInfo _databaseVoiceFileInfo;
     BOOL _lastRecordingState;
     BOOL _currentRecordingState;
     int _currentIndex;
@@ -62,6 +62,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
     std::vector<float> matchedFrameQuality;
     std::vector< std::vector<float> > normalisedOutput;
     std::vector< std::vector<float> > trimmedNormalisedOutput;
+    std::vector< std::vector<float> > similarityMatrix;
     std::vector< std::vector<float> > bestFitLine;
     std::vector< std::vector<float> > nearLineMatrix;
     std::vector<float> fitQuality;
@@ -117,13 +118,13 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     [self addChildViewController:_trimVC];
     [_trimVC didMoveToParentViewController:self];
     // Second page
-//    _trim1VC = [storyboard instantiateViewControllerWithIdentifier:@"MFCCController"];
+    //    _trim1VC = [storyboard instantiateViewControllerWithIdentifier:@"MFCCController"];
     CGRect f = _scrollView.frame;
-//    f.origin.x = self.view.frame.size.width;
-//    _trim1VC.view.frame = f ;
-//    [self.scrollView addSubview:_trim1VC.view];
-//    [self addChildViewController:_trim1VC];
-//    [_trim1VC didMoveToParentViewController:self];
+    //    f.origin.x = self.view.frame.size.width;
+    //    _trim1VC.view.frame = f ;
+    //    [self.scrollView addSubview:_trim1VC.view];
+    //    [self addChildViewController:_trim1VC];
+    //    [_trim1VC didMoveToParentViewController:self];
     // Third page
     _matrixVC = [storyboard instantiateViewControllerWithIdentifier:@"MatrixController"];
     f = _scrollView.frame;
@@ -199,7 +200,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 }
 
 - (IBAction)compareTouched:(id)sender {
-    [self _compareFileA:_currentRecordPath fileB:_currentAudioPath];//[self testFilePath]
+    [self _compareUserVoiceSimple:_currentRecordPath databaseVoice:_currentAudioPath];//[self testFilePath]
     [self playRecordClicked:nil];
 }
 
@@ -216,7 +217,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 
 - (IBAction)startRecording:(id)sender
 {
-     if ( !_recorder ) {
+    if ( !_recorder ) {
         self.recorder = [[AERecorder alloc] initWithAudioController:_audioController];
         NSString *path = [self testFilePath];
         NSError *error = nil;
@@ -314,6 +315,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         button.selected = YES;
     }
 }
+
 - (void)_stop {
     [_audioController removeChannels:@[_player]];
     self.player = nil;
@@ -354,123 +356,265 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 }
 
 
-
-- (void)_compareFileA:(NSString*)pathA fileB:(NSString*)pathB {
-    //------------------------------------------------------------------------------
-    // Read audio files from file paths
-    NSURL *urlA = [NSURL URLWithString:[pathA stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    FeatureTypeDTW::Features featureA = [self _getPreProcessInfo:urlA
-                                                  beginThreshold:kDefaultTrimBeginThreshold
-                                                    endThreshold:kDefaultTrimEndThreshold
-                                                            info:&_fileAInfo];
+- (void)_compareUserVoiceSimple:(NSString*)userVoicePath databaseVoice:(NSString*)databaseVoicePath {
     
-    NSURL *urlB = [NSURL URLWithString:[pathB stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    FeatureTypeDTW::Features featureB = [self _getPreProcessInfo:urlB
-                                                  beginThreshold:kDefaultTrimBeginThreshold
-                                                    endThreshold:kDefaultTrimEndThreshold
-                                                            info:&_fileBInfo];
+    /*
+     * Read audio files from file paths
+     */
+    NSURL *userVoiceURL = [NSURL URLWithString:[userVoicePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    FeatureTypeDTW::Features userVoiceFeatures = [self _getPreProcessInfo:userVoiceURL
+                                                           beginThreshold:kDefaultTrimBeginThreshold
+                                                             endThreshold:kDefaultTrimEndThreshold
+                                                                     info:&_userVoiceFileInfo];
     
-
-    int sizeA = (int)featureA.size();
-    int sizeB = (int)featureB.size();
-
+    NSURL *databaseVoiceURL = [NSURL URLWithString:[databaseVoicePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    FeatureTypeDTW::Features databaseVoiceFeatures = [self _getPreProcessInfo:databaseVoiceURL
+                                                               beginThreshold:kDefaultTrimBeginThreshold
+                                                                 endThreshold:kDefaultTrimEndThreshold
+                                                                         info:&_databaseVoiceFileInfo];
     
-    // Init Output[a][b]
-    float **output = new float*[sizeA];
-    for(size_t i = 0; i < sizeA; ++i) {
-        output[i] = new float[sizeB];
-    }
+    
+    int uvSize = (int)userVoiceFeatures.size();
+    int dbSize = (int)databaseVoiceFeatures.size();
+    
+    
+    /*
+     * ensure that the similarity matrix is large enough
+     */
+    if(similarityMatrix.size() != uvSize)
+        similarityMatrix.resize(uvSize);
+    for(size_t i=0; i<uvSize; i++)
+        if(similarityMatrix[i].size() != dbSize)
+            similarityMatrix[i].resize(dbSize);
     
     
     // calculate the matrix of similarity
-    similarityMatrix(featureA, featureB, SUTDMFCC_FEATURE_LENGTH, output);
+    genSimilarityMatrix(userVoiceFeatures, databaseVoiceFeatures, SUTDMFCC_FEATURE_LENGTH, similarityMatrix);
+    
+    
+    // normalize the output
+    normaliseMatrix(similarityMatrix);
+    
+    
+    // where does the target phoneme start and end in featureA?
+    size_t targetPhonemeStartInDB = dbSize*(float)_currentWord.targetStart/(float)_currentWord.fullLen;
+    size_t targetPhonemeEndInDB = dbSize*(float)_currentWord.targetEnd/(float)_currentWord.fullLen;
+    
+    
+    // Clamp the target phoneme location within the valid range of indices.
+    // Note that the size_t type is not signed so we don't need to clamp at
+    // zero.
+    if(targetPhonemeStartInDB >= dbSize)
+        targetPhonemeStartInDB = dbSize-1;
+    if(targetPhonemeEndInDB >= dbSize)
+        targetPhonemeEndInDB = dbSize-1;
+    
+    
+    // find the vertical location of a square match region, centred on the
+    // target phoneme and the rows in the user voice that best match it.
+    size_t matchRegionStartInUV, matchRegionEndInUV;
+    bestMatchLocation(similarityMatrix, targetPhonemeStartInDB, targetPhonemeEndInDB, &matchRegionStartInUV, &matchRegionEndInUV, uvSize);
+    
+    
+    
+    // make sure nearLineMatrix has the right size
+    if(nearLineMatrix.size() != similarityMatrix.size())
+        nearLineMatrix.resize(similarityMatrix.size());
+    for(size_t i=0; i<nearLineMatrix.size(); i++)
+        if(nearLineMatrix[i].size() != similarityMatrix[i].size())
+            nearLineMatrix[i].resize(similarityMatrix[i].size());
+    
+    
+    /*
+     * highlight the match region in green on the matrix plot
+     */
+    for (int y=0; y < similarityMatrix.size();y++) {
+        for (int x=0; x<similarityMatrix[0].size(); x++) {
+            if (y < matchRegionStartInUV || y > matchRegionEndInUV
+                || x < targetPhonemeStartInDB || x > targetPhonemeEndInDB) {
+                nearLineMatrix[y][x] = 0;
+            } else {
+                nearLineMatrix[y][x] = similarityMatrix[y][x];
+            }
+        }
+    }
+    
+    // Page 1
+    [_trimVC.graph1 inputMFCC:userVoiceFeatures start:(int)0 end:(int)userVoiceFeatures.size()];
+    [_trimVC.graph2 inputMFCC:databaseVoiceFeatures start:0 end:0];
+    
+    // Page 3
+    _matrixVC.upperView.graphColor = [UIColor greenColor];
+    [_matrixVC.upperView inputNormalizedDataW:(int)nearLineMatrix[0].size()
+                                      matrixH:(int)nearLineMatrix.size()
+                                         data:nearLineMatrix
+                                         rect:self.view.bounds
+                                       maxVal:1];
+    [_matrixVC.lowerView inputNormalizedDataW:(int)similarityMatrix[0].size()
+                                      matrixH:(int)similarityMatrix.size()
+                                         data:similarityMatrix
+                                         rect:self.view.bounds
+                                       maxVal:1];
+    
+    float score = matchScore(similarityMatrix,
+                             targetPhonemeStartInDB, targetPhonemeEndInDB,
+                             matchRegionStartInUV, matchRegionEndInUV);
+    
+    self.lbScore.text = [NSString stringWithFormat:@"%.3f", score];
+}
 
+
+
+- (void)_compareUserVoice:(NSString*)userVoicePath databaseVoice:(NSString*)databaseVoicePath {
+    // Read audio files from file paths
+    NSURL *userVoiceURL = [NSURL URLWithString:[userVoicePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    FeatureTypeDTW::Features userVoiceFeatures = [self _getPreProcessInfo:userVoiceURL
+                                                           beginThreshold:kDefaultTrimBeginThreshold
+                                                             endThreshold:kDefaultTrimEndThreshold
+                                                                     info:&_userVoiceFileInfo];
+    
+    NSURL *databaseVoiceURL = [NSURL URLWithString:[databaseVoicePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    FeatureTypeDTW::Features databaseVoiceFeatures = [self _getPreProcessInfo:databaseVoiceURL
+                                                               beginThreshold:kDefaultTrimBeginThreshold
+                                                                 endThreshold:kDefaultTrimEndThreshold
+                                                                         info:&_databaseVoiceFileInfo];
+    
+    
+    int userVoiceSize = (int)userVoiceFeatures.size();
+    int databaseVoiceSize = (int)databaseVoiceFeatures.size();
+    
+    
+//    // Init Output[a][b]
+//    float **output = new float*[userVoiceSize];
+//    for(size_t i = 0; i < userVoiceSize; ++i) {
+//        output[i] = new float[databaseVoiceSize];
+//    }
+    
+    /*
+     * ensure that the similarity matrix is large enough
+     */
+    if(similarityMatrix.size() != userVoiceSize)
+        similarityMatrix.resize(userVoiceSize);
+    for(size_t i=0; i<userVoiceSize; i++)
+        if(similarityMatrix[i].size() != databaseVoiceSize)
+            similarityMatrix[i].resize(databaseVoiceSize);
+    
+    
+    // calculate the matrix of similarity
+    genSimilarityMatrix(userVoiceFeatures, databaseVoiceFeatures, SUTDMFCC_FEATURE_LENGTH, similarityMatrix);
+    
     
     // make sure normalisedOutput is empty and has the correct size
     normalisedOutput.clear();
-    normalisedOutput.resize(sizeA);
+    normalisedOutput.resize(userVoiceSize);
     for (size_t i = 0; i<normalisedOutput.size(); i++){
-        normalisedOutput[i].resize(sizeB);
+        normalisedOutput[i].resize(databaseVoiceSize);
     }
     
     
     // normalize the output
-    normaliseMatrix((const float**) output, normalisedOutput, sizeA, sizeB);
+    normaliseMatrix(similarityMatrix);
+    // copy to the normalisedOutput matrix
+    for(size_t i=0; i<similarityMatrix.size(); i++)
+        for(size_t j=0; j<similarityMatrix[i].size(); j++)
+            normalisedOutput[i][j]=similarityMatrix[i][j];
     
-/* -------------------------------------------------------------------------
- % find the contiguous region of MFCC1 that has the most matches to
- % MFCC2
- %
- %   find the total match quality for each frame of MFCC1
- matchedFrameQuality = zeros(size(MFCC1,2),1);
- for i = 1:size(MFCC1,2)
-    matchedFrameQuality(i) = max(normalizedOutput(i,:));
- end
- */
+    
+    // where does the target phoneme start and end in featureA?
+    size_t targetPhonemeStartInDB = databaseVoiceSize*(float)_currentWord.targetStart/(float)_currentWord.fullLen;
+    size_t targetPhonemeEndInDB = databaseVoiceSize*(float)_currentWord.targetEnd/(float)_currentWord.fullLen;
+    
+    
+    // Clamp the target phoneme location within the valid range of indices.
+    // Note that the size_t type is not signed so we don't need to clamp at
+    // zero.
+    if(targetPhonemeStartInDB >= databaseVoiceSize)
+        targetPhonemeStartInDB = databaseVoiceSize-1;
+    if(targetPhonemeEndInDB >= databaseVoiceSize)
+        targetPhonemeEndInDB = databaseVoiceSize-1;
+    
+    
+    // find the vertical location of a square match region, centred on the
+    // target phoneme and the rows in the user voice that best match it.
+    size_t matchRegionStartInUV, matchRegionEndInUV;
+    bestMatchLocation(normalisedOutput, targetPhonemeStartInDB, targetPhonemeEndInDB, &matchRegionStartInUV, &matchRegionEndInUV, userVoiceSize);
+    
+    
+    
+    // test the match region to find out if the user pronounced the target
+    // phoneme in reverse order.
+    // If there is strong evidence that it's backwards then we will reject the match.
+    //    float matchDir = matchDirection(normalisedOutput,
+    //                                targetPhonemeStartInDB, targetPhonemeEndInDB,
+    //                                matchRegionStartInUV,   matchRegionEndInUV);
+    //
+    
+    //NSLog(@"matchDir %f", matchDir);
+    
+    
+    /*
+     * Get the max element in each row of normalisedOuput.
+     *
+     * The output in matchedFrameQuality is low wherever file b
+     * has no sound similar to the ith frame of file a
+     */
     matchedFrameQuality.clear();
-    matchedFrameQuality.resize(sizeA);
-    for (int i = 0; i < sizeA; i++) {
-        matchedFrameQuality[i] = *std::max_element(normalisedOutput[i].begin(), normalisedOutput[i].end());
-    }
-/* -------------------------------------------------------------------------
- %
- %   find the sliding window in MFCC1 of length equal to the entire MFCC2 that
- %   has the best match
- maxWindowSum = 0;
- maxWindowStart = 1;
- windowLength = size(MFCC2,2);
- for i = 1:(size(MFCC1,2)-size(MFCC2,2))
-    slidingSum = 0;
-    for j = i:(i + (windowLength-1))
-       slidingSum = slidingSum + matchedFrameQuality(j);
-    end
-    if slidingSum > maxWindowSum
-       maxWindowSum = slidingSum;
-       maxWindowStart = i;
-    end
- end
- */
-    // TODO: if sizeA < sizeB ?
+    matchedFrameQuality.resize(userVoiceSize);
+    for (int i = 0; i < userVoiceSize; i++)
+        matchedFrameQuality[i] =
+        *std::max_element(normalisedOutput[i].begin(),
+                          normalisedOutput[i].end());
+    
+    
+    /* in matchedFrameQuality,
+     * find the sliding window of length equal to the entire MFCC2
+     * that has the highest sum
+     */
+    
+    // TODO: if userVoiceSize < databaseVoiceSize ?
     
     float maxWindowSum = 0.0f;
-    size_t windowLength = sizeB;
+    size_t windowLength = databaseVoiceSize;
     int maxWindowStart = 0;
     
-    for (int i = 0; i < sizeA - sizeB; i++) {
+    for (int i = 0; i < userVoiceSize - databaseVoiceSize; i++) {
         float slidingSum = 0;
-        for (int j = i; j < i+sizeB-1; j++) {
+        
+        // find the sum on a window of length of the entire fileb
+        for (int j = i; j < i+databaseVoiceSize-1; j++)
             slidingSum += matchedFrameQuality[j];
-        }
+        
+        // find out if this is the best window and then advance one position
         if (slidingSum > maxWindowSum) {
             maxWindowSum = slidingSum;
             maxWindowStart = i;
         }
     }
     
-/* -------------------------------------------------------------------------
- %
- % the best MFCC2 length section of MFCC1 goes from maxWindowStart to
- % (maxWindowStart + (windowLength-1))
- %
- % now we will see if the match can be improved by lengthening the
- % window.
- %
- % scan back from the window start until we reach numZerosIgnorable consecutive frames
- % with match quality below windowExtensionThreshold
- */
+    /* -------------------------------------------------------------------------
+     %
+     % the best MFCC2 length section of MFCC1 goes from maxWindowStart to
+     % (maxWindowStart + (windowLength-1))
+     %
+     % now we will see if the match can be improved by lengthening the
+     % window.
+     %
+     % scan back from the window start until we reach numZerosIgnorable consecutive frames
+     % with match quality below windowExtensionThreshold
+     */
     /* i = maxWindowStart;
      maxWindowEnd = maxWindowStart + windowLength - 1;
      numFound = 0;
      numZerosIgnorable = 2;
      while i > 0 && numFound <= numZerosIgnorable
-        if matchedFrameQuality(i) < windowExtensionThreshold
-           % we found a frame below the threshold
-           numFound = numFound + 1;
-        else
-           % if this frame isn't below the threshold, reset the count
-           numFound = 0;
-        end
-        i = i - 1;
+     if matchedFrameQuality(i) < windowExtensionThreshold
+     % we found a frame below the threshold
+     numFound = numFound + 1;
+     else
+     % if this frame isn't below the threshold, reset the count
+     numFound = 0;
+     end
+     i = i - 1;
      end
      */
     int i = maxWindowStart;
@@ -485,13 +629,13 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         }
         i -= 1;
     }
-/*
- if numFound > numZerosIgnorable % we actually found a region of low match quality
- maxWindowStart = i + 1 + numZerosIgnorable;
- else % we didn't find the low match quality region but we reached the beginning of the array
- maxWindowStart = 1; % 0 in c++
- end
- */
+    /*
+     if numFound > numZerosIgnorable % we actually found a region of low match quality
+     maxWindowStart = i + 1 + numZerosIgnorable;
+     else % we didn't find the low match quality region but we reached the beginning of the array
+     maxWindowStart = 1; % 0 in c++
+     end
+     */
     float newWindowStart;
     if (numFound > numZerosIgnorable) {
         newWindowStart = i + 1 + numZerosIgnorable;
@@ -500,26 +644,26 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     }
     windowLength += maxWindowStart - newWindowStart;
     maxWindowStart = newWindowStart;
-
-/* -------------------------------------------------------------------------
- %
- % now scan forward from the end of the maxWindow
- i = maxWindowStart + windowLength;
- numFound = 0;
- numZerosIgnorable = 3;
- while i <= size(matchedFrameQuality,1) && numFound < numZerosIgnorable
-    if matchedFrameQuality(i) < windowExtensionThreshold
-       % we found a frame below the threshold
-       numFound = numFound + 1;
-    else
-       % if this frame isn't below the threshold, reset the count
-       numFound = 0;
-    end
-    i = i + 1;
- end
- */
     
-    i = maxWindowStart + windowLength ;
+    /* -------------------------------------------------------------------------
+     %
+     % now scan forward from the end of the maxWindow
+     i = maxWindowStart + windowLength;
+     numFound = 0;
+     numZerosIgnorable = 3;
+     while i <= size(matchedFrameQuality,1) && numFound < numZerosIgnorable
+     if matchedFrameQuality(i) < windowExtensionThreshold
+     % we found a frame below the threshold
+     numFound = numFound + 1;
+     else
+     % if this frame isn't below the threshold, reset the count
+     numFound = 0;
+     end
+     i = i + 1;
+     end
+     */
+    
+    // i = maxWindowStart + windowLength ;
     numFound = 0;
     numZerosIgnorable = 3;
     while (i < matchedFrameQuality.size() && numFound < numZerosIgnorable) {
@@ -531,33 +675,33 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         i += 1;
     }
     
-/* -------------------------------------------------------------------------
- if numFound >= numZerosIgnorable % we actually found a region of low match quality
-    maxWindowEnd = i - 1 - numZerosIgnorable;
- else % we didn't find the low match quality region but we reached the end of the array
-    maxWindowEnd = size(matchedFrameQuality,1);
- end
- */
+    /* -------------------------------------------------------------------------
+     if numFound >= numZerosIgnorable % we actually found a region of low match quality
+     maxWindowEnd = i - 1 - numZerosIgnorable;
+     else % we didn't find the low match quality region but we reached the end of the array
+     maxWindowEnd = size(matchedFrameQuality,1);
+     end
+     */
     if (numFound >= numZerosIgnorable)
         maxWindowEnd = i - 1 - numZerosIgnorable;
     else
         maxWindowEnd = matchedFrameQuality.size();
- 
-/* -------------------------------------------------------------------------
- %
- % we now know that the region between maxWindowStart and maxWindowEnd
- % is the region for which MFCC1 has good matching with MFCC2. We can
- % trum the normalizedOutput to discard the values outside this region
- trimmedNormalisedOutput = zeros(maxWindowEnd-maxWindowStart + 1,size(MFCC2,2));
- for i = maxWindowStart:maxWindowEnd
-    for j = 1:size(MFCC2,2)
-       trimmedNormalisedOutput(i - maxWindowStart + 1,j) = normalizedOutput(i,j);
-    end
- end
- */
+    
+    /* -------------------------------------------------------------------------
+     %
+     % we now know that the region between maxWindowStart and maxWindowEnd
+     % is the region for which MFCC1 has good matching with MFCC2. We can
+     % trum the normalizedOutput to discard the values outside this region
+     trimmedNormalisedOutput = zeros(maxWindowEnd-maxWindowStart + 1,size(MFCC2,2));
+     for i = maxWindowStart:maxWindowEnd
+     for j = 1:size(MFCC2,2)
+     trimmedNormalisedOutput(i - maxWindowStart + 1,j) = normalizedOutput(i,j);
+     end
+     end
+     */
     // make sure normalisedOutput is empty and has the correct size
     long recoredSize = maxWindowEnd - maxWindowStart + 1;
-    long originSize = sizeB;
+    long originSize = databaseVoiceSize;
     
     trimmedNormalisedOutput.clear();
     trimmedNormalisedOutput.resize(recoredSize);
@@ -567,23 +711,23 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     }
     
     for (size_t i = maxWindowStart; i < maxWindowEnd; i++) {
-        for (int j = 0; j < sizeB; j++) {
+        for (int j = 0; j < databaseVoiceSize; j++) {
             trimmedNormalisedOutput[i - maxWindowStart + 1][j] = normalisedOutput[i][j];
         }
     }
- 
-/* -------------------------------------------------------------------------
- % find the centroid location in each row of the matrix using a weighted
- % average
- centroids = zeros(size(trimmedNormalisedOutput,1),1);
- for i = 1:size(trimmedNormalisedOutput,1)
-    centroids(i) = trimmedNormalisedOutput(i,:)*(1:size(MFCC2,2))'/sum(trimmedNormalisedOutput(i,:));
- end
- */
+    
+    /* -------------------------------------------------------------------------
+     % find the centroid location in each row of the matrix using a weighted
+     % average
+     centroids = zeros(size(trimmedNormalisedOutput,1),1);
+     for i = 1:size(trimmedNormalisedOutput,1)
+     centroids(i) = trimmedNormalisedOutput(i,:)*(1:size(MFCC2,2))'/sum(trimmedNormalisedOutput(i,:));
+     end
+     */
     // Start/End of phoneme
     Word* w = _currentWord;
-    int start = sizeB*(float)w.targetStart/(float)w.fullLen;
-    int end = sizeB*(float)w.targetEnd/(float)w.fullLen;
+    int start = databaseVoiceSize*(float)w.targetStart/(float)w.fullLen;
+    int end = databaseVoiceSize*(float)w.targetEnd/(float)w.fullLen;
     
     centroids.clear();
     indices.clear();
@@ -602,37 +746,37 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
             centroids.push_back(weightedSum/sum);
             indices.push_back(x-start); // index from 0, not 1 so don't use i+1 here
         }
-//        else {
-//            centroids.push_back(0);
-//            indices.push_back(i);
-//        }
+        //        else {
+        //            centroids.push_back(0);
+        //            indices.push_back(i);
+        //        }
     }
     
-/* -------------------------------------------------------------------------
- % fit a linear function to the list of centroids
- [xData, yData] = prepareCurveData( [], centroids );
- 
- % Set up fittype and options.
- ft = fittype( 'poly1' ); % linear regression
- opts = fitoptions( ft );
- opts.Lower = [-Inf -Inf]; % unbounded
- opts.Upper = [Inf Inf]; % unbounded
- 
- % Fit model to data.
- [fitresult, gof] = fit( xData, yData, ft, opts );
- */
+    /* -------------------------------------------------------------------------
+     % fit a linear function to the list of centroids
+     [xData, yData] = prepareCurveData( [], centroids );
+     
+     % Set up fittype and options.
+     ft = fittype( 'poly1' ); % linear regression
+     opts = fitoptions( ft );
+     opts.Lower = [-Inf -Inf]; % unbounded
+     opts.Upper = [Inf Inf]; % unbounded
+     
+     % Fit model to data.
+     [fitresult, gof] = fit( xData, yData, ft, opts );
+     */
     float slope;
     float intercept;
     getLinearFit(&indices[0], &centroids[0], indices.size(), &slope, &intercept);
     
-
-/* -------------------------------------------------------------------------
-//    % estimate quality of match at each part of the word
-//    timeTolerance = 10; % check values in the region +-timeTolerance frames of deviation from the best fit line
-//    fitQuality = zeros(size(MFCC2,2),1);
-*/
     
-    fitQuality.resize(sizeB);
+    /* -------------------------------------------------------------------------
+     //    % estimate quality of match at each part of the word
+     //    timeTolerance = 10; % check values in the region +-timeTolerance frames of deviation from the best fit line
+     //    fitQuality = zeros(size(MFCC2,2),1);
+     */
+    
+    fitQuality.resize(databaseVoiceSize);
     // Best fit line
     bestFitLine.clear();
     nearLineMatrix.clear();
@@ -644,15 +788,30 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         nearLineMatrix[i].resize(trimmedNormalisedOutput[0].size());
     }
     
-    // Point near fit line
-    float timeTolerance = 7;
+    //    // Point near fit line
+    //    float timeTolerance = 7;
+    //    for (int y = 0; y < trimmedNormalisedOutput.size();y++) {
+    //        for (int x = start-1; x < end;x++) {
+    //            if (pointToLineDistance(x-start+1,y,slope,intercept)>timeTolerance && (slope <0 || slope >=0.75)) {
+    //                nearLineMatrix[y][x] = 0;
+    //            } else {
+    //                nearLineMatrix[y][x] = trimmedNormalisedOutput[y][x];
+    //            }
+    //        }
+    //    }
+    
+    /*
+     * highlight the match region in green on the matrix plot
+     */
     for (int y = 0; y < trimmedNormalisedOutput.size();y++) {
         for (int x = start-1; x < end;x++) {
-            if (pointToLineDistance(x-start+1,y,slope,intercept)>timeTolerance && (slope <0 || slope >=0.75)) {
+            
+            if (y < matchRegionStartInUV || y > matchRegionEndInUV
+                || x < targetPhonemeStartInDB || x > targetPhonemeEndInDB)
                 nearLineMatrix[y][x] = 0;
-            } else {
+            
+            else
                 nearLineMatrix[y][x] = trimmedNormalisedOutput[y][x];
-            }
         }
     }
     
@@ -670,21 +829,22 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     }
     
     
-//    for (int i = 0; i < trimmedNormalisedOutput.size();i++) {
-//        for (int j = 0; j < trimmedNormalisedOutput[0].size();j++) {
-//            bestFitLine[i][j] = 0;
-//        }
-//        int y = roundf(linearFun(i, slope, intercept));
-//        if (y<0) y = 0;
-//        if (y>trimmedNormalisedOutput[0].size()) y = 0;
-//        bestFitLine[i][y] = 1;
-//    }
-
-    _startTrimPercentage = maxWindowStart/(float)sizeA;
-    _endTrimPercentage  = maxWindowEnd/(float)sizeA;
+    //    for (int i = 0; i < trimmedNormalisedOutput.size();i++) {
+    //        for (int j = 0; j < trimmedNormalisedOutput[0].size();j++) {
+    //            bestFitLine[i][j] = 0;
+    //        }
+    //        int y = roundf(linearFun(i, slope, intercept));
+    //        if (y<0) y = 0;
+    //        if (y>trimmedNormalisedOutput[0].size()) y = 0;
+    //        bestFitLine[i][y] = 1;
+    //    }
+    
+    
+    _startTrimPercentage = maxWindowStart/(float)userVoiceSize;
+    _endTrimPercentage  = maxWindowEnd/(float)userVoiceSize;
     // Page 1
-    [_trimVC.graph1 inputMFCC:featureA start:(int)maxWindowStart end:(int)maxWindowEnd];
-    [_trimVC.graph2 inputMFCC:featureB start:0 end:0];
+    [_trimVC.graph1 inputMFCC:userVoiceFeatures start:(int)maxWindowStart end:(int)maxWindowEnd];
+    [_trimVC.graph2 inputMFCC:databaseVoiceFeatures start:0 end:0];
     
     // Page 2
     //[_trim1VC.graph1 inputMFCC:featureA start:(int)maxWindowStart end:(int)maxWindowEnd];
@@ -692,32 +852,38 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     // Page 3
     _matrixVC.upperView.graphColor = [UIColor greenColor];
     [_matrixVC.upperView inputNormalizedDataW:(int)nearLineMatrix[0].size()
-                                  matrixH:(int)nearLineMatrix.size()
-                                     data:nearLineMatrix
-                                     rect:self.view.bounds
-                                   maxVal:1];
+                                      matrixH:(int)nearLineMatrix.size()
+                                         data:nearLineMatrix
+                                         rect:self.view.bounds
+                                       maxVal:1];
     [_matrixVC.lowerView inputNormalizedDataW:(int)trimmedNormalisedOutput[0].size()
-                                  matrixH:(int)trimmedNormalisedOutput.size()
-                                     data:trimmedNormalisedOutput
-                                     rect:self.view.bounds
-                                   maxVal:1];
+                                      matrixH:(int)trimmedNormalisedOutput.size()
+                                         data:trimmedNormalisedOutput
+                                         rect:self.view.bounds
+                                       maxVal:1];
     // Page 4
     [_matrix2VC.upperView inputFitQualityW:(int)fitQuality.size()
-                                     data:fitQuality
-                                     rect:self.view.bounds
-                                   maxVal:2 start:start end:end];
-    [self _score:start end:end];
+                                      data:fitQuality
+                                      rect:self.view.bounds
+                                    maxVal:2 start:start end:end];
+    //[self _score:start end:end];
+    
+    float score = matchScore(normalisedOutput,
+                             targetPhonemeStartInDB, targetPhonemeEndInDB,
+                             matchRegionStartInUV, matchRegionEndInUV);
+    
+    self.lbScore.text = [NSString stringWithFormat:@"%.3f", score];
 }
 
-- (void)_score:(int)start end:(int)end {
-    float sum = 0.0f;
-    for (int i = start; i<end; i++) {
-        sum+= fitQuality[i];
-        NSLog(@"fit %f",fitQuality[i]);
-    }
-    float score = sum/(end-start+1);
-    self.lbScore.text = [NSString stringWithFormat:@"%.3f",score];
-}
+//- (void)_score:(int)start end:(int)end {
+//    float sum = 0.0f;
+//    for (int i = start; i<end; i++) {
+//        sum+= fitQuality[i];
+//        NSLog(@"fit %f",fitQuality[i]);
+//    }
+//    float score = sum/(end-start+1);
+//    self.lbScore.text = [NSString stringWithFormat:@"%.3f",score];
+//}
 
 inline float linearFun(float x, float slope, float intercept) {
     return x*slope + intercept;
