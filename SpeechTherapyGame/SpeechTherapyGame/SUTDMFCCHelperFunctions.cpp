@@ -79,48 +79,63 @@ void normaliseMatrix(std::vector< std::vector<float> >& M){
  * The start and end row of the match region centred around the closest
  * matching features are set as output.
  */
-void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startColumn, size_t endColumn, size_t* startRow, size_t* endRow, size_t numRows){
+void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startColumn, size_t endColumn, size_t& startRow, size_t& endRow){
     assert(startColumn <= endColumn);
     assert(endColumn < M.at(0).size());
-    assert(numRows <= M.size());
     
-    // initialize variables related to length and height of match region
-    size_t targetPhonemeLength = 1 + endColumn - startColumn;
-    size_t matchRegionHeight = targetPhonemeLength < numRows ? targetPhonemeLength : numRows;
     
     
     // get the total match score for each row
-    std::vector<float> rowScores(matchRegionHeight);
-    for(size_t i=0; i<matchRegionHeight; i++){
+    std::vector<float> rowScores(M.size());
+    for(size_t i=0; i<M.size(); i++){
         rowScores.at(i) = 0.0f;
-        for(size_t j=startColumn;j<=endColumn;j++)
+        for(size_t j=startColumn; j<=endColumn; j++)
             rowScores.at(i) += M.at(i).at(j);
     }
     
     
-    // find the vertical location of the match region with the highest score
-    float matchRegionScore, matchRegionMaxScore = 0.0f;
-    for(size_t k=0; k<=numRows-matchRegionHeight; k++){
-        matchRegionScore = 0.0f;
+    /*
+     * find the height of the match region
+     */
+    // use a square match region
+    size_t matchRegionWidth = 1 + endColumn - startColumn;
+    size_t matchRegionHeight = matchRegionWidth;
+   
+    
+    /*
+     * if the user voice is shorter than the target phoneme then the entire
+     * sub matrix between startColumn and endColumn is the best match region
+     */
+    // if the height of M is less than the width, use the whole matrix height
+    if (M.size() <= M.at(0).size()){
+        startRow = 0;
+        endRow = M.size()-1;
+        return;
+    }
+    
+    /*
+     * We already returned in the previous if statement so everything below 
+     * this line will only happen if the match region is square.
+     */
+    
+    float matchRegionMaxScore = 0.0;
+    for(size_t k=0; k<=M.size()-matchRegionHeight; k++){
         
+        // sum a sliding window of the rowScores
+        float matchRegionScore = 0.0;
         for(size_t i=0; i<matchRegionHeight; i++){
-            // add emphasis to the scores of rows in the centre of the region
-            // to bias the match region toward centreing itself on the
-            // best matching features
-            float rowEmphasis = i < matchRegionHeight/2 ? i+matchRegionHeight : 2*matchRegionHeight - (i + 1);
-            
-            matchRegionScore += rowScores.at(i+k) * rowEmphasis;
+            matchRegionScore += rowScores.at(i+k);
         }
         
-        // if the current placement has the highest score so far, record its
-        // startRow
-        if (matchRegionScore > matchRegionMaxScore) {
+        
+        // if this is the match region with the highest score so far
+        if(matchRegionScore > matchRegionMaxScore){
+            startRow = k;
             matchRegionMaxScore = matchRegionScore;
-            *startRow = k;
         }
     }
     
-    *endRow = *startRow + matchRegionHeight;
+    endRow = startRow + matchRegionHeight - 1;
 }
 
 

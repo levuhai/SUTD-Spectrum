@@ -129,7 +129,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
     // find the vertical location of a square match region, centred on the
     // target phoneme and the rows in the user voice that best match it.
     size_t matchRegionStartInUV, matchRegionEndInUV;
-    bestMatchLocation(similarityMatrix, targetPhonemeStartInDB, targetPhonemeEndInDB, &matchRegionStartInUV, &matchRegionEndInUV, uvSize);
+    bestMatchLocation(similarityMatrix, targetPhonemeStartInDB, targetPhonemeEndInDB, matchRegionStartInUV, matchRegionEndInUV);
     
     return matchScore(similarityMatrix,
                              targetPhonemeStartInDB, targetPhonemeEndInDB,
