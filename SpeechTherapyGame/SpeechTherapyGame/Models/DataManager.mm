@@ -477,6 +477,9 @@ inline BOOL approxEqual(float x, float y, float delta) {
     __block NSMutableArray* uniqueWords = [self getWords];
     
     FMDatabaseQueue* db = [self _soundDBQueue];
+    
+    assert(uniqueWords.count > 0);
+    
     // Random index
     int rndValue = 0 + arc4random() % (uniqueWords.count - 0);
     

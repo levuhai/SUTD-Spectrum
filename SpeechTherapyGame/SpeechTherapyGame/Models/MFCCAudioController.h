@@ -11,6 +11,7 @@
 
 @interface MFCCAudioController : NSObject
 
-+ (float)scoreFileA:(NSString*)pathA fileB:(Word*)pathB;
+//+ (float)scoreFileA:(NSString*)pathA fileB:(Word*)pathB;
++ (float)scoreUserVoice:(NSString*)userVoicePath dbVoice:(Word*)databaseVoiceWord;
 
 @end

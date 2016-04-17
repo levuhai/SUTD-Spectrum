@@ -53,6 +53,8 @@
 		2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B74C1B94A14800B7F92C /* HomeSceneViewController.m */; };
 		2DF6B7501B94A14800B7F92C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DF6B74E1B94A14800B7F92C /* Main.storyboard */; };
 		2DF6B7611B94A14800B7F92C /* SpeechTherapyGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7601B94A14800B7F92C /* SpeechTherapyGameTests.m */; };
+		3A4F5A141CC3544C00B5AFD3 /* SUTDMFCCHelperFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A4F5A121CC3544C00B5AFD3 /* SUTDMFCCHelperFunctions.cpp */; };
+		3A4F5A151CC3544C00B5AFD3 /* SUTDMFCCHelperFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A4F5A121CC3544C00B5AFD3 /* SUTDMFCCHelperFunctions.cpp */; };
 		A701EA9A1C79C551003B45C7 /* nus_logo1.png in Resources */ = {isa = PBXBuildFile; fileRef = A701EA991C79C551003B45C7 /* nus_logo1.png */; };
 		A701EA9C1C79C580003B45C7 /* sutdlogo1.png in Resources */ = {isa = PBXBuildFile; fileRef = A701EA9B1C79C580003B45C7 /* sutdlogo1.png */; };
 		A701EA9F1C79CC3E003B45C7 /* SeaFish.m in Sources */ = {isa = PBXBuildFile; fileRef = A701EA9E1C79CC3E003B45C7 /* SeaFish.m */; };
@@ -274,6 +276,8 @@
 		2DF6B75F1B94A14800B7F92C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DF6B7601B94A14800B7F92C /* SpeechTherapyGameTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpeechTherapyGameTests.m; sourceTree = "<group>"; };
 		2DF6B76A1B94B53E00B7F92C /* SpeechTherapyGame-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SpeechTherapyGame-Prefix.pch"; sourceTree = "<group>"; };
+		3A4F5A121CC3544C00B5AFD3 /* SUTDMFCCHelperFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SUTDMFCCHelperFunctions.cpp; sourceTree = "<group>"; };
+		3A4F5A131CC3544C00B5AFD3 /* SUTDMFCCHelperFunctions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SUTDMFCCHelperFunctions.hpp; sourceTree = "<group>"; };
 		482749E27D29E52B34F59317 /* Pods-SpeechTherapyGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeechTherapyGame.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpeechTherapyGame/Pods-SpeechTherapyGame.debug.xcconfig"; sourceTree = "<group>"; };
 		7C3B006EFB154C6DB3574B82 /* libPods-SpeechTherapyGame.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SpeechTherapyGame.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A701EA991C79C551003B45C7 /* nus_logo1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nus_logo1.png; sourceTree = "<group>"; };
@@ -644,6 +648,8 @@
 				A752FBF91C3B747300B8ED60 /* UIFont+ES.m */,
 				A7AE30961C721DC900159978 /* UIImage+ES.h */,
 				A7AE30971C721DC900159978 /* UIImage+ES.m */,
+				3A4F5A121CC3544C00B5AFD3 /* SUTDMFCCHelperFunctions.cpp */,
+				3A4F5A131CC3544C00B5AFD3 /* SUTDMFCCHelperFunctions.hpp */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1240,6 +1246,7 @@
 				2DB4D6251BF391F200A12481 /* TCProgressTimerForegroundCropNode.m in Sources */,
 				2DE0E1311B9CAF6100BFEDA6 /* LoadingScene.m in Sources */,
 				A77563091C5F9858006E66BF /* TriangleFilter.cpp in Sources */,
+				3A4F5A141CC3544C00B5AFD3 /* SUTDMFCCHelperFunctions.cpp in Sources */,
 				A77563001C5F9858006E66BF /* AudioFileReader.cpp in Sources */,
 				D78865C01C10454700C3944C /* UIColor+Expanded.m in Sources */,
 				A775634D1C5FA803006E66BF /* MFCCAudioController.mm in Sources */,
@@ -1272,6 +1279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A4F5A151CC3544C00B5AFD3 /* SUTDMFCCHelperFunctions.cpp in Sources */,
 				2DF6B7611B94A14800B7F92C /* SpeechTherapyGameTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
