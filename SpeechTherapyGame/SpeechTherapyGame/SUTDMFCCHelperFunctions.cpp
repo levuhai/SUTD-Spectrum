@@ -124,7 +124,18 @@ void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startC
         // sum a sliding window of the rowScores
         float matchRegionScore = 0.0;
         for(size_t i=0; i<matchRegionHeight; i++){
-            matchRegionScore += rowScores.at(i+k);
+            
+            // emphasize scores in the centre of the sliding window to make
+            // the match region centre itself on the best matching part
+            // of the window
+            float emphasis = matchRegionHeight;
+            if (i < k/2)
+                emphasis += i;
+            else
+                emphasis += (matchRegionHeight - i) - 1;
+            
+            // sum each row score into the match region score
+            matchRegionScore += rowScores.at(i+k)*emphasis;
         }
         
         
