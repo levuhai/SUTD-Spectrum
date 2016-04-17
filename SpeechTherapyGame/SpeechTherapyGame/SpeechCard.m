@@ -220,7 +220,8 @@
     NSLog(@"=======================================");
     float maxScore = 0.0f;
     for (Word* w in _words) {
-        float s = [MFCCAudioController scoreFileA:_currentFilePath fileB:w];
+        //float s = [MFCCAudioController scoreFileA:_currentFilePath fileB:w];
+        float s = [MFCCAudioController scoreUserVoice:_currentFilePath dbVoice:w];
         if (s > maxScore) maxScore = s;
         NSLog(@"score %f",s);
     }
