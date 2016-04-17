@@ -33,6 +33,27 @@ const float kDefaultTrimEndThreshold = -200.0f;
 
 + (float)scoreUserVoiceMemoryTest:(NSString*)userVoicePath dbVoice:(Word*)databaseVoiceWord {
     
+    
+    WMAudioFilePreProcessInfo userVoiceFileInfo;
+    WMAudioFilePreProcessInfo databaseVoiceFileInfo;
+    
+    
+    /*
+     * Read audio files from file paths
+     */
+    NSURL *userVoiceURL = [NSURL URLWithString:userVoicePath];
+    FeatureTypeDTW::Features userVoiceFeatures = [self _getPreProcessInfo:userVoiceURL
+                                                           beginThreshold:kDefaultTrimBeginThreshold
+                                                             endThreshold:kDefaultTrimEndThreshold
+                                                                     info:&userVoiceFileInfo];
+    
+    
+    NSURL *databaseVoiceURL = [NSURL URLWithString:[databaseVoiceWord fullFilePath]];
+    FeatureTypeDTW::Features databaseVoiceFeatures = [self _getPreProcessInfo:databaseVoiceURL
+                                                               beginThreshold:kDefaultTrimBeginThreshold
+                                                                 endThreshold:kDefaultTrimEndThreshold
+                                                                         info:&databaseVoiceFileInfo];
+    
     for(size_t i=0; i < 100; i++){
         std::vector<float> foo (1000);
         for(size_t j=0; j<foo.size(); j++)
