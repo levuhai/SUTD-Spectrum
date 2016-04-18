@@ -235,13 +235,25 @@ float matchDirection(const std::vector< std::vector<float> >& M,
 float matchScore(const std::vector< std::vector<float> >& M,
                  size_t startColumn, size_t endColumn,
                  size_t startRow, size_t endRow){
-    float score = 0.0f;
-    for(size_t i=startRow; i<=endRow; i++)
-        for(size_t j=startColumn; j<=endColumn; j++)
-            score += M.at(i).at(j)*M.at(i).at(j);
     
+    // check that the match region is square
     float height = endRow - startRow + 1;
     float width = endColumn - startColumn + 1;
+    assert(height = width);
     
-    return sqrt(score) / (height*width);
+    float score = 0.0f, totalEmphasis = 0.0;
+    float edgeLength = 1.0 + (float)endColumn - (float) startColumn;
+    for(size_t i=startRow; i<=endRow; i++)
+        for(size_t j=startColumn; j<=endColumn; j++){
+            // emphasize values near the diagonal
+            float emphasis = edgeLength - fabsf((float)j - (float)i);
+            
+            // keep track of how much emphasis we used
+            totalEmphasis += emphasis;
+            
+            // calculate the emphasized score
+            score += M.at(i).at(j)*M.at(i).at(j)*emphasis;
+        }
+    
+    return score / totalEmphasis;
 }
