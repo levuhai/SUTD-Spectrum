@@ -105,6 +105,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     
     NSLog(@"%@",[self applicationDocuments]);
     
@@ -378,8 +379,31 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     int dbSize = (int)databaseVoiceFeatures.size();
     
     
+    // where does the target phoneme start and end in the database word?
+    size_t targetPhonemeStartInDB = dbSize*(float)_currentWord.targetStart/(float)_currentWord.fullLen;
+    size_t targetPhonemeEndInDB = dbSize*(float)_currentWord.targetEnd/(float)_currentWord.fullLen;
+    
+    
+    
+    // Clamp the target phoneme location within the valid range of indices.
+    // Note that the size_t type is not signed so we don't need to clamp at
+    // zero.
+    if(targetPhonemeStartInDB >= dbSize)
+        targetPhonemeStartInDB = dbSize-1;
+    if(targetPhonemeEndInDB >= dbSize)
+        targetPhonemeEndInDB = dbSize-1;
+    
+    
+    
+    // if the user voice recording is shorter than the target phoneme, we  pad it with copies of its last element to get a square match region.
+    size_t targetPhonemeLength = 1 + targetPhonemeEndInDB - targetPhonemeStartInDB;
+    if(userVoiceFeatures.size() < targetPhonemeLength)
+        userVoiceFeatures.resize(targetPhonemeLength,userVoiceFeatures.back());
+    
+    
     /*
-     * ensure that the similarity matrix is large enough
+     * ensure that the similarity matrix arrays have enough space to store
+     * the matrix
      */
     if(similarityMatrix.size() != uvSize)
         similarityMatrix.resize(uvSize);
@@ -394,20 +418,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     
     // normalize the output
     normaliseMatrix(similarityMatrix);
-    
-    
-    // where does the target phoneme start and end in featureA?
-    size_t targetPhonemeStartInDB = dbSize*(float)_currentWord.targetStart/(float)_currentWord.fullLen;
-    size_t targetPhonemeEndInDB = dbSize*(float)_currentWord.targetEnd/(float)_currentWord.fullLen;
-    
-    
-    // Clamp the target phoneme location within the valid range of indices.
-    // Note that the size_t type is not signed so we don't need to clamp at
-    // zero.
-    if(targetPhonemeStartInDB >= dbSize)
-        targetPhonemeStartInDB = dbSize-1;
-    if(targetPhonemeEndInDB >= dbSize)
-        targetPhonemeEndInDB = dbSize-1;
+
     
     
     // find the vertical location of a square match region, centred on the

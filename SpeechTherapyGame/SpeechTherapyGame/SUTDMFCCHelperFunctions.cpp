@@ -103,15 +103,11 @@ void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startC
     
     
     /*
-     * if the user voice is shorter than the target phoneme then the entire
-     * sub matrix between startColumn and endColumn is the best match region
+     * the height of the matrix must be at least the height of the match
+     * region.
      */
-    // if the height of M is less than the width, use the whole matrix height
-    if (M.size() <= matchRegionWidth){
-        startRow = 0;
-        endRow = M.size()-1;
-        return;
-    }
+    assert (M.size() >= matchRegionHeight);
+
     
     /*
      * We already returned in the previous if statement so everything below
