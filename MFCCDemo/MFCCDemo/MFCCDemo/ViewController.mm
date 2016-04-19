@@ -375,23 +375,20 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
                                                                          info:&_databaseVoiceFileInfo];
     
     
-    int uvSize = (int)userVoiceFeatures.size();
-    int dbSize = (int)databaseVoiceFeatures.size();
-    
     
     // where does the target phoneme start and end in the database word?
-    size_t targetPhonemeStartInDB = dbSize*(float)_currentWord.targetStart/(float)_currentWord.fullLen;
-    size_t targetPhonemeEndInDB = dbSize*(float)_currentWord.targetEnd/(float)_currentWord.fullLen;
+    size_t targetPhonemeStartInDB = databaseVoiceFeatures.size()*(float)_currentWord.targetStart/(float)_currentWord.fullLen;
+    size_t targetPhonemeEndInDB = databaseVoiceFeatures.size()*(float)_currentWord.targetEnd/(float)_currentWord.fullLen;
     
     
     
     // Clamp the target phoneme location within the valid range of indices.
     // Note that the size_t type is not signed so we don't need to clamp at
     // zero.
-    if(targetPhonemeStartInDB >= dbSize)
-        targetPhonemeStartInDB = dbSize-1;
-    if(targetPhonemeEndInDB >= dbSize)
-        targetPhonemeEndInDB = dbSize-1;
+    if(targetPhonemeStartInDB >= databaseVoiceFeatures.size())
+        targetPhonemeStartInDB = databaseVoiceFeatures.size()-1;
+    if(targetPhonemeEndInDB >= databaseVoiceFeatures.size())
+        targetPhonemeEndInDB = databaseVoiceFeatures.size()-1;
     
     
     
@@ -405,11 +402,11 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
      * ensure that the similarity matrix arrays have enough space to store
      * the matrix
      */
-    if(similarityMatrix.size() != uvSize)
-        similarityMatrix.resize(uvSize);
-    for(size_t i=0; i<uvSize; i++)
-        if(similarityMatrix[i].size() != dbSize)
-            similarityMatrix[i].resize(dbSize);
+    if(similarityMatrix.size() != userVoiceFeatures.size())
+        similarityMatrix.resize(userVoiceFeatures.size());
+    for(size_t i=0; i<userVoiceFeatures.size(); i++)
+        if(similarityMatrix[i].size() != databaseVoiceFeatures.size())
+            similarityMatrix[i].resize(databaseVoiceFeatures.size());
     
     
     // calculate the matrix of similarity
@@ -439,7 +436,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     /*
      * highlight the match region in green on the matrix plot
      */
-    for (int y=0; y < similarityMatrix.size();y++) {
+    for (int y=0; y < similarityMatrix.size(); y++) {
         for (int x=0; x<similarityMatrix[0].size(); x++) {
             if (y < matchRegionStartInUV || y > matchRegionEndInUV
                 || x < targetPhonemeStartInDB || x > targetPhonemeEndInDB) {

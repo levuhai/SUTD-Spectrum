@@ -12,6 +12,7 @@
 @interface MatrixController : UIViewController
 
 
+
 @property (nonatomic, weak) IBOutlet MatrixOuput *upperView;
 @property (nonatomic, weak) IBOutlet MatrixOuput *lowerView;
 
