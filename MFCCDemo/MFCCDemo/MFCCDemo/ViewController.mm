@@ -191,6 +191,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     formSheet.didDismissCompletionHandler = ^(UIViewController *presentedFSViewController){
         SelectionTable* t = (SelectionTable*)presentedFSViewController;
         _currentRecordPath = t.selectedRecordPath;
+        self.lbRecord.text = [[_currentRecordPath lastPathComponent] stringByDeletingPathExtension];
     };
     
     [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {

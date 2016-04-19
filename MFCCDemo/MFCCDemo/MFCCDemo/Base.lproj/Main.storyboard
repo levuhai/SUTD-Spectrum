@@ -149,6 +149,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="lbRecord" destination="Gve-JF-oeN" id="JEB-zg-DVB"/>
                         <outlet property="lbScore" destination="qpY-Jw-UYQ" id="aHc-ga-9Xo"/>
                         <outlet property="lbWord" destination="Tur-fi-Pf0" id="9Ta-6A-2KP"/>
                         <outlet property="scrollView" destination="clh-tq-Jaz" id="Y79-79-e11"/>
