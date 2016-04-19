@@ -88,7 +88,7 @@
         CGContextFillRect(context, similarityLegend);
         
         CGContextSetRGBFillColor(context, 0, 1, 1, 0.1);
-        CGRect fitqualityLegend = CGRectMake(0, _legend.size.width, _w*_size,(_legend.size.height-_legend.size.width)*_size);
+        CGRect fitqualityLegend = CGRectMake(0, _legend.size.width*_size, _w*_size,(_legend.size.height-_legend.size.width)*_size);
         CGContextFillRect(context, fitqualityLegend);
         
 
