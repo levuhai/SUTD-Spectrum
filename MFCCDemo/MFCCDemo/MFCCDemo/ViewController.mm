@@ -448,23 +448,6 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         }
     }
     
-    // Page 1
-    [_trimVC.graph1 inputMFCC:userVoiceFeatures start:(int)0 end:(int)userVoiceFeatures.size()];
-    [_trimVC.graph2 inputMFCC:databaseVoiceFeatures start:0 end:0];
-    
-    // Page 3
-    _matrixVC.upperView.graphColor = [UIColor greenColor];
-    [_matrixVC.upperView inputNormalizedDataW:(int)nearLineMatrix[0].size()
-                                      matrixH:(int)nearLineMatrix.size()
-                                         data:nearLineMatrix
-                                         rect:self.view.bounds
-                                       maxVal:1];
-    [_matrixVC.lowerView inputNormalizedDataW:(int)similarityMatrix[0].size()
-                                      matrixH:(int)similarityMatrix.size()
-                                         data:similarityMatrix
-                                         rect:self.view.bounds
-                                       maxVal:1];
-    
     float score = matchScore(similarityMatrix,
                              targetPhonemeStartInDB, targetPhonemeEndInDB,
                              matchRegionStartInUV, matchRegionEndInUV);
@@ -477,6 +460,29 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
      */
     _startTrimPercentage = matchRegionStartInUV/(float)similarityMatrix.size();
     _endTrimPercentage  = matchRegionEndInUV/(float)similarityMatrix.size();
+    
+    // Page 1
+    [_trimVC.graph1 inputMFCC:userVoiceFeatures
+                        start:(int)matchRegionStartInUV
+                          end:(int)matchRegionEndInUV];
+    [_trimVC.graph2 inputMFCC:databaseVoiceFeatures
+                        start:(int)targetPhonemeStartInDB
+                          end:(int)targetPhonemeEndInDB];
+    
+    // Page 3
+    _matrixVC.upperView.graphColor = [UIColor greenColor];
+    [_matrixVC.upperView inputNormalizedDataW:(int)nearLineMatrix[0].size()
+                                      matrixH:(int)nearLineMatrix.size()
+                                         data:nearLineMatrix
+                                         rect:self.view.bounds
+                                       maxVal:2];
+    [_matrixVC.lowerView inputNormalizedDataW:(int)similarityMatrix[0].size()
+                                      matrixH:(int)similarityMatrix.size()
+                                         data:similarityMatrix
+                                         rect:self.view.bounds
+                                       maxVal:0.5];
+    
+    
 }
 
 

@@ -25,7 +25,7 @@ float euclideanDistance(const FeatureTypeDTW::FeatureVector& a, const FeatureTyp
     
     float distanceSquared = 0.0f;
     
-    for(size_t i=0; i<a.size(); i++){
+    for(size_t i=0; i<2; i++){
         float diff = a.at(i) - b.at(i);
         distanceSquared += diff*diff;
     }
