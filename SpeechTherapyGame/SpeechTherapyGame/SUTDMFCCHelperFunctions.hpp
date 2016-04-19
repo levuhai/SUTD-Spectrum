@@ -19,10 +19,6 @@ void normaliseMatrix(std::vector< std::vector<float> >& M);
 
 void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startRow, size_t endRow, size_t& startColumn, size_t& endColumn);
 
-float matchDirection(const std::vector< std::vector<float> >& M,
-                     size_t startColumn, size_t endColumn,
-                     size_t startRow, size_t endRow);
-
 float matchScore(const std::vector< std::vector<float> >& M,
                  size_t startColumn, size_t endColumn,
                  size_t startRow, size_t endRow);

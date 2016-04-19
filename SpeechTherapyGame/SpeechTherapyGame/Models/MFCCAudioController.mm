@@ -87,24 +87,20 @@ const float kDefaultTrimEndThreshold = -200.0f;
                                                                          info:&databaseVoiceFileInfo];
     
     
-    int uvSize = (int)userVoiceFeatures.size();
-    int dbSize = (int)databaseVoiceFeatures.size();
-    
-    
     /*
      * where does the target phoneme start and end in the database voice?
      */
-    size_t targetPhonemeStartInDB = dbSize*(float)databaseVoiceWord.targetStart/(float)databaseVoiceWord.fullLen;
-    size_t targetPhonemeEndInDB = dbSize*(float)databaseVoiceWord.targetEnd/(float)databaseVoiceWord.fullLen;
+    size_t targetPhonemeStartInDB = databaseVoiceFeatures.size()*(float)databaseVoiceWord.targetStart/(float)databaseVoiceWord.fullLen;
+    size_t targetPhonemeEndInDB = databaseVoiceFeatures.size()*(float)databaseVoiceWord.targetEnd/(float)databaseVoiceWord.fullLen;
     
     
     // Clamp the target phoneme location within the valid range of indices.
     // Note that the size_t type is not signed so we don't need to clamp at
     // zero.
-    if(targetPhonemeStartInDB >= dbSize)
-        targetPhonemeStartInDB = dbSize-1;
-    if(targetPhonemeEndInDB >= dbSize)
-        targetPhonemeEndInDB = dbSize-1;
+    if(targetPhonemeStartInDB >= databaseVoiceFeatures.size())
+        targetPhonemeStartInDB = databaseVoiceFeatures.size()-1;
+    if(targetPhonemeEndInDB >= databaseVoiceFeatures.size())
+        targetPhonemeEndInDB = databaseVoiceFeatures.size()-1;
     
     
     // if the user voice recording is shorter than the target phoneme, we  pad it with copies of its last element to get a square match region.
@@ -116,8 +112,8 @@ const float kDefaultTrimEndThreshold = -200.0f;
     /*
      * initialize the similarity matrix
      */
-    std::vector< std::vector<float> > similarityMatrix(uvSize);
-    for(size_t i=0; i<uvSize; i++) similarityMatrix.at(i).resize(dbSize);
+    std::vector< std::vector<float> > similarityMatrix(userVoiceFeatures.size());
+    for(size_t i=0; i<userVoiceFeatures.size(); i++) similarityMatrix.at(i).resize(databaseVoiceFeatures.size());
     
     
     /*
