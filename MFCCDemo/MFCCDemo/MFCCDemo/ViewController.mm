@@ -471,16 +471,17 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     
     // Page 3
     _matrixVC.upperView.graphColor = [UIColor greenColor];
+    _matrixVC.upperView.legend = CGRectMake(targetPhonemeStartInDB, targetPhonemeEndInDB, matchRegionStartInUV, matchRegionEndInUV);
     [_matrixVC.upperView inputNormalizedDataW:(int)nearLineMatrix[0].size()
                                       matrixH:(int)nearLineMatrix.size()
                                          data:nearLineMatrix
                                          rect:self.view.bounds
-                                       maxVal:2];
+                                       maxVal:1];
     [_matrixVC.lowerView inputNormalizedDataW:(int)similarityMatrix[0].size()
                                       matrixH:(int)similarityMatrix.size()
                                          data:similarityMatrix
                                          rect:self.view.bounds
-                                       maxVal:0.5];
+                                       maxVal:1];
     
     
 }

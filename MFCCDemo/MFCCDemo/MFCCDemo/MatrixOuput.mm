@@ -63,6 +63,7 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
     if (!_drawFit) {
+        CGContextRef context = UIGraphicsGetCurrentContext();
         _maxVal = 1;
         _size = 2;//MAX(self.bounds.size.width/_w, 1);
         // Drawing code
@@ -70,16 +71,27 @@
             for (int j = 0; j<_w; j++) {
                 float temp = _dataV[i][j]/_maxVal;
                 CGRect rectangle = CGRectMake(j*_size, i*_size , _size, _size);
-                CGContextRef context = UIGraphicsGetCurrentContext();
+                
                 CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha =0.0;
                 [_graphColor getRed:&red green:&green blue:&blue alpha:&alpha];
                 if (temp == 999) {
-                    CGContextSetRGBFillColor(context, 0, 1, 1, 0.4);
+                    CGContextSetRGBFillColor(context, 0, 1, 1, 0.0);
                 } else
-                    CGContextSetRGBFillColor(context, red, green, blue, 0.1 + temp);   //this is the transparent color
+                    CGContextSetRGBFillColor(context, red, green, blue, 0.01 + temp);   //this is the transparent color
                 CGContextFillRect(context, rectangle);
+                
             }
         }
+        // Draw legend
+        CGContextSetRGBFillColor(context, 1, 1, 0, 0.1);
+        CGRect similarityLegend = CGRectMake(_legend.origin.x*_size, 0, (_legend.origin.y-_legend.origin.x)*_size,_h*_size);
+        CGContextFillRect(context, similarityLegend);
+        
+        CGContextSetRGBFillColor(context, 0, 1, 1, 0.1);
+        CGRect fitqualityLegend = CGRectMake(0, _legend.size.width, _w*_size,(_legend.size.height-_legend.size.width)*_size);
+        CGContextFillRect(context, fitqualityLegend);
+        
+
     } else {
         float maxH = self.bounds.size.height - 20;
         UIBezierPath *aPath = [UIBezierPath bezierPath];
