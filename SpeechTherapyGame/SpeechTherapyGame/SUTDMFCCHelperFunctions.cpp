@@ -84,16 +84,6 @@ void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startC
     assert(endColumn < M.at(0).size());
     
     
-    
-    // get the total match score for each row
-    std::vector<float> rowScores(M.size());
-    for(size_t i=0; i<M.size(); i++){
-        rowScores.at(i) = 0.0f;
-        for(size_t j=startColumn; j<=endColumn; j++)
-            rowScores.at(i) += M.at(i).at(j);
-    }
-    
-    
     /*
      * find the height of the match region
      */
@@ -107,7 +97,7 @@ void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startC
      * region.
      */
     assert (M.size() >= matchRegionHeight);
-
+    
     
     /*
      * We already returned in the previous if statement so everything below
@@ -117,23 +107,7 @@ void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startC
     float matchRegionMaxScore = 0.0;
     for(size_t k=0; k<=M.size()-matchRegionHeight; k++){
         
-        // sum a sliding window of the rowScores
-        float matchRegionScore = 0.0;
-        for(size_t i=0; i<matchRegionHeight; i++){
-            
-            // emphasize scores in the centre of the sliding window to make
-            // the match region centre itself on the best matching part
-            // of the window
-            float emphasis = matchRegionHeight;
-            if (i < k/2)
-                emphasis += i;
-            else
-                emphasis += (matchRegionHeight - i) - 1;
-            
-            // sum each row score into the match region score
-            matchRegionScore += rowScores.at(i+k)*emphasis;
-        }
-        
+        float matchRegionScore = matchScore(M, startColumn, endColumn, k, k+matchRegionHeight-1);
         
         // if this is the match region with the highest score so far
         if(matchRegionScore > matchRegionMaxScore){
@@ -146,91 +120,6 @@ void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startC
 }
 
 
-/*
- * estimates the degree of directionality in the match region between
- * the specified start and end row and columns in the matrix M.
- *
- * return values > 0 indicate forward direction
- * return values near 0 indicate non-directional feature matches
- * return values < 0 indicate reverse directional feature matching
- */
-float matchDirection(const std::vector< std::vector<float> >& M,
-                     size_t startColumn, size_t endColumn,
-                     size_t startRow, size_t endRow){
-    // height corresponds to user voice length, width to database phoneme
-    size_t matchRegionHeight = 1 + endRow - startRow;
-    size_t matchRegionWidth = 1 + endColumn - startColumn;
-    assert(matchRegionWidth >= matchRegionHeight);
-    
-    /*
-     * This function works by measuring the similarity in corresponding
-     * elements in neighboring diagonal rows inside the match region.
-     * If the diagonal rows slanting in the upward direction
-     * (looking from L to R) are more similar to their neighbors than
-     * the rows slanted in the downward direction then the features
-     * match in forward order.
-     *
-     * Taking diagonal rows in both diagonal directions produces a square
-     * subsection of the matrix M, but it is a square tilted at a 45 degree
-     * angle. We call this tilted square the working diamond.  It is centred
-     * in the match region and has odd numbered height and width.
-     *
-     * We extract the working diamond from M and copy it into its own matrix,
-     * which is rotated by 45 degrees so that we can iterate over its rows
-     * and columns without needing to calculate array indices in a diagonal
-     * direction.
-     */
-    
-    
-    /*
-     * find the height of the working diamond
-     */
-    size_t workingDiamondHeight = matchRegionHeight;
-    // force the height to be an odd number
-    if (matchRegionHeight % 2 == 1) matchRegionHeight--;
-    size_t workingDiamondWidth = workingDiamondHeight;
-    
-    /*
-     * find the central column of the working diamond
-     */
-    size_t workingDiamondCentreColumn = startColumn + (workingDiamondWidth/2);
-    // slide it over to centre if the match region is not square
-    workingDiamondCentreColumn += (matchRegionWidth - workingDiamondWidth)/2;
-    
-    /*
-     * Copy the working diamond into a square matrix so that its diagonal rows
-     * can be indexed more easily
-     */
-    size_t diamondSquareLength = 1 + (workingDiamondHeight/2);
-    std::vector< std::vector<float> > diamondSquare(diamondSquareLength);
-    for(size_t i=0; i<diamondSquareLength; i++)
-        diamondSquare.at(i).resize(diamondSquareLength);
-    for(size_t i=0; i<diamondSquareLength; i++)
-        for(size_t j=0; j<diamondSquareLength; j++)
-            diamondSquare.at(i).at(j) = M.at(startRow+i+j).at(workingDiamondCentreColumn+i-j);
-    
-    /*
-     * Find the squared difference between elements in adjacent rows
-     */
-    float forwardSquaredDifference = 0.0001;
-    for(size_t i=0; i<diamondSquareLength-1; i++)
-        for(size_t j=0; j<diamondSquareLength; j++){
-            float d = diamondSquare.at(i).at(j)-diamondSquare.at(i+1).at(j);
-            forwardSquaredDifference += d*d;
-        }
-    
-    /*
-     * Find the squared difference between elements in adjacent columns
-     */
-    float backwardSquaredDifference = 0.0001;
-    for(size_t i=0; i<diamondSquareLength; i++)
-        for(size_t j=0; j<diamondSquareLength-1; j++){
-            float d = diamondSquare.at(i).at(j)-diamondSquare.at(i).at(j+1);
-            backwardSquaredDifference += d*d;
-        }
-    
-    return logf(backwardSquaredDifference/forwardSquaredDifference);
-}
 
 float matchScore(const std::vector< std::vector<float> >& M,
                  size_t startColumn, size_t endColumn,
@@ -243,8 +132,8 @@ float matchScore(const std::vector< std::vector<float> >& M,
     
     float score = 0.0f, totalEmphasis = 0.0;
     float edgeLength = 1.0 + (float)endColumn - (float) startColumn;
-    for(size_t i=startRow; i<=endRow; i++)
-        for(size_t j=startColumn; j<=endColumn; j++){
+    for(size_t i=0; i<height; i++)
+        for(size_t j=0; j<width; j++){
             // emphasize values near the diagonal
             float emphasis = edgeLength - fabsf((float)j - (float)i);
             
@@ -252,7 +141,7 @@ float matchScore(const std::vector< std::vector<float> >& M,
             totalEmphasis += emphasis;
             
             // calculate the emphasized score
-            score += M.at(i).at(j)*M.at(i).at(j)*emphasis;
+            score += M.at(i+startRow).at(j+startColumn)*M.at(i+startRow).at(j+startColumn)*emphasis;
         }
     
     return score / totalEmphasis;
