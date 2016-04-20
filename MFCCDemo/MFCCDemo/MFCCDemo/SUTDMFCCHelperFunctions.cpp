@@ -80,8 +80,8 @@ void normaliseMatrix(std::vector< std::vector<float> >& M){
  * matching features are set as output.
  */
 void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startRow, size_t endRow, size_t& startColumn, size_t& endColumn, bool splitRegion){
-    assert(startColumn <= endColumn);
-    assert(endColumn < M.at(0).size());
+    assert(startRow <= endRow);
+    assert(endRow < M.at(0).size());
     
     
     /*
