@@ -417,12 +417,12 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     // normalize the output
     normaliseMatrix(similarityMatrix);
 
-    
+    // TODO: change this value
     /*
      * Phonemes that depend on the vowel sounds before and after do 
      * better with split-region scoring
      */
-    bool splitRegionScoring_TODO_FIX_THIS = false;// for S this is false, for K it is true.
+    bool splitRegionScoring = true;// for S this is false, for K it is true.
     
     
     // find the vertical location of a square match region, centred on the
