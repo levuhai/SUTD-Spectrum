@@ -79,9 +79,9 @@ void normaliseMatrix(std::vector< std::vector<float> >& M){
  * The start and end row of the match region centred around the closest
  * matching features are set as output.
  */
-void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startRow, size_t endRow, size_t& startColumn, size_t& endColumn, bool splitRegion){
-    assert(startRow <= endRow);
-    assert(endRow < M.at(0).size());
+void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startColumn, size_t endColumn, size_t& startRow, size_t& endRow, bool splitRegion){
+    assert(startColumn <= endColumn);
+    assert(endColumn < M.at(0).size());
     
     
     /*
@@ -113,7 +113,7 @@ void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startR
             matchRegionScore = matchScoreSplitRegion(M, startColumn, endColumn, k, k+matchRegionHeight-1);
         // calculate the score using the single region method
         else
-            matchRegionScore = matchScoreSingleRegion(M, startColumn, endColumn, k, k+matchRegionHeight-1);
+            matchRegionScore = matchScoreSingleRegion(M, startColumn, endColumn, k, k+matchRegionHeight-1,true);
         
         // if this is the match region with the highest score so far
         if(matchRegionScore > matchRegionMaxScore){
