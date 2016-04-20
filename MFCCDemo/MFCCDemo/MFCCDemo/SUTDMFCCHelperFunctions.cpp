@@ -222,7 +222,7 @@ float matchScoreSplitRegion(const std::vector< std::vector<float> >& M,
     float r4 = matchScoreSingleRegion(M, r4sc, r4ec, r4sr, r4er, false);
     
     // get score
-    float score = (r1*r3) - (r2*r4);
+    float score = (r1*r4) - (r2*r3);
     
     // don't allow negative scores
     if (score < 0) score = 0;
