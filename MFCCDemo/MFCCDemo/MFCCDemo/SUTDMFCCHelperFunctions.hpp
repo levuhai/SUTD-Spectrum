@@ -17,11 +17,11 @@ void genSimilarityMatrix(const FeatureTypeDTW::Features& userVoice, const Featur
 
 void normaliseMatrix(std::vector< std::vector<float> >& M);
 
-void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startRow, size_t endRow, size_t& startColumn, size_t& endColumn, bool splitRegion=false);
+void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startRow, size_t endRow, size_t& startColumn, size_t& endColumn, bool splitRegion);
 
 float matchScoreSingleRegion(const std::vector< std::vector<float> >& M,
                  size_t startColumn, size_t endColumn,
-                 size_t startRow, size_t endRow, bool emphasizeDiagonal=false);
+                 size_t startRow, size_t endRow, bool emphasizeDiagonal=true);
 
 float matchScoreSplitRegion(const std::vector< std::vector<float> >& M,
                  size_t startColumn, size_t endColumn,

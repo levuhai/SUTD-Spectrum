@@ -418,11 +418,17 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     normaliseMatrix(similarityMatrix);
 
     
+    /*
+     * Phonemes that depend on the vowel sounds before and after do 
+     * better with split-region scoring
+     */
+    bool splitRegionScoring_TODO_FIX_THIS = false;// for S this is false, for K it is true.
+    
     
     // find the vertical location of a square match region, centred on the
     // target phoneme and the rows in the user voice that best match it.
     size_t matchRegionStartInUV, matchRegionEndInUV;
-    bestMatchLocation(similarityMatrix, targetPhonemeStartInDB, targetPhonemeEndInDB, matchRegionStartInUV, matchRegionEndInUV);
+    bestMatchLocation(similarityMatrix, targetPhonemeStartInDB, targetPhonemeEndInDB, matchRegionStartInUV, matchRegionEndInUV, splitRegionScoring);
     
     
     
@@ -448,9 +454,15 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         }
     }
     
-    float score = matchScoreSingleRegion(similarityMatrix,
+    float score;
+    if(splitRegionScoring)
+        score = matchScoreSplitRegion(similarityMatrix,
+                                       targetPhonemeStartInDB, targetPhonemeEndInDB,
+                                       matchRegionStartInUV, matchRegionEndInUV);
+    else
+        score = matchScoreSingleRegion(similarityMatrix,
                              targetPhonemeStartInDB, targetPhonemeEndInDB,
-                             matchRegionStartInUV, matchRegionEndInUV);
+                             matchRegionStartInUV, matchRegionEndInUV, true);
     
     self.lbScore.text = [NSString stringWithFormat:@"%.3f", score];
     
