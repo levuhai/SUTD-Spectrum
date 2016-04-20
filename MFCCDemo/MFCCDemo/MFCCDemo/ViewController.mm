@@ -448,7 +448,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         }
     }
     
-    float score = matchScore(similarityMatrix,
+    float score = matchScoreSingleRegion(similarityMatrix,
                              targetPhonemeStartInDB, targetPhonemeEndInDB,
                              matchRegionStartInUV, matchRegionEndInUV);
     
