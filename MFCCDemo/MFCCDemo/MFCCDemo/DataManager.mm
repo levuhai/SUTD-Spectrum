@@ -60,12 +60,12 @@ static DataManager *sharedInstance = nil;
         _soundsDBPath = [doc stringByAppendingString:@"/sound.sqlite"];
         _soundFolder = [doc stringByAppendingString:@"/sounds"];
         
-        [fm removeItemAtPath:_soundsDBPath error:nil];
-        NSString* boneDBPath = [[NSBundle mainBundle] pathForResource:@"sound" ofType:@"sqlite"];
-        [fm copyItemAtPath:boneDBPath toPath:_soundsDBPath error:nil];
-        
-        [fm copyItemAtPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/sounds"] toPath:_soundFolder error:nil];
-        [self _generateDB];
+//        [fm removeItemAtPath:_soundsDBPath error:nil];
+//        NSString* boneDBPath = [[NSBundle mainBundle] pathForResource:@"sound" ofType:@"sqlite"];
+//        [fm copyItemAtPath:boneDBPath toPath:_soundsDBPath error:nil];
+//        
+//        [fm copyItemAtPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/sounds"] toPath:_soundFolder error:nil];
+//        [self _generateDB];
     }
     return self;
 }

@@ -87,11 +87,10 @@ const float kDefaultTrimEndThreshold = -200.0f;
                                                                          info:&databaseVoiceFileInfo];
     
     
-    /*
-     * where does the target phoneme start and end in the database voice?
-     */
+    // where does the target phoneme start and end in the database word?
     size_t targetPhonemeStartInDB = databaseVoiceFeatures.size()*(float)databaseVoiceWord.targetStart/(float)databaseVoiceWord.fullLen;
     size_t targetPhonemeEndInDB = databaseVoiceFeatures.size()*(float)databaseVoiceWord.targetEnd/(float)databaseVoiceWord.fullLen;
+    
     
     
     // Clamp the target phoneme location within the valid range of indices.
@@ -103,41 +102,59 @@ const float kDefaultTrimEndThreshold = -200.0f;
         targetPhonemeEndInDB = databaseVoiceFeatures.size()-1;
     
     
+    
     // if the user voice recording is shorter than the target phoneme, we  pad it with copies of its last element to get a square match region.
     size_t targetPhonemeLength = 1 + targetPhonemeEndInDB - targetPhonemeStartInDB;
     if(userVoiceFeatures.size() < targetPhonemeLength)
-        userVoiceFeatures.resize(targetPhonemeLength,userVoiceFeatures.back());    
+        userVoiceFeatures.resize(targetPhonemeLength,userVoiceFeatures.back());
     
     
+    /*
+     * ensure that the similarity matrix arrays have enough space to store
+     * the matrix
+     */
     /*
      * initialize the similarity matrix
      */
-    std::vector< std::vector<float> > similarityMatrix(userVoiceFeatures.size());
-    for(size_t i=0; i<userVoiceFeatures.size(); i++) similarityMatrix.at(i).resize(databaseVoiceFeatures.size());
+    std::vector< std::vector<float> > similarityMatrix;
+    if(similarityMatrix.size() != userVoiceFeatures.size())
+        similarityMatrix.resize(userVoiceFeatures.size());
+    for(size_t i=0; i<userVoiceFeatures.size(); i++)
+        if(similarityMatrix[i].size() != databaseVoiceFeatures.size())
+            similarityMatrix[i].resize(databaseVoiceFeatures.size());
     
     
-    /*
-     * populate the similarity matrix with match values
-     */
+    // calculate the matrix of similarity
     genSimilarityMatrix(userVoiceFeatures, databaseVoiceFeatures, similarityMatrix);
     
-
-    /*
-     * normalize the output
-     */
+    
+    // normalize the output
     normaliseMatrix(similarityMatrix);
     
-    
+    // TODO: change this value
+    /*
+     * Phonemes that depend on the vowel sounds before and after do
+     * better with split-region scoring
+     */
+    bool splitRegionScoring = [self _needSplitRegion:databaseVoiceWord];// for S this is false, for K it is true.
     
     
     // find the vertical location of a square match region, centred on the
     // target phoneme and the rows in the user voice that best match it.
     size_t matchRegionStartInUV, matchRegionEndInUV;
-    bestMatchLocation(similarityMatrix, targetPhonemeStartInDB, targetPhonemeEndInDB, matchRegionStartInUV, matchRegionEndInUV);
+    bestMatchLocation(similarityMatrix, targetPhonemeStartInDB, targetPhonemeEndInDB, matchRegionStartInUV, matchRegionEndInUV, splitRegionScoring);
     
-    return matchScore(similarityMatrix,
-                             targetPhonemeStartInDB, targetPhonemeEndInDB,
-                             matchRegionStartInUV, matchRegionEndInUV);
+    float score;
+    if(splitRegionScoring)
+        score = matchScoreSplitRegion(similarityMatrix,
+                                      targetPhonemeStartInDB, targetPhonemeEndInDB,
+                                      matchRegionStartInUV, matchRegionEndInUV);
+    else
+        score = matchScoreSingleRegion(similarityMatrix,
+                                       targetPhonemeStartInDB, targetPhonemeEndInDB,
+                                       matchRegionStartInUV, matchRegionEndInUV, true);
+    
+    return score;
 }
 
 
@@ -162,6 +179,14 @@ const float kDefaultTrimEndThreshold = -200.0f;
     CFRelease(cfurl);
     return get_mfcc_features(reader_a, fileInfo);
     
+}
+
++ (BOOL)_needSplitRegion:(Word*)w {
+    NSArray* consonants = @[@"k",@"t"];
+    if ([consonants containsObject:w.phoneme]) {
+        return YES;
+    }
+    return NO;
 }
 
 inline float linearFun(float x, float slope, float intercept) {
