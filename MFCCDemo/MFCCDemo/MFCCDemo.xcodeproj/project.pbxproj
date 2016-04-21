@@ -12,6 +12,11 @@
 		A746F87E1C27A81C00150C25 /* DataManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A746F87D1C27A81C00150C25 /* DataManager.mm */; };
 		A746F8811C27BBBC00150C25 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F8801C27BBBC00150C25 /* BaseModel.m */; };
 		A746F8841C27BD7D00150C25 /* NSDictionary+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A746F8831C27BD7D00150C25 /* NSDictionary+ES.m */; };
+		A75864E11CC74B7300665E22 /* BMGetOSVersion.c in Sources */ = {isa = PBXBuildFile; fileRef = A75864D41CC74B7300665E22 /* BMGetOSVersion.c */; };
+		A75864E21CC74B7300665E22 /* BMMultiLevelBiquad.c in Sources */ = {isa = PBXBuildFile; fileRef = A75864D61CC74B7300665E22 /* BMMultiLevelBiquad.c */; };
+		A75864E31CC74B7300665E22 /* BMRoundRobinFilter.c in Sources */ = {isa = PBXBuildFile; fileRef = A75864D81CC74B7300665E22 /* BMRoundRobinFilter.c */; };
+		A75864E41CC74B7300665E22 /* BMTNFilter.c in Sources */ = {isa = PBXBuildFile; fileRef = A75864DA1CC74B7300665E22 /* BMTNFilter.c */; };
+		A75864E51CC74B7300665E22 /* BMVelocityFilter.c in Sources */ = {isa = PBXBuildFile; fileRef = A75864DC1CC74B7300665E22 /* BMVelocityFilter.c */; };
 		A7BFD42F1C26A46A00A81D7B /* result.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A7BFD42E1C26A46A00A81D7B /* result.sqlite */; };
 		A7D81BA61C377ECE00839158 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = A7D81BA51C377ECE00839158 /* sounds */; };
 		A7EB1A861CBDF128001A5959 /* SelectionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EB1A851CBDF128001A5959 /* SelectionTable.m */; };
@@ -85,6 +90,19 @@
 		A746F8801C27BBBC00150C25 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		A746F8821C27BD7D00150C25 /* NSDictionary+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ES.h"; sourceTree = "<group>"; };
 		A746F8831C27BD7D00150C25 /* NSDictionary+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ES.m"; sourceTree = "<group>"; };
+		A75864D11CC74B7300665E22 /* BMComplexMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMComplexMath.h; sourceTree = "<group>"; };
+		A75864D41CC74B7300665E22 /* BMGetOSVersion.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BMGetOSVersion.c; sourceTree = "<group>"; };
+		A75864D51CC74B7300665E22 /* BMGetOSVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMGetOSVersion.h; sourceTree = "<group>"; };
+		A75864D61CC74B7300665E22 /* BMMultiLevelBiquad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BMMultiLevelBiquad.c; sourceTree = "<group>"; };
+		A75864D71CC74B7300665E22 /* BMMultiLevelBiquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMultiLevelBiquad.h; sourceTree = "<group>"; };
+		A75864D81CC74B7300665E22 /* BMRoundRobinFilter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BMRoundRobinFilter.c; sourceTree = "<group>"; };
+		A75864D91CC74B7300665E22 /* BMRoundRobinFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMRoundRobinFilter.h; sourceTree = "<group>"; };
+		A75864DA1CC74B7300665E22 /* BMTNFilter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BMTNFilter.c; sourceTree = "<group>"; };
+		A75864DB1CC74B7300665E22 /* BMTNFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMTNFilter.h; sourceTree = "<group>"; };
+		A75864DC1CC74B7300665E22 /* BMVelocityFilter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BMVelocityFilter.c; sourceTree = "<group>"; };
+		A75864DD1CC74B7300665E22 /* BMVelocityFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMVelocityFilter.h; sourceTree = "<group>"; };
+		A75864DE1CC74B7300665E22 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		A75864DF1CC74B7300665E22 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		A7BFD42E1C26A46A00A81D7B /* result.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = result.sqlite; sourceTree = "<group>"; };
 		A7D81BA51C377ECE00839158 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		A7EB1A841CBDF128001A5959 /* SelectionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionTable.h; sourceTree = "<group>"; };
@@ -225,6 +243,26 @@
 				A7EB1A8C1CBF45F1001A5959 /* sound.sqlite */,
 			);
 			name = Data;
+			sourceTree = "<group>";
+		};
+		A75864D01CC74B7300665E22 /* VelocityFilter */ = {
+			isa = PBXGroup;
+			children = (
+				A75864D11CC74B7300665E22 /* BMComplexMath.h */,
+				A75864D41CC74B7300665E22 /* BMGetOSVersion.c */,
+				A75864D51CC74B7300665E22 /* BMGetOSVersion.h */,
+				A75864D61CC74B7300665E22 /* BMMultiLevelBiquad.c */,
+				A75864D71CC74B7300665E22 /* BMMultiLevelBiquad.h */,
+				A75864D81CC74B7300665E22 /* BMRoundRobinFilter.c */,
+				A75864D91CC74B7300665E22 /* BMRoundRobinFilter.h */,
+				A75864DA1CC74B7300665E22 /* BMTNFilter.c */,
+				A75864DB1CC74B7300665E22 /* BMTNFilter.h */,
+				A75864DC1CC74B7300665E22 /* BMVelocityFilter.c */,
+				A75864DD1CC74B7300665E22 /* BMVelocityFilter.h */,
+				A75864DE1CC74B7300665E22 /* Constants.h */,
+				A75864DF1CC74B7300665E22 /* main.c */,
+			);
+			path = VelocityFilter;
 			sourceTree = "<group>";
 		};
 		A7EB1A871CBDF165001A5959 /* Selection */ = {
@@ -368,6 +406,7 @@
 		D7C0762C1BB25975000DB38A /* References */ = {
 			isa = PBXGroup;
 			children = (
+				A75864D01CC74B7300665E22 /* VelocityFilter */,
 				A746F8821C27BD7D00150C25 /* NSDictionary+ES.h */,
 				A746F8831C27BD7D00150C25 /* NSDictionary+ES.m */,
 				D763E8AD1BD7F4BF000CDE19 /* Oscilloscope */,
@@ -624,6 +663,7 @@
 			files = (
 				D76B34AD1C05788D00ACA397 /* GraphView.mm in Sources */,
 				A746F87E1C27A81C00150C25 /* DataManager.mm in Sources */,
+				A75864E31CC74B7300665E22 /* BMRoundRobinFilter.c in Sources */,
 				D7C08ADF1BB3AAFF000DB38A /* MFCCUtils.cpp in Sources */,
 				D763E8AC1BD77565000CDE19 /* TPOscilloscopeLayer.mm in Sources */,
 				D7C075EA1BB2572A000DB38A /* ViewController.mm in Sources */,
@@ -635,10 +675,13 @@
 				A746F8841C27BD7D00150C25 /* NSDictionary+ES.m in Sources */,
 				D7C08AE21BB3AAFF000DB38A /* WordMatch.cpp in Sources */,
 				D7C075E71BB2572A000DB38A /* AppDelegate.m in Sources */,
+				A75864E21CC74B7300665E22 /* BMMultiLevelBiquad.c in Sources */,
 				3A8E38381CBF8BE400B29645 /* SUTDMFCCHelperFunctions.cpp in Sources */,
 				D7C076AA1BB273C8000DB38A /* CAStreamBasicDescription.cpp in Sources */,
 				D7C076A91BB273C8000DB38A /* CAHostTimeBase.cpp in Sources */,
+				A75864E11CC74B7300665E22 /* BMGetOSVersion.c in Sources */,
 				D7C075E41BB2572A000DB38A /* main.m in Sources */,
+				A75864E41CC74B7300665E22 /* BMTNFilter.c in Sources */,
 				D7C08ADC1BB3AAFF000DB38A /* MelFilterBank.cpp in Sources */,
 				D7A542ED1BC3A1AC00A16386 /* MatrixOuput.mm in Sources */,
 				D7C08AD71BB3AAFF000DB38A /* AudioFileReader.cpp in Sources */,
@@ -648,6 +691,7 @@
 				D7C076A81BB273C8000DB38A /* CADebugPrintf.cpp in Sources */,
 				D7C08ADD1BB3AAFF000DB38A /* MFCCProcessor.cpp in Sources */,
 				D7C076A71BB273C8000DB38A /* CADebugMacros.cpp in Sources */,
+				A75864E51CC74B7300665E22 /* BMVelocityFilter.c in Sources */,
 				A7EB1A861CBDF128001A5959 /* SelectionTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

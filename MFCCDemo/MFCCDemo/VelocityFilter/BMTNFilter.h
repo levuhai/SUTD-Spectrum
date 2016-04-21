@@ -22,7 +22,7 @@ extern "C" {
 #endif
     
     typedef struct BMTNFilter {
-        size_t filterLength, delayTime;
+        size_t filterLength, delayTime, XMemLength;
         float mu, *Xmem, *delayLine, *W, *X, *Xlast, *dp, *Xstart, *delayLineEnd, XDotX;
     } BMTNFilter;
     
@@ -42,8 +42,10 @@ extern "C" {
      * 
      *
      * filterOrder - set the order of the FIR Least Mean Squares Filter used
-     *               to do the separation.  Default = 48. For best performance
-     *               this should be a multiple of 4.
+     *               to do the separation.  Default = 48. Higher values work 
+     *               better but take more processing power so use the lowest
+     *               value that still gives a clear separation.
+     *               For best performance this should be a multiple of 4.
      *
      *
      * mu - rate of convergence, mu in (0,1]. Higher values acheive separation
@@ -78,8 +80,26 @@ extern "C" {
      *             sounds begin with a noisy attack sound, this is usually
      *             acceptable for small values of n.
      *
+     *
+     * Suggested Settings
+     *
+     *   //for sustained musical tones:
+     *   BMTNFilter_init(f, 64, 0.25, 150)
+     *
+     *   //for speech:
+     *   BMTNFilter_init(f, 512, 0.2, 64)
+     *
      */
     void BMTNFilter_init(BMTNFilter* f, size_t filterOrder, float mu, size_t delayTime);
+    
+    
+    /*
+     * Resets the filter coefficients to zero without re-allocating
+     * memory.
+     */
+    void BMTNFilter_reset(BMTNFilter* f);
+    
+    
     
     /*
      * free memory used by the filter struct

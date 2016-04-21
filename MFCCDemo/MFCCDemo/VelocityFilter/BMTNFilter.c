@@ -28,28 +28,37 @@ extern "C" {
         
         
         // allocate memory
-        size_t XmemLength = BMTNF_FILTER_WRAP_TIME + f->filterLength;
-        f->Xmem = malloc(sizeof(float)*XmemLength);
+        f->XMemLength = BMTNF_FILTER_WRAP_TIME + f->filterLength;
+        f->Xmem = malloc(sizeof(float)*f->XMemLength);
         f->delayLine = malloc(sizeof(float)*delayTime);
         f->W = malloc(sizeof(float)*f->filterLength);
         
-        
-        // set initial position and the end marker for the delay line
+    
         f->delayTime = delayTime;
-        f->delayLineEnd = f->delayLine + delayTime;
+
+        
+        // initialize all the time-varying data
+        BMTNFilter_reset(f);
+    }
+    
+    
+    
+    void BMTNFilter_reset(BMTNFilter* f){
+        // set initial position and the end marker for the delay line
+        f->delayLineEnd = f->delayLine + f->delayTime;
         f->dp = f->delayLine;
         
         
         // set the initial position and end marker for the X delay buffer
-        float* XmemEnd = f->Xmem + XmemLength;
+        float* XmemEnd = f->Xmem + f->XMemLength;
         f->Xstart =  XmemEnd - f->filterLength;
         f->X = f->Xstart;
         f->Xlast = f->Xstart + f->filterLength - 1;
         
         
         // initialize arrays to zero
-        memset(f->delayLine, 0, sizeof(float)*delayTime);
-        memset(f->Xmem,0,sizeof(float)*XmemLength);
+        memset(f->delayLine, 0, sizeof(float)*f->delayTime);
+        memset(f->Xmem,0,sizeof(float)*f->XMemLength);
         memset(f->W,0,sizeof(float)*f->filterLength);
         
         // X . X is zero
@@ -58,12 +67,15 @@ extern "C" {
     
     
     
-    
     void BMTNFilter_processBuffer(BMTNFilter* f, const float* input, float* toneOut, float* noiseOut, size_t numSamples){
         
         // if f is not initialised, initialise it with reasonable defaults.
         if(!f->Xmem){
-            BMTNFilter_init(f, 64, 0.25, 150);
+            // for music
+            //BMTNFilter_init(f, 64, 0.25, 150);
+            
+            // for voice
+            BMTNFilter_init(f, 512, 0.2, 64);
         }
         
         for(size_t i=0; i<numSamples; i++)
@@ -116,10 +128,10 @@ extern "C" {
         
         
         // "correct" NLMS formula:
-        //float ue = *noiseOut * fabsf(*noiseOut) * f->mu / (f->XNorm + 0.001f);
-        //
-        // our formula signed-squares the noise sample:
         float ue = *noiseOut * fabsf(*noiseOut) * f->mu / (f->XDotX + 0.001f);
+        //
+        // alternative formula signed-squares the noise sample:
+        //float ue = *noiseOut * fabsf(*noiseOut) * f->mu / (f->XDotX + 0.001f);
         
         
         // Update coefficients W = W + ue*X;
