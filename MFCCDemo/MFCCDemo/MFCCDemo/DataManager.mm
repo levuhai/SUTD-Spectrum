@@ -11,6 +11,7 @@
 #import <EZAudio/EZAudio.h>
 #import <TheAmazingAudioEngine/TheAmazingAudioEngine.h>
 #import "BMTNFilter.h"
+#import "BMMultiLevelBiquad.h"
 #import "Word.h"
 
 #define DITHER_16_MAX_ERROR 3.0/323768.0f
@@ -122,16 +123,34 @@ static DataManager *sharedInstance = nil;
                 mLen = f.totalClientFrames;
                 sBuffer = [data2 bufferForChannel:0];
                 
-                // Filter
-                float* toneOut = new float[mLen], *noiseOut = new float[mLen];
-                BMTNFilter filter;
-                BMTNFilter_processBuffer(&filter, mBuffer, toneOut, noiseOut, mLen);
+                // =========================================
+                // High pass
+                float* hiPass = new float[mLen];
+                // create the filter struct
+                BMMultiLevelBiquad hpf;
+                
+                // initialise the filter
+                BMMultiLevelBiquad_init(&hpf,1, 44100, false, false);
+                
+                //To set it for 6db highpass at fc=2000Hz, do:
+                BMMultiLevelBiquad_setHighPass6db(&hpf, 2000, 0);
+                
+                //To process a buffer of audio, do:
+                BMMultiLevelBiquad_processBufferMono(&hpf, mBuffer, hiPass, mLen);
+                
+                // When you are done, free the memory used by the filter:
+                BMMultiLevelBiquad_destroy(&hpf);
+                
+//                // Filter
+//                float* toneOut = new float[mLen], *noiseOut = new float[mLen];
+//                BMTNFilter filter;
+//                BMTNFilter_processBuffer(&filter, hiPass, toneOut, noiseOut, mLen);
+//                BMTNFilter_destroy(&filter);
                 
                 // Writer
                 NSString* filterP = [fullPath stringByReplacingOccurrencesOfString:@"_full" withString:@"_filtered"];
                 const char *cha = [filterP cStringUsingEncoding:NSUTF8StringEncoding];
-                writeToAudioFile(cha, 1, false, mLen, noiseOut);
-                
+                writeToAudioFile(cha, 1, false, mLen, hiPass);
                 
                 for (int i = 0; i < mLen-3-1; i+=1) {
                     if (approxEqual(mBuffer[i+0],sBuffer[0], DELTA)
