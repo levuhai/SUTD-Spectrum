@@ -127,6 +127,7 @@ namespace WM {
         Float64 file_client_sampling_ratio_;
         
         float duration_;
+        SInt64 num_frames_;
         ExtAudioFileRef ext_af_ref_;
         
         typedef boost::scoped_array<WMAudioSampleType> AudioProcessBuffer;

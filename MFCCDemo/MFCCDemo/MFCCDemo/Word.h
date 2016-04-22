@@ -17,6 +17,7 @@
 @property(readonly, nonatomic) SInt64 position;
 
 @property(readonly, nonatomic) NSString* fullPath;
+@property(readonly, nonatomic) NSString* filterPath;
 @property(readonly, nonatomic) SInt64 fullLen;
 @property(readonly, nonatomic) NSString* croppedPath;
 @property(readonly, nonatomic) SInt64 croppedLen;

@@ -21,6 +21,7 @@
         _sound = [dict stringForKey:@"sound"];
         _phonetic = [dict stringForKey:@"phonetic"];
         _fullPath = [dict stringForKey:@"full_path"];
+        _filterPath = [_fullPath stringByReplacingOccurrencesOfString:@"_full" withString:@"_filtered"];
         _croppedPath = [dict stringForKey:@"cropped_path"];
         _imgPath = [dict stringForKey:@"img_path"];
         _samplePath = [dict stringForKey:@"sample_path"];

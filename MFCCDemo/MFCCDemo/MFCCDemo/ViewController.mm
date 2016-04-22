@@ -169,7 +169,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         
         _currentAudioPath = [NSString stringWithFormat:@"%@/sounds/%@",
                              [self applicationDocumentsDirectory],
-                             _currentWord.fullPath];
+                             _currentWord.filterPath]; // changed from .fullPath
     };
     
     [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {

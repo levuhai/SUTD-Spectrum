@@ -94,6 +94,7 @@ AudioFileReader::AudioFileReader(CFURLRef url) :
                   "Retrieving total number of frame in file." );
     
     //store the duration in seconds
+    num_frames_ = num_frames;
     duration_ = (float)num_frames / (float)file_format_.mSampleRate;
     
     CFRetain(url);
