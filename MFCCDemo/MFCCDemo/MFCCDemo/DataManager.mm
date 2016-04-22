@@ -130,7 +130,7 @@ static DataManager *sharedInstance = nil;
                 // Writer
                 NSString* filterP = [fullPath stringByReplacingOccurrencesOfString:@"_full" withString:@"_filtered"];
                 const char *cha = [filterP cStringUsingEncoding:NSUTF8StringEncoding];
-                writeToAudioFile(cha, 1, false, mLen, toneOut);
+                writeToAudioFile(cha, 1, false, mLen, noiseOut);
                 
                 
                 for (int i = 0; i < mLen-3-1; i+=1) {
