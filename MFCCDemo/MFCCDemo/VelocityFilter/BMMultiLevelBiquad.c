@@ -128,6 +128,8 @@ extern "C" {
                                  bool isStereo,
                                  bool monoRealTimeUpdate){
         
+        BMMultiLevelBiquad_destroy(bqf);
+        
         bqf->needsUpdate = false;
         bqf->sampleRate = sampleRate;
         bqf->numLevels = numLevels;
@@ -149,12 +151,10 @@ extern "C" {
         
         // Allocate memory for 5 coefficients per filter,
         // 2 filters per level (left and right channels)
-        free(bqf->coefficients_d);
         bqf->coefficients_d = malloc(numLevels*5*bqf->numChannels*sizeof(double));
         
         // repeat the allocation for floating point coefficients. We need
         // both double and float to support realtime updates
-        free(bqf->coefficients_f);
         bqf->coefficients_f = malloc(numLevels*5*bqf->numChannels*sizeof(float));
         
         // Allocate 2*numLevels + 2 floats for mono delay memory
@@ -204,34 +204,38 @@ extern "C" {
     
     
     inline void BMMultiLevelBiquad_recreate(BMMultiLevelBiquad* bqf){
-        // using multichannel vDSP_biquadm
-        if (bqf->multiChannelFilterSetup)
-            vDSP_biquadm_DestroySetup(bqf->multiChannelFilterSetup);
         
-        // using single channel vDSP_biquad
-        if(bqf->singleChannelFilterSetup){
-            vDSP_biquad_DestroySetup(bqf->singleChannelFilterSetup);
-            free(bqf->monoDelays);
-            bqf->monoDelays = malloc(sizeof(float) * (2*bqf->numLevels + 2));
-            memset(bqf->monoDelays,0,sizeof(float) * (2*bqf->numLevels + 2));
-        }
-        
-        if(bqf->useBiquadm)
+        if(bqf->useBiquadm){
+            if (bqf->multiChannelFilterSetup)
+                vDSP_biquadm_DestroySetup(bqf->multiChannelFilterSetup);
             bqf->multiChannelFilterSetup =
             vDSP_biquadm_CreateSetup(bqf->coefficients_d, bqf->numLevels, bqf->numChannels);
-        else
+        }
+        
+        
+        else {
+            if(bqf->singleChannelFilterSetup)
+                vDSP_biquad_DestroySetup(bqf->singleChannelFilterSetup);
             bqf->singleChannelFilterSetup =
             vDSP_biquad_CreateSetup(bqf->coefficients_d, bqf->numLevels);
+            memset(bqf->monoDelays,0,sizeof(float) * (2*bqf->numLevels + 2));
+        }
     }
     
     void BMMultiLevelBiquad_destroy(BMMultiLevelBiquad* bqf){
         if(bqf->coefficients_d) free(bqf->coefficients_d);
         if(bqf->coefficients_f) free(bqf->coefficients_f);
         if(bqf->monoDelays) free(bqf->monoDelays);
+        bqf->coefficients_d = NULL;
+        bqf->coefficients_f = NULL;
+        bqf->monoDelays = NULL;
+        
         if(bqf->multiChannelFilterSetup)
             vDSP_biquadm_DestroySetup(bqf->multiChannelFilterSetup);
         if(bqf->singleChannelFilterSetup)
             vDSP_biquad_DestroySetup(bqf->singleChannelFilterSetup);
+        bqf->multiChannelFilterSetup = NULL;
+        bqf->singleChannelFilterSetup = NULL;
     }
     
     
