@@ -139,6 +139,7 @@ void BMMultiLevelBiquad_init(BMMultiLevelBiquad* bqf,
     bqf->useBiquadm = false;
     if (isStereo || monoRealTimeUpdate) bqf->useBiquadm = true;
     
+    
     // We will update in realtime if the OS supports it and we are using
     // vDSP_biquadm
     bqf->useRealTimeUpdate = false;
@@ -148,13 +149,18 @@ void BMMultiLevelBiquad_init(BMMultiLevelBiquad* bqf,
     
     // Allocate memory for 5 coefficients per filter,
     // 2 filters per level (left and right channels)
-    free(bqf->coefficients);
-    bqf->coefficients = malloc(numLevels*5*bqf->numChannels*sizeof(double));
+    free(bqf->coefficients_d);
+    bqf->coefficients_d = malloc(numLevels*5*bqf->numChannels*sizeof(double));
     
     // repeat the allocation for floating point coefficients. We need
     // both double and float to support realtime updates
-    free(bqf->coefficients_float);
-    bqf->coefficients_float = malloc(numLevels*5*bqf->numChannels*sizeof(float));
+    free(bqf->coefficients_f);
+    bqf->coefficients_f = malloc(numLevels*5*bqf->numChannels*sizeof(float));
+    
+    // Allocate 2*numLevels + 2 floats for mono delay memory
+    if(!bqf->useBiquadm)
+        bqf->monoDelays = malloc( sizeof(float)* (2*numLevels + 2) );
+        
     
     // start with all levels on bypass
     for (size_t i=0; i<numLevels; i++) {
@@ -182,10 +188,10 @@ inline void BMMultiLevelBiquad_updateNow(BMMultiLevelBiquad* bqf){
     if(bqf->useRealTimeUpdate){
         // convert the coefficients to floating point
         for(size_t i=0; i<bqf->numLevels*bqf->numChannels*5; i++)
-            bqf->coefficients_float[i] = bqf->coefficients[i];
+            bqf->coefficients_f[i] = bqf->coefficients_d[i];
         
         // update the coefficients
-        vDSP_biquadm_SetCoefficientsSingle(bqf->multiChannelFilterSetup, bqf->coefficients_float, 0, 0, bqf->numLevels, bqf->numChannels);
+        vDSP_biquadm_SetCoefficientsSingle(bqf->multiChannelFilterSetup, bqf->coefficients_f, 0, 0, bqf->numLevels, bqf->numChannels);
         
         // not using realtime updates
     } else {
@@ -203,20 +209,24 @@ inline void BMMultiLevelBiquad_recreate(BMMultiLevelBiquad* bqf){
         vDSP_biquadm_DestroySetup(bqf->multiChannelFilterSetup);
     
     // using single channel vDSP_biquad
-    if(bqf->singleChannelFilterSetup)
+    if(bqf->singleChannelFilterSetup){
         vDSP_biquad_DestroySetup(bqf->singleChannelFilterSetup);
+        free(bqf->monoDelays);
+        bqf->monoDelays = malloc(sizeof(float) * (2*bqf->numLevels + 2));
+    }
     
     if(bqf->useBiquadm)
         bqf->multiChannelFilterSetup =
-        vDSP_biquadm_CreateSetup(bqf->coefficients, bqf->numLevels, bqf->numChannels);
+        vDSP_biquadm_CreateSetup(bqf->coefficients_d, bqf->numLevels, bqf->numChannels);
     else
         bqf->singleChannelFilterSetup =
-        vDSP_biquad_CreateSetup(bqf->coefficients, bqf->numLevels);
+        vDSP_biquad_CreateSetup(bqf->coefficients_d, bqf->numLevels);
 }
 
 void BMMultiLevelBiquad_destroy(BMMultiLevelBiquad* bqf){
-    if(bqf->coefficients) free(bqf->coefficients);
-    if(bqf->coefficients_float) free(bqf->coefficients_float);
+    if(bqf->coefficients_d) free(bqf->coefficients_d);
+    if(bqf->coefficients_f) free(bqf->coefficients_f);
+    if(bqf->monoDelays) free(bqf->monoDelays);
     vDSP_biquadm_DestroySetup(bqf->multiChannelFilterSetup);
 }
 
@@ -226,7 +236,7 @@ void BMMultiLevelBiquad_setBypass(BMMultiLevelBiquad* bqf, size_t level){
     
     // for left and right channels, set coefficients
     for(size_t i=0; i < bqf->numChannels; i++){
-        double* b0 = bqf->coefficients + level*bqf->numChannels*5 + i*5;
+        double* b0 = bqf->coefficients_d + level*bqf->numChannels*5 + i*5;
         double* b1 = b0 + 1;
         double* b2 = b0 + 2;
         double* a1 = b0 + 3;
@@ -246,7 +256,7 @@ void BMMultiLevelBiquad_setHighShelf(BMMultiLevelBiquad* bqf, float fc, float ga
     
     // for left and right channels, set coefficients
     for(size_t i=0; i < bqf->numChannels; i++){
-        double* b0 = bqf->coefficients + level*bqf->numChannels*5 + i*5;
+        double* b0 = bqf->coefficients_d + level*bqf->numChannels*5 + i*5;
         double* b1 = b0 + 1;
         double* b2 = b0 + 2;
         double* a1 = b0 + 3;
@@ -312,7 +322,7 @@ void BMMultiLevelBiquad_setBell(BMMultiLevelBiquad* bqf, float fc, float bandwid
     // for left and right channels, set coefficients
     for(size_t i=0; i < bqf->numChannels; i++){
         
-        double* b0 = bqf->coefficients + level*bqf->numChannels*5 + i*5;
+        double* b0 = bqf->coefficients_d + level*bqf->numChannels*5 + i*5;
         double* b1 = b0 + 1;
         double* b2 = b0 + 2;
         double* a1 = b0 + 3;
@@ -364,7 +374,7 @@ void BMMultiLevelBiquad_setLowPass12db(BMMultiLevelBiquad* bqf, double fc, size_
     // for left and right channels, set coefficients
     for(size_t i=0; i < bqf->numChannels; i++){
         
-        double* b0 = bqf->coefficients + level*bqf->numChannels*5 + i*5;
+        double* b0 = bqf->coefficients_d + level*bqf->numChannels*5 + i*5;
         double* b1 = b0 + 1;
         double* b2 = b1 + 1;
         double* a1 = b2 + 1;
@@ -402,7 +412,7 @@ void BMMultiLevelBiquad_setHighPass12db(BMMultiLevelBiquad* bqf, double fc, doub
     // for left and right channels, set coefficients
     for(size_t i=0; i < bqf->numChannels; i++){
         
-        double* b0 = bqf->coefficients + level*bqf->numChannels*5 + i*5;
+        double* b0 = bqf->coefficients_d + level*bqf->numChannels*5 + i*5;
         double* b1 = b0 + 1;
         double* b2 = b1 + 1;
         double* a1 = b2 + 1;
@@ -441,7 +451,7 @@ void BMMultiLevelBiquad_setHighPass6db(BMMultiLevelBiquad* bqf, double fc, size_
     // for left and right channels, set coefficients
     for(size_t i=0; i < bqf->numChannels; i++){
         
-        double* b0 = bqf->coefficients + level*bqf->numChannels*5 + i*5;
+        double* b0 = bqf->coefficients_d + level*bqf->numChannels*5 + i*5;
         double* b1 = b0 + 1;
         double* b2 = b1 + 1;
         double* a1 = b2 + 1;
@@ -485,7 +495,7 @@ inline DSPDoubleComplex BMMultiLevelBiquad_tfEval(BMMultiLevelBiquad* bqf, DSPDo
         // both channels are the same so we just check the left one
         size_t channel = 0;
         
-        double* b0 = bqf->coefficients + level*bqf->numChannels*5 + channel*5;
+        double* b0 = bqf->coefficients_d + level*bqf->numChannels*5 + channel*5;
         double* b1 = b0+1;
         double* b2 = b0+2;
         double* a1 = b0+3;
@@ -541,11 +551,11 @@ double BMMultiLevelBiquad_groupDelay(BMMultiLevelBiquad* bqf, double freq, doubl
     
     for (size_t level=0; level<bqf->numLevels; level++) {
         
-        double b0 = bqf->coefficients[5*level];
-        double b1 = bqf->coefficients[5*level + 1];
-        double b2 = bqf->coefficients[5*level + 2];
-        double a1 = bqf->coefficients[5*level + 3];
-        double a2 = bqf->coefficients[5*level + 4];
+        double b0 = bqf->coefficients_d[5*level];
+        double b1 = bqf->coefficients_d[5*level + 1];
+        double b2 = bqf->coefficients_d[5*level + 2];
+        double a1 = bqf->coefficients_d[5*level + 3];
+        double a2 = bqf->coefficients_d[5*level + 4];
         
         // normalize the feed forward coefficients so that b0=1
         // see: see: http://www.musicdsp.org/files/Audio-EQ-Cookbook.txt

@@ -21,8 +21,8 @@ typedef struct BMMultiLevelBiquad {
     vDSP_biquadm_Setup multiChannelFilterSetup;
     vDSP_biquad_Setup singleChannelFilterSetup;
     float* monoDelays;
-    double* coefficients;
-    float* coefficients_float;
+    double* coefficients_d;
+    float* coefficients_f;
     
     // static memory
     float gain;
@@ -73,7 +73,7 @@ void BMMultiLevelBiquad_setHighShelf(BMMultiLevelBiquad* bqf, float fc, float ga
 void BMMultiLevelBiquad_setLowPass12db(BMMultiLevelBiquad* bqf, double fc, size_t level);
 
 
-//void BMMultiLevelBiquad_setHighPass12db(BMMultiLevelBiquad* bqf, double fc, double sampleRate, size_t level);
+void BMMultiLevelBiquad_setHighPass12db(BMMultiLevelBiquad* bqf, double fc, double sampleRate, size_t level);
 
 
 void BMMultiLevelBiquad_setHighPass6db(BMMultiLevelBiquad* bqf, double fc, size_t level);
