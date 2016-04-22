@@ -73,6 +73,7 @@
 		A752FBF51C3AA79400B8ED60 /* WordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBF41C3AA79400B8ED60 /* WordCell.m */; };
 		A752FBF71C3B73AD00B8ED60 /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */; };
 		A752FBFA1C3B747300B8ED60 /* UIFont+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBF91C3B747300B8ED60 /* UIFont+ES.m */; };
+		A75864F01CC9E03200665E22 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = A75864EF1CC9E03200665E22 /* NSMutableArray+Shuffle.m */; };
 		A75A6CAB1C455745005CCE5E /* score.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A75A6CAA1C455745005CCE5E /* score.sqlite */; };
 		A75A6CAE1C4560BE005CCE5E /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = A75A6CAD1C4560BE005CCE5E /* Score.m */; };
 		A76374B51C3FC16400A9616C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A76374B41C3FC16400A9616C /* Images.xcassets */; };
@@ -311,6 +312,8 @@
 		A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
 		A752FBF81C3B747300B8ED60 /* UIFont+ES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+ES.h"; sourceTree = "<group>"; };
 		A752FBF91C3B747300B8ED60 /* UIFont+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ES.m"; sourceTree = "<group>"; };
+		A75864EE1CC9E03200665E22 /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
+		A75864EF1CC9E03200665E22 /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
 		A75A6CAA1C455745005CCE5E /* score.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = score.sqlite; sourceTree = "<group>"; };
 		A75A6CAC1C4560BE005CCE5E /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
 		A75A6CAD1C4560BE005CCE5E /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
@@ -650,6 +653,8 @@
 				A7AE30971C721DC900159978 /* UIImage+ES.m */,
 				3A4F5A121CC3544C00B5AFD3 /* SUTDMFCCHelperFunctions.cpp */,
 				3A4F5A131CC3544C00B5AFD3 /* SUTDMFCCHelperFunctions.hpp */,
+				A75864EE1CC9E03200665E22 /* NSMutableArray+Shuffle.h */,
+				A75864EF1CC9E03200665E22 /* NSMutableArray+Shuffle.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1230,6 +1235,7 @@
 				A752FBE61C3A2A1B00B8ED60 /* BaseModel.m in Sources */,
 				2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */,
 				A709FCCD1C5131E30093AF8C /* Spawner.m in Sources */,
+				A75864F01CC9E03200665E22 /* NSMutableArray+Shuffle.m in Sources */,
 				2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */,
 				A709FCD01C5133B10093AF8C /* SeaCreature.m in Sources */,
 				A7E467C01C78689A00254852 /* ParentSoundDetailsController.m in Sources */,

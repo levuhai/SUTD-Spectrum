@@ -472,23 +472,22 @@ inline BOOL approxEqual(float x, float y, float delta) {
     return result;
 }
 
-- (NSMutableArray*)getRandomWords {
-    // Select unique words from DB
-    __block NSMutableArray* uniqueWords = [self getWords];
-    
+- (NSMutableArray*)getWordGroup:(NSString*)sound {
+//    // Select unique words from DB
+//    __block NSMutableArray* uniqueWords = [self getWords];
+//    
     FMDatabaseQueue* db = [self _soundDBQueue];
-    
-    assert(uniqueWords.count > 0);
-    
-    // Random index
-    int rndValue = 0 + arc4random() % (uniqueWords.count - 0);
+//    
+//    assert(uniqueWords.count > 0);
+//    
+//    // Random index
+//    int rndValue = 0 + arc4random() % (uniqueWords.count - 0);
     
     // Select all sounds from randomized word
     __block NSMutableArray* result = [NSMutableArray new];
     db = [self _soundDBQueue];
     [db inDatabase:^(FMDatabase *db) {
-        Word* w = (Word*)uniqueWords[rndValue];
-        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [sound] = '%@'",w.sound];
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [sound] = '%@'",sound];
         FMResultSet *results = [db executeQuery:sql];
         while([results next]) {
             @autoreleasepool {

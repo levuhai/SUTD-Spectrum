@@ -17,6 +17,7 @@
 #import "Word.h"
 #import "DataManager.h"
 #import "AudioPlayer.h"
+#import "NSMutableArray+Shuffle.h"
 
 const uint32_t HOOK_BIT_MASK = 0x1 << 0;
 const uint32_t FISH_BIT_MASK = 0x1 << 1;
@@ -32,6 +33,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
     SeaCreature* _caughtCreature;
     SKSpriteNode* _lpcBg;
     BOOL _lpcHidden;
+    int _currentIndex;
 }
 
 @end
@@ -98,6 +100,7 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 }
 
 - (void)removeCatchCreature {
+    _currentIndex ++;
     [_caughtCreature.spawner removeCreature:_caughtCreature];
     _aCreatureIsHooked = NO;
     
@@ -133,8 +136,8 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
         if (contact.bodyA.categoryBitMask == bitmaskCategoryHook &&
             contact.bodyB.categoryBitMask == bitmaskCategoryCreature) {
             NSLog(@"Gotcha!");
-            _randomWords = [[DataManager shared] getRandomWords];
-            [_card enlargeWithWord:_randomWords];
+            Word* w = _randomWords[_currentIndex];
+            [_card enlargeWithWord:[[DataManager shared] getWordGroup:w.sound]];
             
             for (Spawner* spawner in _creatureSpawners) {
                 _caughtCreature = [spawner getCreatureByContactNode:contact.bodyB.node];
@@ -184,10 +187,19 @@ const uint32_t BOUND_BIT_MASK = 0x1 << 2;
 }
 
 - (void)_setupSpawner {
+    _currentIndex = 0;
+    // Random words
+    _randomWords = [[DataManager shared] getWords];
+    [_randomWords shuffle];
+    
     //Turtle Spawner
     Spawner* turtleCreatureSpawner = [[Spawner alloc] initWithCreatureClass:[SeaTurtle class]
                                                                     inScene:self];
     turtleCreatureSpawner.creatureLimit = 4;
+    if (_randomWords.count < 4) {
+        turtleCreatureSpawner.creatureLimit = (int)_randomWords.count;
+    }
+    
     
 //    Spawner* fishCreatureSpawner = [[Spawner alloc] initWithCreatureClass:[SeaFish class]
 //                                                                    inScene:self];

@@ -20,7 +20,7 @@
 
 // Sounds DB
 - (NSMutableArray*)getWords;
-- (NSMutableArray*)getRandomWords;
+- (NSMutableArray*)getWordGroup:(NSString*)sound;
 - (NSMutableArray*)getWordsFromPhoneme:(NSString*)p;
 - (NSMutableArray *)getUniqueWordsFromPhoneme:(NSString *)p;
 - (NSMutableArray*)getUniquePhoneme;
