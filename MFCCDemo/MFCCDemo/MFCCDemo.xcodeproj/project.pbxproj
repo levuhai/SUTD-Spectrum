@@ -17,6 +17,7 @@
 		A75864E31CC74B7300665E22 /* BMRoundRobinFilter.c in Sources */ = {isa = PBXBuildFile; fileRef = A75864D81CC74B7300665E22 /* BMRoundRobinFilter.c */; };
 		A75864E41CC74B7300665E22 /* BMTNFilter.c in Sources */ = {isa = PBXBuildFile; fileRef = A75864DA1CC74B7300665E22 /* BMTNFilter.c */; };
 		A75864E51CC74B7300665E22 /* BMVelocityFilter.c in Sources */ = {isa = PBXBuildFile; fileRef = A75864DC1CC74B7300665E22 /* BMVelocityFilter.c */; };
+		A7A868861CCD9ED4009189BA /* PassFilter.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7A868851CCD9ED4009189BA /* PassFilter.mm */; };
 		A7BFD42F1C26A46A00A81D7B /* result.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A7BFD42E1C26A46A00A81D7B /* result.sqlite */; };
 		A7D81BA61C377ECE00839158 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = A7D81BA51C377ECE00839158 /* sounds */; };
 		A7EB1A861CBDF128001A5959 /* SelectionTable.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EB1A851CBDF128001A5959 /* SelectionTable.m */; };
@@ -103,6 +104,8 @@
 		A75864DD1CC74B7300665E22 /* BMVelocityFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMVelocityFilter.h; sourceTree = "<group>"; };
 		A75864DE1CC74B7300665E22 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		A75864DF1CC74B7300665E22 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		A7A868841CCD9ED4009189BA /* PassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassFilter.h; sourceTree = "<group>"; };
+		A7A868851CCD9ED4009189BA /* PassFilter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PassFilter.mm; sourceTree = "<group>"; };
 		A7BFD42E1C26A46A00A81D7B /* result.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = result.sqlite; sourceTree = "<group>"; };
 		A7D81BA51C377ECE00839158 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		A7EB1A841CBDF128001A5959 /* SelectionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionTable.h; sourceTree = "<group>"; };
@@ -330,6 +333,8 @@
 				A746F87A1C27A80900150C25 /* Word.m */,
 				A746F87C1C27A81C00150C25 /* DataManager.h */,
 				A746F87D1C27A81C00150C25 /* DataManager.mm */,
+				A7A868841CCD9ED4009189BA /* PassFilter.h */,
+				A7A868851CCD9ED4009189BA /* PassFilter.mm */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -686,6 +691,7 @@
 				D7A542ED1BC3A1AC00A16386 /* MatrixOuput.mm in Sources */,
 				D7C08AD71BB3AAFF000DB38A /* AudioFileReader.cpp in Sources */,
 				A746F8811C27BBBC00150C25 /* BaseModel.m in Sources */,
+				A7A868861CCD9ED4009189BA /* PassFilter.mm in Sources */,
 				D76B34B61C05BC6B00ACA397 /* MFCC1Controller.mm in Sources */,
 				D7C08AE01BB3AAFF000DB38A /* TriangleFilter.cpp in Sources */,
 				D7C076A81BB273C8000DB38A /* CADebugPrintf.cpp in Sources */,
