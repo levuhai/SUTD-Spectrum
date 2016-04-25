@@ -11,6 +11,7 @@
 #include "MFCCProcessor.hpp"
 #include <boost/scoped_array.hpp>
 #import <MZFormSheetController/MZFormSheetController.h>
+#import <EZAudio/EZAudio.h>
 #include "WordMatch.h"
 #include "Types.h"
 #include "AudioFileReader.hpp"
@@ -36,6 +37,7 @@
 #include <stdexcept>
 #include <vector>
 #include <math.h>
+#import "PassFilter.h"
 
 #define kAudioFile1 [[NSBundle mainBundle] pathForResource:@"good1" ofType:@"wav"]
 #define kAudioFile2 [[NSBundle mainBundle] pathForResource:@"good2" ofType:@"wav"]
@@ -214,6 +216,14 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         self.recorder = nil;
         //self.btnPlay.enabled = YES;
         //_recordButton.selected = NO;
+        // Filter file
+        EZAudioFile* c = [[EZAudioFile alloc] initWithURL:[PassFilter urlForPath:_currentRecordPath]];
+        EZAudioFloatData *data2 = [c getWaveformDataWithNumberOfPoints:(int)c.totalClientFrames];
+        
+        PassFilter *p = [[PassFilter alloc] init];
+        [p filter:[data2 bufferForChannel:0]
+                    length:c.totalClientFrames
+                      path:_currentRecordPath];
     }
 }
 
