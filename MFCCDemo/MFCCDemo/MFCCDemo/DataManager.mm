@@ -236,7 +236,7 @@ void writeToAudioFile(const char *fName,int mChannels,bool compress_with_m4a, UI
     CFStringRef fPath;
     fPath = CFStringCreateWithCString(kCFAllocatorDefault,
                                       fName,
-                                      kCFStringEncodingMacRoman);
+                                      kCFStringEncodingUTF8);
     
     
     // specify total number of samples per channel

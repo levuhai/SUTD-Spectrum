@@ -32,6 +32,7 @@
 #import "TheAmazingAudioEngine.h"
 #import "TPOscilloscopeLayer.h"
 #import "AERecorder.h"
+#import "PassFilter.h"
 
 #include <algorithm>
 #include <stdexcept>
@@ -259,7 +260,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         if ( ![[NSFileManager defaultManager] fileExistsAtPath:path] ) return;
         
         NSError *error = nil;
-        self.player = [AEAudioFilePlayer audioFilePlayerWithURL:[NSURL fileURLWithPath:path] error:&error];
+        self.player = [AEAudioFilePlayer audioFilePlayerWithURL:[PassFilter urlForPath:path] error:&error];
         
         if ( !_player ) {
             [[[UIAlertView alloc] initWithTitle:@"Error"
@@ -301,7 +302,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         if ( ![[NSFileManager defaultManager] fileExistsAtPath:path] ) return;
         
         NSError *error = nil;
-        self.player = [AEAudioFilePlayer audioFilePlayerWithURL:[NSURL fileURLWithPath:path] error:&error];
+        self.player = [AEAudioFilePlayer audioFilePlayerWithURL:[PassFilter urlForPath:path] error:&error];
         
         if ( !_player ) {
             [[[UIAlertView alloc] initWithTitle:@"Error"
