@@ -10,10 +10,10 @@
 #import <FMDB/FMDB.h>
 #import <EZAudio/EZAudio.h>
 #import <TheAmazingAudioEngine/TheAmazingAudioEngine.h>
-#import "BMTNFilter.h"
-#import "BMMultiLevelBiquad.h"
 #import "Word.h"
 #import "PassFilter.h"
+#import "BMTNFilter.h"
+#import "BMMultiLevelBiquad.h"
 
 #define DITHER_16_MAX_ERROR 3.0/323768.0f
 #define DELTA 4*DITHER_16_MAX_ERROR
@@ -125,7 +125,8 @@ static DataManager *sharedInstance = nil;
                 sBuffer = [data2 bufferForChannel:0];
                 
                 // Filter
-                float* toneOut = new float[mLen], *noiseOut = new float[mLen];
+                float toneOut[mLen];
+                float noiseOut[mLen];
                 BMTNFilter filter;
                 BMTNFilter_processBuffer(&filter, mBuffer, toneOut, noiseOut, mLen);
                 BMTNFilter_destroy(&filter);
@@ -134,6 +135,7 @@ static DataManager *sharedInstance = nil;
                 NSString* filterP = [fullPath stringByReplacingOccurrencesOfString:@"_full" withString:@"_filtered"];
                 const char *cha = [filterP cStringUsingEncoding:NSUTF8StringEncoding];
                 writeToAudioFile(cha, 1, false, mLen, noiseOut);
+        
                 //[PassFilter filter:mBuffer length:mLen path:fullPath];
                 
                 for (int i = 0; i < mLen-3-1; i+=1) {
