@@ -121,8 +121,8 @@ static DataManager *sharedInstance = nil;
                 sLen = c.totalClientFrames;
                 mLen = f.totalClientFrames;
                 sBuffer = [data2 bufferForChannel:0];
-                PassFilter* p = [[PassFilter alloc] init];
-                [p filter:mBuffer length:mLen path:fullPath];
+                
+                [PassFilter filter:mBuffer length:mLen path:fullPath];
                 
                 for (int i = 0; i < mLen-3-1; i+=1) {
                     if (approxEqual(mBuffer[i+0],sBuffer[0], DELTA)

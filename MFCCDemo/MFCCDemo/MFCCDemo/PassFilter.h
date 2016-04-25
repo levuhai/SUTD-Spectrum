@@ -10,7 +10,7 @@
 
 @interface PassFilter : NSObject
 
-- (void)filter:(float*)data length:(size_t)len path:(NSString*)fullPath;
++ (void)filter:(float*)data length:(size_t)len path:(NSString*)fullPath;
 + (NSURL*)urlForPath:(NSString*)path;
 
 @end

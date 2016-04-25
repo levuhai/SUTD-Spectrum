@@ -220,8 +220,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         EZAudioFile* c = [[EZAudioFile alloc] initWithURL:[PassFilter urlForPath:_currentRecordPath]];
         EZAudioFloatData *data2 = [c getWaveformDataWithNumberOfPoints:(int)c.totalClientFrames];
         
-        PassFilter *p = [[PassFilter alloc] init];
-        [p filter:[data2 bufferForChannel:0]
+        [PassFilter filter:[data2 bufferForChannel:0]
                     length:c.totalClientFrames
                       path:_currentRecordPath];
     }

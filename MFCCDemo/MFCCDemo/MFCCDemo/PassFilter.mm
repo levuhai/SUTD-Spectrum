@@ -21,7 +21,7 @@
     return url;
 }
 
-- (void)filter:(float*)data length:(size_t)len path:(NSString*)fullPath {
++ (void)filter:(float*)data length:(size_t)len path:(NSString*)fullPath {
     // =========================================
     // High pass
     float* hiPass = new float[len];
@@ -52,7 +52,7 @@
     writeToAudioFile(cha, 1, false, len, hiPass);
 }
 
-void writeToAudioFile(const char *fName,int mChannels,bool compress_with_m4a, UInt64 frames, float* data)
+static void writeToAudioFile(const char *fName,int mChannels,bool compress_with_m4a, UInt64 frames, float* data)
 {
     OSStatus err; // to record errors from ExtAudioFile API functions
     
