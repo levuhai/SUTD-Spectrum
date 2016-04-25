@@ -24,32 +24,32 @@
 + (void)filter:(float*)data length:(size_t)len path:(NSString*)fullPath {
     // =========================================
     // High pass
-    float* hiPass = new float[len];
+    //float* hiPass = new float[len];
     // create the filter struct
-    BMMultiLevelBiquad hpf;
+//    BMMultiLevelBiquad hpf;
+//    
+//    // initialise the filter
+//    BMMultiLevelBiquad_init(&hpf,1, 44100, false, false);
+//    
+//    //To set it for 6db highpass at fc=2000Hz, do:
+//    BMMultiLevelBiquad_setHighPass12db(&hpf, 2000, 44100, 0);
+//    
+//    //To process a buffer of audio, do:
+//    BMMultiLevelBiquad_processBufferMono(&hpf, data, hiPass, len);
+//    
+//    // When you are done, free the memory used by the filter:
+//    BMMultiLevelBiquad_destroy(&hpf);
     
-    // initialise the filter
-    BMMultiLevelBiquad_init(&hpf,1, 44100, false, false);
-    
-    //To set it for 6db highpass at fc=2000Hz, do:
-    BMMultiLevelBiquad_setHighPass12db(&hpf, 2000, 44100, 0);
-    
-    //To process a buffer of audio, do:
-    BMMultiLevelBiquad_processBufferMono(&hpf, data, hiPass, len);
-    
-    // When you are done, free the memory used by the filter:
-    BMMultiLevelBiquad_destroy(&hpf);
-    
-//                // Filter
-//                float* toneOut = new float[mLen], *noiseOut = new float[mLen];
-//                BMTNFilter filter;
-//                BMTNFilter_processBuffer(&filter, hiPass, toneOut, noiseOut, mLen);
-//                BMTNFilter_destroy(&filter);
+    // Filter
+    float* toneOut = new float[len], *noiseOut = new float[len];
+    BMTNFilter filter;
+    BMTNFilter_processBuffer(&filter, data, toneOut, noiseOut, len);
+    BMTNFilter_destroy(&filter);
     
     // Writer
     NSString* filterP = [fullPath stringByReplacingOccurrencesOfString:@"_full" withString:@"_filtered"];
     const char *cha = [filterP cStringUsingEncoding:NSUTF8StringEncoding];
-    writeToAudioFile(cha, 1, false, len, hiPass);
+    writeToAudioFile(cha, 1, false, len, noiseOut);
 }
 
 static void writeToAudioFile(const char *fName,int mChannels,bool compress_with_m4a, UInt64 frames, float* data)

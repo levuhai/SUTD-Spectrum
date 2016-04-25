@@ -128,7 +128,7 @@ extern "C" {
                                  bool isStereo,
                                  bool monoRealTimeUpdate){
         
-        BMMultiLevelBiquad_destroy(bqf);
+        //BMMultiLevelBiquad_destroy(bqf);
         
         bqf->needsUpdate = false;
         bqf->sampleRate = sampleRate;
