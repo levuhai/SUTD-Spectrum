@@ -22,6 +22,8 @@ extern "C" {
     
 
     void BMTNFilter_init(BMTNFilter* f, size_t filterOrder, float mu, size_t delayTime){
+        // clear up old memory in case init is called twice on the same object
+        BMTNFilter_destroy(f);
         
         // FIR filter length = order + 1
         f->filterLength = filterOrder+1;
@@ -44,6 +46,7 @@ extern "C" {
     
     
     void BMTNFilter_reset(BMTNFilter* f){
+        
         // set initial position and the end marker for the delay line
         f->delayLineEnd = f->delayLine + f->delayTime;
         f->dp = f->delayLine;
@@ -128,7 +131,7 @@ extern "C" {
         
         
         // "correct" NLMS formula:
-        float ue = *noiseOut * fabsf(*noiseOut) * f->mu / (f->XDotX + 0.001f);
+        float ue = *noiseOut * f->mu / (f->XDotX + 0.001f);
         //
         // alternative formula signed-squares the noise sample:
         //float ue = *noiseOut * fabsf(*noiseOut) * f->mu / (f->XDotX + 0.001f);
@@ -140,11 +143,14 @@ extern "C" {
     
     
     
-    
+
     void BMTNFilter_destroy(BMTNFilter* f){
         free(f->Xmem);
         free(f->delayLine);
         free(f->W);
+        f->Xmem = NULL;
+        f->delayLine = NULL;
+        f->W = NULL;
     }
 
     

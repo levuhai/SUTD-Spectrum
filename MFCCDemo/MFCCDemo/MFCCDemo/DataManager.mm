@@ -125,7 +125,7 @@ static DataManager *sharedInstance = nil;
                 
                 // =========================================
                 // High pass
-                float* hiPass = new float[mLen];
+                float hiPass[mLen];
                 // create the filter struct
                 BMMultiLevelBiquad hpf;
                 
@@ -142,10 +142,11 @@ static DataManager *sharedInstance = nil;
                 BMMultiLevelBiquad_destroy(&hpf);
                 
 //                // Filter
-//                float* toneOut = new float[mLen], *noiseOut = new float[mLen];
-//                BMTNFilter filter;
-//                BMTNFilter_processBuffer(&filter, hiPass, toneOut, noiseOut, mLen);
-//                BMTNFilter_destroy(&filter);
+                float toneOut[mLen];
+                float noiseOut[mLen];
+                BMTNFilter filter;
+                BMTNFilter_processBuffer(&filter, hiPass, toneOut, noiseOut, mLen);
+                BMTNFilter_destroy(&filter);
                 
                 // Writer
                 NSString* filterP = [fullPath stringByReplacingOccurrencesOfString:@"_full" withString:@"_filtered"];

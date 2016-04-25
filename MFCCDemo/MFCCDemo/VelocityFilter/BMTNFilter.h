@@ -15,7 +15,7 @@
 #include <stddef.h>
 
 // set the number of samples between wrap operations in the X delay buffer
-#define BMTNF_FILTER_WRAP_TIME 256
+#define BMTNF_FILTER_WRAP_TIME 1024
 
 #ifdef __cplusplus
 extern "C" {
