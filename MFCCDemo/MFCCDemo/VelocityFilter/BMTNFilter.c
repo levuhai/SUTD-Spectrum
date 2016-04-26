@@ -23,7 +23,7 @@ extern "C" {
 
     void BMTNFilter_init(BMTNFilter* f, size_t filterOrder, float mu, size_t delayTime){
         // clear up old memory in case init is called twice on the same object
-        BMTNFilter_destroy(f);
+        //BMTNFilter_destroy(f);
         
         // FIR filter length = order + 1
         f->filterLength = filterOrder+1;

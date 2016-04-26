@@ -11,6 +11,9 @@
 
 #include "MFCCUtils.h"
 
+void filterSound(float *data, size_t len, const char*outPath);
+void writeToAudioFile(const char *fName,int mChannels,bool compress_with_m4a, UInt64 frames, float* data);
+
 float euclideanDistance(const FeatureTypeDTW::FeatureVector& a, const FeatureTypeDTW::FeatureVector& b);
 
 void genSimilarityMatrix(const FeatureTypeDTW::Features& userVoice, const FeatureTypeDTW::Features& databaseVoice, std::vector< std::vector<float> >& M);
