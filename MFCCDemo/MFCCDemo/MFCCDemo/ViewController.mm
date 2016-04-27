@@ -38,7 +38,6 @@
 #include <stdexcept>
 #include <vector>
 #include <math.h>
-#import "PassFilter.h"
 
 #define kAudioFile1 [[NSBundle mainBundle] pathForResource:@"good1" ofType:@"wav"]
 #define kAudioFile2 [[NSBundle mainBundle] pathForResource:@"good2" ofType:@"wav"]
@@ -221,9 +220,12 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         EZAudioFile* c = [[EZAudioFile alloc] initWithURL:[PassFilter urlForPath:_currentRecordPath]];
         EZAudioFloatData *data2 = [c getWaveformDataWithNumberOfPoints:(int)c.totalClientFrames];
         
-        [PassFilter filter:[data2 bufferForChannel:0]
-                    length:c.totalClientFrames
-                      path:_currentRecordPath];
+        // Writer
+        NSString* filterP = [_currentRecordPath stringByReplacingOccurrencesOfString:@".wav" withString:@"_filtered.wav"];
+        
+        const char *cha = [filterP cStringUsingEncoding:NSUTF8StringEncoding];
+        filterSound([data2 bufferForChannel:0], c.totalClientFrames, cha);
+        _currentRecordPath = filterP;
     }
 }
 
