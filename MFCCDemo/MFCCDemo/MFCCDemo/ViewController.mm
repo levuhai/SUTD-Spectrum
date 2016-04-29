@@ -11,7 +11,6 @@
 #include "MFCCProcessor.hpp"
 #include <boost/scoped_array.hpp>
 #import <MZFormSheetController/MZFormSheetController.h>
-#import <EZAudio/EZAudio.h>
 #include "WordMatch.h"
 #include "Types.h"
 #include "AudioFileReader.hpp"
@@ -217,14 +216,24 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         //self.btnPlay.enabled = YES;
         //_recordButton.selected = NO;
         // Filter file
-        EZAudioFile* c = [[EZAudioFile alloc] initWithURL:[PassFilter urlForPath:_currentRecordPath]];
-        EZAudioFloatData *data2 = [c getWaveformDataWithNumberOfPoints:(int)c.totalClientFrames];
+        // Read full file
+        AEAudioFileLoaderOperation *fullFileOperation;
+        fullFileOperation = [[AEAudioFileLoaderOperation alloc]
+                             initWithFileURL:[PassFilter urlForPath:_currentRecordPath]
+                             targetAudioDescription:[PassFilter monoFloatFormatWithSampleRate:44100.0f]];
+        [fullFileOperation start];
+        if ( fullFileOperation.error ) {
+            // Load failed! Clean up, report error, etc.
+            return;
+        }
         
+        float* mBuffer = (float*)fullFileOperation.bufferList->mBuffers[0].mData;
+        UInt64 mLen = fullFileOperation.lengthInFrames;
         // Writer
         NSString* filterP = [_currentRecordPath stringByReplacingOccurrencesOfString:@".wav" withString:@"_filtered.wav"];
         
         const char *cha = [filterP cStringUsingEncoding:NSUTF8StringEncoding];
-        filterSound([data2 bufferForChannel:0], c.totalClientFrames, cha);
+        filterSound(mBuffer, mLen, cha);
         _currentRecordPath = filterP;
     }
 }

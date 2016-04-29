@@ -12,5 +12,6 @@
 
 //+ (void)filter:(float*)data length:(size_t)len path:(NSString*)fullPath;
 + (NSURL*)urlForPath:(NSString*)path;
++ (AudioStreamBasicDescription)monoFloatFormatWithSampleRate:(float)sampleRate;
 
 @end

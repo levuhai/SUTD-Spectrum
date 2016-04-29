@@ -21,4 +21,19 @@
     return url;
 }
 
++ (AudioStreamBasicDescription)monoFloatFormatWithSampleRate:(float)sampleRate
+{
+    AudioStreamBasicDescription asbd;
+    UInt32 byteSize = sizeof(float);
+    asbd.mBitsPerChannel   = 8 * byteSize;
+    asbd.mBytesPerFrame    = byteSize;
+    asbd.mBytesPerPacket   = byteSize;
+    asbd.mChannelsPerFrame = 1;
+    asbd.mFormatFlags      = kAudioFormatFlagIsPacked|kAudioFormatFlagIsFloat|kAudioFormatFlagIsNonInterleaved;
+    asbd.mFormatID         = kAudioFormatLinearPCM;
+    asbd.mFramesPerPacket  = 1;
+    asbd.mSampleRate       = sampleRate;
+    return asbd;
+}
+
 @end

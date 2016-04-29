@@ -8,7 +8,6 @@
 
 #import "DataManager.h"
 #import <FMDB/FMDB.h>
-#import <EZAudio/EZAudio.h>
 #import <TheAmazingAudioEngine/TheAmazingAudioEngine.h>
 #import "SUTDMFCCHelperFunctions.hpp"
 #import "Word.h"
@@ -107,8 +106,8 @@ static DataManager *sharedInstance = nil;
                 // Read full file
                 AEAudioFileLoaderOperation *fullFileOperation;
                 fullFileOperation = [[AEAudioFileLoaderOperation alloc]
-                                     initWithFileURL:[self _urlForPath:fullPath]
-                                     targetAudioDescription:[self _monoFloatFormatWithSampleRate:44100.0f]];
+                                     initWithFileURL:[PassFilter urlForPath:fullPath]
+                                     targetAudioDescription:[PassFilter monoFloatFormatWithSampleRate:44100.0f]];
                 [fullFileOperation start];
                 if ( fullFileOperation.error ) {
                     // Load failed! Clean up, report error, etc.
@@ -121,8 +120,8 @@ static DataManager *sharedInstance = nil;
                 // Read cropped file
                 AEAudioFileLoaderOperation *croppedFileOperation;
                 croppedFileOperation = [[AEAudioFileLoaderOperation alloc]
-                                     initWithFileURL:[self _urlForPath:croppedPath]
-                                     targetAudioDescription:[self _monoFloatFormatWithSampleRate:44100.0f]];
+                                     initWithFileURL:[PassFilter urlForPath:croppedPath]
+                                     targetAudioDescription:[PassFilter monoFloatFormatWithSampleRate:44100.0f]];
                 [croppedFileOperation start];
                 if ( croppedFileOperation.error ) {
                     // Load failed! Clean up, report error, etc.
@@ -230,28 +229,6 @@ inline BOOL approxEqual(float x, float y, float delta) {
 }
 
 #pragma mark - Private
-- (AudioStreamBasicDescription)_monoFloatFormatWithSampleRate:(float)sampleRate
-{
-    AudioStreamBasicDescription asbd;
-    UInt32 byteSize = sizeof(float);
-    asbd.mBitsPerChannel   = 8 * byteSize;
-    asbd.mBytesPerFrame    = byteSize;
-    asbd.mBytesPerPacket   = byteSize;
-    asbd.mChannelsPerFrame = 1;
-    asbd.mFormatFlags      = kAudioFormatFlagIsPacked|kAudioFormatFlagIsFloat|kAudioFormatFlagIsNonInterleaved;
-    asbd.mFormatID         = kAudioFormatLinearPCM;
-    asbd.mFramesPerPacket  = 1;
-    asbd.mSampleRate       = sampleRate;
-    return asbd;
-}
-
-- (NSURL*)_urlForPath:(NSString*)path {
-    NSCharacterSet *set = [NSCharacterSet URLQueryAllowedCharacterSet];
-    NSString *result = [path stringByAddingPercentEncodingWithAllowedCharacters:set];
-    NSURL *url = [NSURL URLWithString:result];
-    return url;
-}
-
 - (FMDatabaseQueue*)_soundDBQueue {
     return [FMDatabaseQueue databaseQueueWithPath:_soundsDBPath];
 }
