@@ -35,7 +35,8 @@ extern "C" {
         f->delayLine = malloc(sizeof(float)*delayTime);
         f->W = malloc(sizeof(float)*f->filterLength);
         
-    
+        
+        f->mu = mu;
         f->delayTime = delayTime;
 
         
