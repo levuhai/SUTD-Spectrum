@@ -7,6 +7,7 @@
 //
 
 #include "SUTDMFCCHelperFunctions.hpp"
+#include "BMTNFilter.h"
 
 #define SUTDMFCC_MATCH_THRESHOLD 7.0f
 #define SUTDMFCC_FEATURE_LENGTH 12
@@ -128,8 +129,8 @@ void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startC
 
 
 float matchScoreSingleRegion(const std::vector< std::vector<float> >& M,
-                             size_t startColumn, size_t endColumn,
-                             size_t startRow, size_t endRow, bool emphasizeDiagonal){
+                 size_t startColumn, size_t endColumn,
+                 size_t startRow, size_t endRow, bool emphasizeDiagonal){
     
     // check that the match region is square
     size_t height = endRow - startRow + 1;
@@ -199,7 +200,7 @@ float matchScoreSplitRegion(const std::vector< std::vector<float> >& M,
     size_t r1sr = startRow;
     size_t r1er = startRow + r1Size-1;
     float r1 = matchScoreSingleRegion(M, r1sc, r1ec, r1sr, r1er, false);
-    
+
     // get score for region 2
     size_t r2sc = r1ec+1;
     size_t r2ec = endColumn;
@@ -238,4 +239,162 @@ float matchScoreSplitRegion(const std::vector< std::vector<float> >& M,
     score *= 4.0;
     
     return score;
+}
+
+void filterSound(float *data, size_t len, const char*outPath) {
+    float* toneOut = new float[len], *noiseOut = new float[len];
+    BMTNFilter filter;
+    BMTNFilter_init(&filter, 512, 0.2, 64);
+    BMTNFilter_processBuffer(&filter, data, toneOut, noiseOut, len);
+    BMTNFilter_destroy(&filter);
+    
+    writeToAudioFile(outPath, 1, false, len, noiseOut);
+    delete [] noiseOut;
+    delete [] toneOut;
+}
+
+void writeToAudioFile(const char *fName,int mChannels,bool compress_with_m4a, UInt64 frames, float* data)
+{
+    OSStatus err; // to record errors from ExtAudioFile API functions
+    
+    // create file path as CStringRef
+    CFStringRef fPath;
+    fPath = CFStringCreateWithCString(kCFAllocatorDefault,
+                                      fName,
+                                      kCFStringEncodingMacRoman);
+    
+    
+    // specify total number of samples per channel
+    UInt32 totalFramesInFile = frames;
+    
+    /////////////////////////////////////////////////////////////////////////////
+    ////////////// Set up Audio Buffer List For Interleaved Audio ///////////////
+    /////////////////////////////////////////////////////////////////////////////
+    
+    AudioBufferList outputData;
+    outputData.mNumberBuffers = 1;
+    outputData.mBuffers[0].mNumberChannels = mChannels;
+    outputData.mBuffers[0].mDataByteSize = sizeof(float)*totalFramesInFile*mChannels;
+    
+    
+    
+    /////////////////////////////////////////////////////////////////////////////
+    //////// Synthesise Noise and Put It In The AudioBufferList /////////////////
+    /////////////////////////////////////////////////////////////////////////////
+    
+    // create an array to hold our audio
+    float audioFile[totalFramesInFile*mChannels];
+    
+    // fill the array with random numbers (white noise)
+    for (int i = 0;i < totalFramesInFile*mChannels;i++)
+    {
+        audioFile[i] = data[i];
+        // (yes, I know this noise has a DC offset, bad)
+    }
+    
+    // set the AudioBuffer to point to the array containing the noise
+    outputData.mBuffers[0].mData = &audioFile;
+    
+    
+    /////////////////////////////////////////////////////////////////////////////
+    ////////////////// Specify The Output Audio File Format /////////////////////
+    /////////////////////////////////////////////////////////////////////////////
+    
+    
+    // the client format will describe the output audio file
+    AudioStreamBasicDescription clientFormat;
+    
+    // the file type identifier tells the ExtAudioFile API what kind of file we want created
+    AudioFileTypeID fileType;
+    
+    // if compress_with_m4a is tru then set up for m4a file format
+    if (compress_with_m4a)
+    {
+        // the file type identifier tells the ExtAudioFile API what kind of file we want created
+        // this creates a m4a file type
+        fileType = kAudioFileM4AType;
+        
+        // Here we specify the M4A format
+        clientFormat.mSampleRate         = 44100.0;
+        clientFormat.mFormatID           = kAudioFormatMPEG4AAC;
+        clientFormat.mFormatFlags        = kMPEG4Object_AAC_Main;
+        clientFormat.mChannelsPerFrame   = mChannels;
+        clientFormat.mBytesPerPacket     = 0;
+        clientFormat.mBytesPerFrame      = 0;
+        clientFormat.mFramesPerPacket    = 1024;
+        clientFormat.mBitsPerChannel     = 0;
+        clientFormat.mReserved           = 0;
+    }
+    else // else encode as PCM
+    {
+        // this creates a wav file type
+        fileType = kAudioFileWAVEType;
+        
+        // This function audiomatically generates the audio format according to certain arguments
+        FillOutASBDForLPCM(clientFormat,44100.0,mChannels,32,32,true,false,false);
+    }
+    
+    
+    
+    /////////////////////////////////////////////////////////////////////////////
+    ///////////////// Specify The Format of Our Audio Samples ///////////////////
+    /////////////////////////////////////////////////////////////////////////////
+    
+    // the local format describes the format the samples we will give to the ExtAudioFile API
+    AudioStreamBasicDescription localFormat;
+    FillOutASBDForLPCM (localFormat,44100.0,mChannels,32,32,true,false,false);
+    
+    
+    
+    /////////////////////////////////////////////////////////////////////////////
+    ///////////////// Create the Audio File and Open It /////////////////////////
+    /////////////////////////////////////////////////////////////////////////////
+    
+    // create the audio file reference
+    ExtAudioFileRef audiofileRef;
+    
+    // create a fileURL from our path
+    CFURLRef fileURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault,fPath,kCFURLPOSIXPathStyle,false);
+    
+    // open the file for writing
+    err = ExtAudioFileCreateWithURL((CFURLRef)fileURL, fileType, &clientFormat, NULL, kAudioFileFlags_EraseFile, &audiofileRef);
+    
+    if (err != noErr)
+    {
+        //cout << "Problem when creating audio file: " << err << "\n";
+    }
+    
+    
+    /////////////////////////////////////////////////////////////////////////////
+    ///// Tell the ExtAudioFile API what format we'll be sending samples in /////
+    /////////////////////////////////////////////////////////////////////////////
+    
+    // Tell the ExtAudioFile API what format we'll be sending samples in
+    err = ExtAudioFileSetProperty(audiofileRef, kExtAudioFileProperty_ClientDataFormat, sizeof(localFormat), &localFormat);
+    
+    if (err != noErr)
+    {
+        //cout << "Problem setting audio format: " << err << "\n";
+    }
+    
+    /////////////////////////////////////////////////////////////////////////////
+    ///////// Write the Contents of the AudioBufferList to the AudioFile ////////
+    /////////////////////////////////////////////////////////////////////////////
+    
+    UInt32 rFrames = (UInt32)totalFramesInFile;
+    // write the data
+    err = ExtAudioFileWrite(audiofileRef, rFrames, &outputData);
+    
+    if (err != noErr)
+    {
+        //cout << "Problem writing audio file: " << err << "\n";
+    }
+    
+    
+    /////////////////////////////////////////////////////////////////////////////
+    ////////////// Close the Audio File and Get Rid Of The Reference ////////////
+    /////////////////////////////////////////////////////////////////////////////
+    
+    // close the file
+    ExtAudioFileDispose(audiofileRef);
 }

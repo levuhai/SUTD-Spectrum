@@ -74,6 +74,12 @@
 		A752FBF71C3B73AD00B8ED60 /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A752FBF61C3B73AD00B8ED60 /* ionicons.ttf */; };
 		A752FBFA1C3B747300B8ED60 /* UIFont+ES.m in Sources */ = {isa = PBXBuildFile; fileRef = A752FBF91C3B747300B8ED60 /* UIFont+ES.m */; };
 		A75864F01CC9E03200665E22 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = A75864EF1CC9E03200665E22 /* NSMutableArray+Shuffle.m */; };
+		A75A17AA1CD99E860032BAA1 /* BMGetOSVersion.c in Sources */ = {isa = PBXBuildFile; fileRef = A75A179D1CD99E860032BAA1 /* BMGetOSVersion.c */; };
+		A75A17AB1CD99E860032BAA1 /* BMMultiLevelBiquad.c in Sources */ = {isa = PBXBuildFile; fileRef = A75A179F1CD99E860032BAA1 /* BMMultiLevelBiquad.c */; };
+		A75A17AC1CD99E860032BAA1 /* BMRoundRobinFilter.c in Sources */ = {isa = PBXBuildFile; fileRef = A75A17A11CD99E860032BAA1 /* BMRoundRobinFilter.c */; };
+		A75A17AD1CD99E860032BAA1 /* BMTNFilter.c in Sources */ = {isa = PBXBuildFile; fileRef = A75A17A31CD99E860032BAA1 /* BMTNFilter.c */; };
+		A75A17AE1CD99E860032BAA1 /* BMVelocityFilter.c in Sources */ = {isa = PBXBuildFile; fileRef = A75A17A51CD99E860032BAA1 /* BMVelocityFilter.c */; };
+		A75A17AF1CD99E860032BAA1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = A75A17A81CD99E860032BAA1 /* main.c */; };
 		A75A6CAB1C455745005CCE5E /* score.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A75A6CAA1C455745005CCE5E /* score.sqlite */; };
 		A75A6CAE1C4560BE005CCE5E /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = A75A6CAD1C4560BE005CCE5E /* Score.m */; };
 		A76374B51C3FC16400A9616C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A76374B41C3FC16400A9616C /* Images.xcassets */; };
@@ -314,6 +320,19 @@
 		A752FBF91C3B747300B8ED60 /* UIFont+ES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ES.m"; sourceTree = "<group>"; };
 		A75864EE1CC9E03200665E22 /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
 		A75864EF1CC9E03200665E22 /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
+		A75A179A1CD99E860032BAA1 /* BMComplexMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMComplexMath.h; sourceTree = "<group>"; };
+		A75A179D1CD99E860032BAA1 /* BMGetOSVersion.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BMGetOSVersion.c; sourceTree = "<group>"; };
+		A75A179E1CD99E860032BAA1 /* BMGetOSVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMGetOSVersion.h; sourceTree = "<group>"; };
+		A75A179F1CD99E860032BAA1 /* BMMultiLevelBiquad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BMMultiLevelBiquad.c; sourceTree = "<group>"; };
+		A75A17A01CD99E860032BAA1 /* BMMultiLevelBiquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMultiLevelBiquad.h; sourceTree = "<group>"; };
+		A75A17A11CD99E860032BAA1 /* BMRoundRobinFilter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BMRoundRobinFilter.c; sourceTree = "<group>"; };
+		A75A17A21CD99E860032BAA1 /* BMRoundRobinFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMRoundRobinFilter.h; sourceTree = "<group>"; };
+		A75A17A31CD99E860032BAA1 /* BMTNFilter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BMTNFilter.c; sourceTree = "<group>"; };
+		A75A17A41CD99E860032BAA1 /* BMTNFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMTNFilter.h; sourceTree = "<group>"; };
+		A75A17A51CD99E860032BAA1 /* BMVelocityFilter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BMVelocityFilter.c; sourceTree = "<group>"; };
+		A75A17A61CD99E860032BAA1 /* BMVelocityFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMVelocityFilter.h; sourceTree = "<group>"; };
+		A75A17A71CD99E860032BAA1 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		A75A17A81CD99E860032BAA1 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		A75A6CAA1C455745005CCE5E /* score.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = score.sqlite; sourceTree = "<group>"; };
 		A75A6CAC1C4560BE005CCE5E /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
 		A75A6CAD1C4560BE005CCE5E /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
@@ -809,9 +828,30 @@
 			name = Database;
 			sourceTree = "<group>";
 		};
+		A75A17991CD99E860032BAA1 /* VelocityFilter */ = {
+			isa = PBXGroup;
+			children = (
+				A75A179A1CD99E860032BAA1 /* BMComplexMath.h */,
+				A75A179D1CD99E860032BAA1 /* BMGetOSVersion.c */,
+				A75A179E1CD99E860032BAA1 /* BMGetOSVersion.h */,
+				A75A179F1CD99E860032BAA1 /* BMMultiLevelBiquad.c */,
+				A75A17A01CD99E860032BAA1 /* BMMultiLevelBiquad.h */,
+				A75A17A11CD99E860032BAA1 /* BMRoundRobinFilter.c */,
+				A75A17A21CD99E860032BAA1 /* BMRoundRobinFilter.h */,
+				A75A17A31CD99E860032BAA1 /* BMTNFilter.c */,
+				A75A17A41CD99E860032BAA1 /* BMTNFilter.h */,
+				A75A17A51CD99E860032BAA1 /* BMVelocityFilter.c */,
+				A75A17A61CD99E860032BAA1 /* BMVelocityFilter.h */,
+				A75A17A71CD99E860032BAA1 /* Constants.h */,
+				A75A17A81CD99E860032BAA1 /* main.c */,
+			);
+			path = VelocityFilter;
+			sourceTree = "<group>";
+		};
 		A77562DF1C5F9834006E66BF /* Reference */ = {
 			isa = PBXGroup;
 			children = (
+				A75A17991CD99E860032BAA1 /* VelocityFilter */,
 				A77563381C5F9D57006E66BF /* CAPublicUtility */,
 				A77562E21C5F9858006E66BF /* WordMatch */,
 			);
@@ -1200,10 +1240,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A75A17AC1CD99E860032BAA1 /* BMRoundRobinFilter.c in Sources */,
 				A78A2DD51C4BB9BF00D8AE75 /* FishingGameScene.m in Sources */,
 				A7888BAA1C59C33C0063D097 /* NodeUtility.m in Sources */,
 				2D1A04451BB06A3500FA14CC /* NGSplitMenuController.m in Sources */,
 				A7AE30981C721DC900159978 /* UIImage+ES.m in Sources */,
+				A75A17AD1CD99E860032BAA1 /* BMTNFilter.c in Sources */,
 				A77563061C5F9858006E66BF /* MFCCProcessor.cpp in Sources */,
 				2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */,
 				2D650A7C1C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.m in Sources */,
@@ -1223,12 +1265,14 @@
 				A701EA9F1C79CC3E003B45C7 /* SeaFish.m in Sources */,
 				A752FBFA1C3B747300B8ED60 /* UIFont+ES.m in Sources */,
 				2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */,
+				A75A17AF1CD99E860032BAA1 /* main.c in Sources */,
 				A7888BA71C5923590063D097 /* SpeechCard.m in Sources */,
 				2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */,
 				2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */,
 				A77563081C5F9858006E66BF /* MFCCUtils.cpp in Sources */,
 				A775630B1C5F9858006E66BF /* WordMatch.cpp in Sources */,
 				A77563471C5F9D57006E66BF /* CADebugPrintf.cpp in Sources */,
+				A75A17AE1CD99E860032BAA1 /* BMVelocityFilter.c in Sources */,
 				A709FCCA1C50A4CA0093AF8C /* Fisherman.m in Sources */,
 				D78865C41C1047D200C3944C /* NSUserDefaults+Convenience.m in Sources */,
 				2D75DD2A1BD57E9300112F4E /* ParentSecurityController.m in Sources */,
@@ -1240,6 +1284,7 @@
 				A709FCD01C5133B10093AF8C /* SeaCreature.m in Sources */,
 				A7E467C01C78689A00254852 /* ParentSoundDetailsController.m in Sources */,
 				A77563461C5F9D57006E66BF /* CADebugMacros.cpp in Sources */,
+				A75A17AA1CD99E860032BAA1 /* BMGetOSVersion.c in Sources */,
 				A77563491C5F9D57006E66BF /* CAStreamBasicDescription.cpp in Sources */,
 				2D1A04481BB06A3E00FA14CC /* MenuTableCell.m in Sources */,
 				2DC9041A1BB1D0710082DEAC /* ParentSoundController.m in Sources */,
@@ -1257,6 +1302,7 @@
 				D78865C01C10454700C3944C /* UIColor+Expanded.m in Sources */,
 				A775634D1C5FA803006E66BF /* MFCCAudioController.mm in Sources */,
 				2D1A04421BB06A2400FA14CC /* NGSplitViewManager.m in Sources */,
+				A75A17AB1CD99E860032BAA1 /* BMMultiLevelBiquad.c in Sources */,
 				D716291F1BE76FFF00C56C77 /* ParentMasterController.m in Sources */,
 				A7A586301C6758FA007D8370 /* AppService.m in Sources */,
 				A775634A1C5F9D57006E66BF /* CAXException.cpp in Sources */,
