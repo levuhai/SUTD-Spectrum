@@ -32,6 +32,7 @@
 
 
 - (NSString*)fullFilePath;
+- (NSString *)filteredFilePath;
 - (NSString*)sampleFilePath;
 - (NSString *)imgFilePath;
 

@@ -8,7 +8,7 @@
 
 #import "ScheduleViewController.h"
 #import "CalendarView.h"
-#import "Games.h"
+
 #import <Masonry/Masonry.h>
 #import "MZFormSheetController.h"
 #import "HomeSceneViewController.h"

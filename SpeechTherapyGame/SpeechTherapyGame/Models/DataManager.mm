@@ -9,9 +9,11 @@
 #import "DataManager.h"
 #import <TheAmazingAudioEngine/TheAmazingAudioEngine.h>
 #import <FMDB/FMDB.h>
-#import <EZAudio/EZAudio.h>
+#import "PassFilter.h"
 #import "Word.h"
 #import "Score.h"
+
+#include "SUTDMFCCHelperFunctions.hpp"
 
 #define DITHER_16_MAX_ERROR 3.0/323768.0f
 #define DELTA 4*DITHER_16_MAX_ERROR
@@ -110,49 +112,59 @@ inline BOOL approxEqual(float x, float y, float delta) {
             
             // Add files to db
             for (NSString* file in onlyWAVs) {
-                //NSLog(@"%@",file);
-                
-                // Read full file
                 // Read full file
                 NSString* temp = [NSString stringWithFormat:@"%@/%@",subFolder,file];
                 NSString *fullPath = [_soundFolder stringByAppendingPathComponent:temp];
-                //                AEAudioFileLoaderOperation* full
-                //                = [self _readFilePath:fullPath
-                //                            audioDesc:ASBD];
                 
                 // Read cropped file
                 NSString *croppedPath = [fullPath stringByReplacingOccurrencesOfString:@"_full" withString:@""];
-                //                AEAudioFileLoaderOperation* cropped
-                //                = [self _readFilePath:croppedPath
-                //                            audioDesc:ASBD];
-                //                if (!cropped || !full) {
-                //                    continue;
-                //                }
                 // Buffer reader
-                
-                EZAudioFile* f = [[EZAudioFile alloc] initWithURL:[self _urlForPath:fullPath]];
-                EZAudioFloatData *data1 = [f getWaveformDataWithNumberOfPoints:(int)f.totalClientFrames];
-                EZAudioFile* c = [[EZAudioFile alloc] initWithURL:[self _urlForPath:croppedPath]];
-                EZAudioFloatData *data2 = [c getWaveformDataWithNumberOfPoints:(int)c.totalClientFrames];
                 float *mBuffer;
                 UInt64 sLen, mLen;
                 float *sBuffer;
                 
+                // Read full file
+                AEAudioFileLoaderOperation *fullFileOperation;
+                fullFileOperation = [[AEAudioFileLoaderOperation alloc]
+                                     initWithFileURL:[PassFilter urlForPath:fullPath]
+                                     targetAudioDescription:[PassFilter monoFloatFormatWithSampleRate:44100.0f]];
+                [fullFileOperation start];
+                if ( fullFileOperation.error ) {
+                    // Load failed! Clean up, report error, etc.
+                    return;
+                }
                 
-                mBuffer = [data1 bufferForChannel:0];
-                sLen = c.totalClientFrames;
-                mLen = f.totalClientFrames;
-                sBuffer = [data2 bufferForChannel:0];
+                mBuffer = (float*)fullFileOperation.bufferList->mBuffers[0].mData;
+                mLen = fullFileOperation.lengthInFrames;
+                
+                // Read cropped file
+                AEAudioFileLoaderOperation *croppedFileOperation;
+                croppedFileOperation = [[AEAudioFileLoaderOperation alloc]
+                                        initWithFileURL:[PassFilter urlForPath:croppedPath]
+                                        targetAudioDescription:[PassFilter monoFloatFormatWithSampleRate:44100.0f]];
+                [croppedFileOperation start];
+                if ( croppedFileOperation.error ) {
+                    // Load failed! Clean up, report error, etc.
+                    return;
+                }
+                
+                sBuffer = (float*)croppedFileOperation.bufferList->mBuffers[0].mData;
+                sLen = croppedFileOperation.lengthInFrames;
+                
+                // Writer
+                NSString* filterP = [fullPath stringByReplacingOccurrencesOfString:@"_full" withString:@"_filtered"];
+                const char *cha = [filterP cStringUsingEncoding:NSUTF8StringEncoding];
+                filterSound(mBuffer, mLen, cha);
                 
                 for (int i = 0; i < mLen-3-1; i+=1) {
                     if (approxEqual(mBuffer[i+0],sBuffer[0], DELTA)
                         && approxEqual(mBuffer[i+1],sBuffer[1], DELTA)
                         && approxEqual(mBuffer[i+2],sBuffer[2], DELTA)
                         && approxEqual(mBuffer[i+4],sBuffer[4], DELTA)) {
-                        printf("\n");
-                        printf("%f %f %f ::::: %f %f %f",mBuffer[i+0],mBuffer[i+1],mBuffer[i+2],sBuffer[0],sBuffer[1],sBuffer[2]);
-                        printf("\n");
-                        NSLog(@"equal");
+                        //printf("\n");
+                        //printf("%f %f %f ::::: %f %f %f",mBuffer[i+0],mBuffer[i+1],mBuffer[i+2],sBuffer[0],sBuffer[1],sBuffer[2]);
+                        //printf("\n");
+                        //NSLog(@"equal");
                         BOOL equal = YES;
                         int j = 0;
                         while (equal) {

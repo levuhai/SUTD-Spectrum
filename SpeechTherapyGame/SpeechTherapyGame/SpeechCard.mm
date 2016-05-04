@@ -6,7 +6,6 @@
 //  Copyright © 2016 SUTD. All rights reserved.
 //
 
-@import AVFoundation;
 #import "SpeechCard.h"
 #import "Chameleon.h"
 #import "NSMutableArray+Queue.h"
@@ -22,6 +21,8 @@
 #import "DataManager.h"
 #import "Score.h"
 #import "FishingGameScene.h"
+#import "PassFilter.h"
+#include "SUTDMFCCHelperFunctions.hpp"
 #define kBufferLength 80
 #define kTick 20
 
@@ -538,6 +539,27 @@
     [_spriteMic setTexture:[SKTexture textureWithImageNamed:@"btnMicOff"]];
     [_spriteVolume runAction:[SKAction scaleTo:1 duration:1/60.0f]];
     _spriteVolume.hidden = YES;
+    
+    // Read full file
+    AEAudioFileLoaderOperation *fullFileOperation;
+    fullFileOperation = [[AEAudioFileLoaderOperation alloc]
+                         initWithFileURL:[PassFilter urlForPath:_currentFilePath]
+                         targetAudioDescription:[PassFilter monoFloatFormatWithSampleRate:44100.0f]];
+    [fullFileOperation start];
+    if ( fullFileOperation.error ) {
+        // Load failed! Clean up, report error, etc.
+        return;
+    }
+    
+    float* mBuffer = (float*)fullFileOperation.bufferList->mBuffers[0].mData;
+    UInt64 mLen = fullFileOperation.lengthInFrames;
+    // Writer
+    NSString* filterP = [_currentFilePath stringByReplacingOccurrencesOfString:@".wav" withString:@"_filtered.wav"];
+    
+    const char *cha = [filterP cStringUsingEncoding:NSUTF8StringEncoding];
+    filterSound(mBuffer, mLen, cha);
+    _currentFilePath = filterP;
+
 }
 
 - (void)_updateAudioMeter:(NSTimer *) timer //called by timer

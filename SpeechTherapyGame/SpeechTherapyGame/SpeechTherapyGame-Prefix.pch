@@ -34,9 +34,7 @@
     #import "UIColor+Chameleon.h"
     #import "SKScene+ES.h"
     // Models
-    #import "Games.h"
-    #import "Sounds.h"
-    #import "GameStatistics.h"
+    
     #import "Constants.h"
     #import "AudioPlayer.h"
 #endif

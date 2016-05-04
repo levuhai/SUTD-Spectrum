@@ -80,7 +80,7 @@ const float kDefaultTrimEndThreshold = -200.0f;
                                                                      info:&userVoiceFileInfo];
     
 
-    NSURL *databaseVoiceURL = [NSURL URLWithString:[databaseVoiceWord fullFilePath]];
+    NSURL *databaseVoiceURL = [NSURL URLWithString:[databaseVoiceWord filteredFilePath]];
     FeatureTypeDTW::Features databaseVoiceFeatures = [self _getPreProcessInfo:databaseVoiceURL
                                                                beginThreshold:kDefaultTrimBeginThreshold
                                                                  endThreshold:kDefaultTrimEndThreshold

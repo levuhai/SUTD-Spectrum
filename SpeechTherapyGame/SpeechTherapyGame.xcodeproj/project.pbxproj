@@ -23,17 +23,12 @@
 		2D45C7081C03708E009FCFB8 /* FishLeft.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2D45C7011C03708E009FCFB8 /* FishLeft.sks */; };
 		2D45C7091C03708E009FCFB8 /* FishRight.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2D45C7021C03708E009FCFB8 /* FishRight.sks */; };
 		2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064721BA99E6B00410B0E /* CoreDataManager.m */; };
-		2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */; };
 		2D61B2E41C38096E006FC272 /* FishBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D61B2E31C38096E006FC272 /* FishBar.m */; };
-		2D650A7C1C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D650A791C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.m */; };
-		2D650A7D1C3AD6D000CC4441 /* ActiveWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D650A7B1C3AD6D000CC4441 /* ActiveWord.m */; };
 		2D7580A31C2B062A0004B125 /* StarsNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7580A21C2B062A0004B125 /* StarsNode.m */; };
 		2D75DD2A1BD57E9300112F4E /* ParentSecurityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D75DD291BD57E9300112F4E /* ParentSecurityController.m */; };
 		2D8931F41BA986AF006D2840 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D8931F31BA986AF006D2840 /* CoreData.framework */; };
 		2DB4D6251BF391F200A12481 /* TCProgressTimerForegroundCropNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB4D6221BF391F200A12481 /* TCProgressTimerForegroundCropNode.m */; };
 		2DB4D6261BF391F200A12481 /* TCProgressTimerNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB4D6241BF391F200A12481 /* TCProgressTimerNode.m */; };
-		2DC195E91BF6338B008669A0 /* GameStatistics+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC195E61BF6338B008669A0 /* GameStatistics+CoreDataProperties.m */; };
-		2DC195EA1BF6338B008669A0 /* GameStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC195E81BF6338B008669A0 /* GameStatistics.m */; };
 		2DC195ED1BF63EA4008669A0 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC195EC1BF63EA4008669A0 /* NSDate+Helper.m */; };
 		2DC904171BB1D0580082DEAC /* ParentStatsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904161BB1D0580082DEAC /* ParentStatsController.m */; };
 		2DC9041A1BB1D0710082DEAC /* ParentSoundController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC904191BB1D0710082DEAC /* ParentSoundController.m */; };
@@ -41,10 +36,6 @@
 		2DE0E1311B9CAF6100BFEDA6 /* LoadingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1301B9CAF6100BFEDA6 /* LoadingScene.m */; };
 		2DE0E1341B9CB24B00BFEDA6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1331B9CB24B00BFEDA6 /* ScheduleViewController.m */; };
 		2DE0E13A1B9CB57900BFEDA6 /* CalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0E1391B9CB57900BFEDA6 /* CalendarView.m */; };
-		2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88ABD1BB8517A002438C6 /* Sounds+CoreDataProperties.m */; };
-		2DE88AC91BB8517A002438C6 /* Sounds.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88ABF1BB8517A002438C6 /* Sounds.m */; };
-		2DE88ACA1BB8517A002438C6 /* Games+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC11BB8517A002438C6 /* Games+CoreDataProperties.m */; };
-		2DE88ACB1BB8517A002438C6 /* Games.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE88AC31BB8517A002438C6 /* Games.m */; };
 		2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */; };
 		2DF6B7421B94A14800B7F92C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7411B94A14800B7F92C /* main.m */; };
 		2DF6B7451B94A14800B7F92C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6B7441B94A14800B7F92C /* AppDelegate.m */; };
@@ -79,7 +70,7 @@
 		A75A17AC1CD99E860032BAA1 /* BMRoundRobinFilter.c in Sources */ = {isa = PBXBuildFile; fileRef = A75A17A11CD99E860032BAA1 /* BMRoundRobinFilter.c */; };
 		A75A17AD1CD99E860032BAA1 /* BMTNFilter.c in Sources */ = {isa = PBXBuildFile; fileRef = A75A17A31CD99E860032BAA1 /* BMTNFilter.c */; };
 		A75A17AE1CD99E860032BAA1 /* BMVelocityFilter.c in Sources */ = {isa = PBXBuildFile; fileRef = A75A17A51CD99E860032BAA1 /* BMVelocityFilter.c */; };
-		A75A17AF1CD99E860032BAA1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = A75A17A81CD99E860032BAA1 /* main.c */; };
+		A75A17B41CD9A0710032BAA1 /* PassFilter.mm in Sources */ = {isa = PBXBuildFile; fileRef = A75A17B31CD9A0710032BAA1 /* PassFilter.mm */; };
 		A75A6CAB1C455745005CCE5E /* score.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A75A6CAA1C455745005CCE5E /* score.sqlite */; };
 		A75A6CAE1C4560BE005CCE5E /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = A75A6CAD1C4560BE005CCE5E /* Score.m */; };
 		A76374B51C3FC16400A9616C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A76374B41C3FC16400A9616C /* Images.xcassets */; };
@@ -105,7 +96,7 @@
 		A77563491C5F9D57006E66BF /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77563421C5F9D57006E66BF /* CAStreamBasicDescription.cpp */; };
 		A775634A1C5F9D57006E66BF /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77563441C5F9D57006E66BF /* CAXException.cpp */; };
 		A775634D1C5FA803006E66BF /* MFCCAudioController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A775634C1C5FA803006E66BF /* MFCCAudioController.mm */; };
-		A7888BA71C5923590063D097 /* SpeechCard.m in Sources */ = {isa = PBXBuildFile; fileRef = A7888BA61C5923590063D097 /* SpeechCard.m */; };
+		A7888BA71C5923590063D097 /* SpeechCard.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7888BA61C5923590063D097 /* SpeechCard.mm */; };
 		A7888BAA1C59C33C0063D097 /* NodeUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = A7888BA91C59C33C0063D097 /* NodeUtility.m */; };
 		A7888BAD1C59D57F0063D097 /* LPCNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = A7888BAC1C59D57F0063D097 /* LPCNode.mm */; };
 		A78A2DD21C4BB63D00D8AE75 /* FishingGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */; };
@@ -223,13 +214,8 @@
 		2D45C7021C03708E009FCFB8 /* FishRight.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FishRight.sks; sourceTree = "<group>"; };
 		2D6064711BA99E6B00410B0E /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		2D6064721BA99E6B00410B0E /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
-		2D6064751BA99FF100410B0E /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		2D61B2E21C38096E006FC272 /* FishBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishBar.h; sourceTree = "<group>"; };
 		2D61B2E31C38096E006FC272 /* FishBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishBar.m; sourceTree = "<group>"; };
-		2D650A781C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ActiveWord+CoreDataProperties.h"; sourceTree = "<group>"; };
-		2D650A791C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ActiveWord+CoreDataProperties.m"; sourceTree = "<group>"; };
-		2D650A7A1C3AD6D000CC4441 /* ActiveWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActiveWord.h; sourceTree = "<group>"; };
-		2D650A7B1C3AD6D000CC4441 /* ActiveWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveWord.m; sourceTree = "<group>"; };
 		2D7580A11C2B062A0004B125 /* StarsNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarsNode.h; sourceTree = "<group>"; };
 		2D7580A21C2B062A0004B125 /* StarsNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarsNode.m; sourceTree = "<group>"; };
 		2D75DD281BD57E9300112F4E /* ParentSecurityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentSecurityController.h; sourceTree = "<group>"; };
@@ -239,10 +225,6 @@
 		2DB4D6221BF391F200A12481 /* TCProgressTimerForegroundCropNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCProgressTimerForegroundCropNode.m; sourceTree = "<group>"; };
 		2DB4D6231BF391F200A12481 /* TCProgressTimerNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCProgressTimerNode.h; sourceTree = "<group>"; };
 		2DB4D6241BF391F200A12481 /* TCProgressTimerNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCProgressTimerNode.m; sourceTree = "<group>"; };
-		2DC195E51BF6338B008669A0 /* GameStatistics+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GameStatistics+CoreDataProperties.h"; sourceTree = "<group>"; };
-		2DC195E61BF6338B008669A0 /* GameStatistics+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GameStatistics+CoreDataProperties.m"; sourceTree = "<group>"; };
-		2DC195E71BF6338B008669A0 /* GameStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStatistics.h; sourceTree = "<group>"; };
-		2DC195E81BF6338B008669A0 /* GameStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStatistics.m; sourceTree = "<group>"; };
 		2DC195EB1BF63EA4008669A0 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
 		2DC195EC1BF63EA4008669A0 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		2DC904141BB1C5430082DEAC /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
@@ -258,14 +240,6 @@
 		2DE0E1331B9CB24B00BFEDA6 /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
 		2DE0E1381B9CB57900BFEDA6 /* CalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarView.h; sourceTree = "<group>"; };
 		2DE0E1391B9CB57900BFEDA6 /* CalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarView.m; sourceTree = "<group>"; };
-		2DE88ABC1BB8517A002438C6 /* Sounds+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Sounds+CoreDataProperties.h"; sourceTree = "<group>"; };
-		2DE88ABD1BB8517A002438C6 /* Sounds+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Sounds+CoreDataProperties.m"; sourceTree = "<group>"; };
-		2DE88ABE1BB8517A002438C6 /* Sounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sounds.h; sourceTree = "<group>"; };
-		2DE88ABF1BB8517A002438C6 /* Sounds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sounds.m; sourceTree = "<group>"; };
-		2DE88AC01BB8517A002438C6 /* Games+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Games+CoreDataProperties.h"; sourceTree = "<group>"; };
-		2DE88AC11BB8517A002438C6 /* Games+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Games+CoreDataProperties.m"; sourceTree = "<group>"; };
-		2DE88AC21BB8517A002438C6 /* Games.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Games.h; sourceTree = "<group>"; };
-		2DE88AC31BB8517A002438C6 /* Games.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Games.m; sourceTree = "<group>"; };
 		2DF67F7D1BD4A18800EB7390 /* FishingGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishingGameViewController.h; sourceTree = "<group>"; };
 		2DF67F7E1BD4A18800EB7390 /* FishingGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishingGameViewController.m; sourceTree = "<group>"; };
 		2DF6B73C1B94A14800B7F92C /* SpeechTherapyGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechTherapyGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -332,7 +306,8 @@
 		A75A17A51CD99E860032BAA1 /* BMVelocityFilter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BMVelocityFilter.c; sourceTree = "<group>"; };
 		A75A17A61CD99E860032BAA1 /* BMVelocityFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMVelocityFilter.h; sourceTree = "<group>"; };
 		A75A17A71CD99E860032BAA1 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		A75A17A81CD99E860032BAA1 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		A75A17B21CD9A0710032BAA1 /* PassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassFilter.h; sourceTree = "<group>"; };
+		A75A17B31CD9A0710032BAA1 /* PassFilter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PassFilter.mm; sourceTree = "<group>"; };
 		A75A6CAA1C455745005CCE5E /* score.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = score.sqlite; sourceTree = "<group>"; };
 		A75A6CAC1C4560BE005CCE5E /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
 		A75A6CAD1C4560BE005CCE5E /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
@@ -379,7 +354,7 @@
 		A775634B1C5FA803006E66BF /* MFCCAudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFCCAudioController.h; sourceTree = "<group>"; };
 		A775634C1C5FA803006E66BF /* MFCCAudioController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MFCCAudioController.mm; sourceTree = "<group>"; };
 		A7888BA51C5923590063D097 /* SpeechCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechCard.h; sourceTree = "<group>"; };
-		A7888BA61C5923590063D097 /* SpeechCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechCard.m; sourceTree = "<group>"; };
+		A7888BA61C5923590063D097 /* SpeechCard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpeechCard.mm; sourceTree = "<group>"; };
 		A7888BA81C59C33C0063D097 /* NodeUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeUtility.h; sourceTree = "<group>"; };
 		A7888BA91C59C33C0063D097 /* NodeUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeUtility.m; sourceTree = "<group>"; };
 		A7888BAB1C59D57F0063D097 /* LPCNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPCNode.h; sourceTree = "<group>"; };
@@ -573,7 +548,6 @@
 		2D6064771BA9A35500410B0E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A70EACFD1C6F3552005A7A6A /* removed */,
 				A75A6CAC1C4560BE005CCE5E /* Score.h */,
 				A75A6CAD1C4560BE005CCE5E /* Score.m */,
 				A752FBE81C3A2A2A00B8ED60 /* Word.h */,
@@ -590,6 +564,8 @@
 				A752FBE51C3A2A1B00B8ED60 /* DataManager.mm */,
 				A79C46D11C70D65D005C1803 /* AudioPlayer.h */,
 				A79C46D21C70D65D005C1803 /* AudioPlayer.m */,
+				A75A17B21CD9A0710032BAA1 /* PassFilter.h */,
+				A75A17B31CD9A0710032BAA1 /* PassFilter.mm */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -700,7 +676,7 @@
 			isa = PBXGroup;
 			children = (
 				A7888BA51C5923590063D097 /* SpeechCard.h */,
-				A7888BA61C5923590063D097 /* SpeechCard.m */,
+				A7888BA61C5923590063D097 /* SpeechCard.mm */,
 				A78A2DD31C4BB9BF00D8AE75 /* FishingGameScene.h */,
 				A78A2DD41C4BB9BF00D8AE75 /* FishingGameScene.m */,
 				A78A2DD11C4BB63D00D8AE75 /* FishingGameScene.sks */,
@@ -764,7 +740,6 @@
 				A701EA9B1C79C580003B45C7 /* sutdlogo1.png */,
 				A701EA991C79C551003B45C7 /* nus_logo1.png */,
 				A76374B41C3FC16400A9616C /* Images.xcassets */,
-				2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */,
 				A709FCD11C5134B00093AF8C /* Constants.h */,
 			);
 			name = "Supporting Files";
@@ -796,29 +771,6 @@
 			name = Removed;
 			sourceTree = "<group>";
 		};
-		A70EACFD1C6F3552005A7A6A /* removed */ = {
-			isa = PBXGroup;
-			children = (
-				2D650A781C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.h */,
-				2D650A791C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.m */,
-				2D650A7A1C3AD6D000CC4441 /* ActiveWord.h */,
-				2D650A7B1C3AD6D000CC4441 /* ActiveWord.m */,
-				2DE88AC21BB8517A002438C6 /* Games.h */,
-				2DE88AC31BB8517A002438C6 /* Games.m */,
-				2DC195E51BF6338B008669A0 /* GameStatistics+CoreDataProperties.h */,
-				2DC195E61BF6338B008669A0 /* GameStatistics+CoreDataProperties.m */,
-				2DC195E71BF6338B008669A0 /* GameStatistics.h */,
-				2DC195E81BF6338B008669A0 /* GameStatistics.m */,
-				2DE88AC01BB8517A002438C6 /* Games+CoreDataProperties.h */,
-				2DE88AC11BB8517A002438C6 /* Games+CoreDataProperties.m */,
-				2DE88ABE1BB8517A002438C6 /* Sounds.h */,
-				2DE88ABF1BB8517A002438C6 /* Sounds.m */,
-				2DE88ABC1BB8517A002438C6 /* Sounds+CoreDataProperties.h */,
-				2DE88ABD1BB8517A002438C6 /* Sounds+CoreDataProperties.m */,
-			);
-			name = removed;
-			sourceTree = "<group>";
-		};
 		A752FBDF1C3A29EE00B8ED60 /* Database */ = {
 			isa = PBXGroup;
 			children = (
@@ -843,7 +795,6 @@
 				A75A17A51CD99E860032BAA1 /* BMVelocityFilter.c */,
 				A75A17A61CD99E860032BAA1 /* BMVelocityFilter.h */,
 				A75A17A71CD99E860032BAA1 /* Constants.h */,
-				A75A17A81CD99E860032BAA1 /* main.c */,
 			);
 			path = VelocityFilter;
 			sourceTree = "<group>";
@@ -1248,25 +1199,19 @@
 				A75A17AD1CD99E860032BAA1 /* BMTNFilter.c in Sources */,
 				A77563061C5F9858006E66BF /* MFCCProcessor.cpp in Sources */,
 				2DF67F7F1BD4A18800EB7390 /* FishingGameViewController.m in Sources */,
-				2D650A7C1C3AD6D000CC4441 /* ActiveWord+CoreDataProperties.m in Sources */,
 				2D1A043E1BB06A0800FA14CC /* NGMenuItem.m in Sources */,
 				A7A586291C65A82E007D8370 /* ParentSettingsController.m in Sources */,
 				D78865B51C1043B800C3944C /* LPCAudioController.m in Sources */,
-				2DE88AC91BB8517A002438C6 /* Sounds.m in Sources */,
-				2DE88ACA1BB8517A002438C6 /* Games+CoreDataProperties.m in Sources */,
 				2DC904171BB1D0580082DEAC /* ParentStatsController.m in Sources */,
-				2D6064761BA99FF100410B0E /* DataModel.xcdatamodeld in Sources */,
 				A7888BAD1C59D57F0063D097 /* LPCNode.mm in Sources */,
 				A79C46D31C70DC26005C1803 /* AudioPlayer.m in Sources */,
 				2DF6B74D1B94A14800B7F92C /* HomeSceneViewController.m in Sources */,
-				2DC195E91BF6338B008669A0 /* GameStatistics+CoreDataProperties.m in Sources */,
 				A775630C1C5F9858006E66BF /* WordMatchSession.cpp in Sources */,
 				A7AE30931C7219F200159978 /* SKSpriteNode+ES.m in Sources */,
 				A701EA9F1C79CC3E003B45C7 /* SeaFish.m in Sources */,
 				A752FBFA1C3B747300B8ED60 /* UIFont+ES.m in Sources */,
-				2DE88AC81BB8517A002438C6 /* Sounds+CoreDataProperties.m in Sources */,
-				A75A17AF1CD99E860032BAA1 /* main.c in Sources */,
-				A7888BA71C5923590063D097 /* SpeechCard.m in Sources */,
+				A7888BA71C5923590063D097 /* SpeechCard.mm in Sources */,
+				A75A17B41CD9A0710032BAA1 /* PassFilter.mm in Sources */,
 				2DE0E12E1B9CAF3C00BFEDA6 /* LoadingViewController.m in Sources */,
 				2D6064731BA99E6B00410B0E /* CoreDataManager.m in Sources */,
 				A77563081C5F9858006E66BF /* MFCCUtils.cpp in Sources */,
@@ -1291,7 +1236,6 @@
 				A75A6CAE1C4560BE005CCE5E /* Score.m in Sources */,
 				A752FBED1C3A2BF900B8ED60 /* DetailsCell.m in Sources */,
 				2D61B2E41C38096E006FC272 /* FishBar.m in Sources */,
-				2DE88ACB1BB8517A002438C6 /* Games.m in Sources */,
 				A709FCDB1C5137120093AF8C /* SeaTurtle.m in Sources */,
 				A752FBF01C3A2D4100B8ED60 /* NSDictionary+ES.m in Sources */,
 				2DB4D6251BF391F200A12481 /* TCProgressTimerForegroundCropNode.m in Sources */,
@@ -1310,7 +1254,6 @@
 				A752FBE71C3A2A1B00B8ED60 /* DataManager.mm in Sources */,
 				2D2875441B977F310068818D /* SKScene+Unarchive.m in Sources */,
 				2DB4D6261BF391F200A12481 /* TCProgressTimerNode.m in Sources */,
-				2D650A7D1C3AD6D000CC4441 /* ActiveWord.m in Sources */,
 				2DF6B7481B94A14800B7F92C /* HomeScene.m in Sources */,
 				2D7580A31C2B062A0004B125 /* StarsNode.m in Sources */,
 				A77563051C5F9858006E66BF /* MelFilterBank.cpp in Sources */,
@@ -1320,7 +1263,6 @@
 				D78865C11C10454700C3944C /* UIColor+Flat.m in Sources */,
 				A78A2DD81C4BBB2E00D8AE75 /* SKScene+ES.m in Sources */,
 				2DF6B7421B94A14800B7F92C /* main.m in Sources */,
-				2DC195EA1BF6338B008669A0 /* GameStatistics.m in Sources */,
 				A7C51FC41C7C562E00CDEB8A /* FishingSplash.m in Sources */,
 				2DE0E1341B9CB24B00BFEDA6 /* ScheduleViewController.m in Sources */,
 				A752FBEA1C3A2A2A00B8ED60 /* Word.m in Sources */,
@@ -1607,19 +1549,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		2D6064741BA99FF100410B0E /* DataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				2D6064751BA99FF100410B0E /* DataModel.xcdatamodel */,
-			);
-			currentVersion = 2D6064751BA99FF100410B0E /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 2DF6B7341B94A14800B7F92C /* Project object */;
 }

@@ -13,7 +13,7 @@
 #import "DataManager.h"
 #import "AudioPlayer.h"
 #import "Word.h"
-#import "ActiveWord.h"
+
 
 @interface ParentSoundController () <UITableViewDataSource, UITableViewDelegate>
 {
