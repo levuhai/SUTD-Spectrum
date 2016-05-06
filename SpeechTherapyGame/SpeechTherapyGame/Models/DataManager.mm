@@ -301,22 +301,18 @@ inline BOOL approxEqual(float x, float y, float delta) {
         return [NSStandardUserDefaults boolForKey:kKeyWordLevel];
     }
 }
-//
-// Difficulty Index
-- (void)setDifficultyIndex:(NSInteger)difficultyIndex{
-    [NSStandardUserDefaults setInteger:difficultyIndex forKey:kKeyDifficulty];
-}
-- (NSInteger)difficultyIndex {
+
+- (float)difficultyValue {
     if (![NSStandardUserDefaults hasValueForKey:kKeyDifficulty]) {
-        return 1.0;
+        return 0.1f;
     } else {
-        return [NSStandardUserDefaults integerForKey:kKeyDifficulty];
+        return [NSStandardUserDefaults floatForKey:kKeyDifficulty];
     }
 }
 //
-// Difficulty value
-- (float)difficultyValue {
-    return [_sliderValues[self.difficultyIndex] floatValue];
+
+- (void)setDifficultyValue:(float)difficultyValue {
+    [NSStandardUserDefaults setFloat:difficultyValue forKey:kKeyDifficulty];
 }
 
 

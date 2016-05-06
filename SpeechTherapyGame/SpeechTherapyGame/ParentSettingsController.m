@@ -32,9 +32,10 @@
                                 forState:UIControlStateNormal];
     [[UISlider appearance] setThumbImage:[UIImage imageNamed:@"sliderButton"]
                                 forState:UIControlStateHighlighted];
-    [self.sliderDifficulty setMinimumValue:0.0f];
-    [self.sliderDifficulty setMaximumValue:2.0f];
-    [self.sliderDifficulty setValue:[[DataManager shared] difficultyIndex]];
+    [self.sliderDifficulty setMinimumValue:kMinSliderValue];
+    [self.sliderDifficulty setMaximumValue:kMaxSliderValue];
+    [self.sliderDifficulty setValue:[[DataManager shared] difficultyValue]];
+    self.sliderValue.text = [NSString stringWithFormat:@"%.3f",self.sliderDifficulty.value];
     
     // Volume control
     float musicVol = [[AudioPlayer shared] musicVolume];
@@ -50,9 +51,10 @@
 
 - (IBAction)valueChanged:(UISlider *)sender {
     // round the slider position to the nearest index of the numbers array
-    NSUInteger index = (NSUInteger)(self.sliderDifficulty.value + 0.5);
-    [self.sliderDifficulty setValue:index animated:NO];
-    [[DataManager shared] setDifficultyIndex:index];
+    float index = self.sliderDifficulty.value;
+    //[self.sliderDifficulty setValue:index animated:NO];
+    [[DataManager shared] setDifficultyValue:index];
+    self.sliderValue.text = [NSString stringWithFormat:@"%.3f",index];
 }
 
 - (IBAction)btnPressed:(UIButton*)btn {

@@ -61,5 +61,8 @@
 #define hookDropSpeed 120.0f
 #define hookMovementDeltaY 1.0f
 
+#define kMinSliderValue 0.00f
+#define kMaxSliderValue 0.20f
+
 
 #endif /* Constants_h */

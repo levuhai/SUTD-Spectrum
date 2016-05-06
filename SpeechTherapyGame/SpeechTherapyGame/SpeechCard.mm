@@ -169,47 +169,6 @@
 //        __weak SpeechCard *weakSelf = self;
         self.audioController = [[AudioPlayer shared] aAEController];
         
-//        // AE Audio Receiver
-//        self.receiver = [AEBlockAudioReceiver audioReceiverWithBlock:
-//               ^(void                     *source,
-//                 const AudioTimeStamp     *time,
-//                 UInt32                    frames,
-//                 AudioBufferList          *audio) {
-//                   // Do something with 'audio'
-//                   if (audio) {
-//                       float *source= (float *)audio->mBuffers[0].mData;
-//                       float tick = 0;
-//                       for (int j = 0; j < frames; j++) {
-//                           tick += sqrtf(source[j]*source[j]);
-//                       }
-//                       if (!weakSelf.soundDetected) {
-//                           weakSelf.count++;
-//                       }
-//                       if (weakSelf.count == 150) {
-//                           [weakSelf _stopRecording];
-//                           weakSelf.count = 0;
-//                           weakSelf.recording = NO;
-//                           //[weakSelf resetIdleTimer];
-//                           [self doSth];
-//                       }
-//                       if (tick>=25 && !_soundDetected) {
-//                           weakSelf.soundDetected = YES;
-//                           [weakSelf.silenceArray removeAllObjects];
-//                           weakSelf.count = 0;
-//                       }
-//                       if (weakSelf.soundDetected) {
-//                           [weakSelf.silenceArray addItem:[NSNumber numberWithFloat:tick]];
-//                           if (weakSelf.silenceArray.count == kBufferLength) {
-//                               float a = [weakSelf avg];
-//                               if (a <= 30) {
-//                                   [weakSelf _stopRecording];
-//                                   [weakSelf _score];
-//                               }
-//                           }
-//                       }
-//                   }
-//               }];
-        
         self.recorder = [[AERecorder alloc] initWithAudioController:_audioController];
     }
     return self;

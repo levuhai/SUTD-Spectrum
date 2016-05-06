@@ -15,8 +15,7 @@
 + (id) shared;
 @property (nonatomic, assign) BOOL practisingWordLv;
 @property (nonatomic, assign) BOOL practisingSyllableLv;
-@property (nonatomic, assign) NSInteger difficultyIndex;
-@property (nonatomic, readonly) float difficultyValue;
+@property (nonatomic, assign) float difficultyValue;
 
 // Sounds DB
 - (NSMutableArray*)getWords;
