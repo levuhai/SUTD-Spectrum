@@ -129,8 +129,8 @@ void bestMatchLocation(const std::vector< std::vector<float> >& M, size_t startC
 
 
 float matchScoreSingleRegion(const std::vector< std::vector<float> >& M,
-                 size_t startColumn, size_t endColumn,
-                 size_t startRow, size_t endRow, bool emphasizeDiagonal){
+                             size_t startColumn, size_t endColumn,
+                             size_t startRow, size_t endRow, bool emphasizeDiagonal){
     
     // check that the match region is square
     size_t height = endRow - startRow + 1;
@@ -200,7 +200,7 @@ float matchScoreSplitRegion(const std::vector< std::vector<float> >& M,
     size_t r1sr = startRow;
     size_t r1er = startRow + r1Size-1;
     float r1 = matchScoreSingleRegion(M, r1sc, r1ec, r1sr, r1er, false);
-
+    
     // get score for region 2
     size_t r2sc = r1ec+1;
     size_t r2ec = endColumn;

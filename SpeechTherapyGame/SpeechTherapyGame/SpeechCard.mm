@@ -305,7 +305,7 @@
         [self doSth];
     }
     
-    if (avg>=-30 && !_soundDetected) {
+    if (avg>=-35 && !_soundDetected) {
         self.soundDetected = YES;
         [self.silenceArray removeAllObjects];
         self.count = 0;
@@ -314,39 +314,13 @@
         [self.silenceArray addItem:[NSNumber numberWithFloat:avg]];
         if (self.silenceArray.count == kBufferLength) {
             float a = [self avg];
-            NSLog(@"%f",a);
+//            NSLog(@"%f",a);
             if (a <= -40) {
                 [self _stopRecording];
                 [self _score];
             }
         }
     }
-}
-
-- (void)addFinger {
-    if (!_spriteFinger) {
-        _spriteFinger = [SKSpriteNode spriteNodeWithImageNamed:@"finger1.png"];
-        _spriteFinger.anchorPoint = CGPointMake(0.5, 0.5);
-        _spriteFinger.position = CGPointMake(self.size.width - 70, 275);
-        _spriteFinger.zPosition = self.zPosition+10;
-        [self addChild:_spriteFinger];
-        
-        SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"finger"];
-        
-        NSArray *frames = @[[atlas textureNamed:@"finger1"],
-                            [atlas textureNamed:@"finger2"]];
-        
-        [_spriteFinger runAction:[SKAction repeatActionForever:
-                         [SKAction animateWithTextures:frames
-                                          timePerFrame:0.25f
-                                                resize:NO
-                                               restore:NO]] withKey:@"finger"];
-    }
-    [_spriteFinger runAction:[SKAction fadeInWithDuration:0.3]];
-}
-
-- (void)removeFinger {
-    [_spriteFinger runAction:[SKAction fadeOutWithDuration:0.3]];
 }
 
 #pragma mark - Public
@@ -387,30 +361,6 @@
 }
 
 #pragma mark - Touches
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    UITouch *touch = [touches anyObject];
-//    CGPoint location = [touch locationInNode:self];
-//    SKNode *touchNode = [self nodeAtPoint:location];
-//    
-//    SKAction *push = [NodeUtility buttonPushAction];
-//    // Button Home clicked
-//    if (![touchNode.name containsString:@"star"] && !_recording) {
-//        _recording = YES;
-//        if (touchNode == self) {
-//            [self _stopRecording];
-//            // Present home scene
-//            [self _playSound];
-//        } else {
-//            [touchNode runAction:push completion:^{
-//                [self _stopRecording];
-//                // Present home scene
-//                [self _playSound];
-//            }];
-//        }
-//    }
-    //[self resetIdleTimer];
-}
 
 - (void)doSth {
     _recording = YES;
@@ -568,50 +518,6 @@
     [_spriteVolume removeAllActions];
     float per = MAX((_energyMeter)/80.0, 0.0);
     [_spriteVolume runAction:[SKAction scaleTo:1+(MIN(per,1)) duration:0.005f*kTick]];
-//    
-//    [_silenceArray addItem:[NSNumber numberWithFloat:vol]];
-//    //NSLog(@"%f %lu",vol,(unsigned long)_silenceArray.count);
-//    if (vol >= -40 && !_soundDetected ) {
-//        _soundDetected = YES;
-//        [_silenceArray removeAllObjects];
-//    }
-//    if (_silenceArray.count == kBufferLength) {
-//        float a = [self avg];
-//        if (a < -35.0f) {
-//            [self _stopRecording];
-//            if (_soundDetected) {
-//                _soundDetected = NO;
-//                BOOL isCorrect = NO;
-//                for (Word* w in _words) {
-//                    float s = [MFCCAudioController scoreFileA:[self _recordedSoundPath] fileB:w];
-//                    NSLog(@"score %f",s);
-//                    if (s >= kScore) {
-//                        isCorrect = YES;
-//                        _failedAttemp = 0;
-//                        break;
-//                    } else {
-//                        _failedAttemp ++;
-//                        if (_failedAttemp == 4) {
-//                            _failedAttemp = 0;
-//                            isCorrect = YES;
-//                            break;
-//                        }
-//                    }
-//                }
-//                if (isCorrect) {
-//                    [self _displayStar:YES];
-//                    _currentStarIdx ++;
-//                } else {
-//                    [self _displayStar:NO];
-//                }
-//                
-////                _spriteStar1
-//            }
-//        }
-//    }
-    
-    
-    
 }
 
 - (float)avg {
@@ -673,26 +579,9 @@
                     
                 }
                 _recording = NO;
-                //[self resetIdleTimer];
             }];
         }];
     }
-//    else {
-//        SKAction* rot1 = [SKAction rotateByAngle:-1.5 duration:0.2];
-//        SKAction* rot2 = [SKAction rotateByAngle:3 duration:0.2];
-//        SKAction* sound = [SKAction playSoundFileNamed:@"incorrect.m4a" waitForCompletion:NO];
-//        [node runAction:[SKAction sequence:@[rot1,sound, rot2]] completion:^{
-//            node.texture = [SKTexture textureWithImageNamed:@"imgStar0"];
-//            SKAction* rot3 = [SKAction rotateByAngle:-1.5 duration:0.2];
-//            SKAction* s = [SKAction playSoundFileNamed:@"again.mp3" waitForCompletion:YES];
-//            [node runAction:[SKAction sequence:@[rot3, s]] completion:^{
-//                _recording = NO;
-//                //[self resetIdleTimer];
-//                [self doSth];
-//            }];
-//            
-//        }];
-//    }
 }
 
 @end
