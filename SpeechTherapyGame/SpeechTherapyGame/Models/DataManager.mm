@@ -66,7 +66,7 @@ static DataManager *sharedInstance = nil;
 {
     self = [super init];
     if (self) {
-        _sliderValues = @[@0.09, @0.10, @0.12];
+        _sliderValues = @[@0.1, @0.155, @0.21];
         
         _statsDBPath = [self copyToDocuments:@"score.sqlite"];
         NSLog(@"Stats DB Path: %@",_statsDBPath);
