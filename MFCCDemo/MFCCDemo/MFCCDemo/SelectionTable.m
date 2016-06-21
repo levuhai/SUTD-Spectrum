@@ -16,27 +16,32 @@
     NSMutableArray* records;
 }
 
-- (NSArray *)ls {
+- (NSMutableArray *)ls {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [[paths objectAtIndex:0] stringByAppendingString:@"/recordings"];
     NSArray *directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectory error:nil];
-    
+    NSMutableArray* arr = [NSMutableArray new];
+    for (NSString* name in directoryContent) {
+        if (![name containsString:@"filter"]) {
+            [arr addObject:name];
+        }
+    }
     NSLog(@"%@", documentsDirectory);
-    return directoryContent;
+    return arr;
 }
 
 - (void)viewDidLoad {
-    words = [[DataManager shared] getWords];
+    words = [[DataManager shared] getUniqueWords];
     
     if (self.showRecordedSounds) {
-        records = [NSMutableArray arrayWithArray:[self ls]];
+        records = [self ls];
     }
     [self.tableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (self.showRecordedSounds) {
-        return 2;
+        return 1;
     }
     return 1;
 }
@@ -57,15 +62,10 @@
     Word *w;
     NSString *fileName;
     if (_showRecordedSounds) {
-        if (indexPath.section == 1) {
-            w = words[indexPath.row];
-            fileName = [[w.croppedPath lastPathComponent] stringByDeletingPathExtension];
-        } else {
-            fileName = [records[indexPath.row] stringByDeletingPathExtension];
-        }
+        fileName = [records[indexPath.row] stringByDeletingPathExtension];
     } else {
         w = words[indexPath.row];
-        fileName = [[w.croppedPath lastPathComponent] stringByDeletingPathExtension];
+        fileName = w.sound;
     }
     cell.textLabel.text = fileName;
     return cell;
@@ -73,16 +73,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (_showRecordedSounds)
-        if (indexPath.section == 1) {
-            Word *w= words[indexPath.row];
-            _selectedRecordPath = [NSString stringWithFormat:@"%@/sounds/%@",
-                                   [self applicationDocumentsDirectory],
-                                   w.fullPath];
-        }
-        else
-            _selectedRecordPath = [NSString stringWithFormat:@"%@/recordings/%@",
-                                   [self applicationDocumentsDirectory],
-                                   records[indexPath.row]];
+        _selectedRecordPath = [NSString stringWithFormat:@"%@/recordings/%@",
+                               [self applicationDocumentsDirectory],
+                               [records[indexPath.row] stringByReplacingOccurrencesOfString:@".wav" withString:@"_filtered.wav"]];
     
     else _selectedWord = words[indexPath.row];
     [self mz_dismissFormSheetControllerAnimated:YES completionHandler:^(MZFormSheetController * _Nonnull formSheetController) {

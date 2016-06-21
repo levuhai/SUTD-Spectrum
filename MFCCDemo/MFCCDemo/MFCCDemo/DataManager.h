@@ -16,5 +16,7 @@
 // Words
 - (NSMutableArray*)getWords;
 - (NSMutableArray*)getRandomWords;
+- (NSMutableArray*)getUniqueWords;
+- (NSMutableArray*)getWordGroup:(NSString*)sound;
 
 @end

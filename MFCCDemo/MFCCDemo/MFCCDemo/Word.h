@@ -32,4 +32,6 @@
 @property(readonly, nonatomic) NSString* samplePath;
 @property(readonly, nonatomic) NSString* speaker;
 
+- (NSString *)filteredFilePath;
+
 @end

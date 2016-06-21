@@ -258,6 +258,62 @@ inline BOOL approxEqual(float x, float y, float delta) {
     return lvs;
 }
 
+- (NSMutableArray*)getWordGroup:(NSString*)sound {
+    //    // Select unique words from DB
+    //    __block NSMutableArray* uniqueWords = [self getWords];
+    //
+    FMDatabaseQueue* db = [self _soundDBQueue];
+    //
+    //    assert(uniqueWords.count > 0);
+    //
+    //    // Random index
+    //    int rndValue = 0 + arc4random() % (uniqueWords.count - 0);
+    
+    // Select all sounds from randomized word
+    __block NSMutableArray* result = [NSMutableArray new];
+    db = [self _soundDBQueue];
+    [db inDatabase:^(FMDatabase *db) {
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] WHERE [sound] = '%@'",sound];
+        FMResultSet *results = [db executeQuery:sql];
+        while([results next]) {
+            @autoreleasepool {
+                NSDictionary* dict = results.resultDictionary;
+                Word* w = [[Word alloc] initWithDictionary:dict];
+                if (w != nil) {
+                    [result addObject:w];
+                }
+            }
+        }
+        [results close];
+    }];
+    [db close];
+    
+    return result;
+}
+
+- (NSMutableArray*)getUniqueWords {
+    __block NSMutableArray* lvs = [NSMutableArray new];
+    FMDatabaseQueue* db = [self _soundDBQueue];
+    
+    [db inDatabase:^(FMDatabase *db) {
+        NSString * sql = [NSString stringWithFormat:@"SELECT * FROM [db] GROUP BY [sound] ORDER BY [phoneme]"];
+        FMResultSet *results = [db executeQuery:sql];
+        while([results next]) {
+            @autoreleasepool {
+                NSDictionary* dict = results.resultDictionary;
+                Word* lv = [[Word alloc] initWithDictionary:dict];
+                if (lv != nil) {
+                    [lvs addObject:lv];
+                }
+                
+            }
+        }
+        [results close];
+    }];
+    [db close];
+    return lvs;
+}
+
 - (NSMutableArray*)getRandomWords {
     // Select unique words from DB
     __block NSMutableArray* uniqueWords = [NSMutableArray new];

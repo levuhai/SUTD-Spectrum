@@ -13,5 +13,7 @@
 
 @property (nonatomic, strong) IBOutlet GraphView* graph1;
 @property (nonatomic, strong) IBOutlet GraphView* graph2;
+@property (nonatomic, weak) IBOutlet UILabel* lb1;
+@property (nonatomic, weak) IBOutlet UILabel* lb2;
 
 @end

@@ -166,7 +166,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     formSheet.didDismissCompletionHandler = ^(UIViewController *presentedFSViewController){
         SelectionTable* t = (SelectionTable*)presentedFSViewController;
         _currentWord = t.selectedWord;
-        _lbWord.text = [[_currentWord.croppedPath lastPathComponent] stringByDeletingPathExtension];
+        _lbWord.text = _currentWord.sound;
         
         _currentAudioPath = [NSString stringWithFormat:@"%@/sounds/%@",
                              [self applicationDocumentsDirectory],
@@ -203,8 +203,20 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
 }
 
 - (IBAction)compareTouched:(id)sender {
-    [self _compareUserVoiceSimple:_currentRecordPath databaseVoice:_currentAudioPath];//[self testFilePath]
-    [self playRecordClicked:nil];
+    NSMutableArray* arr = [[DataManager shared] getWordGroup:_currentWord.sound];
+    float score = 0;
+    int index = 0;
+    for (int i = 0; i< arr.count; i++) {
+        Word*w = arr[i];
+        float s = [self _scoring:_currentRecordPath databaseVoice:w.filteredFilePath];
+        if (s > score) {
+            score = s;
+            index = i;
+        }
+    }
+    Word* w = arr[index];
+    [self _compareUserVoiceSimple:_currentRecordPath databaseVoice:w.filteredFilePath];//[self testFilePath]
+    //[self playRecordClicked:nil];
 }
 
 - (IBAction)stopRecording:(id)sender {
@@ -378,6 +390,112 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     
 }
 
+- (float)_scoring:(NSString*)userVoicePath databaseVoice:(NSString*)databaseVoicePath {
+    /*
+     * Read audio files from file paths
+     */
+    NSURL *userVoiceURL = [NSURL URLWithString:[userVoicePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    FeatureTypeDTW::Features userVoiceFeatures = [self _getPreProcessInfo:userVoiceURL
+                                                           beginThreshold:kDefaultTrimBeginThreshold
+                                                             endThreshold:kDefaultTrimEndThreshold
+                                                                     info:&_userVoiceFileInfo];
+    
+    NSURL *databaseVoiceURL = [NSURL URLWithString:[databaseVoicePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    FeatureTypeDTW::Features databaseVoiceFeatures = [self _getPreProcessInfo:databaseVoiceURL
+                                                               beginThreshold:kDefaultTrimBeginThreshold
+                                                                 endThreshold:kDefaultTrimEndThreshold
+                                                                         info:&_databaseVoiceFileInfo];
+    
+    
+    
+    // where does the target phoneme start and end in the database word?
+    size_t targetPhonemeStartInDB = databaseVoiceFeatures.size()*(float)_currentWord.targetStart/(float)_currentWord.fullLen;
+    size_t targetPhonemeEndInDB = databaseVoiceFeatures.size()*(float)_currentWord.targetEnd/(float)_currentWord.fullLen;
+    
+    
+    
+    // Clamp the target phoneme location within the valid range of indices.
+    // Note that the size_t type is not signed so we don't need to clamp at
+    // zero.
+    if(targetPhonemeStartInDB >= databaseVoiceFeatures.size())
+        targetPhonemeStartInDB = databaseVoiceFeatures.size()-1;
+    if(targetPhonemeEndInDB >= databaseVoiceFeatures.size())
+        targetPhonemeEndInDB = databaseVoiceFeatures.size()-1;
+    
+    
+    
+    // if the user voice recording is shorter than the target phoneme, we  pad it with copies of its last element to get a square match region.
+    size_t targetPhonemeLength = 1 + targetPhonemeEndInDB - targetPhonemeStartInDB;
+    if(userVoiceFeatures.size() < targetPhonemeLength)
+        userVoiceFeatures.resize(targetPhonemeLength,userVoiceFeatures.back());
+    
+    
+    /*
+     * ensure that the similarity matrix arrays have enough space to store
+     * the matrix
+     */
+    if(similarityMatrix.size() != userVoiceFeatures.size())
+        similarityMatrix.resize(userVoiceFeatures.size());
+    for(size_t i=0; i<userVoiceFeatures.size(); i++)
+        if(similarityMatrix[i].size() != databaseVoiceFeatures.size())
+            similarityMatrix[i].resize(databaseVoiceFeatures.size());
+    
+    
+    // calculate the matrix of similarity
+    genSimilarityMatrix(userVoiceFeatures, databaseVoiceFeatures, similarityMatrix);
+    
+    
+    // normalize the output
+    normaliseMatrix(similarityMatrix);
+    
+    // TODO: change this value
+    /*
+     * Phonemes that depend on the vowel sounds before and after do
+     * better with split-region scoring
+     */
+    bool splitRegionScoring = [self _needSplitRegion:_currentWord];// for S this is false, for K it is true.
+    
+    
+    // find the vertical location of a square match region, centred on the
+    // target phoneme and the rows in the user voice that best match it.
+    size_t matchRegionStartInUV, matchRegionEndInUV;
+    bestMatchLocation(similarityMatrix, targetPhonemeStartInDB, targetPhonemeEndInDB, matchRegionStartInUV, matchRegionEndInUV, splitRegionScoring);
+    
+    
+    
+    // make sure nearLineMatrix has the right size
+    if(nearLineMatrix.size() != similarityMatrix.size())
+        nearLineMatrix.resize(similarityMatrix.size());
+    for(size_t i=0; i<nearLineMatrix.size(); i++)
+        if(nearLineMatrix[i].size() != similarityMatrix[i].size())
+            nearLineMatrix[i].resize(similarityMatrix[i].size());
+    
+    
+    /*
+     * highlight the match region in green on the matrix plot
+     */
+    for (int y=0; y < similarityMatrix.size(); y++) {
+        for (int x=0; x<similarityMatrix[0].size(); x++) {
+            if (y < matchRegionStartInUV || y > matchRegionEndInUV
+                || x < targetPhonemeStartInDB || x > targetPhonemeEndInDB) {
+                nearLineMatrix[y][x] = 0;
+            } else {
+                nearLineMatrix[y][x] = similarityMatrix[y][x];
+            }
+        }
+    }
+    
+    float score;
+    if(splitRegionScoring)
+        score = matchScoreSplitRegion(similarityMatrix,
+                                      targetPhonemeStartInDB, targetPhonemeEndInDB,
+                                      matchRegionStartInUV, matchRegionEndInUV);
+    else
+        score = matchScoreSingleRegion(similarityMatrix,
+                                       targetPhonemeStartInDB, targetPhonemeEndInDB,
+                                       matchRegionStartInUV, matchRegionEndInUV, true);
+    return score;
+}
 
 - (void)_compareUserVoiceSimple:(NSString*)userVoicePath databaseVoice:(NSString*)databaseVoicePath {
     
@@ -437,10 +555,10 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     
     // normalize the output
     normaliseMatrix(similarityMatrix);
-
+    
     // TODO: change this value
     /*
-     * Phonemes that depend on the vowel sounds before and after do 
+     * Phonemes that depend on the vowel sounds before and after do
      * better with split-region scoring
      */
     bool splitRegionScoring = [self _needSplitRegion:_currentWord];// for S this is false, for K it is true.
@@ -478,12 +596,12 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     float score;
     if(splitRegionScoring)
         score = matchScoreSplitRegion(similarityMatrix,
-                                       targetPhonemeStartInDB, targetPhonemeEndInDB,
-                                       matchRegionStartInUV, matchRegionEndInUV);
+                                      targetPhonemeStartInDB, targetPhonemeEndInDB,
+                                      matchRegionStartInUV, matchRegionEndInUV);
     else
         score = matchScoreSingleRegion(similarityMatrix,
-                             targetPhonemeStartInDB, targetPhonemeEndInDB,
-                             matchRegionStartInUV, matchRegionEndInUV, true);
+                                       targetPhonemeStartInDB, targetPhonemeEndInDB,
+                                       matchRegionStartInUV, matchRegionEndInUV, true);
     
     self.lbScore.text = [NSString stringWithFormat:@"%.3f", score];
     
@@ -501,6 +619,8 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     [_trimVC.graph2 inputMFCC:databaseVoiceFeatures
                         start:(int)targetPhonemeStartInDB
                           end:(int)targetPhonemeEndInDB];
+    _trimVC.lb1.text = userVoicePath.lastPathComponent;
+    _trimVC.lb2.text = databaseVoicePath.lastPathComponent;
     
     // Page 3
     _matrixVC.upperView.graphColor = [UIColor greenColor];
