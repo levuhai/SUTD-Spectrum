@@ -22,7 +22,7 @@
     NSArray *directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectory error:nil];
     NSMutableArray* arr = [NSMutableArray new];
     for (NSString* name in directoryContent) {
-        if (![name containsString:@"filter"]) {
+        if (![name containsString:@"filter"] && ![name containsString:@".DS_Store"]) {
             [arr addObject:name];
         }
     }
@@ -75,7 +75,7 @@
     if (_showRecordedSounds)
         _selectedRecordPath = [NSString stringWithFormat:@"%@/recordings/%@",
                                [self applicationDocumentsDirectory],
-                               [records[indexPath.row] stringByReplacingOccurrencesOfString:@".wav" withString:@"_filtered.wav"]];
+                               records[indexPath.row]];
     
     else _selectedWord = words[indexPath.row];
     [self mz_dismissFormSheetControllerAnimated:YES completionHandler:^(MZFormSheetController * _Nonnull formSheetController) {
