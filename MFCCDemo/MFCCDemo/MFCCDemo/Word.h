@@ -33,5 +33,6 @@
 @property(readonly, nonatomic) NSString* speaker;
 
 - (NSString *)filteredFilePath;
+- (NSString *)filePath;
 
 @end

@@ -29,7 +29,6 @@
 
 // TAAE headers
 #import "TheAmazingAudioEngine.h"
-#import "TPOscilloscopeLayer.h"
 #import "AERecorder.h"
 #import "PassFilter.h"
 
@@ -82,7 +81,6 @@ const float kDefaultTrimEndThreshold = -200.0f;
 @property (nonatomic, weak) IBOutlet MatrixOuput *bestFitView;
 @property (nonatomic, weak) IBOutlet MatrixOuput *fitQualityView;
 
-@property (nonatomic, strong) TPOscilloscopeLayer *inputOscilloscope;
 @property (nonatomic, strong) CALayer *inputLevelLayer;
 @property (nonatomic, weak) NSTimer *levelsTimer;
 @property (nonatomic, strong) AERecorder *recorder;
@@ -170,7 +168,7 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
         
         _currentAudioPath = [NSString stringWithFormat:@"%@/sounds/%@",
                              [self applicationDocumentsDirectory],
-                             _currentWord.filterPath]; // changed from .fullPath
+                             _currentWord.fullPath]; // changed from .fullPath
     };
     
     [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
@@ -191,32 +189,67 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     formSheet.presentedFormSheetSize = CGSizeMake(self.view.bounds.size.width-40, self.view.bounds.size.height-200);
     formSheet.didDismissCompletionHandler = ^(UIViewController *presentedFSViewController){
         SelectionTable* t = (SelectionTable*)presentedFSViewController;
-        [self fileter:t.selectedRecordPath];
+        //[self fileter:t.selectedRecordPath];
+        _currentRecordPath = t.selectedRecordPath;
         self.lbRecord.text = [[_currentRecordPath lastPathComponent] stringByDeletingPathExtension];
     };
     
     [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
         //do sth
-        NSLog(@"asdfsadf");
+        
     }];
     
 }
 
+- (NSMutableArray *)ls {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [[paths objectAtIndex:0] stringByAppendingString:@"/recordings"];
+    NSArray *directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsDirectory error:nil];
+    NSMutableArray* arr = [NSMutableArray new];
+    for (NSString* name in directoryContent) {
+        if (![name containsString:@"filter"] && ![name containsString:@".DS_Store"]) {
+            [arr addObject:name];
+        }
+    }
+    NSLog(@"%@", documentsDirectory);
+    return arr;
+}
+
 - (IBAction)compareTouched:(id)sender {
+    
+    if (_currentRecordPath.length == 0) {
+        NSMutableArray* ls = [self ls];
+        for (NSString* name in ls) {
+            if ([name containsString:[NSString stringWithFormat:@"_%@_",_currentWord.sound]]) {
+                
+                NSString* a = [NSString stringWithFormat:@"%@/recordings/%@",
+                                       [self applicationDocumentsDirectory],
+                                       name];
+                [self comparePath:a];
+            }
+        }
+    } else {
+        [self comparePath:_currentRecordPath];
+    }
+    //[self playRecordClicked:nil];
+}
+
+- (void)comparePath:(NSString*)recordPath {
     NSMutableArray* arr = [[DataManager shared] getWordGroup:_currentWord.sound];
     float score = 0;
     int index = 0;
+    
     for (int i = 0; i< arr.count; i++) {
         Word*w = arr[i];
-        float s = [self _scoring:_currentRecordPath databaseVoice:w.filteredFilePath];
+        float s = [self _scoring:recordPath databaseVoice:w.filePath]; // or filteredFilePath
         if (s > score) {
             score = s;
             index = i;
         }
     }
+    NSLog(@"%.3f %@ %@",score,recordPath.lastPathComponent, ((Word*)arr[index]).fullPath);
     Word* w = arr[index];
-    [self _compareUserVoiceSimple:_currentRecordPath databaseVoice:w.filteredFilePath];//[self testFilePath]
-    //[self playRecordClicked:nil];
+    [self _compareUserVoiceSimple:recordPath databaseVoice:w.filePath];//[self testFilePath]
 }
 
 - (IBAction)stopRecording:(id)sender {
@@ -378,11 +411,11 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
     WMAudioFilePreProcessInfo fileInf = reader->preprocess(kDefaultTrimBeginThreshold,
                                                            kDefaultTrimEndThreshold,
                                                            1.0f);
-    NSLog(@"For file %@", url);
-    NSLog(@"Peak: %f", fileInf.max_peak);
-    NSLog(@"Begin: %f", fileInf.threshold_start_time);
-    NSLog(@"End: %f", fileInf.threshold_end_time);
-    NSLog(@"Norm Factor: %f", fileInf.normalization_factor);
+    NSLog(@"For file %@", url.lastPathComponent);
+//    NSLog(@"Peak: %f", fileInf.max_peak);
+//    NSLog(@"Begin: %f", fileInf.threshold_start_time);
+//    NSLog(@"End: %f", fileInf.threshold_end_time);
+//    NSLog(@"Norm Factor: %f", fileInf.normalization_factor);
     
     *fileInfo = fileInf;
     
@@ -604,8 +637,8 @@ AudioStreamBasicDescription AEAudioStreamBasicDescriptionMono = {
                                        targetPhonemeStartInDB, targetPhonemeEndInDB,
                                        matchRegionStartInUV, matchRegionEndInUV, true);
     
-    self.lbScore.text = [NSString stringWithFormat:@"%.3f", score];
-    
+    //self.lbScore.text = [NSString stringWithFormat:@"%.3f", score];
+    NSLog(@"%.3f",score);
     
     /*
      * Trim the user voice audio to the match region

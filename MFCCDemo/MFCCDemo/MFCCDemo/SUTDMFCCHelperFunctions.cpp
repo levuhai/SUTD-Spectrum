@@ -139,6 +139,7 @@ float matchScoreSingleRegion(const std::vector< std::vector<float> >& M,
     assert(endRow >= startRow);
     
     float score = 0.0f, totalEmphasis = 0.0;
+    float scorePercentage = 0.01f;
     float edgeLength = 1.0 + (float)endColumn - (float) startColumn;
     for(size_t i=0; i<height; i++)
         for(size_t j=0; j<width; j++){
@@ -155,8 +156,11 @@ float matchScoreSingleRegion(const std::vector< std::vector<float> >& M,
             
             // calculate the emphasized score
             score += M.at(i+startRow).at(j+startColumn)*M.at(i+startRow).at(j+startColumn)*emphasis;
+//            if (M.at(i+startRow).at(j+startColumn)>0.2)
+//                scorePercentage+=1;
+            
         }
-    
+    //return scorePercentage/(width*height);
     return score / totalEmphasis;
 }
 
